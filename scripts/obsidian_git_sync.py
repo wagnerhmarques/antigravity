@@ -3,10 +3,11 @@
 Módulo de Sincronização Contínua: Obsidian Vault -> Repositório Git (GitHub)
 
 Funcionalidades:
-1. Sincroniza pastas do cofre Obsidian (USP, wiki, raw, queries, configAG) com o repositório Git local.
-2. Executa auto-commit semântico e git push para o GitHub (origin main).
-3. Mecanismo de Debounce inteligente (5s) para evitar commits fragmentados durante a digitação.
-4. Watchdog em tempo real observando todo o cofre do Obsidian.
+1. Sincronização pura em Python (100% compatível com permissões TCC/iCloud do macOS).
+2. Sincroniza pastas do cofre Obsidian (USP, wiki, raw, queries, configAG) com o repositório Git local.
+3. Executa auto-commit semântico e git push para o GitHub (origin main).
+4. Mecanismo de Debounce inteligente (5s) para evitar commits fragmentados durante a digitação.
+5. Watchdog em tempo real observando todo o cofre do Obsidian.
 """
 
 import os
@@ -26,6 +27,7 @@ LOG_FILE = Path("/Users/user/.gemini/antigravity-ide/scratch/obsidian_sync.log")
 
 # Pastas a serem sincronizadas
 SYNCED_FOLDERS = ["USP", "wiki", "raw", "queries", "configAG"]
+IGNORED_NAMES = {".DS_Store", ".git", ".obsidian", ".smart-env", ".claudian"}
 
 # Configuração de Logging
 logging.basicConfig(
@@ -36,6 +38,86 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)
     ]
 )
+
+def _is_ignored(path: Path) -> bool:
+    """Verifica se o arquivo ou diretório deve ser ignorado."""
+    for part in path.parts:
+        if part in IGNORED_NAMES or part.endswith(".icloud") or part.startswith(".~"):
+            return True
+    return False
+
+def sync_directory_tree(src_dir: Path, dest_dir: Path) -> int:
+    """
+    Sincroniza recursivamente src_dir para dest_dir em Python puro.
+    Retorna a quantidade de arquivos modificados/copiados/deletados.
+    """
+    if not src_dir.exists():
+        return 0
+
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    changes_count = 0
+
+    # 1. Copiar/Atualizar arquivos de src para dest
+    for root, dirs, files in os.walk(src_dir):
+        root_path = Path(root)
+        if _is_ignored(root_path):
+            continue
+
+        rel_path = root_path.relative_to(src_dir)
+        target_root = dest_dir / rel_path
+        target_root.mkdir(parents=True, exist_ok=True)
+
+        for file_name in files:
+            src_file = root_path / file_name
+            if _is_ignored(src_file):
+                continue
+
+            dest_file = target_root / file_name
+
+            # Verificar se precisa copiar
+            should_copy = False
+            if not dest_file.exists():
+                should_copy = True
+            else:
+                try:
+                    src_stat = src_file.stat()
+                    dest_stat = dest_file.stat()
+                    if src_stat.st_size != dest_stat.st_size or src_stat.st_mtime > (dest_stat.st_mtime + 1):
+                        should_copy = True
+                except Exception:
+                    should_copy = True
+
+            if should_copy:
+                try:
+                    shutil.copy2(src_file, dest_file)
+                    changes_count += 1
+                except Exception as e:
+                    logging.warning(f"Erro ao copiar {src_file}: {e}")
+
+    # 2. Deletar arquivos em dest que não existem mais em src
+    for root, dirs, files in os.walk(dest_dir):
+        root_path = Path(root)
+        if _is_ignored(root_path):
+            continue
+
+        rel_path = root_path.relative_to(dest_dir)
+        source_root = src_dir / rel_path
+
+        for file_name in files:
+            dest_file = root_path / file_name
+            if _is_ignored(dest_file):
+                continue
+
+            src_file = source_root / file_name
+            if not src_file.exists():
+                try:
+                    dest_file.unlink()
+                    changes_count += 1
+                except Exception as e:
+                    logging.warning(f"Erro ao remover arquivo obsoleto {dest_file}: {e}")
+
+    return changes_count
+
 
 class DebouncedSync:
     """Gerencia execuções de sincronização com debounce para agrupar modificações rápidas."""
@@ -64,7 +146,7 @@ _debouncer = DebouncedSync(delay_seconds=5.0)
 
 
 def sync_vault_to_repo() -> bool:
-    """Copia as pastas do cofre Obsidian para o repositório git local usando rsync."""
+    """Copia as pastas do cofre Obsidian para o repositório git local usando Python puro."""
     if not VAULT_DIR.exists():
         logging.error(f"Cofre Obsidian não encontrado em: {VAULT_DIR}")
         return False
@@ -76,36 +158,22 @@ def sync_vault_to_repo() -> bool:
     logging.info("Iniciando sincronização de pastas do Obsidian para o repositório...")
 
     try:
+        total_changes = 0
         for folder_name in SYNCED_FOLDERS:
             src = VAULT_DIR / folder_name
             dest = REPO_DIR / folder_name
-
-            if not src.exists():
-                continue
-
-            dest.mkdir(parents=True, exist_ok=True)
-
-            cmd = [
-                "rsync", "-a", "--delete",
-                "--exclude=.DS_Store",
-                "--exclude=*.icloud",
-                "--exclude=.git",
-                "--exclude=.obsidian",
-                "--exclude=.smart-env",
-                "--exclude=.claudian",
-                f"{str(src)}/",
-                f"{str(dest)}/"
-            ]
-            res = subprocess.run(cmd, capture_output=True, text=True)
-            if res.returncode != 0:
-                logging.warning(f"Aviso no rsync da pasta {folder_name}: {res.stderr}")
+            if src.exists():
+                total_changes += sync_directory_tree(src, dest)
 
         # Sincronizar arquivos .md soltos na raiz do Vault (se houver)
         for item in VAULT_DIR.glob("*.md"):
-            if not item.name.startswith("."):
-                shutil.copy2(item, REPO_DIR / item.name)
+            if not item.name.startswith(".") and not _is_ignored(item):
+                dest_item = REPO_DIR / item.name
+                if not dest_item.exists() or item.stat().st_mtime > dest_item.stat().st_mtime:
+                    shutil.copy2(item, dest_item)
+                    total_changes += 1
 
-        logging.info("Sincronização de arquivos concluída com sucesso.")
+        logging.info(f"Sincronização de arquivos concluída. Alterações aplicadas: {total_changes}")
         return True
     except Exception as e:
         logging.error(f"Erro ao sincronizar arquivos do Obsidian: {e}")
@@ -182,20 +250,16 @@ def start_vault_watcher():
         return
 
     class VaultEventHandler(FileSystemEventHandler):
-        IGNORED_PATTERNS = [".git", ".obsidian", ".smart-env", ".claudian", ".DS_Store", ".icloud"]
-
-        def _is_ignored(self, path_str: str) -> bool:
-            return any(ignored in path_str for ignored in self.IGNORED_PATTERNS)
-
         def on_any_event(self, event):
             if event.is_directory:
                 return
             src_path = getattr(event, "src_path", "")
-            if self._is_ignored(src_path):
+            path_obj = Path(src_path)
+            if _is_ignored(path_obj):
                 return
 
             event_type = event.event_type
-            rel_name = Path(src_path).name
+            rel_name = path_obj.name
             logging.info(f"Evento no Obsidian [{event_type}]: {rel_name}")
             trigger_debounced_sync(reason=f"{event_type} {rel_name}")
 
