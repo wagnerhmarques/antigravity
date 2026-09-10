@@ -1,0 +1,452 @@
+%%
+%% This is file `relatese.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% relatese.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2026 Francisco Mariano Neto
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2008 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is Francisco Mariano Neto.
+%% 
+%% This work consists of the files relatese.dtx and relatese.ins
+%% and the derived file relatese.sty.
+%% 
+%% \subsection{The \opt{refs} option}
+%% relatese.sty -- General-purpose report helper package
+%% Reorganized version with option-based package loading.
+%%
+%% Suggested usage:
+%%   \usepackage{relatese}
+%%   \usepackage[layout,sciencecomma,refs]{relatese}
+%%   \usepackage[full]{relatese}
+%%
+%% Geometry presets:
+%%   \setgeometry{standard}
+%%   \setgeometry{compact}
+%%   \setgeometry{wide}
+%%   \setgeometry{binding}
+%%   \setgeometry{draft}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{relatese}[2026/05/30 v0.3 General report helper package]
+
+\makeatletter
+
+
+\newif\ifrelatese@layout
+\newif\ifrelatese@math
+\newif\ifrelatese@figures
+\newif\ifrelatese@tables
+\newif\ifrelatese@siunitx
+\newif\ifrelatese@sciencecomma
+\newif\ifrelatese@chemistry
+\newif\ifrelatese@refs
+\newif\ifrelatese@biblatex
+\newif\ifrelatese@cleveref
+\newif\ifrelatese@drafttools
+
+
+\DeclareOption{layout}{%
+  \relatese@layouttrue
+}
+
+\DeclareOption{math}{\relatese@mathtrue}
+
+\DeclareOption{figures}{%
+  \relatese@figurestrue
+}
+\DeclareOption{tables}{\relatese@tablestrue}
+
+\DeclareOption{science}{%
+  \relatese@siunitxtrue
+  \relatese@chemistrytrue
+}
+\DeclareOption{sciencecomma}{%
+  \relatese@siunitxtrue
+  \relatese@chemistrytrue
+  \relatese@sciencecommatrue
+}
+\DeclareOption{siunitx}{\relatese@siunitxtrue}
+\DeclareOption{chemistry}{\relatese@chemistrytrue}
+
+\DeclareOption{refs}{%
+  \relatese@refstrue
+  \relatese@biblatextrue
+  \relatese@clevereftrue
+}
+\DeclareOption{biblatex}{\relatese@biblatextrue}
+\DeclareOption{cleveref}{\relatese@clevereftrue}
+
+\DeclareOption{drafttools}{\relatese@drafttoolstrue}
+
+\DeclareOption{full}{%
+  \relatese@layouttrue
+  \relatese@mathtrue
+  \relatese@figurestrue
+  \relatese@tablestrue
+  \relatese@siunitxtrue
+  \relatese@chemistrytrue
+  \relatese@refstrue
+  \relatese@biblatextrue
+  \relatese@clevereftrue
+}
+
+\DeclareOption*{%
+  \PackageWarning{relatese}{Unknown option `\CurrentOption'}%
+}
+
+\ProcessOptions\relax
+
+
+\RequirePackage{xcolor}
+\RequirePackage{microtype}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{bm}
+\RequirePackage{booktabs}
+\RequirePackage[hang,footnotesize,bf,tableposition=top]{caption}
+\RequirePackage{enumitem}
+
+\definecolor{darkblue}{RGB}{0,0,192}
+\definecolor{lightblue}{RGB}{48,224,255}
+\definecolor{darkgreen}{RGB}{0,128,0}
+\definecolor{darkred}{RGB}{192,0,0}
+\definecolor{lightred}{RGB}{224,92,92}
+\definecolor{orange}{RGB}{254,80,0}
+\definecolor{wine}{RGB}{142,54,70}
+\definecolor{superlightgray}{RGB}{240,240,240}
+\definecolor{darkergray}{RGB}{80,80,80}
+
+\graphicspath{{img/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.eps}
+
+\captionsetup[figure]{font=footnotesize,format=hang}
+\captionsetup[table]{font=footnotesize,format=hang,position=above}
+
+\setlist[itemize]{%
+  itemsep=2pt,
+  topsep=10pt,
+  parsep=0pt,
+  partopsep=0pt
+}
+
+
+\RequirePackage{geometry}
+
+\newcommand{\setgeometry}[1]{%
+  \@ifundefined{relatese@geometry@#1}{%
+    \PackageError{relatese}
+    {Unknown geometry preset: #1}
+    {Available presets: standard, compact, wide, binding, draft.}%
+  }{%
+    \csname relatese@geometry@#1\endcsname
+  }%
+}
+
+\newcommand{\newsetgeometry}[1]{%
+  \@ifundefined{relatese@newgeometry@#1}{%
+    \PackageError{relatese}
+    {Unknown geometry preset: #1}
+    {Available presets: standard, compact, wide, binding, draft.}%
+  }{%
+    \csname relatese@newgeometry@#1\endcsname
+  }%
+}
+
+\newcommand{\relatese@geometry@standard}{%
+  \geometry{hmargin=2.5cm,vmargin=3.5cm}%
+}
+\newcommand{\relatese@geometry@compact}{%
+  \geometry{hmargin=2cm,vmargin=2.5cm}%
+}
+\newcommand{\relatese@geometry@wide}{%
+  \geometry{hmargin=2cm,top=2.5cm,bottom=3cm}%
+}
+\newcommand{\relatese@geometry@binding}{%
+  \geometry{inner=3cm,outer=2cm,top=3cm,bottom=3.5cm}%
+}
+\newcommand{\relatese@geometry@draft}{%
+  \geometry{hmargin=3cm,vmargin=3.5cm}%
+}
+
+\newcommand{\relatese@newgeometry@standard}{%
+  \newgeometry{hmargin=2.5cm,vmargin=3.5cm}%
+}
+\newcommand{\relatese@newgeometry@compact}{%
+  \newgeometry{hmargin=2cm,vmargin=2.5cm}%
+}
+\newcommand{\relatese@newgeometry@wide}{%
+  \newgeometry{hmargin=2cm,top=2.5cm,bottom=3cm}%
+}
+\newcommand{\relatese@newgeometry@binding}{%
+  \newgeometry{inner=3cm,outer=2cm,top=3cm,bottom=3.5cm}%
+}
+\newcommand{\relatese@newgeometry@draft}{%
+  \newgeometry{hmargin=3cm,vmargin=3.5cm}%
+}
+
+\setgeometry{standard}
+
+\ifrelatese@layout
+  \RequirePackage{changepage}
+  \RequirePackage{multicol}
+  \RequirePackage{authblk}
+  \RequirePackage{setspace}
+  \RequirePackage{indentfirst}
+  \RequirePackage{tocloft}
+  \RequirePackage{lastpage}
+  \RequirePackage{titlesec}
+  \RequirePackage{footmisc}
+
+  % Run-in unnumbered paragraphs.
+  \titleformat{name=\paragraph,numberless}[runin]%
+    {\normalfont\normalsize\bfseries}{}{5pt}{}
+
+  % Symbol footnotes reproduce the original package behavior. This is kept under
+  % the layout option because it changes document-wide numbering.
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\fi
+
+
+\ifrelatese@math
+  \RequirePackage{amssymb}
+  \RequirePackage{xfrac}
+  \RequirePackage{cancel}
+  \renewcommand{\CancelColor}{\color{red}}
+
+  \RequirePackage{xparse}
+
+  % Display math spacing helper. Use after setting line spacing.
+  \newcommand{\seteqskip}{%
+    \setlength{\abovedisplayskip}{15pt}%
+    \setlength{\belowdisplayskip}{25pt}%
+    \setlength{\abovedisplayshortskip}{10pt}%
+    \setlength{\belowdisplayshortskip}{20pt}%
+  }
+
+  % Common notation helpers.
+  \newcommand{\mean}[1]{\ensuremath{\left<#1\right>}}
+  \newcommand{\lapla}{\nabla^{2}}
+
+  \NewDocumentCommand{\relprime}{o}{%
+    \IfNoValueTF{#1}{%
+      \ensuremath{^{\prime}}%
+    }{%
+      \ensuremath{^{\prime{#1}}}%
+    }%
+  }
+
+  \NewDocumentCommand{\ud}{o}{%
+    \IfNoValueTF{#1}{%
+      \ensuremath{\mathrm{d}}%
+    }{%
+      \ensuremath{\mathrm{d}^{#1}}%
+    }%
+  }
+
+  % Total derivatives.
+  \NewDocumentCommand{\dd}{m m o}{%
+    \IfNoValueTF{#3}{%
+      \frac{\ud #1}{\ud #2}%
+    }{%
+      \frac{\ud^{#3}#1}{\ud {#2}^{#3}}%
+    }%
+  }
+
+  % Open total derivative operator.
+  \NewDocumentCommand{\dda}{m m o}{%
+    \IfNoValueTF{#3}{%
+      \frac{\ud}{\ud #2}{#1}%
+    }{%
+      \frac{\ud^{#3}}{\ud {#2}^{#3}}{#1}%
+    }%
+  }
+
+  % Partial derivatives.
+  \NewDocumentCommand{\ddp}{m m o}{%
+    \IfNoValueTF{#3}{%
+      \frac{\partial #1}{\partial #2}%
+    }{%
+      \frac{\partial^{#3}#1}{\partial {#2}^{#3}}%
+    }%
+  }
+
+  % Open partial derivative operator.
+  \NewDocumentCommand{\ddpa}{m m o}{%
+    \IfNoValueTF{#3}{%
+      \frac{\partial}{\partial #2}{#1}%
+    }{%
+      \frac{\partial^{#3}}{\partial {#2}^{#3}}{#1}%
+    }%
+  }
+
+  % Inner product.
+  \NewDocumentCommand{\innp}{m m}{\left<{#1},{#2}\right>}
+
+  % Chi-square helpers.
+  \newcommand{\chisq}{\ensuremath{\chi^{2}}}
+  \newcommand{\chisqred}{\ensuremath{\chi^{2}_{\text{red}}}}
+
+  % Roman numerals.
+  \newcommand{\rmnum}[1]{\romannumeral #1}
+  \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+
+  % Slanted parallel marker
+  \newcommand{\slparallel}{\mathchoice
+    {\mathrel{/\mkern-5mu/}}% display
+    {\mathrel{/\mkern-5mu/}}% text
+    {\mathrel{/\mkern-4mu/}}% script
+    {\mathrel{/\mkern-3mu/}}% scriptscript
+  }
+
+  % Cartesian, cylindrical, and spherical unit vectors.
+  \newcommand{\vi}{\ensuremath{\hat{e}_{1}}}
+  \newcommand{\vj}{\ensuremath{\hat{e}_{2}}}
+  \newcommand{\vk}{\ensuremath{\hat{e}_{3}}}
+  \newcommand{\vs}{\ensuremath{\hat{e}_{s}}}
+  \newcommand{\vp}{\ensuremath{\hat{e}_{p}}}
+  \newcommand{\vperp}{\ensuremath{\hat{e}_{\perp}}}
+  \newcommand{\vpar}{\ensuremath{\hat{e}_{\slparallel}}}
+  \newcommand{\vphi}{\ensuremath{\hat{e}_{\phi}}}
+  \newcommand{\vz}{\ensuremath{\hat{e}_{z}}}
+  \newcommand{\vsl}{\ensuremath{\hat{e}_{s\relprime}}}
+  \newcommand{\vphil}{\ensuremath{\hat{e}_{\phi\relprime}}}
+  \newcommand{\vzl}{\ensuremath{\hat{e}_{z\relprime}}}
+  \newcommand{\vr}{\ensuremath{\hat{e}_{r}}}
+  \newcommand{\vtheta}{\ensuremath{\hat{e}_{\theta}}}
+
+\fi
+
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\renewcommand{\arraystretch}{1.5}
+
+
+\ifrelatese@figures
+  \RequirePackage{float}
+  \RequirePackage{subcaption}
+  \RequirePackage{placeins}
+  \RequirePackage{pdflscape}
+  \RequirePackage{svg}
+
+  \captionsetup[subfigure]{font=footnotesize,format=hang}
+  \captionsetup[subtable]{font=footnotesize,format=hang,position=above,singlelinecheck=false}
+
+  % Table captions above tables. This reproduces the original float setup.
+  \floatstyle{plaintop}
+  \restylefloat{table}
+\fi
+
+
+\ifrelatese@tables
+  \RequirePackage{colortbl}
+  \RequirePackage{makecell}
+\fi
+
+
+\ifrelatese@siunitx
+  \RequirePackage[detect-all]{siunitx}
+
+  % Language-neutral defaults.
+  \sisetup{%
+    group-digits=none,
+    range-phrase=--,
+    per-mode=symbol
+  }
+
+  % Decimal comma convention.
+  \ifrelatese@sciencecomma
+    \sisetup{output-decimal-marker={,}}
+  \fi
+\fi
+
+\ifrelatese@chemistry
+  \RequirePackage[version=4]{mhchem}
+\fi
+
+
+\ifrelatese@biblatex
+  \RequirePackage{csquotes}
+  \RequirePackage[
+    backend=biber,
+    style=numeric-comp,
+    sorting=none,
+    backref=true,
+    autocite=superscript
+  ]{biblatex}
+\fi
+
+\ifrelatese@refs
+  \RequirePackage[
+    unicode,
+    bookmarks=true,
+    breaklinks
+  ]{hyperref}
+
+  \hypersetup{%
+    colorlinks=true,
+    linkcolor=darkblue,
+    urlcolor=darkblue,
+    citecolor=darkblue
+  }
+\fi
+
+\ifrelatese@cleveref
+  \ifrelatese@refs\else
+    \RequirePackage[
+      unicode,
+      bookmarks=true,
+      breaklinks
+    ]{hyperref}
+
+    \hypersetup{%
+      colorlinks=true,
+      linkcolor=darkblue,
+      urlcolor=darkblue,
+      citecolor=darkblue
+    }
+  \fi
+
+  \RequirePackage{cleveref}
+\fi
+
+
+\ifrelatese@drafttools
+  \RequirePackage{lipsum}
+\fi
+
+\newcommand{\quoteblock}[2]{%
+  \begin{samepage}%
+    \begin{quotation}%
+      \emph{``#1''}%
+      \begin{flushright}%
+        -- #2%
+      \end{flushright}%
+    \end{quotation}%
+  \end{samepage}%
+}
+
+\newcommand{\coxa}{%
+  {\Huge C\kern-.1667em\lower.5ex\hbox{O}\-X\kern-.1667em\lower.5ex\hbox{A}\@}%
+  \@ifundefined{index}{}{\index{CoXa}}%
+}
+
+\makeatother
+\endinput
+%%
+%% End of file `relatese.sty'.

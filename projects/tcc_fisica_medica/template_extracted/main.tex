@@ -1,0 +1,102 @@
+\documentclass[
+  12pt,
+  a4paper,
+  oneside
+]{report}
+
+\input{config/preamble}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINIÇÃO DE FONTES
+%% Se quiser trocar a fonte, mude os nomes abaixo
+% 
+\setmainfont{Linux Libertine O}
+\setsansfont{Roboto Condensed}
+\setmathfont{XITS Math}
+%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% DEFINA AQUI OS ITENS A SEGUIR:
+%%
+% AUTOR
+\newcommand{\tccautor}{Seu Nome Aqui}
+%%
+% TÍTULO
+\newcommand{\tcctitulo}{Título do Seu TCC}
+%%
+% ORIENTADOR
+\newcommand{\tccorientador}{Nome do Seu Orientador}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\title{\tcctitulo}
+\author{\tccautor}
+\date{2026}
+
+\addbibresource{references.bib}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+\begin{titlepage}
+  \centering
+
+  {\large Universidade de São Paulo\par}
+  {\large Instituto de Física e Faculdade de Medicina\par}
+  {\large Bacharelado em Física Médica\par}
+
+  \vfill
+
+  {\Large\bfseries
+  \tcctitulo
+  \par}
+
+  \vspace{2cm}
+
+  {\large \tccautor\par}
+
+  \vfill
+
+  \begin{flushright}
+    \begin{minipage}{0.55\textwidth}
+      Trabalho de Conclusão de Curso apresentado ao Bacharelado em Física Médica do Instituto de Física e da Faculdade de Medicina da Universidade de São Paulo.
+
+      \vspace{0.75cm}
+
+      Orientador(a): \tccorientador
+    \end{minipage}
+  \end{flushright}
+
+  \vfill
+
+  {\large São Paulo\\2026\par}
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+
+\include{tex/howto}
+\include{tex/introducao}
+\include{tex/objetivos}
+\include{tex/fundamentacao}
+\include{tex/metodos}
+\include{tex/resultados}
+\include{tex/discussao}
+\include{tex/conclusoes}
+
+\printbibliography[heading=bibintoc,title={Referências}]
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: t
+%%% End:

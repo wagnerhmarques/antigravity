@@ -1,0 +1,1022 @@
+{
+  "start_date": "2026-08-31",
+  "assets": {
+    "RADL3": {
+      "type": "acoes",
+      "price": 19.99,
+      "score": 30,
+      "verdict": "🔴 CAUTELA / SEM MARGEM",
+      "pvp": 4.8,
+      "pl": 26.1,
+      "dy": 2.45
+    },
+    "KLBN11": {
+      "type": "acoes",
+      "price": 19.47,
+      "score": 40,
+      "verdict": "🔴 CAUTELA / SEM MARGEM",
+      "pvp": 2.56,
+      "pl": 48.33,
+      "dy": 6.02
+    },
+    "TOTS3": {
+      "type": "acoes",
+      "price": 34.5,
+      "score": 50,
+      "verdict": "🔴 CAUTELA / SEM MARGEM",
+      "pvp": 3.66,
+      "pl": 14.02,
+      "dy": 1.97
+    },
+    "WEGE3": {
+      "type": "acoes",
+      "price": 51.74,
+      "score": 30,
+      "verdict": "🔴 CAUTELA / SEM MARGEM",
+      "pvp": 11.51,
+      "pl": 34.72,
+      "dy": 3.88
+    },
+    "ITSA4": {
+      "type": "acoes",
+      "price": 13.95,
+      "score": 90,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 1.67,
+      "pl": 8.61,
+      "dy": 8.2
+    },
+    "BBAS3": {
+      "type": "acoes",
+      "price": 22.52,
+      "score": 85,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 0.69,
+      "pl": 10.52,
+      "dy": 3.03
+    },
+    "GOAU4": {
+      "type": "acoes",
+      "price": 11.17,
+      "score": 50,
+      "verdict": "🔴 CAUTELA / SEM MARGEM",
+      "pvp": 0.77,
+      "pl": 18.6,
+      "dy": 3.85
+    },
+    "CMIG4": {
+      "type": "acoes",
+      "price": 11.26,
+      "score": 100,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 1.1,
+      "pl": 7.01,
+      "dy": 11.38
+    },
+    "ABEV3": {
+      "type": "acoes",
+      "price": 15.74,
+      "score": 50,
+      "verdict": "🔴 CAUTELA / SEM MARGEM",
+      "pvp": 2.76,
+      "pl": 15.0,
+      "dy": 4.92
+    },
+    "VALE3": {
+      "type": "acoes",
+      "price": 78.62,
+      "score": 55,
+      "verdict": "🟡 NEUTRO / OBSERVAR",
+      "pvp": 1.77,
+      "pl": 33.66,
+      "dy": 7.14
+    },
+    "PETR4": {
+      "type": "acoes",
+      "price": 47.11,
+      "score": 100,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 1.26,
+      "pl": 4.55,
+      "dy": 7.68
+    },
+    "EGIE3": {
+      "type": "acoes",
+      "price": 30.14,
+      "score": 65,
+      "verdict": "🟡 NEUTRO / OBSERVAR",
+      "pvp": 2.84,
+      "pl": 10.78,
+      "dy": 3.72
+    },
+    "BBSE3": {
+      "type": "acoes",
+      "price": 42.16,
+      "score": 90,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 7.52,
+      "pl": 8.91,
+      "dy": 10.75
+    },
+    "XPML11": {
+      "type": "fiis",
+      "price": 104.03,
+      "score": 100,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 0.94,
+      "dy": 10.62
+    },
+    "HGLG11": {
+      "type": "fiis",
+      "price": 148.3,
+      "score": 90,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 0.89,
+      "dy": 8.99
+    },
+    "MXRF11": {
+      "type": "fiis",
+      "price": 9.19,
+      "score": 90,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 0.99,
+      "dy": 13.0
+    },
+    "BTHF11": {
+      "type": "fiis",
+      "price": 9.03,
+      "score": 100,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 0.92,
+      "dy": 13.08
+    },
+    "BTLG11": {
+      "type": "fiis",
+      "price": 99.14,
+      "score": 90,
+      "verdict": "🟢 OPORTUNIDADE FORTE",
+      "pvp": 0.93,
+      "dy": 9.68
+    },
+    "KNCR11": {
+      "type": "fiis",
+      "price": 106.82,
+      "score": 55,
+      "verdict": "🟡 NEUTRO / OBSERVAR",
+      "pvp": 1.04,
+      "dy": 13.23
+    }
+  },
+  "history": [
+    {
+      "date": "2026-08-31",
+      "assets": {
+        "RADL3": {
+          "type": "acoes",
+          "price": 19.68,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 4.73,
+          "pl": 25.69,
+          "dy": 2.3
+        },
+        "KLBN11": {
+          "type": "acoes",
+          "price": 18.98,
+          "score": 40,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 2.5,
+          "pl": 47.11,
+          "dy": 6.21
+        },
+        "TOTS3": {
+          "type": "acoes",
+          "price": 34.87,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 3.7,
+          "pl": 14.17,
+          "dy": 1.98
+        },
+        "WEGE3": {
+          "type": "acoes",
+          "price": 50.04,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 11.14,
+          "pl": 33.58,
+          "dy": 4.01
+        },
+        "ITSA4": {
+          "type": "acoes",
+          "price": 13.13,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.57,
+          "pl": 8.11,
+          "dy": 8.83
+        },
+        "BBAS3": {
+          "type": "acoes",
+          "price": 20.59,
+          "score": 85,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.63,
+          "pl": 9.62,
+          "dy": 2.7
+        },
+        "GOAU4": {
+          "type": "acoes",
+          "price": 10.53,
+          "score": 70,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 0.72,
+          "pl": 17.53,
+          "dy": 4.13
+        },
+        "CMIG4": {
+          "type": "acoes",
+          "price": 10.66,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.05,
+          "pl": 6.64,
+          "dy": 12.19
+        },
+        "ABEV3": {
+          "type": "acoes",
+          "price": 15.28,
+          "score": 60,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.73,
+          "pl": 14.83,
+          "dy": 5.1
+        },
+        "VALE3": {
+          "type": "acoes",
+          "price": 79.27,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.79,
+          "pl": 33.94,
+          "dy": 7.14
+        },
+        "PETR4": {
+          "type": "acoes",
+          "price": 44.86,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.2,
+          "pl": 4.34,
+          "dy": 8.31
+        },
+        "EGIE3": {
+          "type": "acoes",
+          "price": 29.11,
+          "score": 65,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.75,
+          "pl": 10.41,
+          "dy": 3.89
+        },
+        "BBSE3": {
+          "type": "acoes",
+          "price": 40.58,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 7.23,
+          "pl": 8.57,
+          "dy": 11.33
+        },
+        "XPML11": {
+          "type": "fiis",
+          "price": 99.9,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.91,
+          "dy": 11.05
+        },
+        "HGLG11": {
+          "type": "fiis",
+          "price": 148.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 8.95
+        },
+        "MXRF11": {
+          "type": "fiis",
+          "price": 9.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.01,
+          "dy": 12.82
+        },
+        "BTHF11": {
+          "type": "fiis",
+          "price": 8.73,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 13.53
+        },
+        "BTLG11": {
+          "type": "fiis",
+          "price": 98.91,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.93,
+          "dy": 9.71
+        },
+        "KNCR11": {
+          "type": "fiis",
+          "price": 107.59,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.05,
+          "dy": 13.32
+        }
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "assets": {
+        "RADL3": {
+          "type": "acoes",
+          "price": 19.68,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 4.73,
+          "pl": 25.69,
+          "dy": 2.3
+        },
+        "KLBN11": {
+          "type": "acoes",
+          "price": 18.98,
+          "score": 40,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 2.5,
+          "pl": 47.11,
+          "dy": 6.21
+        },
+        "TOTS3": {
+          "type": "acoes",
+          "price": 34.87,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 3.7,
+          "pl": 14.17,
+          "dy": 1.98
+        },
+        "WEGE3": {
+          "type": "acoes",
+          "price": 50.04,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 11.14,
+          "pl": 33.58,
+          "dy": 4.01
+        },
+        "ITSA4": {
+          "type": "acoes",
+          "price": 13.13,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.57,
+          "pl": 8.11,
+          "dy": 8.83
+        },
+        "BBAS3": {
+          "type": "acoes",
+          "price": 20.59,
+          "score": 85,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.63,
+          "pl": 9.62,
+          "dy": 2.7
+        },
+        "GOAU4": {
+          "type": "acoes",
+          "price": 10.53,
+          "score": 70,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 0.72,
+          "pl": 17.53,
+          "dy": 4.13
+        },
+        "CMIG4": {
+          "type": "acoes",
+          "price": 10.66,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.05,
+          "pl": 6.64,
+          "dy": 12.19
+        },
+        "ABEV3": {
+          "type": "acoes",
+          "price": 15.28,
+          "score": 60,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.73,
+          "pl": 14.83,
+          "dy": 5.1
+        },
+        "VALE3": {
+          "type": "acoes",
+          "price": 79.27,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.79,
+          "pl": 33.94,
+          "dy": 7.14
+        },
+        "PETR4": {
+          "type": "acoes",
+          "price": 44.86,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.2,
+          "pl": 4.34,
+          "dy": 8.31
+        },
+        "EGIE3": {
+          "type": "acoes",
+          "price": 29.11,
+          "score": 65,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.75,
+          "pl": 10.41,
+          "dy": 3.89
+        },
+        "BBSE3": {
+          "type": "acoes",
+          "price": 40.58,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 7.23,
+          "pl": 8.57,
+          "dy": 11.33
+        },
+        "XPML11": {
+          "type": "fiis",
+          "price": 99.9,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.91,
+          "dy": 11.05
+        },
+        "HGLG11": {
+          "type": "fiis",
+          "price": 148.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 8.95
+        },
+        "MXRF11": {
+          "type": "fiis",
+          "price": 9.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.01,
+          "dy": 12.82
+        },
+        "BTHF11": {
+          "type": "fiis",
+          "price": 8.73,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 13.53
+        },
+        "BTLG11": {
+          "type": "fiis",
+          "price": 98.91,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.93,
+          "dy": 9.71
+        },
+        "KNCR11": {
+          "type": "fiis",
+          "price": 107.59,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.05,
+          "dy": 13.32
+        }
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "assets": {
+        "RADL3": {
+          "type": "acoes",
+          "price": 19.79,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 4.76,
+          "pl": 25.83,
+          "dy": 2.3
+        },
+        "KLBN11": {
+          "type": "acoes",
+          "price": 18.9,
+          "score": 40,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 2.49,
+          "pl": 46.91,
+          "dy": 6.21
+        },
+        "TOTS3": {
+          "type": "acoes",
+          "price": 35.11,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 3.73,
+          "pl": 14.27,
+          "dy": 1.98
+        },
+        "WEGE3": {
+          "type": "acoes",
+          "price": 49.91,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 11.11,
+          "pl": 33.5,
+          "dy": 4.01
+        },
+        "ITSA4": {
+          "type": "acoes",
+          "price": 13.06,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.56,
+          "pl": 8.06,
+          "dy": 8.83
+        },
+        "BBAS3": {
+          "type": "acoes",
+          "price": 20.57,
+          "score": 85,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.63,
+          "pl": 9.61,
+          "dy": 2.7
+        },
+        "GOAU4": {
+          "type": "acoes",
+          "price": 10.47,
+          "score": 70,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 0.72,
+          "pl": 17.43,
+          "dy": 4.13
+        },
+        "CMIG4": {
+          "type": "acoes",
+          "price": 10.59,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.04,
+          "pl": 6.6,
+          "dy": 12.19
+        },
+        "ABEV3": {
+          "type": "acoes",
+          "price": 15.15,
+          "score": 60,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.7,
+          "pl": 14.7,
+          "dy": 5.1
+        },
+        "VALE3": {
+          "type": "acoes",
+          "price": 78.44,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.77,
+          "pl": 33.58,
+          "dy": 7.14
+        },
+        "PETR4": {
+          "type": "acoes",
+          "price": 44.56,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.19,
+          "pl": 4.31,
+          "dy": 8.31
+        },
+        "EGIE3": {
+          "type": "acoes",
+          "price": 29.12,
+          "score": 65,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.75,
+          "pl": 10.42,
+          "dy": 3.89
+        },
+        "BBSE3": {
+          "type": "acoes",
+          "price": 40.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 7.18,
+          "pl": 8.51,
+          "dy": 11.33
+        },
+        "XPML11": {
+          "type": "fiis",
+          "price": 99.9,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.91,
+          "dy": 11.05
+        },
+        "HGLG11": {
+          "type": "fiis",
+          "price": 148.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 8.95
+        },
+        "MXRF11": {
+          "type": "fiis",
+          "price": 9.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.01,
+          "dy": 12.82
+        },
+        "BTHF11": {
+          "type": "fiis",
+          "price": 8.73,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 13.53
+        },
+        "BTLG11": {
+          "type": "fiis",
+          "price": 98.91,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.93,
+          "dy": 9.71
+        },
+        "KNCR11": {
+          "type": "fiis",
+          "price": 107.59,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.05,
+          "dy": 13.32
+        }
+      }
+    },
+    {
+      "date": "2026-08-31",
+      "assets": {
+        "RADL3": {
+          "type": "acoes",
+          "price": 19.59,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 4.71,
+          "pl": 25.57,
+          "dy": 2.3
+        },
+        "KLBN11": {
+          "type": "acoes",
+          "price": 18.89,
+          "score": 40,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 2.49,
+          "pl": 46.89,
+          "dy": 6.21
+        },
+        "TOTS3": {
+          "type": "acoes",
+          "price": 35.61,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 3.78,
+          "pl": 14.47,
+          "dy": 1.98
+        },
+        "WEGE3": {
+          "type": "acoes",
+          "price": 50.06,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 11.14,
+          "pl": 33.6,
+          "dy": 4.01
+        },
+        "ITSA4": {
+          "type": "acoes",
+          "price": 13.07,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.56,
+          "pl": 8.07,
+          "dy": 8.83
+        },
+        "BBAS3": {
+          "type": "acoes",
+          "price": 20.78,
+          "score": 85,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.64,
+          "pl": 9.7,
+          "dy": 2.7
+        },
+        "GOAU4": {
+          "type": "acoes",
+          "price": 10.42,
+          "score": 70,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 0.72,
+          "pl": 17.35,
+          "dy": 4.13
+        },
+        "CMIG4": {
+          "type": "acoes",
+          "price": 10.69,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.05,
+          "pl": 6.66,
+          "dy": 12.19
+        },
+        "ABEV3": {
+          "type": "acoes",
+          "price": 15.1,
+          "score": 60,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.7,
+          "pl": 14.65,
+          "dy": 5.1
+        },
+        "VALE3": {
+          "type": "acoes",
+          "price": 78.33,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.77,
+          "pl": 33.53,
+          "dy": 7.14
+        },
+        "PETR4": {
+          "type": "acoes",
+          "price": 44.79,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.2,
+          "pl": 4.33,
+          "dy": 8.31
+        },
+        "EGIE3": {
+          "type": "acoes",
+          "price": 29.44,
+          "score": 65,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.78,
+          "pl": 10.53,
+          "dy": 3.89
+        },
+        "BBSE3": {
+          "type": "acoes",
+          "price": 40.48,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 7.22,
+          "pl": 8.55,
+          "dy": 11.33
+        },
+        "XPML11": {
+          "type": "fiis",
+          "price": 100.23,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.91,
+          "dy": 11.03
+        },
+        "HGLG11": {
+          "type": "fiis",
+          "price": 148.17,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 8.22
+        },
+        "MXRF11": {
+          "type": "fiis",
+          "price": 9.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.01,
+          "dy": 11.75
+        },
+        "BTHF11": {
+          "type": "fiis",
+          "price": 8.76,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 13.53
+        },
+        "BTLG11": {
+          "type": "fiis",
+          "price": 99.32,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.93,
+          "dy": 9.68
+        },
+        "KNCR11": {
+          "type": "fiis",
+          "price": 108.17,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.05,
+          "dy": 12.01
+        }
+      }
+    },
+    {
+      "date": "2026-09-07",
+      "assets": {
+        "RADL3": {
+          "type": "acoes",
+          "price": 19.99,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 4.8,
+          "pl": 26.1,
+          "dy": 2.45
+        },
+        "KLBN11": {
+          "type": "acoes",
+          "price": 19.47,
+          "score": 40,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 2.56,
+          "pl": 48.33,
+          "dy": 6.02
+        },
+        "TOTS3": {
+          "type": "acoes",
+          "price": 34.5,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 3.66,
+          "pl": 14.02,
+          "dy": 1.97
+        },
+        "WEGE3": {
+          "type": "acoes",
+          "price": 51.74,
+          "score": 30,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 11.51,
+          "pl": 34.72,
+          "dy": 3.88
+        },
+        "ITSA4": {
+          "type": "acoes",
+          "price": 13.95,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.67,
+          "pl": 8.61,
+          "dy": 8.2
+        },
+        "BBAS3": {
+          "type": "acoes",
+          "price": 22.52,
+          "score": 85,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.69,
+          "pl": 10.52,
+          "dy": 3.03
+        },
+        "GOAU4": {
+          "type": "acoes",
+          "price": 11.17,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 0.77,
+          "pl": 18.6,
+          "dy": 3.85
+        },
+        "CMIG4": {
+          "type": "acoes",
+          "price": 11.26,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.1,
+          "pl": 7.01,
+          "dy": 11.38
+        },
+        "ABEV3": {
+          "type": "acoes",
+          "price": 15.74,
+          "score": 50,
+          "verdict": "🔴 CAUTELA / SEM MARGEM",
+          "pvp": 2.76,
+          "pl": 15.0,
+          "dy": 4.92
+        },
+        "VALE3": {
+          "type": "acoes",
+          "price": 78.62,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.77,
+          "pl": 33.66,
+          "dy": 7.14
+        },
+        "PETR4": {
+          "type": "acoes",
+          "price": 47.11,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 1.26,
+          "pl": 4.55,
+          "dy": 7.68
+        },
+        "EGIE3": {
+          "type": "acoes",
+          "price": 30.14,
+          "score": 65,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 2.84,
+          "pl": 10.78,
+          "dy": 3.72
+        },
+        "BBSE3": {
+          "type": "acoes",
+          "price": 42.16,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 7.52,
+          "pl": 8.91,
+          "dy": 10.75
+        },
+        "XPML11": {
+          "type": "fiis",
+          "price": 104.03,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.94,
+          "dy": 10.62
+        },
+        "HGLG11": {
+          "type": "fiis",
+          "price": 148.3,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.89,
+          "dy": 8.99
+        },
+        "MXRF11": {
+          "type": "fiis",
+          "price": 9.19,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.99,
+          "dy": 13.0
+        },
+        "BTHF11": {
+          "type": "fiis",
+          "price": 9.03,
+          "score": 100,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.92,
+          "dy": 13.08
+        },
+        "BTLG11": {
+          "type": "fiis",
+          "price": 99.14,
+          "score": 90,
+          "verdict": "🟢 OPORTUNIDADE FORTE",
+          "pvp": 0.93,
+          "dy": 9.68
+        },
+        "KNCR11": {
+          "type": "fiis",
+          "price": 106.82,
+          "score": 55,
+          "verdict": "🟡 NEUTRO / OBSERVAR",
+          "pvp": 1.04,
+          "dy": 13.23
+        }
+      }
+    }
+  ]
+}

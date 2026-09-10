@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo Oficial — 15 Cards Fato ou Fake • Física Médica USP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wine: #3e072b;
+      --wine-dark: #200115;
+      --pink: #ff007f;
+      --green: #a2ff92;
+      --yellow: #e8ff3b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #200115;
+      color: #ffffff;
+      padding: 30px 20px 80px;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    header {
+      background: linear-gradient(135deg, var(--wine-dark), var(--wine));
+      border: 2px solid var(--yellow);
+      border-radius: 20px;
+      padding: 24px 30px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .title-area h1 {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--yellow);
+      margin-bottom: 4px;
+    }
+    .title-area p {
+      font-size: 14px;
+      color: #ff97eb;
+    }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      background: var(--yellow);
+      color: var(--wine);
+      font-weight: 800;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+      background: #ffffff;
+    }
+    .action-btn-green {
+      background: var(--green);
+      color: #0a5222;
+    }
+    .cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .card-item-container {
+      background: rgba(62, 7, 43, 0.6);
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .card-item-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .card-num-tag {
+      background: var(--yellow);
+      color: var(--wine);
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .card-status-badge {
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+    .badge-fato { background: var(--green); color: #0a5222; }
+    .badge-fake { background: var(--pink); color: #ffffff; }
+    .card-cat-name {
+      font-size: 14px;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .card-pair-view {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+    .card-svg-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .svg-label {
+      font-size: 12px;
+      color: #ff97eb;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .svg-render {
+      width: 240px;
+      height: 360px;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .dl-btn {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--yellow);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(232, 255, 59, 0.4);
+      padding: 6px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .dl-btn:hover {
+      background: var(--yellow);
+      color: var(--wine);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-area">
+        <h1>Catálogo Oficial • 15 Cards Fato ou Fake</h1>
+        <p>Design Idêntico ao Modelo do Estande • Fonte Aumentada • Figuras Oficiais IFUSP & FMUSP</p>
+      </div>
+      <div class="btn-group">
+        <a href="pdf/Cards_Fato_ou_Fake_USP_Completo_80x120mm.pdf" download class="action-btn">
+          📄 Baixar Master PDF (80x120mm)
+        </a>
+        <a href="pdf/Folhas_Impressao_A4_Frente_Verso.pdf" download class="action-btn action-btn-green">
+          🖨️ Baixar Folhas A4 Duplex com Marcas
+        </a>
+      </div>
+    </header>
+
+    <div class="cards-grid">
+      
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #01</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">🍌 Radiação no Cotidiano</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_01_frente.svg" alt="Card #01 Frente" class="svg-render">
+              <a href="svg/card_01_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_01_verso.svg" alt="Card #01 Verso" class="svg-render">
+              <a href="svg/card_01_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #02</span>
+            <span class="card-status-badge badge-fake">FAKE</span>
+            <span class="card-cat-name">🧲 Ressonância Magnética</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_02_frente.svg" alt="Card #02 Frente" class="svg-render">
+              <a href="svg/card_02_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_02_verso.svg" alt="Card #02 Verso" class="svg-render">
+              <a href="svg/card_02_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #03</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">⚛️ Medicina Nuclear</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_03_frente.svg" alt="Card #03 Frente" class="svg-render">
+              <a href="svg/card_03_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_03_verso.svg" alt="Card #03 Verso" class="svg-render">
+              <a href="svg/card_03_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #04</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">👞 História da Ciência</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_04_frente.svg" alt="Card #04 Frente" class="svg-render">
+              <a href="svg/card_04_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_04_verso.svg" alt="Card #04 Verso" class="svg-render">
+              <a href="svg/card_04_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #05</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">📓 Pioneiros da Ciência</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_05_frente.svg" alt="Card #05 Frente" class="svg-render">
+              <a href="svg/card_05_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_05_verso.svg" alt="Card #05 Verso" class="svg-render">
+              <a href="svg/card_05_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #06</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">🎨 Eletromagnetismo & Saúde</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_06_frente.svg" alt="Card #06 Frente" class="svg-render">
+              <a href="svg/card_06_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_06_verso.svg" alt="Card #06 Verso" class="svg-render">
+              <a href="svg/card_06_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #07</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">🌾 Tratamento do Câncer</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_07_frente.svg" alt="Card #07 Frente" class="svg-render">
+              <a href="svg/card_07_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_07_verso.svg" alt="Card #07 Verso" class="svg-render">
+              <a href="svg/card_07_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #08</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">💄 Curiosidades Históricas</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_08_frente.svg" alt="Card #08 Frente" class="svg-render">
+              <a href="svg/card_08_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_08_verso.svg" alt="Card #08 Verso" class="svg-render">
+              <a href="svg/card_08_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #09</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">🐶 Saúde Animal & Tecnologia</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_09_frente.svg" alt="Card #09 Frente" class="svg-render">
+              <a href="svg/card_09_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_09_verso.svg" alt="Card #09 Verso" class="svg-render">
+              <a href="svg/card_09_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #10</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">⚡ Aceleradores de Partículas</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_10_frente.svg" alt="Card #10 Frente" class="svg-render">
+              <a href="svg/card_10_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_10_verso.svg" alt="Card #10 Verso" class="svg-render">
+              <a href="svg/card_10_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #11</span>
+            <span class="card-status-badge badge-fake">FAKE</span>
+            <span class="card-cat-name">🩻 Mitos do Raio X</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_11_frente.svg" alt="Card #11 Frente" class="svg-render">
+              <a href="svg/card_11_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_11_verso.svg" alt="Card #11 Verso" class="svg-render">
+              <a href="svg/card_11_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #12</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">👁️ Óptica & Partículas</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_12_frente.svg" alt="Card #12 Frente" class="svg-render">
+              <a href="svg/card_12_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_12_verso.svg" alt="Card #12 Verso" class="svg-render">
+              <a href="svg/card_12_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #13</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">🎈 Recursos do Planeta</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_13_frente.svg" alt="Card #13 Frente" class="svg-render">
+              <a href="svg/card_13_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_13_verso.svg" alt="Card #13 Verso" class="svg-render">
+              <a href="svg/card_13_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #14</span>
+            <span class="card-status-badge badge-fake">FAKE</span>
+            <span class="card-cat-name">🛡️ Blindagem & Segurança</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_14_frente.svg" alt="Card #14 Frente" class="svg-render">
+              <a href="svg/card_14_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_14_verso.svg" alt="Card #14 Verso" class="svg-render">
+              <a href="svg/card_14_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-item-container">
+          <div class="card-item-header">
+            <span class="card-num-tag">Card #15</span>
+            <span class="card-status-badge badge-fato">FATO</span>
+            <span class="card-cat-name">🤖 Inteligência Artificial</span>
+          </div>
+
+          <div class="card-pair-view">
+            <!-- Frente -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Frente (Layout Oficial)</div>
+              <img src="svg/card_15_frente.svg" alt="Card #15 Frente" class="svg-render">
+              <a href="svg/card_15_frente.svg" download class="dl-btn">Baixar SVG Frente</a>
+            </div>
+
+            <!-- Verso -->
+            <div class="card-svg-wrapper">
+              <div class="svg-label">Verso (Fonte Aumentada + Logos Oficiais)</div>
+              <img src="svg/card_15_verso.svg" alt="Card #15 Verso" class="svg-render">
+              <a href="svg/card_15_verso.svg" download class="dl-btn">Baixar SVG Verso</a>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,811 @@
+\chapter{Como usar este template}
+\label{chap:uso_template}
+
+Este capítulo apresenta as convenções básicas para escrever o Trabalho de Conclusão de Curso usando este template. A maior parte da formatação já está definida no arquivo \verb|preamble.tex| e no pacote \verb|relatese.sty|. Assim, em condições normais, o texto do trabalho deve se concentrar no conteúdo: não é necessário ajustar manualmente margens, fontes, cabeçalhos, numeração, aparência dos títulos ou estilo das referências.
+
+Este capítulo é parte das instruções do template e não deve permanecer na versão final do TCC. Depois que as orientações abaixo estiverem claras, ele pode ser removido da lista de arquivos incluídos em \verb|main.tex|.
+
+\section{Estrutura do projeto}
+\label{sec:estrutura_projeto}
+
+O arquivo principal do trabalho é \verb|main.tex|. Nele estão definidos os dados gerais do TCC, a ordem dos capítulos e a impressão da bibliografia. Os arquivos do projeto têm, em linhas gerais, as seguintes funções:
+
+\begin{itemize}
+\item \verb|main.tex|: arquivo principal; define autor, título, orientador, folha de rosto, sumário, ordem dos capítulos e bibliografia;
+\item \verb|config/preamble.tex|: contém os pacotes e as configurações gerais de formatação;
+\item \verb|relatese.sty|: pacote auxiliar usado pelo template; em geral, não deve ser editado durante a escrita do TCC;
+\item \verb|tex/|: contém um arquivo \verb|.tex| para cada capítulo do trabalho;
+\item \verb|references.bib|: banco de dados bibliográficos utilizado pelo \verb|biblatex| e pelo Biber;
+\item \verb|img/|: diretório reservado às figuras do trabalho; caso ainda não exista, ele pode ser criado na raiz do projeto;
+\item \verb|latexmkrc|: configura a compilação automática com LuaLaTeX e Biber;
+\item \verb|Makefile|: permite compilar ou limpar o projeto usando os comandos \verb|make| e \verb|make clean|;
+\item \verb|build/|: armazena arquivos auxiliares produzidos durante a compilação;
+\item \verb|auto/|: contém arquivos auxiliares eventualmente gerados pelo Emacs/AUCTeX e não precisa ser editado para produzir o documento.
+\end{itemize}
+
+Os capítulos principais já estão separados em arquivos dentro do diretório \verb|tex|. Essa separação deve ser preservada: é preferível editar o arquivo correspondente a cada capítulo em vez de concentrar todo o texto em \verb|main.tex|.
+
+\section{Compilação}
+\label{sec:compilacao}
+
+O template foi preparado para ser compilado com \textbf{LuaLaTeX} e \textbf{Biber}. Isso é necessário, entre outros motivos, pelo uso dos pacotes \verb|fontspec|, \verb|unicode-math| e \verb|biblatex|. Não se recomenda compilar este projeto com pdfLaTeX.
+
+\subsection{Overleaf}
+\label{ssec:overleaf}
+
+No Overleaf, selecione \textbf{LuaLaTeX} como compilador e mantenha \verb|main.tex| como documento principal do projeto.
+
+A bibliografia é processada automaticamente durante a compilação. Em condições normais, não é necessário executar o Biber manualmente nem realizar várias compilações de forma separada: o próprio Overleaf gerencia as etapas necessárias para atualizar citações, referências cruzadas, sumário e bibliografia.
+
+Caso alterações recentes não apareçam corretamente no documento, especialmente em citações ou referências cruzadas, pode ser útil utilizar a opção de recompilação completa do projeto.
+
+
+\subsection{Instalação local}
+\label{ssec:run_local}
+
+Em uma instalação local do LaTeX, a forma recomendada de compilar o projeto é usar o \verb|latexmk|, já configurado pelo arquivo \verb|latexmkrc|.
+
+Na raiz do projeto, execute:
+
+\begin{verbatim}
+make
+\end{verbatim}
+
+Alternativamente, pode-se executar diretamente:
+
+\begin{verbatim}
+latexmk main.tex
+\end{verbatim}
+
+O arquivo \verb|latexmkrc| informa ao \verb|latexmk| que LuaLaTeX deve ser usado e que os arquivos auxiliares devem ser mantidos em \verb|build/|. O \verb|latexmk| também executa automaticamente o Biber quando necessário.
+
+Para remover os arquivos auxiliares produzidos durante a compilação, use:
+
+\begin{verbatim}
+make clean
+\end{verbatim}
+
+Não é necessário executar manualmente LuaLaTeX e Biber em uma sequência específica. O \verb|latexmk| identifica as etapas necessárias para atualizar referências cruzadas, sumário e bibliografia.
+
+\section{Dados do trabalho e organização dos capítulos}
+\label{sec:dados_organizacao}
+
+No início de \verb|main.tex| estão definidos três comandos que devem ser preenchidos pelo autor:
+
+\begin{verbatim}
+\newcommand{\tccautor}{Seu Nome Aqui}
+\newcommand{\tcctitulo}{Título do Seu TCC}
+\newcommand{\tccorientador}{Nome do Seu Orientador}
+\end{verbatim}
+
+Essas informações são reutilizadas automaticamente na folha de rosto. O ano também aparece definido no arquivo principal e deve ser atualizado quando necessário.
+
+Cada capítulo deve permanecer em um arquivo próprio dentro de \verb|tex/|. Um arquivo de capítulo pode começar, por exemplo, com
+
+\begin{verbatim}
+\chapter{Métodos}
+\label{chap:metodos}
+
+Texto do capítulo.
+\end{verbatim}
+
+A inclusão no documento é feita em \verb|main.tex| com
+
+\begin{verbatim}
+\include{tex/metodos}
+\end{verbatim}
+
+Ao criar, remover ou alterar a ordem dos capítulos, é essa sequência de comandos \verb|\include| que deve ser modificada. Não é necessário acrescentar a extensão \verb|.tex|. O comando \verb|\include| também faz com que cada capítulo comece em uma nova página.
+
+Para organizar o conteúdo dentro de um capítulo, use normalmente
+
+\begin{verbatim}
+\section{Título da seção}
+\label{sec:titulo_secao}
+
+\subsection{Título da subseção}
+\label{ssec:titulo_subsecao}
+
+\subsubsection{Título da subsubseção}
+\label{sbsec:titulo_subsubsecao}
+\end{verbatim}
+
+A aparência e a numeração desses títulos já são controladas pelo template. Evite criar títulos manualmente com mudanças de tamanho de fonte ou negrito.
+
+\section{Escrita e formatação do texto}
+\label{sec:escrita_formatacao}
+
+O LaTeX cuida automaticamente de quebras de linha, hifenização, espaçamento e composição tipográfica. Um novo parágrafo deve ser indicado por uma linha em branco no arquivo-fonte. Em geral, não se deve usar \verb|\| para terminar parágrafos nem inserir comandos \verb|\vspace| ou \verb|\hspace| apenas para corrigir visualmente a posição do texto.
+
+Para ênfase, prefira \verb|\emph{...}|. O comando \verb|\textbf{...}| pode ser usado quando o negrito tiver uma função específica, mas não deve substituir a hierarquia de seções do documento. Para aspas no texto, o pacote \verb|csquotes| já está carregado e permite escrever, por exemplo,
+
+\begin{verbatim}
+\enquote{um trecho citado ou uma expressão entre aspas}
+\end{verbatim}
+
+O idioma principal está configurado como português pelo \verb|polyglossia|. As fontes do documento também já estão definidas em \verb|main.tex|: Linux Libertine O para o texto, Roboto Condensed para a família sem serifa e XITS Math para matemática. Caso uma compilação local informe que alguma dessas fontes não foi encontrada, deve-se instalar a fonte correspondente ou, alternativamente, alterar sua definição em \verb|main.tex|.
+
+\section{Rótulos e referências cruzadas}
+\label{sec:rotulos_referencias}
+
+Seções, figuras, tabelas e equações que serão mencionadas em outro ponto do texto devem receber um \verb|\label|. O template usa o pacote \verb|cleveref|, que identifica automaticamente o tipo de objeto referenciado. Assim, em vez de escrever manualmente `Figura~3'' ou `Equação~2'', prefira
+
+\begin{verbatim}
+Como mostrado na \cref{fig:exemplo}, ...
+
+De acordo com a \cref{eq:atenuacao}, ...
+
+A \Cref{sec:metodologia_experimental} descreve ...
+\end{verbatim}
+
+Use \verb|\cref| no meio de uma frase e \verb|\Cref| quando a referência iniciar a frase. Os links internos são criados automaticamente pelo \verb|hyperref|.
+
+Para manter os rótulos legíveis e consistentes, recomenda-se usar os prefixos \verb|chap:| para capítulos, \verb|sec:| para seções, \verb|ssec:| para subseções, \verb|sbsec:| para subsubseções, \verb|fig:| para figuras, \verb|tab:| para tabelas e \verb|eq:| para equações. Dentro do identificador, prefira palavras curtas separadas por sublinhados, como \verb|fig:perfil_dose| ou \verb|sec:controle_qualidade|.
+
+\section{Equações e conteúdo matemático}
+\label{sec:equacoes_matematica}
+
+Os pacotes \verb|amsmath| e \verb|unicode-math| já estão carregados. Para expressões matemáticas curtas dentro do texto, use delimitadores com cifrões, como em \verb|$E = mc^{2}$|. Para equações destacadas e numeradas, use ambientes como \verb|equation| ou \verb|align|. Por exemplo,
+
+\begin{verbatim}
+\begin{equation}
+I(x) = I_{0}\exp(-\mu x)
+\label{eq:atenuacao}
+\end{equation}
+\end{verbatim}
+
+Uma referência a essa expressão pode então ser feita com \verb|\cref{eq:atenuacao}|. A numeração das equações é vinculada às seções pelo próprio template.
+
+Para sistemas com várias linhas, o ambiente \verb|align| permite alinhar os sinais de igualdade:
+
+\begin{verbatim}
+\begin{align}
+y_{1} &= a x_{1} + b, \\
+y_{2} &= a x_{2} + b.
+\end{align}
+\end{verbatim}
+
+Evite usar \verb|\(...\)| para matemática destacada. Ambientes do \verb|amsmath| produzem espaçamento, numeração e referências de forma mais consistente.
+
+\section{Números, unidades e grandezas físicas}
+\label{sec:siunitx}
+
+O pacote \verb|siunitx| está configurado para padronizar a apresentação de números e unidades, incluindo o uso de vírgula como separador decimal no documento final. Sempre que possível, use os comandos do pacote em vez de escrever unidades manualmente.
+
+Para um número sem unidade, use \verb|\num|:
+
+\begin{verbatim}
+O coeficiente obtido foi \num{1.25e-3}.
+\end{verbatim}
+
+Para uma grandeza física, use \verb|\qty|:
+
+\begin{verbatim}
+A dose prescrita foi de \qty{2}{\gray} por fração.
+
+A energia nominal do feixe foi de \qty{6}{\mega\electronvolt}.
+\end{verbatim}
+
+Para escrever apenas uma unidade, use \verb|\unit|:
+
+\begin{verbatim}
+A dose absorvida é expressa em \unit{\gray}.
+\end{verbatim}
+
+Também é possível escrever intervalos com \verb|\qtyrange|:
+
+\begin{verbatim}
+Foram analisadas espessuras de \qtyrange{1}{5}{\centi\meter}.
+\end{verbatim}
+
+Esses comandos mantêm automaticamente o espaçamento entre número e unidade e tornam a notação consistente ao longo de todo o TCC.
+
+\section{Figuras}
+\label{sec:figuras}
+
+O pacote \verb|graphicx| já está disponível por meio do \verb|relatese|. O template procura imagens automaticamente no diretório \verb|img/| e reconhece, entre outros, arquivos PDF, PNG, JPG e JPEG. Assim, uma figura armazenada como \verb|img/esquema_acelerador.pdf| pode ser incluída sem escrever o caminho completo nem a extensão:
+
+\begin{verbatim}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{esquema_acelerador}
+\caption{Esquema simplificado do sistema considerado.}
+\label{fig:esquema_acelerador}
+\end{figure}
+\end{verbatim}
+
+O \verb|\label| deve ser colocado depois de \verb|\caption|. A figura pode ser citada no texto com \verb|\cref{fig:esquema_acelerador}|.
+
+Os especificadores \verb|h|, \verb|t|, \verb|b| e \verb|p| indicam ao LaTeX posições aceitáveis para o objeto flutuante. Evite tentar controlar rigidamente a posição de cada figura: permitir que o LaTeX escolha entre algumas posições normalmente produz uma composição melhor. O especificador \verb|H| não está disponível na configuração atual do template, pois o pacote \verb|float| não está ativado.
+
+Também não há suporte a subfiguras na configuração atual. Esse recurso existe como uma opção adicional do pacote \verb|relatese|, mas sua ativação modifica o conjunto de pacotes carregados e deve ser feita apenas se houver necessidade real (me pergunte se tiver dúvidas).
+
+\section{Tabelas}
+\label{sec:tabelas}
+
+Para tabelas simples, recomenda-se usar as linhas tipográficas fornecidas pelo pacote \verb|booktabs| e evitar grades formadas por linhas verticais. Um exemplo é
+
+\begin{verbatim}
+\begin{table}[htbp]
+\centering
+\caption{Parâmetros utilizados no exemplo.}
+\label{tab:parametros_exemplo}
+\begin{tabular}{lcc}
+\toprule
+Grandeza & Valor & Unidade \\
+\midrule
+Dose    & \num{2.0} & \unit{\gray} \\
+Energia & \num{6}   & \unit{\mega\electronvolt} \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{verbatim}
+
+Por convenção do template, a legenda das tabelas aparece acima do conteúdo. O comando \verb|\label| deve vir depois de \verb|\caption|.
+
+Quando uma coluna precisa acomodar texto de comprimento variável, o pacote \verb|tabularx| permite criar colunas do tipo \verb|X| que ocupam automaticamente o espaço disponível:
+
+\begin{verbatim}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+Item & Descrição \\
+\midrule
+A & Texto que pode ocupar várias linhas dentro da coluna. \\
+\bottomrule
+\end{tabularx}
+\end{verbatim}
+
+Para tabelas longas que precisam continuar em páginas sucessivas, o pacote \verb|longtable| já está carregado. Nesses casos, prefira o ambiente \verb|longtable| a reduzir excessivamente o tamanho da fonte para fazer a tabela caber em uma única página.
+
+\section{Listas}
+\label{sec:listas}
+
+Os ambientes \verb|itemize| e \verb|enumerate| podem ser usados normalmente. O pacote \verb|enumitem| já configura margens e espaçamentos compatíveis com o restante do documento. Por exemplo,
+
+\begin{verbatim}
+\begin{enumerate}
+\item preparar o sistema de medida;
+\item realizar as aquisições;
+\item analisar os dados obtidos.
+\end{enumerate}
+\end{verbatim}
+
+Evite usar listas para fragmentar excessivamente o texto científico. Sempre que a relação entre os itens for essencialmente discursiva, um parágrafo costuma ser mais apropriado.
+
+\section{Citações e bibliografia}
+\label{sec:citacoes_bibliografia}
+
+
+As referências bibliográficas ficam em \verb|references.bib| e são processadas com \verb|biblatex| e Biber. Cada entrada possui uma chave própria, como \verb|attix1986| ou \verb|bushberg2020|.
+
+O pacote \verb|biblatex| oferece diferentes comandos de citação, que podem ser usados de acordo com a forma como a referência aparece na frase.
+
+Para uma citação numérica sobrescrita, use \verb|\supercite|:
+
+\begin{verbatim}
+A teoria de cavidade é discutida em detalhe por Attix\supercite{attix1986}.
+\end{verbatim}
+
+Também é possível inserir a citação numérica diretamente no corpo do texto com \verb|\cite|:
+
+\begin{verbatim}
+Esse tema é discutido em diferentes textos de referência \cite{attix1986}.
+\end{verbatim}
+
+Quando o nome do autor fizer parte da própria frase, pode-se usar \verb|\textcite| (exemplo: ``\textcite{attix1986} apresenta uma discussão detalhada sobre dosimetria das radiações.''):
+
+\begin{verbatim}
+\textcite{attix1986} apresenta uma discussão detalhada sobre dosimetria
+das radiações.
+\end{verbatim}
+
+Quando a referência deve aparecer de forma parentética, pode-se usar \verb|\parencite| (exemplo: ``Esse formalismo é amplamente utilizado em dosimetria \parencite{attix1986}.''):
+
+\begin{verbatim}
+Esse formalismo é amplamente utilizado em dosimetria \parencite{attix1986}.
+\end{verbatim}
+
+Para citar várias referências ao mesmo tempo, basta separar as chaves por vírgulas:
+
+\begin{verbatim}
+Esses conceitos são discutidos em diferentes textos de referência
+\supercite{attix1986,knoll2010,bushberg2020}.
+\end{verbatim}
+
+No exemplo acima, fica: ``Esses conceitos são discutidos em diferentes textos de referência \supercite{attix1986,knoll2010,bushberg2020}.''
+
+Os mesmos comandos aceitam informações adicionais, como páginas ou trechos específicos. Por exemplo:
+
+\begin{verbatim}
+\textcite[cap.~3]{attix1986}
+
+\parencite[p.~120]{bushberg2020}
+
+\supercite{attix1986}
+\end{verbatim}
+
+O código acima gera: ``\textcite[cap.~3]{attix1986}, \parencite[p.~120]{bushberg2020},  \supercite{attix1986}''.
+
+
+Para citações com notas antes ou depois da referência, pode-se usar os argumentos opcionais do \verb|biblatex| (exemplo: \parencite[ver também][p.~85]{attix1986}):
+
+\begin{verbatim}
+\parencite[ver também][p.~85]{attix1986}
+\end{verbatim}
+
+A escolha entre esses comandos depende da construção da frase. Em geral:
+
+\begin{itemize}
+  \item \verb|\supercite| é apropriado quando se deseja uma citação
+        numérica sobrescrita;
+  \item \verb|\cite| insere a citação numérica na linha do texto;
+  \item \verb|\textcite| é útil quando o autor faz parte da frase;
+  \item \verb|\parencite| é útil quando toda a referência deve aparecer
+        entre parênteses.
+\end{itemize}
+
+O estilo bibliográfico está configurado como numérico e comprime sequências de citações quando possível. A ordem da bibliografia segue a ordem de primeira citação no texto. A lista final de referências já é produzida em \verb|main.tex| por
+
+\begin{verbatim}
+\printbibliography[heading=bibintoc,title={Referências}]
+\end{verbatim}
+
+Portanto, não é necessário escrever manualmente uma seção de referências nem usar os comandos tradicionais \verb|\bibliography| e \verb|\bibliographystyle|.
+
+Ao adicionar uma nova referência, prefira completar no arquivo \verb|references.bib| os campos bibliográficos disponíveis, especialmente autor, título, ano e dados de publicação. DOI pode ser mantido quando existir. Na configuração atual, DOI é exibido na bibliografia, enquanto URL e ISBN ficam ocultos (o Overleaf oferece integração com o Zotero, que pode ajudar aqui).
+
+\section{Links e endereços eletrônicos}
+\label{sec:links}
+
+O pacote \verb|hyperref| já está carregado. Referências cruzadas e itens do sumário se tornam links automaticamente. Quando for realmente necessário inserir um endereço eletrônico no corpo do texto, pode-se usar \verb|\url| ou \verb|\href|:
+
+\begin{verbatim}
+\url{https://www.example.org}
+
+\href{https://www.example.org}{página da instituição}
+\end{verbatim}
+
+Em trabalhos acadêmicos, entretanto, uma página utilizada como fonte deve normalmente ser registrada em \verb|references.bib| e citada como referência bibliográfica, em vez de aparecer apenas como um endereço solto no texto.
+
+\section{O que já é controlado pelo template}
+\label{sec:controle_template}
+
+O preâmbulo já determina margens, fontes, cabeçalhos, estilo e numeração dos títulos, aparência das legendas, espaçamento das listas, cores dos links, idioma, apresentação de números e unidades e estilo da bibliografia. Além disso, figuras, tabelas e equações são numeradas dentro das respectivas seções.
+
+Por esse motivo, recomenda-se não redefinir localmente elementos de formatação apenas para alterar a aparência de uma página específica. Em particular, evite comandos recorrentes de tamanho de fonte, espaçamento vertical manual, margens locais ou quebras de página introduzidas apenas para obter uma disposição visual específica. Se surgir um problema de formatação que afete o documento como um todo, a solução deve preferencialmente ser feita no preâmbulo, de forma consistente (estou à disposição pra ajudar em caso de dúvidas!).
+
+Da mesma forma, novos pacotes devem ser acrescentados em \verb|config/preamble.tex|, e não no arquivo de um capítulo. Antes de adicionar um pacote, verifique se a funcionalidade desejada já não é fornecida pelos pacotes existentes. Isso reduz conflitos e mantém o projeto mais simples de compilar.
+
+O pacote \verb|relatese| possui funcionalidades opcionais que não estão ativadas neste template. Por exemplo, opções adicionais podem carregar suporte a subfiguras, posicionamento rígido de objetos, páginas em paisagem e alguns atalhos matemáticos. Portanto, não se deve assumir que um comando documentado no arquivo \verb|relatese.sty| está disponível apenas porque aparece naquele arquivo: ele pode depender de uma opção que não foi habilitada no comando \verb|\usepackage{relatese}|.
+
+\section{Boas práticas durante a escrita}
+\label{sec:boas_praticas}
+
+Algumas práticas simples evitam a maior parte dos problemas de compilação e facilitam a revisão do trabalho:
+
+\begin{itemize}
+\item mantenha um capítulo por arquivo e use nomes de arquivos curtos, descritivos e sem espaços;
+\item coloque as figuras em \verb|img/| e dê a elas nomes igualmente descritivos;
+\item use \verb|\label| e \verb|\cref| para referências internas, em vez de escrever números de figuras, tabelas, seções ou equações manualmente;
+\item use \verb|siunitx| para números, unidades e grandezas físicas;
+\item mantenha todas as referências bibliográficas em \verb|references.bib| e cite-as com \verb|\supercite|;
+\item não use comandos de formatação manual para reproduzir algo que já é controlado pelo template;
+\item compile o documento regularmente, em vez de acumular muitas alterações antes de testar;
+\item ao encontrar um erro, procure primeiro a primeira mensagem de erro relevante no log de compilação, pois mensagens posteriores frequentemente são apenas consequência dela.
+\end{itemize}
+
+Os blocos \verb|Local Variables| presentes no final de alguns arquivos são comentários utilizados pelo Emacs/AUCTeX para identificar o arquivo principal do projeto. Eles são ignorados pelo LaTeX e podem ser deixados no arquivo mesmo quando outro editor estiver sendo utilizado.
+
+\section{Compartilhando o trabalho com quem não usa LaTeX}
+\label{sec:compartilhamento_docx}
+
+O uso de LaTeX pelo autor não exige que o orientador ou outras pessoas envolvidas na revisão do trabalho também utilizem LaTeX. O documento pode ser compartilhado normalmente em PDF para leitura e, quando for necessário realizar comentários ou alterações diretamente no texto, também pode ser produzida uma versão em formato DOCX.
+
+É importante, entretanto, distinguir entre o \textbf{arquivo-fonte do trabalho} e uma \textbf{cópia destinada à revisão}. Neste template, os arquivos \verb|.tex| constituem a fonte principal do documento. Uma versão convertida para DOCX deve ser considerada uma cópia auxiliar: correções realizadas nela devem posteriormente ser incorporadas aos arquivos LaTeX.
+
+\subsection{Quando o PDF é suficiente}
+\label{ssec:revisao_pdf}
+
+Para revisões que envolvam apenas leitura, comentários gerais ou anotações pontuais, normalmente é suficiente enviar o PDF produzido pelo LaTeX. Leitores de PDF como Adobe Acrobat, Okular, Evince e os próprios navegadores permitem inserir comentários e marcações sem modificar a estrutura do documento.
+
+Essa é a opção preferível sempre que não houver necessidade de editar diretamente os parágrafos, pois o PDF reproduz exatamente a aparência da versão compilada do TCC.
+
+\subsection{Conversão para DOCX}
+\label{ssec:conversao_docx}
+
+Quando for necessário disponibilizar uma versão editável no Microsoft
+Word ou em outro editor compatível com DOCX, existem diferentes formas
+de realizar a conversão. Nenhuma delas deve ser considerada uma
+reprodução perfeita do documento original: LaTeX e Word utilizam
+estruturas bastante diferentes para representar um documento.
+
+Sempre que possível, o arquivo DOCX deve ser tratado como uma
+\textbf{cópia destinada à revisão}, enquanto os arquivos \verb|.tex|
+permanecem como a fonte principal do TCC.
+
+\subsubsection{Pandoc}
+\label{sbsec:conversao_pandoc}
+
+Para quem possui o Pandoc instalado, é possível tentar uma conversão
+direta dos arquivos LaTeX para DOCX. Na raiz do projeto, um exemplo
+simples é
+
+\begin{verbatim}
+pandoc main.tex -o tcc.docx
+\end{verbatim}
+
+A vantagem dessa abordagem é que a conversão parte da estrutura lógica
+do documento LaTeX, e não de sua representação final em PDF. Isso pode
+preservar melhor elementos como títulos, parágrafos, listas e
+expressões matemáticas.
+
+Entretanto, este template utiliza múltiplos arquivos, comandos e
+configurações específicas do LaTeX que podem não possuir
+correspondência direta no Word. Por isso, o arquivo produzido deve ser
+conferido antes de ser enviado para revisão.
+
+\subsubsection{Microsoft Word}
+\label{sbsec:conversao_word}
+
+Uma alternativa que não exige o uso da linha de comando é utilizar o
+próprio Microsoft Word.
+
+Primeiro, compile normalmente o TCC e gere o arquivo PDF. Em seguida,
+no Word, abra o PDF utilizando a opção de abertura de documentos. O
+programa criará uma cópia editável do arquivo, que poderá então ser
+salva no formato DOCX.
+
+Esse método funciona particularmente bem para documentos
+predominantemente textuais. Entretanto, como a conversão parte do PDF,
+podem ocorrer diferenças na paginação e na representação de tabelas,
+figuras, notas e outros elementos mais complexos.
+
+\subsubsection{Adobe Acrobat}
+\label{sbsec:conversao_acrobat}
+
+O Adobe Acrobat também permite exportar um PDF diretamente para um
+documento do Microsoft Word. Após abrir o PDF, utilize a ferramenta de
+conversão ou exportação e selecione o formato DOCX.
+
+Essa opção pode ser conveniente para quem já utiliza o Acrobat para
+leitura e anotação de documentos e não deseja instalar ferramentas
+adicionais.
+
+Também existe uma versão da ferramenta de conversão disponível pela
+interface web do Adobe Acrobat.
+
+\subsubsection{Google Docs}
+\label{sbsec:conversao_google_docs}
+
+Outra possibilidade é utilizar o Google Docs. Um PDF pode ser aberto e
+convertido para um documento editável dentro do ambiente do Google
+Docs. Depois da conversão, o documento pode ser revisado
+colaborativamente e, se necessário, exportado para DOCX.
+
+Essa alternativa pode ser particularmente útil quando autor e
+orientador já utilizam ferramentas do Google para compartilhar e
+comentar documentos.
+
+Assim como nas demais conversões realizadas a partir do PDF, a
+estrutura e a formatação devem ser conferidas após a conversão.
+
+\subsubsection{Outros conversores}
+\label{sbsec:outros_conversores}
+
+Existem ainda diversos programas e serviços on-line capazes de
+converter arquivos PDF para DOCX. Eles podem ser utilizados quando
+forem convenientes, mas recomenda-se verificar cuidadosamente o
+resultado da conversão.
+
+Também é importante considerar a natureza do documento antes de
+enviá-lo para serviços externos. Trabalhos que contenham dados ainda
+não publicados, informações confidenciais ou outros materiais que não
+devam ser disponibilizados a terceiros não devem ser enviados
+indiscriminadamente para conversores on-line.
+
+\subsection{Limitações da conversão}
+\label{ssec:limitacoes_conversao}
+
+Independentemente da ferramenta utilizada, é possível que alguns
+elementos não sejam reproduzidos corretamente no arquivo DOCX. Entre
+os elementos que merecem atenção estão:
+
+\begin{itemize}
+\item folha de rosto e elementos pré-textuais;
+\item fontes e espaçamentos;
+\item quebras de página;
+\item posicionamento de figuras e tabelas;
+\item referências cruzadas;
+\item citações e bibliografia;
+\item equações mais complexas;
+\item comandos ou ambientes definidos especificamente pelo template.
+\end{itemize}
+
+Por esse motivo, o arquivo DOCX gerado deve ser conferido antes de ser
+enviado para revisão. Não é necessário que ele reproduza exatamente a
+diagramação do PDF: seu objetivo principal é oferecer ao orientador uma
+versão suficientemente fiel e editável para realizar comentários e
+sugerir alterações.
+
+\subsection{Conversão a partir do PDF}
+\label{ssec:conversao_pdf_docx}
+
+Também é possível abrir diretamente o PDF no Microsoft Word ou utilizar ferramentas de conversão de PDF para DOCX. Esse procedimento pode ser útil quando apenas o PDF estiver disponível, mas não é a opção recomendada quando os arquivos LaTeX originais ainda existem.
+
+O PDF descreve principalmente a aparência final de cada página, e não a estrutura lógica utilizada para produzi-la. Durante a conversão, títulos, parágrafos, equações, tabelas e figuras precisam ser reconstruídos a partir dessa representação visual. Isso pode produzir quebras de parágrafo inadequadas, objetos posicionados incorretamente e equações ou tabelas difíceis de editar.
+
+Assim, sempre que possível, prefira a conversão direta de LaTeX para DOCX.
+
+\subsection{Recebendo correções em DOCX}
+\label{ssec:correcoes_docx}
+
+Caso o orientador utilize os recursos de comentários ou controle de alterações do Word, recomenda-se manter o arquivo DOCX recebido como documento de revisão e aplicar manualmente as correções pertinentes aos arquivos \verb|.tex|.
+
+Não se recomenda substituir os arquivos LaTeX por uma versão posteriormente convertida de DOCX para LaTeX. Conversões sucessivas entre os dois formatos tendem a introduzir comandos desnecessários, perder referências internas e alterar a estrutura originalmente definida pelo template.
+
+Um fluxo de trabalho simples é:
+
+\begin{enumerate}
+\item escrever e compilar normalmente o TCC em LaTeX;
+\item gerar um PDF para leitura;
+\item quando necessário, gerar também uma cópia em DOCX;
+\item enviar o DOCX para revisão;
+\item receber o arquivo com comentários ou alterações;
+\item incorporar as alterações relevantes aos arquivos \verb|.tex|;
+\item gerar uma nova versão do PDF ou DOCX para a próxima rodada de revisão.
+\end{enumerate}
+
+Dessa forma, cada pessoa pode utilizar a ferramenta com a qual estiver mais familiarizada sem que seja necessário abandonar as vantagens do LaTeX na preparação da versão final do trabalho.
+
+\section{Antes de entregar o trabalho}
+\label{sec:antes_entrega}
+
+Antes de gerar a versão final, recomenda-se fazer uma última compilação completa e verificar se o documento não contém referências indefinidas, citações ausentes, texto de preenchimento produzido por \verb|\lipsum| ou mensagens relevantes de erro. Também deve ser conferido se todas as figuras e tabelas são mencionadas no texto, se a bibliografia contém apenas as referências efetivamente utilizadas e se título, nome do autor, orientador e ano estão corretos na folha de rosto.
+
+Por fim, este capítulo de instruções deve ser retirado da versão entregue. Para isso, basta remover ou comentar, em \verb|main.tex|, a linha que o inclui no documento.
+
+\section{Comentários extras}
+\label{sec:comentarios_extras}
+
+As seções anteriores apresentam os comandos e procedimentos necessários para utilizar o template. Esta seção reúne algumas recomendações adicionais que podem evitar problemas comuns durante a escrita e facilitar a manutenção do documento ao longo do desenvolvimento do TCC.
+
+\subsection{Comentários no arquivo-fonte}
+\label{ssec:comentarios_codigo}
+
+O caractere \verb|%| inicia um comentário em LaTeX. Todo o conteúdo escrito depois dele, até o final da linha, é ignorado durante a compilação:
+
+\begin{verbatim}
+% Este texto não aparecerá no documento.
+
+Este texto aparecerá no documento. % Este comentário não aparecerá.
+\end{verbatim}
+
+Comentários podem ser úteis para registrar observações durante a escrita, marcar trechos que precisam ser revisados ou desativar temporariamente algum comando.
+
+Por exemplo, um capítulo pode ser removido temporariamente da compilação comentando sua linha em \verb|main.tex|:
+
+\begin{verbatim}
+% \include{tex/resultados}
+\end{verbatim}
+
+Evite, entretanto, acumular grandes quantidades de texto antigo comentado. Quando um trecho não for mais necessário, normalmente é preferível removê-lo e utilizar o histórico de versões do projeto para recuperá-lo caso seja necessário.
+
+\subsection{Caracteres especiais}
+\label{ssec:caracteres_especiais}
+
+Alguns caracteres possuem significado especial para o LaTeX e não podem ser escritos diretamente no texto quando se deseja apenas imprimi-los. Entre os mais comuns estão
+
+\begin{verbatim}
+%   &   #   $   _   {   }
+\end{verbatim}
+
+Por exemplo,
+
+\begin{verbatim}
+A eficiência obtida foi de \qty{95}{\percent}.
+\end{verbatim}
+
+é preferível a escrever manualmente o símbolo de porcentagem.
+
+Os caracteres \verb|_| e \verb|^| também possuem significado especial em expressões matemáticas, sendo utilizados para índices e expoentes, respectivamente:
+
+\begin{verbatim}
+$D_{0}$
+
+$x^{2}$
+\end{verbatim}
+
+Sempre que houver dúvida sobre um caractere que esteja causando erro de compilação, verifique primeiro se ele possui alguma função especial no LaTeX.
+
+\subsection{Erros comuns de compilação}
+\label{ssec:erros_comuns}
+
+Mensagens de erro em LaTeX podem parecer extensas, mas frequentemente um único erro inicial provoca várias mensagens posteriores. Ao investigar um problema, procure primeiro a primeira mensagem de erro relevante no arquivo de log.
+
+Alguns problemas são particularmente comuns:
+
+\begin{itemize}
+\item uma referência interna aparece como \verb|??|: verifique se o
+\verb|\label| está correto e compile novamente o documento;
+\item uma citação não é encontrada: verifique se a chave usada no
+comando de citação corresponde exatamente à entrada em
+\verb|references.bib|;
+\item uma figura não é encontrada: confira o nome do arquivo, o
+diretório \verb|img/| e a extensão;
+\item aparece uma mensagem sobre um ambiente não encerrado:
+verifique se todo \verb|\begin{...}| possui o
+\verb|\end{...}| correspondente;
+\item aparecem erros envolvendo chaves: procure por pares
+\verb|{| e \verb|}| incompletos;
+\item um caractere especial causa erro: verifique se é necessário
+escapá-lo conforme descrito na \cref{ssec:caracteres_especiais}.
+\end{itemize}
+
+Quando um erro surgir imediatamente após uma alteração no documento, normalmente é útil começar verificando o trecho que acabou de ser modificado.
+
+\subsection{Figuras e formatos de arquivo}
+\label{ssec:formatos_figuras}
+
+Sempre que possível, escolha o formato da figura de acordo com o tipo de conteúdo.
+
+Para gráficos, diagramas, esquemas e outras imagens originalmente vetoriais, prefira arquivos em formato PDF. Isso permite que linhas, símbolos e textos permaneçam nítidos independentemente da ampliação.
+
+Para imagens rasterizadas, capturas de tela e figuras que dependem de pixels individuais, o formato PNG costuma ser adequado. JPEG pode ser utilizado para fotografias e outras imagens nas quais a compressão com perdas não prejudique a interpretação.
+
+Evite inserir no trabalho capturas de tela de gráficos quando o programa utilizado para produzi-los permitir exportação direta para PDF ou PNG. A exportação normalmente resulta em melhor qualidade e evita a inclusão desnecessária de elementos da interface do programa.
+
+Também é importante verificar se textos, símbolos e legendas contidos nas figuras permanecem legíveis quando a figura é inserida no tamanho em que aparecerá no documento final.
+
+\subsection{Tabelas e conteúdo muito largo}
+\label{ssec:tabelas_largas}
+
+Quando uma tabela não couber na largura da página, evite como primeira solução reduzir excessivamente o tamanho da fonte. Uma tabela só é útil se continuar legível.
+
+Antes disso, considere:
+
+\begin{itemize}
+\item reduzir o número de colunas;
+\item abreviar títulos muito longos;
+\item reorganizar a informação em mais de uma tabela;
+\item utilizar colunas de largura flexível com \verb|tabularx|;
+\item apresentar apenas os resultados essenciais no corpo do texto e
+transferir dados extensos para um apêndice.
+\end{itemize}
+
+Se ainda houver necessidade de utilizar páginas em orientação paisagem, isso exigirá suporte adicional no preâmbulo. Esse recurso não está habilitado na configuração padrão atual do template e deve ser adicionado apenas quando necessário.
+
+\subsection{Notação matemática e grandezas físicas}
+\label{ssec:notacao_matematica}
+
+A notação matemática deve permanecer consistente ao longo do trabalho.  Variáveis são normalmente apresentadas em itálico pelo próprio modo matemático, enquanto unidades devem ser compostas em fonte romana por meio do pacote \verb|siunitx|.
+
+Assim, prefira
+
+\begin{verbatim}
+A energia do feixe foi de \qty{6}{\mega\electronvolt}.
+\end{verbatim}
+
+em vez de escrever manualmente
+
+\begin{verbatim}
+6 MeV
+\end{verbatim}
+
+Da mesma forma, use \verb|\num| para números e \verb|\unit| para unidades quando aparecerem separadamente.
+
+Expressões matemáticas devem utilizar uma convenção consistente para símbolos, vetores, matrizes, índices e expoentes. Se uma determinada grandeza for representada por um símbolo em uma seção, esse mesmo símbolo deve, sempre que possível, ser mantido no restante do trabalho.
+
+\subsection{Referências internas e referências bibliográficas}
+\label{ssec:referencias_internas_bibliograficas}
+
+É importante distinguir referências internas ao próprio documento de referências bibliográficas.
+
+Uma referência bibliográfica aponta para uma fonte externa registrada em \verb|references.bib|:
+
+\begin{verbatim}
+A física da formação da imagem é discutida em diferentes textos de
+referência.\supercite{bushberg2020}
+\end{verbatim}
+
+Uma referência interna aponta para algum elemento do próprio TCC, como uma figura, tabela, seção ou equação:
+
+\begin{verbatim}
+Como mostrado na \cref{fig:resultado}, ...
+
+De acordo com a \cref{eq:modelo}, ...
+
+A metodologia é descrita na \cref{sec:metodos}.
+\end{verbatim}
+
+Evite escrever manualmente números como `Figura 3'', `Tabela 2'' ou ``Seção 4''. Se a numeração mudar durante a escrita, referências produzidas com \verb|\cref| serão atualizadas automaticamente.
+
+\subsection{Organização do arquivo de referências}
+\label{ssec:organizacao_bib}
+
+Cada entrada em \verb|references.bib| possui uma chave que é utilizada nos comandos de citação. Recomenda-se escolher chaves curtas, previsíveis e suficientemente descritivas, por exemplo:
+
+\begin{verbatim}
+attix1986
+bushberg2020
+iaea_trs398_2024
+aapm_tg142
+\end{verbatim}
+
+Evite chaves genéricas como \verb|ref1|, \verb|artigo2| ou \verb|bibliografia_final|. Chaves baseadas no autor, instituição, nome abreviado do documento e ano facilitam a localização das referências durante a escrita.
+
+Também é recomendável verificar se a mesma referência não foi adicionada mais de uma vez ao arquivo \verb|.bib| com chaves diferentes.
+
+\subsection{Evite correções manuais de diagramação}
+\label{ssec:evitar_formatacao_manual}
+
+Uma das principais vantagens do LaTeX é separar o conteúdo da formatação. Por isso, evite utilizar comandos manuais apenas para empurrar elementos até uma posição visualmente conveniente.
+
+Construções como
+
+\begin{verbatim}
+
+$$
+\\
+\\
+\end{verbatim}
+
+não devem ser utilizadas para criar grandes espaços entre parágrafos. Da mesma forma, comandos como
+
+\begin{verbatim}
+\vspace{2cm}
+\end{verbatim}
+
+não devem ser usados rotineiramente para corrigir a posição de elementos na página.
+
+Se uma figura, tabela, seção ou outro elemento estiver aparecendo em uma posição inadequada de forma recorrente, procure primeiro identificar a causa estrutural do problema. Correções locais excessivas tendem a produzir novos problemas quando o texto é posteriormente alterado.
+
+\subsection{Controle de versões e cópias de segurança}
+\label{ssec:controle_versoes}
+
+Durante a elaboração do TCC, é recomendável manter algum mecanismo de histórico ou cópia de segurança.
+
+No Overleaf, o próprio projeto mantém um histórico de alterações que pode ser utilizado para recuperar versões anteriores.
+
+Em uma instalação local, pode-se utilizar um sistema de controle de versões, como Git, ou ao menos manter cópias de segurança regulares do diretório do projeto.
+
+Evite criar sucessivas cópias do arquivo principal com nomes como
+
+\begin{verbatim}
+tcc_final.tex
+tcc_final2.tex
+tcc_final_corrigido.tex
+tcc_final_agora_vai.tex
+\end{verbatim}
+
+Esse procedimento torna difícil determinar qual arquivo corresponde à versão atual do trabalho. É preferível manter um único conjunto de arquivos-fonte e utilizar um sistema de histórico para registrar as alterações.
+
+\subsection{Antes de considerar uma versão pronta}
+\label{ssec:checagem_rapida}
+
+Antes de enviar uma versão para o orientador ou preparar uma versão final, faça uma inspeção rápida do documento compilado. Verifique, pelo menos, se:
+
+\begin{itemize}
+  \item não existem referências aparecendo como \verb|??|;
+  \item não existem citações indefinidas;
+  \item todas as figuras e tabelas são mencionadas no texto;
+  \item figuras, tabelas e equações estão legíveis;
+  \item não permanecem ocorrências de \verb|\lipsum| ou outros textos
+        utilizados apenas como preenchimento;
+  \item não permanecem comentários como \verb|TODO|, \verb|REVISAR| ou
+        observações destinadas apenas à fase de escrita;
+  \item título, autor, orientador e ano estão atualizados;
+  \item a bibliografia foi gerada corretamente;
+  \item o capítulo de instruções do template foi removido da versão
+        destinada à entrega.
+\end{itemize}
+
+Essa verificação não substitui a revisão do conteúdo científico ou do texto, mas ajuda a evitar que problemas puramente técnicos apareçam em uma versão que já deveria estar pronta para leitura.
+
+\section{Enfim, o fim.}
+
+É isto. Contei com uma ajudinha do ChatGPT pra montar este manual, espero que ele ajude. Já falei mas não custa repetir: se precisar tirar dúvidas\footnote{ou só me mandar à merda por ter inventado um treco tão complicado}, pode vir falar comigo! =)
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-master: "../main"
+%%% End:

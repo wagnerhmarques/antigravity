@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Placas e POP de Sinalização — IFUSP</title>
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- jsPDF & html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    :root {
+      --if-blue-dark: #003366;
+      --if-blue-header: #0a2540;
+      --if-blue-accent: #0284c7;
+      --if-blue-light: #f0f7fc;
+      --if-bg-page: #f8fafc;
+      --if-card-bg: #ffffff;
+      --if-border: #e2e8f0;
+      --if-border-focus: #0284c7;
+      --if-text-main: #1e293b;
+      --if-text-muted: #64748b;
+      --if-text-example: #94a3b8;
+      
+      --sign-magenta: #733D76;
+      --sign-yellow: #FED100;
+      --sign-green: #009E49;
+      --sign-red: #D32F2F;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--if-bg-page);
+      color: var(--if-text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: var(--if-card-bg);
+      border-bottom: 2px solid var(--if-blue-dark);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-box img {
+      height: 42px;
+      width: auto;
+      display: block;
+    }
+
+    .brand-text h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--if-blue-dark);
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 0.78rem;
+      color: var(--if-text-muted);
+    }
+
+    .btn-gerar {
+      background: linear-gradient(135deg, #0284c7 0%, #003366 100%);
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.35);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-gerar:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #002244 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.45);
+    }
+    .btn-gerar:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .app-grid { grid-template-columns: 1fr; }
+    }
+
+    .form-panel {
+      background: var(--if-card-bg);
+      border: 1px solid var(--if-border);
+      border-radius: 8px;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .form-section-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--if-blue-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--if-border);
+      padding-bottom: 0.3rem;
+      margin-top: 0.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--if-text-main);
+    }
+
+    .form-control {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: var(--if-text-main);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--if-border-focus);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .form-control.is-example {
+      color: var(--if-text-example);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .viewer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .tabs-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      background: var(--if-card-bg);
+      border: 1px solid var(--if-border);
+      border-radius: 8px;
+      padding: 0.4rem;
+    }
+
+    .tab-btn {
+      padding: 0.45rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--if-text-muted);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: var(--if-blue-dark);
+      background: var(--if-blue-light);
+    }
+    .tab-btn.active {
+      background: #003366;
+      color: #ffffff;
+    }
+
+    .preview-box {
+      background: #e2e8f0;
+      border: 1px solid var(--if-border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* Placa em tamanho proporcional e nítido */
+    .sign-sheet {
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      border-radius: 4px;
+      box-sizing: border-box;
+      user-select: none;
+      width: 100%;
+      max-width: 720px;
+      aspect-ratio: 1.414 / 1;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sign-sheet.portrait {
+      max-width: 480px;
+      aspect-ratio: 1 / 1.414;
+    }
+
+    .sign-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      border: 2.5px solid #000;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 14px 8px;
+      position: relative;
+    }
+
+    .bg-magenta { background: var(--sign-magenta); }
+    .bg-green { background: var(--sign-green); }
+    .bg-yellow { background: var(--sign-yellow); border: 5px solid var(--sign-magenta); }
+
+    .trifoil-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Rodapé Aperfeiçoado com Imagens e Fontes Proporcionais */
+    .sign-footer {
+      margin-top: auto;
+      background: #ffffff;
+      border-radius: 6px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 3px 10px;
+      gap: 10px;
+      box-sizing: border-box;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .sign-footer-logos {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .sign-footer img.logo-ifusp {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .sign-footer img.logo-seal {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-text {
+      font-size: 8.5px;
+      line-height: 1.25;
+      font-weight: 700;
+      color: #000000;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .footer-text span {
+      font-weight: 500;
+      color: #333333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-box">
+      <img src="logos/brasao_comissao_radioprotecao_ifusp.png" alt="CP-Rad IFUSP" />
+      <div class="brand-text">
+        <h1>Emissão de Placas de Radioproteção (POP)</h1>
+        <p>Comissão de Radioproteção — Instituto de Física da USP</p>
+      </div>
+    </div>
+
+    <button class="btn-gerar" id="btnGerarPlaca" onclick="gerarPlacaPDF()">
+      <span>Gerar Placa</span>
+    </button>
+  </header>
+
+  <main>
+    <div class="app-grid">
+      
+      <!-- Formulário com Preenchimento Dinâmico -->
+      <aside class="form-panel">
+        
+        <div class="form-section-title">1. Identificação da Unidade</div>
+        <div class="form-group">
+          <label>Nome do Laboratório / Grupo:</label>
+          <input type="text" id="iptLab" class="form-control" data-ex="Laboratório de Dosimetria" oninput="updateSignPreview()" />
+        </div>
+        <div class="form-group">
+          <label>Localização / Sala:</label>
+          <input type="text" id="iptRoom" class="form-control" data-ex="Edifício Principal, Sala 102" oninput="updateSignPreview()" />
+        </div>
+
+        <div class="form-section-title">2. Supervisores (SPR)</div>
+        <div class="form-group">
+          <label>Nome do SPR Titular:</label>
+          <input type="text" id="iptSpr" class="form-control" data-ex="Wagner Henrique Marques" oninput="updateSignPreview()" />
+        </div>
+        <div class="form-group">
+          <label>Telefone / Ramal SPR:</label>
+          <input type="text" id="iptSprTel" class="form-control" data-ex="(11) 3091-6900" oninput="updateSignPreview()" />
+        </div>
+
+        <div class="form-group">
+          <label>Nome do SPR Substituto:</label>
+          <input type="text" id="iptSub" class="form-control" data-ex="José Helder Facundo Severo" oninput="updateSignPreview()" />
+        </div>
+        <div class="form-group">
+          <label>Telefone SPR Substituto:</label>
+          <input type="text" id="iptSubTel" class="form-control" data-ex="(11) 3091-6901" oninput="updateSignPreview()" />
+        </div>
+
+        <div class="form-section-title">3. Fontes Radioativas</div>
+        <div class="grid-2">
+          <div class="form-group">
+            <label>Radionuclídeo:</label>
+            <input type="text" id="iptIso" class="form-control" data-ex="Cs-137" oninput="updateSignPreview()" />
+          </div>
+          <div class="form-group">
+            <label>Atividade:</label>
+            <input type="text" id="iptAct" class="form-control" data-ex="37 MBq" oninput="updateSignPreview()" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Data de Referência:</label>
+          <input type="text" id="iptDate" class="form-control" data-ex="09 / 09 / 2026" oninput="updateSignPreview()" />
+        </div>
+
+      </aside>
+
+      <!-- Visualizador das 7 Placas -->
+      <section class="viewer-section">
+        <nav class="tabs-wrapper">
+          <button class="tab-btn active" onclick="setTab(1)">01. Luz Vermelha</button>
+          <button class="tab-btn" onclick="setTab(2)">02. Fonte Radioativa</button>
+          <button class="tab-btn" onclick="setTab(3)">03. Cofre de Fontes</button>
+          <button class="tab-btn" onclick="setTab(4)">04. Raios X</button>
+          <button class="tab-btn" onclick="setTab(5)">05. Área de Trabalho</button>
+          <button class="tab-btn" onclick="setTab(6)">06. Área Livre</button>
+          <button class="tab-btn" onclick="setTab(7)">07. Aviso Gestantes</button>
+        </nav>
+
+        <div class="preview-box">
+          <div id="signPaper" class="sign-sheet">
+            <div id="signContent" style="width: 100%; height: 100%;"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    let currentTab = 1;
+
+    function initExampleInputs() {
+      const inputs = document.querySelectorAll('input[data-ex]');
+      inputs.forEach(ipt => {
+        const exampleVal = "Ex: " + ipt.dataset.ex;
+        ipt.value = exampleVal;
+        ipt.classList.add('is-example');
+
+        ipt.addEventListener('focus', function() {
+          if (this.value === exampleVal) {
+            this.value = '';
+            this.classList.remove('is-example');
+          }
+        });
+
+        ipt.addEventListener('blur', function() {
+          if (this.value.trim() === '') {
+            this.value = exampleVal;
+            this.classList.add('is-example');
+          }
+          updateSignPreview();
+        });
+      });
+    }
+
+    function getVal(id) {
+      const ipt = document.getElementById(id);
+      if (!ipt) return '';
+      const val = ipt.value.trim();
+      const ex = "Ex: " + ipt.dataset.ex;
+      if (val === '' || val === ex) {
+        return ipt.dataset.ex;
+      }
+      return val;
+    }
+
+    function setTab(num) {
+      currentTab = num;
+      document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === num - 1);
+      });
+      updateSignPreview();
+    }
+
+    function getTrifoilSVG(color = '#733D76') {
+      return `
+        <svg viewBox="0 0 200 200" class="trifoil-svg">
+          <circle cx="100" cy="100" r="18" fill="${color}" />
+          <path d="M 100 100 L 178 100 A 78 78 0 0 0 139 32.4 L 115 74 A 30 30 0 0 1 130 100 Z" fill="${color}" />
+          <path d="M 100 100 L 61 32.4 A 78 78 0 0 0 22 100 L 70 100 A 30 30 0 0 1 85 74 Z" fill="${color}" />
+          <path d="M 100 100 L 61 167.6 A 78 78 0 0 0 139 167.6 L 115 126 A 30 30 0 0 1 85 126 Z" fill="${color}" />
+        </svg>
+      `;
+    }
+
+    function updateSignPreview() {
+      const lab = getVal('iptLab');
+      const spr = getVal('iptSpr');
+      const sprTel = getVal('iptSprTel');
+      const sub = getVal('iptSub');
+      const subTel = getVal('iptSubTel');
+      const iso = getVal('iptIso');
+      const act = getVal('iptAct');
+      const date = getVal('iptDate');
+
+      const paper = document.getElementById('signPaper');
+      const content = document.getElementById('signContent');
+
+      const isPortrait = currentTab === 1 || currentTab === 7;
+      paper.className = isPortrait ? 'sign-sheet portrait' : 'sign-sheet';
+
+      const footerHTML = `
+        <div class="sign-footer">
+          <div class="sign-footer-logos">
+            <img src="logos/logo_ifusp.png" class="logo-ifusp" alt="IFUSP" />
+            <img src="logos/brasao_comissao_radioprotecao_ifusp.png" class="logo-seal" alt="CP-Rad" />
+          </div>
+          <div class="footer-text">
+            ELABORADO POR: Comissão de Radioproteção do Instituto de Física – CP-Rad/IFUSP; e<br>
+            <span>${lab} – IFUSP – Universidade de São Paulo</span>
+          </div>
+        </div>
+      `;
+
+      if (currentTab === 1) {
+        // Placa 01: Luz Vermelha (Amarelo bem ajustado ao texto)
+        content.innerHTML = `
+          <div style="display: flex; flex-direction: column; justify-content: space-around; height: 100%; padding: 6px 0;">
+            
+            <!-- Card 1 -->
+            <div style="background: #FED100; border: 4.5px solid #733D76; border-radius: 12px; padding: 14px 16px 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+              <div style="font-size: 16px; font-weight: 900; line-height: 1.35; color: #000000; text-align: center; margin-bottom: 12px;">
+                QUANDO A LUZ VERMELHA<br>ESTIVER ACESA, A ENTRADA É<br>PROIBIDA.
+              </div>
+              <div style="width: 100%;">
+                ${footerHTML}
+              </div>
+            </div>
+
+            <!-- Linha de Corte Centralizada -->
+            <div style="text-align: center; color: #64748b; font-size: 11px; font-weight: bold; margin: 4px 0;">
+              ✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            </div>
+
+            <!-- Card 2 -->
+            <div style="background: #FED100; border: 4.5px solid #733D76; border-radius: 12px; padding: 14px 16px 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+              <div style="font-size: 16px; font-weight: 900; line-height: 1.35; color: #000000; text-align: center; margin-bottom: 12px;">
+                QUANDO A LUZ VERMELHA<br>ESTIVER ACESA, A ENTRADA É<br>PROIBIDA.
+              </div>
+              <div style="width: 100%;">
+                ${footerHTML}
+              </div>
+            </div>
+
+          </div>
+        `;
+      }
+      else if (currentTab === 2) {
+        // Placa 02: Fonte Radioativa
+        content.innerHTML = `
+          <div class="sign-inner bg-magenta">
+            <div style="display: flex; gap: 16px; flex: 1; align-items: center;">
+              <!-- Círculo Amarelo com Trifólio -->
+              <div style="width: 210px; height: 210px; background: #FED100; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 20px; flex-shrink: 0;">
+                ${getTrifoilSVG('#733D76')}
+              </div>
+              
+              <!-- Conteúdo da Direita -->
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                <div style="font-size: 24px; font-weight: 900; color: #FED100; text-align: center; letter-spacing: 0.05em;">ATENÇÃO</div>
+                
+                <!-- Caixa de Alerta Amarela -->
+                <div style="background: #FED100; border: 1.5px solid #000; border-radius: 10px; padding: 8px 12px; text-align: center; font-size: 14px; font-weight: 900; color: #000; line-height: 1.3; display: flex; align-items: center; justify-content: center;">
+                  NÃO MOVIMENTE OU<br>UTILIZE ESTA FONTE<br>SEM AUTORIZAÇÃO
+                </div>
+                
+                <!-- Caixa Branca de Dados -->
+                <div style="background: #ffffff; border-radius: 10px; padding: 8px 12px; font-size: 11.5px; font-weight: bold; color: #000; line-height: 1.5; text-align: center; display: flex; flex-direction: column; justify-content: center;">
+                  <div>Radionuclídeo: <span style="text-decoration: underline; color: #003366;">${iso}</span></div>
+                  <div>Atividade: <span style="text-decoration: underline; color: #003366;">${act}</span></div>
+                  <div>em <span style="text-decoration: underline;">${date}</span>, <i>de uso em ensino e pesquisa</i></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seção de Emergência -->
+            <div style="margin-top: 6px; margin-bottom: 6px;">
+              <div style="text-align: center; font-size: 11.5px; font-weight: 900; color: #FED100; margin-bottom: 3px; letter-spacing: 0.02em;">EM CASO DE EMERGÊNCIA CHAMAR:</div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; margin-bottom: 3px; display: flex; justify-content: space-between; align-items: center;">
+                <strong style="text-align: center; flex: 1;"><i>SPR:</i> <span style="color: #003366;">${spr}</span> &nbsp;|&nbsp; Tel: <span>${sprTel}</span></strong>
+              </div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <strong style="text-align: center; flex: 1;"><i>SPRsubstituto:</i> <span style="color: #003366;">${sub}</span> &nbsp;|&nbsp; Tel: <span>${subTel}</span></strong>
+              </div>
+            </div>
+
+            ${footerHTML}
+          </div>
+        `;
+      }
+      else if (currentTab === 3) {
+        // Placa 03: Cofre de Fontes
+        content.innerHTML = `
+          <div class="sign-inner bg-magenta">
+            <div style="display: flex; gap: 16px; flex: 1; align-items: center;">
+              <div style="width: 210px; height: 210px; background: #FED100; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 20px; flex-shrink: 0;">
+                ${getTrifoilSVG('#733D76')}
+              </div>
+              
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+                <div style="font-size: 24px; font-weight: 900; color: #FED100; text-align: center; letter-spacing: 0.05em;">ATENÇÃO</div>
+                
+                <div style="background: #FED100; border: 1.5px solid #000; border-radius: 10px; padding: 10px 12px; text-align: center; font-size: 14px; font-weight: 900; color: #000; line-height: 1.3; display: flex; align-items: center; justify-content: center;">
+                  NÃO RETIRE FONTES<br>DESTE COFRE SEM<br>AUTORIZAÇÃO
+                </div>
+                
+                <div style="background: #ffffff; border-radius: 10px; padding: 14px 12px; text-align: center; font-size: 13px; font-weight: bold; color: #000; line-height: 1.4; display: flex; flex-direction: column; justify-content: center;">
+                  Radionuclídeos de<br>uso exclusivo em<br><strong><i>ENSINO e PESQUISA</i></strong>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 6px; margin-bottom: 6px;">
+              <div style="text-align: center; font-size: 11.5px; font-weight: 900; color: #FED100; margin-bottom: 3px;">EM CASO DE EMERGÊNCIA CHAMAR:</div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; margin-bottom: 3px; display: flex; justify-content: center; align-items: center;">
+                <strong><i>SPR:</i> <span style="color: #003366;">${spr}</span> &nbsp;|&nbsp; Tel: <span>${sprTel}</span></strong>
+              </div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; display: flex; justify-content: center; align-items: center;">
+                <strong><i>SPRsubstituto:</i> <span style="color: #003366;">${sub}</span> &nbsp;|&nbsp; Tel: <span>${subTel}</span></strong>
+              </div>
+            </div>
+
+            ${footerHTML}
+          </div>
+        `;
+      }
+      else if (currentTab === 4) {
+        // Placa 04: Raios X
+        content.innerHTML = `
+          <div class="sign-inner bg-magenta">
+            <div style="display: flex; gap: 16px; flex: 1; align-items: center;">
+              <div style="width: 210px; height: 210px; background: #FED100; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 20px; flex-shrink: 0;">
+                ${getTrifoilSVG('#733D76')}
+              </div>
+              
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px;">
+                <div style="font-size: 24px; font-weight: 900; color: #FED100; text-align: center; letter-spacing: 0.05em;">ATENÇÃO</div>
+                
+                <div style="background: #FED100; border: 1.5px solid #000; border-radius: 10px; padding: 8px 10px; text-align: center; font-size: 12.5px; font-weight: 900; color: #000; line-height: 1.3; display: flex; align-items: center; justify-content: center;">
+                  ESTE EQUIPAMENTO<br>PRODUZ RADIAÇÃO<br>IONIZANTE QUANDO<br>ACIONADO
+                </div>
+                
+                <div style="background: #ffffff; border-radius: 10px; padding: 10px 12px; text-align: center; font-size: 12.5px; font-weight: bold; color: #000; line-height: 1.4; display: flex; flex-direction: column; justify-content: center;">
+                  Equipamento de raios X,<br>da prática de<br><strong><i>ENSINO e PESQUISA</i></strong>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 6px; margin-bottom: 6px;">
+              <div style="text-align: center; font-size: 11.5px; font-weight: 900; color: #FED100; margin-bottom: 3px;">EM CASO DE EMERGÊNCIA CHAMAR:</div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; margin-bottom: 3px; display: flex; justify-content: center; align-items: center;">
+                <strong><i>SPR:</i> <span style="color: #003366;">${spr}</span> &nbsp;|&nbsp; Tel: <span>${sprTel}</span></strong>
+              </div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; display: flex; justify-content: center; align-items: center;">
+                <strong><i>SPRsubstituto:</i> <span style="color: #003366;">${sub}</span> &nbsp;|&nbsp; Tel: <span>${subTel}</span></strong>
+              </div>
+            </div>
+
+            ${footerHTML}
+          </div>
+        `;
+      }
+      else if (currentTab === 5) {
+        // Placa 05: Regras de Área
+        content.innerHTML = `
+          <div class="sign-inner bg-magenta">
+            <div style="display: flex; gap: 16px; flex: 1; align-items: center;">
+              <div style="width: 210px; height: 210px; background: #FED100; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 20px; flex-shrink: 0;">
+                ${getTrifoilSVG('#733D76')}
+              </div>
+              
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+                <div style="font-size: 24px; font-weight: 900; color: #FED100; text-align: center; letter-spacing: 0.05em;">ATENÇÃO</div>
+                
+                <div style="background: #FED100; border: 1.5px solid #000; border-radius: 10px; padding: 10px 12px; text-align: center; font-size: 14px; font-weight: 900; color: #000; line-height: 1.3; display: flex; align-items: center; justify-content: center;">
+                  ÁREA DE TRABALHO<br>COM FONTES<br>RADIOATIVAS
+                </div>
+                
+                <div style="background: #ffffff; border-radius: 10px; padding: 12px 14px; text-align: center; font-size: 12px; font-weight: bold; color: #000; line-height: 1.4; display: flex; align-items: center; justify-content: center;">
+                  Não é permitido comer, beber,<br>fumar, mascar chiclete ou<br>aplicar maquiagem neste local
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 6px; margin-bottom: 6px;">
+              <div style="text-align: center; font-size: 11.5px; font-weight: 900; color: #FED100; margin-bottom: 3px;">EM CASO DE EMERGÊNCIA CHAMAR:</div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; margin-bottom: 3px; display: flex; justify-content: center; align-items: center;">
+                <strong><i>SPR:</i> <span style="color: #003366;">${spr}</span> &nbsp;|&nbsp; Tel: <span>${sprTel}</span></strong>
+              </div>
+              <div style="background: #ffffff; border-radius: 16px; padding: 3px 14px; font-size: 10px; display: flex; justify-content: center; align-items: center;">
+                <strong><i>SPRsubstituto:</i> <span style="color: #003366;">${sub}</span> &nbsp;|&nbsp; Tel: <span>${subTel}</span></strong>
+              </div>
+            </div>
+
+            ${footerHTML}
+          </div>
+        `;
+      }
+      else if (currentTab === 6) {
+        // Placa 06: Área Livre (Green)
+        content.innerHTML = `
+          <div class="sign-inner bg-green">
+            <div style="display: flex; gap: 16px; flex: 1; align-items: center;">
+              <!-- Quadrado Branco com Trifólio Barrado -->
+              <div style="width: 230px; height: 240px; background: #ffffff; border: 2.5px solid #000; border-radius: 12px; position: relative; display: flex; align-items: center; justify-content: center; padding: 20px; flex-shrink: 0;">
+                ${getTrifoilSVG('#000000')}
+                <div style="position: absolute; width: 165px; height: 165px; border: 16px solid #D32F2F; border-radius: 50%; box-sizing: border-box;"></div>
+                <div style="position: absolute; width: 150px; height: 16px; background: #D32F2F; transform: rotate(-45deg);"></div>
+              </div>
+              
+              <!-- Textos Centralizados -->
+              <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 12px;">
+                <div style="font-size: 24px; font-weight: 900; color: #000000; text-align: center; letter-spacing: 0.05em;">ATENÇÃO</div>
+                
+                <div style="background: #ffffff; border: 2px solid #000; border-radius: 10px; padding: 10px 14px; text-align: center; font-size: 20px; font-weight: 900; color: #000000; display: flex; align-items: center; justify-content: center;">
+                  ÁREA LIVRE
+                </div>
+                
+                <div style="background: #ffffff; border-radius: 10px; padding: 16px 14px; text-align: center; font-size: 15px; font-weight: 900; color: #000000; line-height: 1.4; display: flex; align-items: center; justify-content: center;">
+                  Não é permitido<br>manipular fontes de<br>radiação nesta sala
+                </div>
+              </div>
+            </div>
+            ${footerHTML}
+          </div>
+        `;
+      }
+      else if (currentTab === 7) {
+        // Placa 07: Gestantes (Portrait)
+        content.innerHTML = `
+          <div class="sign-inner bg-yellow" style="text-align: center; justify-content: space-between;">
+            <div>
+              <div style="font-size: 22px; font-weight: 900; color: #000000; margin-top: 8px; letter-spacing: 0.05em;">AVISO</div>
+              <div style="font-size: 15px; font-weight: 800; color: #000000; margin-top: 6px; line-height: 1.3;">
+                Mulheres grávidas ou com<br>suspeita de gravidez:
+              </div>
+            </div>
+
+            <div style="background: #ffffff; border: 1.5px solid #000; border-radius: 12px; width: 230px; height: 280px; margin: 0 auto; display: flex; align-items: center; justify-content: center; padding: 12px;">
+              <img src="logos/pictograma_gestante_clean.png" alt="Gestante" style="max-height: 250px; width: auto;" />
+            </div>
+
+            <div>
+              <div style="font-size: 15px; font-weight: 800; color: #000000; line-height: 1.3; margin-bottom: 4px;">
+                Comunique o responsável<br>pelo laboratório
+              </div>
+            </div>
+
+            ${footerHTML}
+          </div>
+        `;
+      }
+    }
+
+    async function gerarPlacaPDF() {
+      const btn = document.getElementById('btnGerarPlaca');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span>Gerando PDF...</span>';
+      btn.disabled = true;
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const lab = getVal('iptLab');
+        const element = document.getElementById('signPaper');
+        const isPortrait = currentTab === 1 || currentTab === 7;
+
+        const canvas = await html2canvas(element, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: '#ffffff'
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF({
+          orientation: isPortrait ? 'portrait' : 'landscape',
+          unit: 'mm',
+          format: 'a4'
+        });
+
+        const pdfWidth = isPortrait ? 210 : 297;
+        const pdfHeight = isPortrait ? 297 : 210;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`Placa_${currentTab}_${lab.replace(/\\s+/g, '_')}_IFUSP.pdf`);
+
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao gerar a placa. Tente novamente.');
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    initExampleInputs();
+    updateSignPreview();
+  </script>
+</body>
+</html>

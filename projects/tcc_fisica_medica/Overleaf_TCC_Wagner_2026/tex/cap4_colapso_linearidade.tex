@@ -1,0 +1,93 @@
+\chapter{O Colapso da Linearidade, Algoritmos DLR e Simuladores Híbridos}
+\label{chap:colapso_linearidade}
+
+\section{Taxonomia e Comparativo Físico dos Algoritmos de Reconstrução}
+\label{sec:taxonomia_dlr}
+
+A evolução algorítmica da tomografia computadorizada compreende quatro gerações principais de processamento numérico de sinogramas.
+
+A \cref{tab:taxonomia_algoritmos} detalha os algoritmos comerciais implementados pelos quatro principais fabricantes globais de tomógrafos.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \caption{Taxonomia dos algoritmos comerciais de reconstrução tomográfica por fabricante.}
+  \label{tab:taxonomia_algoritmos}
+  \begin{tabularx}{\textwidth}{lXXX}
+    \toprule
+    \textbf{Fabricante} & \textbf{Reconstrução Iterativa Híbrida (HIR)} & \textbf{Reconstrução Iterativa Baseada em Modelos (MBIR)} & \textbf{Reconstrução por Aprendizado Profundo (DLR)} \\
+    \midrule
+    \textbf{GE Healthcare} & ASiR / ASiR-V & Veo & \textbf{TrueFidelity} (treinado com FBP de dose plena) \\
+    \textbf{Canon Medical} & AIDR 3D / AIDR 3D Enhanced & FIRST & \textbf{AiCE} (\emph{Advanced intelligent Clear-IQ Engine}) \\
+    \textbf{Siemens Healthineers} & SAFIRE / ADMIRE & REDUCE & \textbf{Precise Image} / \textbf{Alpha Engine} (PCCT) \\
+    \textbf{Philips Healthcare} & iDose4 & IMR (\emph{Iterative Model Reconstruction}) & \textbf{Precise Image} (redes convolucionais profundas) \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Filosofia GE Healthcare: TrueFidelity e Mapeamento Direto de FBP}
+A rede neural profunda do TrueFidelity (GE Healthcare) foi concebida sob uma filosofia de preservação textural estrita. Seu treinamento supervisionado utilizou como alvo (\emph{ground truth}) imagens reconstruídas por FBP adquiridas em dose plena (alta contagem de fótons). Dessa forma, a rede aprende a remover o ruído quântico de exames de baixa dose sem alterar o formato de rampa do $NPS(f)$, preservando a granularidade visual clássica apreciada por radiologistas experientes.
+
+\subsection{Filosofia Canon Medical: AiCE e Treinamento Ancorado em MBIR}
+O algoritmo AiCE (\emph{Advanced intelligent Clear-IQ Engine}, Canon Medical) adota como alvo de treinamento imagens reconstruídas por MBIR de altíssima qualidade (algoritmo FIRST). Como o MBIR modela a óptica real do feixe e a física do ponto focal, a rede aprende a recuperar frequências espaciais elevadas em bordas ($TTF$ elevada) e atua com forte supressão de ruído em tecidos moles, exigindo calibração criteriosa para evitar a suavização excessiva de microestruturas.
+
+\subsection{Filosofia Siemens Healthineers: Precise Image e Alpha Engine}
+A Siemens Healthineers desenvolveu redes neurais que atuam de forma combinada no domínio de projeções brutas e no espaço da imagem. Em sistemas PCCT, o algoritmo \emph{Alpha Engine} processa múltiplos sinogramas espectrais simultaneamente, aplicando regularização adaptativa de gradientes que mantém a resolução espacial mesmo em níveis ultrabaixos de dose ($\text{CTDI}_{\text{vol}} < 1{,}0\text{ mGy}$).
+
+\subsection{Filosofia Philips Healthcare: Precise Image em Espaço Híbrido}
+O sistema Precise Image da Philips utiliza redes convolucionais profundas em múltiplas escalas com camadas residuais, processando dados iterativamente entre o espaço de sinogramas e o domínio espacial para eliminar artefatos de feixe endurecido e espalhamento com baixo custo computacional.
+
+\section{A Quebra da Linearidade, Não-Estacionariedade e o Efeito Ceroso}
+\label{sec:quebra_linearidade}
+
+Em sistemas tomográficos que utilizam reconstruções por aprendizado profundo (DLR) e MBIR, a relação matemática entre as projeções brutas $\mathbf{y}$ e a imagem final $\mathbf{x}$ é estritamente não linear \cite{greffier2026, debbiche2024}:
+\begin{equation}
+  \mathbf{x} = \mathcal{R}_{\text{DLR}}(\mathbf{y}) \ne \mathbf{A}^\dagger \mathbf{y}
+  \label{eq:nao_linear_dlr}
+\end{equation}
+
+Essa não-linearidade acarreta fenômenos físicos complexos, evidenciados na \cref{fig:dlr_non_linear}:
+\begin{enumerate}
+  \item \textbf{Dependência do Contraste e da Cena:} A resolução espacial da imagem deixa de ser constante, variando dinamicamente de acordo com o contraste do objeto e o nível de ruído local;
+  \item \textbf{Não-Estacionariedade Espacial:} O ruído da imagem não possui propriedades estatísticas homogêneas. Em torno de bordas de alto contraste, o algoritmo preserva frequências espaciais elevadas, enquanto em regiões homogêneas de tecidos moles atua com agressiva remoção de ruído;
+  \item \textbf{Efeito Ceroso (\emph{Plastic/Waxy Look}):} A excessiva concentração de energia do ruído em frequências baixas gera uma textura artificialmente lisa, que mascara lesões sutis de baixo contraste e reduz a sensibilidade de radiologistas \cite{toia2023, greffier2026};
+  \item \textbf{Colapso dos Modelos Lineares Tradicionais:} O modelo analítico linear NPWE falha em prever a acurácia diagnóstica real sob reconstruções DLR, apresentando dispersão acentuada e baixa correlação ($r \approx 0{,}68$, Painel B da \cref{fig:dlr_non_linear}).
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figuras/fig4_dlr_non_linearity_detrending.png}
+  \caption{Impacto da Não-Linearidade em DLR, Colapso de Modelos Analíticos Lineares e Metodologia de Detrending. (A) Detectabilidade $d'$ em função do nível de dose $\text{CTDI}_{\text{vol}}$ para FBP, HIR e DLR. (B) Dispersão e quebra de correlação linear do modelo NPWE ($r = 0{,}68$) versus a alta correlação do modelo DLMO ancorado na percepção de radiologistas ($r = 0{,}98$). (C) Processo de Detrending Polinomial 2D: remoção do gradiente anatômico macroscópico $P_2(x, y)$ para isolamento do ruído quântico puro $\delta I(x, y)$.}
+  \label{fig:dlr_non_linear}
+\end{figure}
+
+\section{A Transição dos Simuladores: De Cilindros Homogêneos a Phantoms Antropomórficos Híbridos}
+\label{sec:phantoms_hibridos}
+
+Simuladores físicos homogêneos de acrílico ou água (como o \emph{phantom} Catphan\textregistered) foram desenvolvidos para a calibração de sistemas FBP lineares. Quando submetidos a algoritmos DLR (que foram treinados predominantemente com anatomias humanas reais), esses simuladores produzem padrões atípicos fora da distribuição de treinamento, invalidando as medições metrológicas \cite{solomon2020, racine2020}.
+
+Para restabelecer o rigor da avaliação física, a física médica adotou a metodologia dos \emph{Phantoms} Antropomórficos Híbridos (\cref{fig:phantom_flow}).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/flow4_phantom_hibrido_2afc.png}
+  \caption{Metodologia Experimental com Phantoms Físicos Antropomórficos, Inserção Híbrida de Lesões 3D e Plataforma Psicofísica 2AFC.}
+  \label{fig:phantom_flow}
+\end{figure}
+
+Essa abordagem utiliza simuladores físicos de alta fidelidade tecidual (como o \emph{phantom} FREDDIE) confeccionados por impressão 3D multimaterial para aquisição de fundos anatômicos reais ($H_0$), sobre os quais são inseridos computacionalmente modelos tridimensionais de lesões convolvidas com a PSF tridimensional do tomógrafo ($H_1$). Isso possibilita a geração de milhares de imagens com verdade de campo exata para treinamento de redes e testes psicofísicos humanos.
+
+\section{Tratamento de Ruído em Anatomias Complexas: Detrending Polinomial 2D e Incerteza Bootstrap}
+\label{sec:detrending}
+
+Para calcular o espectro de ruído ($NPS$) no parênquima pulmonar ou no abdome de um \emph{phantom} antropomórfico, é necessário remover as variações anatômicas macroscópicas de densidade através da técnica de \emph{Detrending} Polinomial 2D (Painel C da \cref{fig:dlr_non_linear}):
+
+Para cada sub-região de interesse $I_k(x, y)$, ajusta-se uma superfície polinomial bidimensional de 2ª ordem $P_2(x, y)$ por mínimos quadrados:
+\begin{equation}
+  P_2(x, y) = a_0 + a_1 x + a_2 y + a_3 x^2 + a_4 y^2 + a_5 xy
+  \label{eq:polinomio_2d}
+\end{equation}
+
+A matriz de ruído puro residual $\delta I_k(x, y) = I_k(x, y) - P_2(x, y)$ é então submetida a janelamento de Hanning 2D para cálculo do $NPS$ sem vazamento espectral.
+
+Para estimar o erro padrão e os intervalos de confiança de 95\% do índice $d'$ sem impor premissas gaussianas arbitrárias, aplica-se a técnica estatística de reamostragem Bootstrap não-paramétrica com $B = 2000$ replicações com reposição.

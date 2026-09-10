@@ -1,0 +1,383 @@
+\documentclass[
+  12pt,
+  a4paper,
+  oneside
+]{report}
+
+% Configuração de codificação e idioma (Universal: funciona com pdflatex, xelatex e lualatex)
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+
+% Geometria da página segundo normas ABNT/USP
+\usepackage[
+  a4paper,
+  top=3cm,
+  bottom=2cm,
+  left=3cm,
+  right=2cm
+]{geometry}
+
+% Pacotes matemáticos essenciais
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{bm}
+
+% Tipografia e Espaçamento
+\usepackage{lmodern}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{microtype}
+\usepackage{indentfirst}
+\setlength{\parindent}{1.5cm}
+
+% Figuras, Gráficos e Tabelas
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+
+% Links e Referências Cruzadas
+\usepackage[
+  colorlinks=true,
+  linkcolor=blue!70!black,
+  citecolor=blue!70!black,
+  urlcolor=blue!70!black
+]{hyperref}
+\usepackage[nameinlink,noabbrev,brazilian]{cleveref}
+
+% Formatação dos Títulos de Capítulos
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]
+  {\normalfont\Large\bfseries}
+  {\thechapter}
+  {1em}
+  {\MakeUppercase}
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}
+  {1em}
+  {}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection}
+  {1em}
+  {}
+
+% Cabeçalhos e Rodapés
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% Informações Institucionais e do Trabalho
+\newcommand{\tccuniversidade}{UNIVERSIDADE DE SÃO PAULO}
+\newcommand{\tccinstituto}{INSTITUTO DE FÍSICA}
+\newcommand{\tccdepartamento}{DEPARTAMENTO DE FÍSICA NUCLEAR}
+\newcommand{\tcccurso}{CURSO DE BACHARELADO EM FÍSICA COM HABILITAÇÃO EM FÍSICA MÉDICA}
+\newcommand{\tccautor}{WAGNER H. M.}
+\newcommand{\tcctitulo}{MODELOS PERCEPTIVOS NA AVALIAÇÃO DA QUALIDADE DE IMAGEM EM TOMOGRAFIA COMPUTADORIZADA: DA TEORIA CLÁSSICA DE DETECÇÃO DE SINAIS AOS MODELOS DE APRENDIZADO PROFUNDO E OTIMIZAÇÃO MULTIOBJETIVO}
+\newcommand{\tccorientador}{Prof. Dr. Paulo Roberto Costa}
+\newcommand{\tccarea}{Física Médica e Radiológica}
+\newcommand{\tcccidade}{SÃO PAULO}
+\newcommand{\tccano}{2026}
+
+\begin{document}
+
+% ==============================================================================
+% ELEMENTOS PRÉ-TEXTUAIS
+% ==============================================================================
+\pagestyle{empty}
+
+% 1. CAPA
+\begin{center}
+  {\bfseries\large \tccuniversidade \par}
+  {\bfseries\large \tccinstituto \par}
+  {\bfseries\large \tccdepartamento \par}
+  {\bfseries\normalsize \tcccurso \par}
+
+  \vspace{3.5cm}
+
+  {\bfseries\Large \tccautor \par}
+
+  \vspace{3.5cm}
+
+  {\bfseries\large \tcctitulo \par}
+
+  \vfill
+
+  {\bfseries\large \tcccidade \par}
+  {\bfseries\large \tccano \par}
+\end{center}
+\clearpage
+
+% 2. FOLHA DE ROSTO
+\begin{center}
+  {\bfseries\Large \tccautor \par}
+
+  \vspace{3.5cm}
+
+  {\bfseries\large \tcctitulo \par}
+
+  \vspace{2.5cm}
+
+  \begin{flushright}
+    \begin{minipage}{0.55\textwidth}
+      \small
+      Monografia de Conclusão de Curso apresentada ao Instituto de Física da Universidade de São Paulo, como parte dos requisitos necessários para a obtenção do título de Bacharel em Física com Habilitação em Física Médica.
+      
+      \vspace{0.5cm}
+      \textbf{Orientador:} \tccorientador\\
+      \textbf{Área de Concentração:} \tccarea
+    \end{minipage}
+  \end{flushright}
+
+  \vfill
+
+  {\bfseries\large \tcccidade \par}
+  {\bfseries\large \tccano \par}
+\end{center}
+\clearpage
+
+% 3. FOLHA DE APROVAÇÃO
+\begin{center}
+  {\bfseries\Large FOLHA DE APROVAÇÃO \par}
+  
+  \vspace{1.5cm}
+  
+  {\bfseries\large \tccautor \par}
+  
+  \vspace{0.8cm}
+  
+  {\bfseries \tcctitulo \par}
+
+  \vspace{1.5cm}
+
+  \begin{flushright}
+    \begin{minipage}{0.55\textwidth}
+      \small
+      Monografia de Conclusão de Curso defendida e aprovada em \underline{\hspace{1cm}} de \underline{\hspace{3.5cm}} de \tccano{} pela banca examinadora constituída pelos seguintes membros:
+    \end{minipage}
+  \end{flushright}
+
+  \vspace{1.8cm}
+
+  \rule{0.85\textwidth}{0.5pt}\\
+  \textbf{\tccorientador{} (Orientador / Presidente)}\\
+  Instituto de Física da Universidade de São Paulo -- IFUSP
+
+  \vspace{1.2cm}
+
+  \rule{0.85\textwidth}{0.5pt}\\
+  \textbf{Membro da Banca Examinadora 1}\\
+  Instituto de Radiologia do Hospital das Clínicas -- InRad-HCFMUSP
+
+  \vspace{1.2cm}
+
+  \rule{0.85\textwidth}{0.5pt}\\
+  \textbf{Membro da Banca Examinadora 2}\\
+  Instituto de Física da Universidade de São Paulo -- IFUSP
+\end{center}
+\clearpage
+
+% 4. RESUMO
+\chapter*{Resumo}
+\addcontentsline{toc}{chapter}{Resumo}
+
+A Tomografia Computadorizada (TC) desempenha papel indispensável na medicina diagnóstica moderna, operando sob o permanente compromisso físico entre a minimização da dose de radiação ionizante e a preservação do desempenho diagnóstico (princípio ALARA). Historicamente, a metrologia e a garantia da qualidade em TC apoiaram-se em grandezas físicas escalares e lineares, como a Relação Sinal-Ruído (SNR), a Relação Contraste-Ruído (CNR) e a Função de Transferência de Modulação (MTF), avaliadas em simuladores geométricos homogêneos. No entanto, a incorporação clínica de algoritmos avançados não lineares --- com destaque para as reconstruções iterativas estatísticas e, fundamentalmente, as reconstruções baseadas em aprendizado profundo (\emph{Deep Learning Image Reconstruction} --- DLR) --- quebrou as premissas de linearidade e invariância translacional do sistema formador de imagens. Sob processamentos não lineares, o ruído tomográfico tornou-se espacialmente heterogêneo, dependente da dose, do contraste e da geometria local da cena, induzindo alterações texturais perceptuais (como a textura cerosa ou \emph{plastic/waxy look}) que não são capturadas pelas métricas clássicas. Para superar essa limitação, a física médica consolidou o paradigma da Qualidade de Imagem Baseada em Tarefa (\emph{Task-Based Image Quality} --- TBIQ), ancorado na Teoria de Detecção de Sinais (\emph{Signal Detection Theory} --- SDT), no qual a qualidade da imagem é formalmente definida pelo desempenho de um observador (humano ou computacional) na execução de uma tarefa diagnóstica clínica específica, quantificada pelo Índice de Detectabilidade ($d'$). Este trabalho apresenta uma investigação exaustiva e estruturada da evolução dos observadores de modelo (\emph{model observers}). Analisa-se a transição histórica do Observador Ideal Bayesiano para os modelos lineares antropomórficos com filtro ocular (NPWE) e canais corticais de frequência (CHO), demonstrando suas deduções matemáticas contínuas no domínio de Fourier e evidenciando os limites biofísicos que causam seu colapso sob reconstruções DLR e fundos anatômicos complexos. Em resposta, investiga-se a fronteira científica representada pelos Observadores Baseados em Aprendizado Profundo (\emph{Deep Learning Model Observers} --- DLMO), baseados em arquiteturas \emph{Vision Transformers} (ViT) com mecanismos de auto-atenção multi-cabeça, calibrados diretamente contra leituras psicofísicas de radiologistas em experimentos de Escolha Forçada entre Duas Alternativas (2AFC) sob análise estatística \emph{Multi-Reader Multi-Case} (MRMC). Detalham-se a física dos detectores de contagem de fótons (PCCT), a síntese de Imagens Monoenergéticas Virtuais ($VMI$) e a formulação da Otimização Multiobjetivo através da Fronteira de Pareto Tridimensional $(D, T, -W)$, que integra dose de radiação ($D$), tempo operacional total ($T$) e detectabilidade ($W$). Esta monografia consolida as bases teóricas, biofísicas e metrológicas que sustentam a pesquisa de Doutorado Direto do autor no IFUSP.
+
+\vspace{0.8cm}
+\noindent\textbf{Palavras-chave:} Tomografia Computadorizada. Qualidade de Imagem Baseada em Tarefa. Observadores de Modelo. Índice de Detectabilidade. Reconstrução por Aprendizado Profundo. Vision Transformers. Tomografia por Contagem de Fótons. ANOVA MRMC. Simuladores Antropomórficos. Otimização Multiobjetivo. Fronteira de Pareto.
+\clearpage
+
+% 5. ABSTRACT
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Computed Tomography (CT) plays an indispensable role in modern diagnostic medicine, permanently operating under the physical trade-off between minimizing ionizing radiation dose and preserving diagnostic efficacy (the ALARA principle). Historically, image quality assurance in CT relied on linear scalar metrics, such as Signal-to-Noise Ratio (SNR), Contrast-to-Noise Ratio (CNR), and Modulation Transfer Function (MTF), evaluated on homogeneous geometric phantoms. However, the clinical adoption of advanced non-linear reconstruction algorithms---including iterative reconstructions and Deep Learning Image Reconstruction (DLR)---has broken the foundational assumptions of system linearity and shift-invariance. Under non-linear processing, image noise becomes spatially non-stationary, dose-dependent, and scene-dependent, introducing perceptual texture alterations (such as the ``plastic'' or ``waxy'' appearance) that cannot be properly captured by conventional scalar metrics. To overcome this metrological limitation, medical physics has consolidated the Task-Based Image Quality (TBIQ) paradigm, grounded in Signal Detection Theory (SDT), where image quality is rigorously defined by the performance of an observer (human radiologist or mathematical model) executing a specific clinical task, quantified by the Detectability Index ($d'$). This monograph provides a comprehensive investigation of the evolution of model observers. We analyze the historical transition from the Bayesian Ideal Observer to anthropomorphic linear models incorporating eye filters (NPWE) and cortical frequency channels (CHO), detailing their continuous mathematical derivations in the Fourier domain and demonstrating their breakdown in non-linear DLR regimes and structured anatomical backgrounds. In response, we investigate the state of the art in Deep Learning Model Observers (DLMO), which leverage self-attention neural architectures (Vision Transformers) calibrated against expert radiologists' psychophysical performance in Two-Alternative Forced Choice (2AFC) paradigms under Multi-Reader Multi-Case (MRMC) statistical modeling. Furthermore, we explore the physics of Photon-Counting CT (PCCT), the synthesis of Virtual Monoenergetic Images (VMI), and the formulation of Multi-Objective Optimization via the Three-Dimensional Pareto Frontier $(D, T, -W)$, which integrates radiation dose ($D$), operational time ($T$), and diagnostic detectability ($W$). This study establishes the theoretical, computational, and physical foundation required for next-generation CT metrology, directly supporting the author's Direct Doctorate research at IFUSP.
+
+\vspace{0.8cm}
+\noindent\textbf{Keywords:} Computed Tomography. Task-Based Image Quality. Model Observers. Detectability Index. Deep Learning Reconstruction. Vision Transformers. Photon-Counting CT. ANOVA MRMC. Anthropomorphic Phantoms. Multi-Objective Optimization. Pareto Frontier.
+\clearpage
+
+% 6. LISTA DE ILUSTRAÇÕES
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures
+\clearpage
+
+% 7. LISTA DE TABELAS
+\pdfbookmark[0]{\listtablename}{lot}
+\listoftables
+\clearpage
+
+% 8. LISTA DE ABREVIATURAS E SIGLAS
+\chapter*{Lista de Abreviaturas e Siglas}
+\addcontentsline{toc}{chapter}{Lista de Abreviaturas e Siglas}
+
+\begin{longtable}{ll}
+\toprule
+\textbf{Sigla} & \textbf{Significado} \\
+\midrule
+\endhead
+\textbf{2AFC} & \emph{Two-Alternative Forced Choice} (Escolha Forçada entre Duas Alternativas) \\
+\textbf{AAPM} & \emph{American Association of Physicists in Medicine} \\
+\textbf{AEC} & \emph{Automatic Exposure Control} (Controle Automático de Exposição) \\
+\textbf{ALARA} & \emph{As Low As Reasonably Achievable} (Tão Baixo Quanto Razoavelmente Exequível) \\
+\textbf{ANOVA} & \emph{Analysis of Variance} (Análise de Variância) \\
+\textbf{ASiR} & \emph{Adaptive Statistical Iterative Reconstruction} \\
+\textbf{AUC} & \emph{Area Under the ROC Curve} (Área sob a Curva ROC) \\
+\textbf{BKE} & \emph{Background Known Exactly} (Fundo Conhecido Exatamente) \\
+\textbf{BKS} & \emph{Background Known Statistically} (Fundo Conhecido Estatisticamente) \\
+\textbf{CBR} & Colégio Brasileiro de Radiologia e Diagnóstico por Imagem \\
+\textbf{CdTe} & Telureto de Cádmio (semicondutor de conversão direta) \\
+\textbf{CEP} & Comitê de Ética em Pesquisa \\
+\textbf{CHO} & \emph{Channelized Hotelling Observer} (Observador de Hotelling Canalizado) \\
+\textbf{CNR} & \emph{Contrast-to-Noise Ratio} (Relação Contraste-Ruído) \\
+\textbf{CONEP} & Comissão Nacional de Ética em Pesquisa \\
+\textbf{CSF} & \emph{Contrast Sensitivity Function} (Função de Sensibilidade ao Contraste) \\
+\textbf{CTDI} & \emph{Computed Tomography Dose Index} (Índice de Dose em Tomografia Computadorizada) \\
+\textbf{CZT} & Telureto de Cádmio e Zinco \\
+\textbf{D-DOG} & \emph{Dense Difference of Gaussians} (Diferença Densa de Gaussianas) \\
+\textbf{DBM} & Dorfman-Berbaum-Metz (modelo estatístico para MRMC) \\
+\textbf{DLR} & \emph{Deep Learning Image Reconstruction} (Reconstrução por Aprendizado Profundo) \\
+\textbf{DLMO} & \emph{Deep Learning Model Observer} (Observador de Modelo por Aprendizado Profundo) \\
+\textbf{DLP} & \emph{Dose-Length Product} (Produto Dose-Comprimento) \\
+\textbf{DQE} & \emph{Detective Quantum Efficiency} (Eficiência Quântica de Detecção) \\
+\textbf{DRL} & \emph{Diagnostic Reference Level} (Nível de Referência Diagnóstica) \\
+\textbf{EICT} & \emph{Energy-Integrating Computed Tomography} (TC por Integração de Energia) \\
+\textbf{ESF} & \emph{Edge Spread Function} (Função de Resposta ao Degrau) \\
+\textbf{FBP} & \emph{Filtered Backprojection} (Retroprojeção Filtrada) \\
+\textbf{FOV} & \emph{Field of View} (Campo de Visão) \\
+\textbf{GDRFM} & Grupo de Dosimetria e Radioproteção em Física Médica do IFUSP \\
+\textbf{GPU} & \emph{Graphics Processing Unit} (Unidade de Processamento Gráfico) \\
+\textbf{GSDF} & \emph{Grayscale Standard Display Function} (Função de Exibição Padrão em Tons de Cinza) \\
+\textbf{HIR} & \emph{Hybrid Iterative Reconstruction} (Reconstrução Iterativa Híbrida) \\
+\textbf{HO} & \emph{Hotelling Observer} (Observador de Hotelling) \\
+\textbf{HOR} & Hillis-Obuchowski-Rockette (modelo estatístico de ANOVA MRMC) \\
+\textbf{HU} & Unidade Hounsfield (\emph{Hounsfield Unit}) \\
+\textbf{IAEA} & \emph{International Atomic Energy Agency} (Agência Internacional de Energia Atômica) \\
+\textbf{ICC} & \emph{Intraclass Correlation Coefficient} (Coeficiente de Correlação Intraclasse) \\
+\textbf{ICRU} & \emph{International Commission on Radiation Units and Measurements} \\
+\textbf{IFUSP} & Instituto de Física da Universidade de São Paulo \\
+\textbf{InRad} & Instituto de Radiologia do Hospital das Clínicas da FMUSP \\
+\textbf{IO} & \emph{Ideal Observer} (Observador Ideal Bayesiano) \\
+\textbf{LG} & Laguerre-Gauss \\
+\textbf{LOSO} & \emph{Leave-One-Scanner-Out} (Validação Cruzada Omitindo um Tomógrafo) \\
+\textbf{LSF} & \emph{Line Spread Function} (Função de Espalhamento de Linha) \\
+\textbf{MBIR} & \emph{Model-Based Iterative Reconstruction} (Reconstrução Iterativa Baseada em Modelos) \\
+\textbf{MHSA} & \emph{Multi-Head Self-Attention} (Auto-Atenção Multi-Cabeça) \\
+\textbf{MRMC} & \emph{Multi-Reader Multi-Case} (Múltiplos Leitores e Múltiplos Casos) \\
+\textbf{MTF} & \emph{Modulation Transfer Function} (Função de Transferência de Modulação) \\
+\textbf{NPS} & \emph{Noise Power Spectrum} (Espectro de Potência do Ruído) \\
+\textbf{NPW} & \emph{Non-Prewhitening Observer} (Observador Sem Pré-Branqueamento) \\
+\textbf{NPWE} & \emph{Non-Prewhitening Observer with Eye Filter} (NPW com Filtro Ocular) \\
+\textbf{NSGA-II} & \emph{Non-dominated Sorting Genetic Algorithm II} \\
+\textbf{OR} & Obuchowski-Rockette \\
+\textbf{PACS} & \emph{Picture Archiving and Communication System} \\
+\textbf{PCCT} & \emph{Photon-Counting Computed Tomography} (TC por Contagem de Fótons) \\
+\textbf{PSF} & \emph{Point Spread Function} (Função de Resposta ao Ponto) \\
+\textbf{ROC} & \emph{Receiver Operating Characteristic} (Característica de Operação do Receptor) \\
+\textbf{ROI} & \emph{Region of Interest} (Região de Interesse) \\
+\textbf{SDT} & \emph{Signal Detection Theory} (Teoria de Detecção de Sinais) \\
+\textbf{SKE} & \emph{Signal Known Exactly} (Sinal Conhecido Exatamente) \\
+\textbf{SKS} & \emph{Signal Known Statistically} (Sinal Conhecido Estatisticamente) \\
+\textbf{SNR} & \emph{Signal-to-Noise Ratio} (Relação Sinal-Ruído) \\
+\textbf{TBIQ} & \emph{Task-Based Image Quality} (Qualidade de Imagem Baseada em Tarefa) \\
+\textbf{TC} & Tomografia Computadorizada \\
+\textbf{TCLE} & Termo de Consentimento Livre e Esclarecido \\
+\textbf{TG-233} & \emph{Task Group 233} da AAPM \\
+\textbf{TOPSIS} & \emph{Technique for Order Preference by Similarity to Ideal Solution} \\
+\textbf{TTF} & \emph{Task Transfer Function} (Função de Transferência da Tarefa) \\
+\textbf{ViT} & \emph{Vision Transformer} \\
+\textbf{VMI} & \emph{Virtual Monoenergetic Image} (Imagem Monoenergética Virtual) \\
+\textbf{WSS} & \emph{Wide-Sense Stationary} (Estacionário no Sentido Amplo) \\
+\bottomrule
+\end{longtable}
+\clearpage
+
+% 9. LISTA DE SÍMBOLOS
+\chapter*{Lista de Símbolos}
+\addcontentsline{toc}{chapter}{Lista de Símbolos}
+
+\begin{longtable}{ll}
+\toprule
+\textbf{Símbolo} & \textbf{Significado Físico / Unidade} \\
+\midrule
+\endhead
+$\mathbf{g}$ & Vetor de dados de imagem discreta ($\mathbb{R}^N$) \\
+$\mathbf{s}$ & Vetor determinístico do sinal ou lesão ($\mathbb{R}^N$) \\
+$\mathbf{b}$ & Vetor estocástico de ruído e fundo anatômico ($\mathbb{R}^N$) \\
+$t$ & Estatística de teste escalar de decisão \\
+$t_c$ & Limiar de corte para decisão diagnóstica \\
+$d'$ & Índice de detectabilidade (\emph{d-prime}) \\
+$d'_{\text{humano}}$ & Índice de detectabilidade experimental medido em leitores humanos \\
+$d'_{\text{NPWE}}$ & Índice de detectabilidade calculado pelo modelo NPWE \\
+$d'_{\text{CHO}}$ & Índice de detectabilidade calculado pelo modelo CHO \\
+$d'_{\text{DL}}$ & Índice de detectabilidade estimado pelo modelo por aprendizado profundo \\
+$\mathbf{K}$ & Matriz de autocovariância do ruído ($N \times N$, em $\text{HU}^2$) \\
+$\mathbf{K}_{\mathbf{v}}$ & Matriz de autocovariância reduzida no espaço dos canais ($C \times C$) \\
+$\mathbf{w}$ & Vetor de pesos ou template linear de filtragem ($\mathbb{R}^N$) \\
+$\mathbf{T}$ & Matriz de operadores de canais corticais ($C \times N$) \\
+$TTF(f)$ & Função de Transferência da Tarefa na frequência espacial $f$ (adimensional) \\
+$f_{50}$ & Frequência espacial correspondente a 50\% de modulação da TTF ($\text{mm}^{-1}$) \\
+$f_{10}$ & Frequência espacial correspondente a 10\% de modulação da TTF ($\text{mm}^{-1}$) \\
+$NPS(u, v)$ & Espectro de Potência do Ruído bidimensional ($\text{mm}^2$ ou $\text{HU}^2\cdot\text{mm}^2$) \\
+$NPS(f)$ & Espectro de Potência do Ruído radial unidimensional ($\text{HU}^2\cdot\text{mm}^2$) \\
+$f_{\text{peak}}$ & Frequência espacial de máxima amplitude do espectro de ruído ($\text{mm}^{-1}$) \\
+$f_{\text{av}}$ & Frequência espacial média ponderada do espectro de ruído ($\text{mm}^{-1}$) \\
+$E(f)$ & Resposta em frequência do filtro ocular humano / CSF (adimensional) \\
+$W_{\text{task}}(f)$ & Espectro de Fourier da morfologia da tarefa diagnóstica ($\text{HU}\cdot\text{mm}^2$) \\
+$P_C$ & Proporção empírica de acertos no teste 2AFC ($0 \le P_C \le 1$) \\
+$\Phi(x)$ & Função de distribuição cumulativa da variável normal padrão \\
+$\Phi^{-1}(p)$ & Função quantil (inversa da distribuição cumulativa normal padrão) \\
+$\sigma^2$ & Variância estatística do número de CT em uma região homogênea ($\text{HU}^2$) \\
+$\sigma_{\text{int}}^2$ & Variância do ruído neural interno do observador biológico ($\text{HU}^2$) \\
+$D$ & Dose de radiação absorvida / $\text{CTDI}_{\text{vol}}$ ($\text{mGy}$) \\
+$T$ & Tempo operacional total do procedimento ($T = T_{\text{aq}} + T_{\text{rec}}$, em segundos) \\
+$W$ & Desempenho na tarefa diagnóstica ($W = d'$) \\
+$\Omega$ & Espaço viável de parâmetros do protocolo tomográfico \\
+$\Delta C$ & Contraste radiológico central da lesão em relação ao fundo ($\text{HU}$) \\
+$R$ & Raio físico da lesão esférica simulada ($\text{mm}$) \\
+$J_1(x)$ & Função de Bessel ordinária de primeira espécie e ordem 1 \\
+$Q, K, V$ & Matrizes de Consulta (\emph{Query}), Chave (\emph{Key}) e Valor (\emph{Value}) no mecanismo de atenção \\
+$d_k$ & Dimensão dos vetores de projeção no módulo de atenção \\
+$\mathbf{z}_0$ & Sequência de \emph{patch embeddings} lineares com codificação posicional \\
+$\sigma^2_R$ & Componente de variância associada aos leitores humanos na ANOVA MRMC \\
+$\sigma^2_C$ & Componente de variância associada aos casos clínicos na ANOVA MRMC \\
+$\sigma^2_{RC}$ & Componente de variância da interação leitor $\times$ caso na ANOVA MRMC \\
+\bottomrule
+\end{longtable}
+\clearpage
+
+% 10. SUMÁRIO
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents
+\clearpage
+
+% ==============================================================================
+% ELEMENTOS TEXTUAIS (CAPÍTULOS)
+% ==============================================================================
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setcounter{page}{31}
+
+\include{tex/cap1_introducao}
+\include{tex/cap2_fundamentos}
+\include{tex/cap3_observadores}
+\include{tex/cap4_colapso_linearidade}
+\include{tex/cap5_estado_da_arte}
+\include{tex/cap6_arquitetura_metrologia}
+\include{tex/cap7_conclusoes}
+
+% ==============================================================================
+% ELEMENTOS PÓS-TEXTUAIS (REFERÊNCIAS)
+% ==============================================================================
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

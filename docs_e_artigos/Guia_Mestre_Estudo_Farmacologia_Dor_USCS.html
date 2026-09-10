@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Mestre de Estudo: Farmacologia da Dor, AINEs, Corticoides, Opioides e Adjuvantes</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 16mm 14mm 16mm 14mm;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                font-size: 8.5pt;
+                color: #64748b;
+            }
+        }
+        
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.55;
+            color: #1e293b;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cover Header */
+        .cover-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #1e3a8a 80%, #0284c7 100%);
+            color: #ffffff;
+            padding: 26px 30px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+        }
+
+        .cover-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #e0f2fe;
+            font-size: 8.5pt;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .cover-title {
+            font-size: 22pt;
+            font-weight: 900;
+            line-height: 1.2;
+            margin: 0 0 6px 0;
+            color: #ffffff;
+        }
+
+        .cover-subtitle {
+            font-size: 11.5pt;
+            color: #bae6fd;
+            font-weight: 500;
+            margin: 0 0 14px 0;
+        }
+
+        .cover-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 8.5pt;
+            color: #e0f2fe;
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            padding-top: 10px;
+        }
+
+        /* Typography & Hierarchy */
+        h2 {
+            font-size: 13.5pt;
+            font-weight: 800;
+            color: #0f2b5c;
+            border-bottom: 2.5px solid #0284c7;
+            padding-bottom: 5px;
+            margin-top: 26px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 {
+            font-size: 11.5pt;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-top: 16px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+
+        h4 {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #334155;
+            margin-top: 10px;
+            margin-bottom: 4px;
+        }
+
+        p {
+            margin: 0 0 8px 0;
+            text-align: justify;
+        }
+
+        /* Analogies Box */
+        .analogy-box {
+            background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+            border: 1px solid #f0abfc;
+            border-left: 5px solid #c026d3;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 9.5pt;
+            page-break-inside: avoid;
+        }
+
+        .analogy-title {
+            font-weight: 800;
+            color: #86198f;
+            font-size: 10pt;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .badge-blue { background: #e0f2fe; color: #0369a1; }
+        .badge-red { background: #fee2e2; color: #b91c1c; }
+        .badge-amber { background: #fef3c7; color: #b45309; }
+        .badge-green { background: #dcfce7; color: #15803d; }
+        .badge-purple { background: #f3e8ff; color: #7e22ce; }
+        .badge-indigo { background: #e0e7ff; color: #3730a3; }
+
+        /* Callouts */
+        .callout {
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-size: 9.5pt;
+            page-break-inside: avoid;
+        }
+
+        .callout-blue { background-color: #f0f9ff; border-left: 4.5px solid #0284c7; color: #0c4a6e; }
+        .callout-amber { background-color: #fffbeb; border-left: 4.5px solid #f59e0b; color: #78350f; }
+        .callout-red { background-color: #fef2f2; border-left: 4.5px solid #ef4444; color: #7f1d1d; }
+        .callout-green { background-color: #f0fdf4; border-left: 4.5px solid #10b981; color: #064e3b; }
+        .callout-indigo { background-color: #eef2ff; border-left: 4.5px solid #4f46e5; color: #1e1b4b; }
+
+        .callout-title {
+            font-weight: 800;
+            font-size: 10pt;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Clinical Cases */
+        .clinical-case-card {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-top: 4.5px solid #0f2b5c;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 14px 0;
+            page-break-inside: avoid;
+        }
+
+        .clinical-case-header {
+            font-weight: 800;
+            color: #0f2b5c;
+            font-size: 11pt;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 9.5pt;
+            page-break-inside: avoid;
+        }
+
+        th {
+            background-color: #0f2b5c;
+            color: #ffffff;
+            font-weight: 700;
+            text-align: left;
+            padding: 8px 10px;
+            border: 1px solid #0f2b5c;
+        }
+
+        td {
+            padding: 7px 10px;
+            border: 1px solid #cbd5e1;
+            vertical-align: middle;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Grids & Cards */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 10px 0;
+            page-break-inside: avoid;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+            page-break-inside: avoid;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 11px 13px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
+        .card-header {
+            font-weight: 700;
+            font-size: 9.5pt;
+            margin-bottom: 4px;
+            color: #0f2b5c;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 3px;
+        }
+
+        /* SVG Diagrams */
+        .svg-container {
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 12px 0;
+            text-align: center;
+            page-break-inside: avoid;
+        }
+
+        .svg-caption {
+            font-size: 8.5pt;
+            font-weight: 700;
+            color: #64748b;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Questions */
+        .question-box {
+            background: #fdfbf7;
+            border: 1px solid #fed7aa;
+            border-left: 4.5px solid #f97316;
+            border-radius: 6px;
+            padding: 11px 15px;
+            margin: 10px 0;
+            page-break-inside: avoid;
+        }
+
+        .question-title {
+            font-weight: 800;
+            color: #9a3412;
+            font-size: 10pt;
+            margin-bottom: 4px;
+        }
+
+        .answer-text {
+            color: #1c1917;
+            font-size: 9.5pt;
+            line-height: 1.5;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        ul, ol {
+            margin: 0 0 8px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover / Header Box -->
+    <div class="cover-box">
+        <div class="cover-tag">MEDICINA USCS • SDC / FEMAs 5 / LPF-5 • 5ª ETAPA</div>
+        <h1 class="cover-title">Guia Definitivo de Farmacologia da Dor & Analgésicos</h1>
+        <div class="cover-subtitle">Tratado Didático Integrado: AINEs, Glicocorticoides, Opioides, Adjuvantes, Fisiopatologia e Prescrição</div>
+        <div class="cover-meta">
+            <span><strong>Docente:</strong> Profa. Dra. Luciana Vismari</span>
+            <span><strong>Conteúdo:</strong> Aulas 1, 2 e 3 + Roteiros LPF + Casos Clínicos + Legislação Portaria 344/98</span>
+            <span><strong>Ano:</strong> 2026-2</span>
+        </div>
+    </div>
+
+    <!-- MÓDULO 1: CONCEITOS FUNDAMENTAIS, FISIOLOGIA DA DOR E ESCADA DA OMS -->
+    <h2>1. Conceitos Fundamentais da Dor e Vias de Modulação</h2>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: O Sistema de Alarme Residencial (Dor vs. Nocicepção)</div>
+        <p>Pense na <strong>nocicepção</strong> como a fiação elétrica e os sensores infravermelhos nas portas e janelas de uma casa (a detecção física e a condução de impulsos pelo fio). A <strong>dor</strong>, por outro lado, é o alarme sonoro tocando dentro do quarto enquanto você acorda assustado, com o coração acelerado e medo (a percepção consciente, a emoção e o sofrimento gerados no córtex). Sob anestesia geral, os sensores continuam enviando eletricidade (há nocicepção), mas o morador está dormindo e não ouve o alarme (não há dor). Na dor neuropática ou disfuncional, a fiação dá curto-circuito e o alarme toca sem ninguém na janela!</p>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">📌 Dor (IASP) — 5º Sinal Vital</div>
+            <p><strong>Definição Oficial:</strong> <em>"Uma experiência sensitiva e emocional desagradável associada, ou semelhante àquela associada, a uma lesão tecidual real ou potencial."</em></p>
+            <p>Aferida obrigatoriamente junto à FC, PA, FR e Temperatura em toda avaliação clínica.</p>
+        </div>
+        <div class="card">
+            <div class="card-header">⚡ Fibras Nervosas Aferentes</div>
+            <p>• <strong>Fibras Aδ:</strong> Mielinizadas finas, condução rápida (5-30 m/s). Conduzem <strong>dor aguda, pontada e picada</strong>.<br>
+            • <strong>Fibras C:</strong> Amielínicas, condução lenta (0,5-2 m/s). Conduzem <strong>dor em queimação, surda e crônica</strong>.<br>
+            • <strong>Fibras Aβ:</strong> Grossas, rápidas (>30 m/s). Conduzem <strong>tato e vibração</strong> (fecham a comporta medular).</p>
+        </div>
+    </div>
+
+    <h3>Classificação Taxonômica da Dor</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Critério</th>
+                <th>Subtipo</th>
+                <th>Fisiopatologia & Características Clínicas</th>
+                <th>Exemplos Típicos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2"><strong>Tempo</strong></td>
+                <td><span class="badge badge-green">Aguda</span></td>
+                <td>Alerta protetor biológico; associada a hiperatividade simpática (taquicardia, sudorese, HAS); remite com a cura da lesão.</td>
+                <td>Pós-operatório, fraturas, apendicite.</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-red">Crônica</span></td>
+                <td>Persiste além de 3 meses; perde o valor protetor e torna-se a própria doença; sensibilização central; sem sinais simpáticos floridos.</td>
+                <td>Osteoartrite, lombociatalgia, neuropatia.</td>
+            </tr>
+            <tr>
+                <td rowspan="4"><strong>Mecanismo</strong></td>
+                <td><strong>Nociceptiva Somática</strong></td>
+                <td>Nociceptores em pele, músculos, ossos e articulações. Dor <strong>bem localizada</strong>, em pontada, latejamento ou queimação superficial.</td>
+                <td>Fratura, artrite, bursite, gota.</td>
+            </tr>
+            <tr>
+                <td><strong>Nociceptiva Visceral</strong></td>
+                <td>Nociceptores em vísceras e cápsulas de órgãos. Dor <strong>mal localizada</strong>, em cólica ou peso, com <strong>dor referida</strong> e náuseas.</td>
+                <td>Dismenorreia, cólica renal, gastrite.</td>
+            </tr>
+            <tr>
+                <td><strong>Neuropática</strong></td>
+                <td>Lesão anatômica ou doença do sistema somatossensorial. Dor em choque/agulhadas, com <strong>alodinia</strong> e <strong>hiperalgesia</strong>.</td>
+                <td>Neuropatia diabética, NPH, neuralgia do trigêmeo.</td>
+            </tr>
+            <tr>
+                <td><strong>Nociplástica (Disfuncional)</strong></td>
+                <td>Nocicepção alterada com hiperexcitabilidade central e falha inibitória, <strong>sem lesão tecidual ou neural demonstrável</strong>.</td>
+                <td>Fibromialgia, Síndrome do Intestino Irritável (SII).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: A Teoria da Comporta (Melzack & Wall)</div>
+        <p>Imagine o corno dorsal da medula como uma <strong>porta giratória de uma agência bancária controlada por um segurança (o interneurônio inibitório)</strong>. Quando você bate a canela na mesa, a dor viaja pelas fibras lentas C que tentam abrir a porta. Instintivamente, você <strong>esfrega o local machucado</strong>. O atrito estimula as fibras táteis grossas e rápidas Aβ, que avisam o segurança para travar a porta giratória. O sinal doloroso das fibras C é bloqueado antes de subir ao encéfalo!</p>
+    </div>
+
+    <h3>Escada Analgésica da OMS (Atualizada em 4 Degraus)</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Degrau</th>
+                <th>Intensidade</th>
+                <th>Conduta Farmacológica</th>
+                <th>Fármacos de Escolha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Degrau 1</strong></td>
+                <td><span class="badge badge-green">Leve (EVA 1-3)</span></td>
+                <td><strong>Não Opioides</strong> ± Adjuvantes</td>
+                <td>Dipirona, Paracetamol, AINEs (Ibuprofeno, Diclofenaco)</td>
+            </tr>
+            <tr>
+                <td><strong>Degrau 2</strong></td>
+                <td><span class="badge badge-amber">Moderada (EVA 4-6)</span></td>
+                <td><strong>Opioides Fracos</strong> + Não Opioides ± Adjuvantes</td>
+                <td>Codeína, Tramadol, Buprenorfina (adesivo baixa dose)</td>
+            </tr>
+            <tr>
+                <td><strong>Degrau 3</strong></td>
+                <td><span class="badge badge-red">Intensa (EVA 7-10)</span></td>
+                <td><strong>Opioides Fortes</strong> + Não Opioides ± Adjuvantes</td>
+                <td>Morfina, Metadona, Fentanil, Oxicodona</td>
+            </tr>
+            <tr>
+                <td><strong>Degrau 4</strong></td>
+                <td><span class="badge badge-purple">Refratária</span></td>
+                <td><strong>Procedimentos Intervencionistas</strong> + Opioides Fortes</td>
+                <td>Bloqueios nervosos, analgesia peridural/intratecal, radiofrequência</td>
+            </tr>
+            <tr>
+                <td colspan="4" style="background-color: #f1f5f9; font-size: 9pt;">
+                    <strong>Adjuvantes Universais:</strong> Antidepressivos duais/tricíclicos (reforçam vias descendentes inibitórias de NA e 5-HT); Gabapentinoides (bloqueiam a subunidade α₂δ dos canais de Ca²⁺); Antagonistas NMDA/Cetamina (bloqueiam sensibilização central).
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- MÓDULO 2: CASCATA DO ÁCIDO ARAQUIDÔNICO, AINES E CASOS CLÍNICOS -->
+    <h2>2. AINEs, Cascata do Ácido Araquidônico e Toxicidades</h2>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: A Cozinha Inflamatória (PLA2 vs. COX)</div>
+        <p>Imagine a membrana celular como uma grande despensa. A enzima <strong>Fosfolipase A2 (PLA2)</strong> é o <em>açougueiro-chefe</em> que retira a carne crua da despensa (o <strong>Ácido Araquidônico</strong>). Depois, essa carne pode ir para o <em>forno da COX</em> para virar Prostaglandinas/Tromboxano, ou para a <em>grelha da LOX</em> para virar Leucotrienos. Os <strong>Corticoides (AIEs)</strong> demitem o açougueiro (induzem Lipocortina que desliga a PLA2), parando tudo. Já os <strong>AINEs</strong> apenas desligam o forno da COX, permitindo que a carne continue indo para a grelha da LOX (o que explica por que AINEs podem precipitar crises de broncoespasmo em asmáticos ao desviar o fluxo para leucotrienos!).</p>
+    </div>
+
+    <!-- SVG DIAGRAM: CASCATA DO ACIDO ARAQUIDONICO -->
+    <div class="svg-container">
+        <svg viewBox="0 0 780 230" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="5" width="770" height="220" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+            
+            <rect x="300" y="15" width="180" height="26" rx="5" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+            <text x="390" y="32" font-family="'Segoe UI', sans-serif" font-size="9.5" font-weight="bold" fill="#334155" text-anchor="middle">Fosfolipídeos de Membrana</text>
+
+            <path d="M 390 42 L 390 70" fill="none" stroke="#475569" stroke-width="2"/>
+            <text x="470" y="58" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#dc2626">Fosfolipase A2 (PLA2)</text>
+            <rect x="235" y="47" width="115" height="22" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+            <text x="292" y="62" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#991b1b" text-anchor="middle">❌ Inibido por AIEs</text>
+
+            <rect x="290" y="72" width="200" height="28" rx="5" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+            <text x="390" y="90" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#0f172a" text-anchor="middle">ÁCIDO ARAQUIDÔNICO</text>
+
+            <!-- LOX -->
+            <path d="M 320 102 L 170 130" fill="none" stroke="#475569" stroke-width="2"/>
+            <text x="210" y="117" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#d97706">5-Lipoxigenase (5-LOX)</text>
+            <rect x="50" y="135" width="220" height="75" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
+            <text x="160" y="152" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#92400e" text-anchor="middle">LEUCOTRIENOS</text>
+            <text x="60" y="170" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#78350f">• <strong>LTB₄:</strong> Quimiotaxia e adesão leucocitária</text>
+            <text x="60" y="188" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#78350f">• <strong>LTC₄, LTD₄, LTE₄:</strong> Broncoespasmo e edema</text>
+
+            <!-- COX -->
+            <path d="M 460 102 L 590 130" fill="none" stroke="#475569" stroke-width="2"/>
+            <text x="565" y="117" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#2563eb">Ciclo-oxigenases (COX-1 e COX-2)</text>
+            <rect x="425" y="112" width="115" height="22" rx="4" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+            <text x="482" y="127" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#1e40af" text-anchor="middle">❌ Inibido por AINEs</text>
+
+            <rect x="330" y="135" width="435" height="75" rx="6" fill="#f0f9ff" stroke="#bae6fd" stroke-width="1"/>
+            <text x="547" y="152" font-family="'Segoe UI', sans-serif" font-size="8.5" font-weight="bold" fill="#0369a1" text-anchor="middle">PROSTAGLANDINAS (PGs) & TROMBOXANO (TXA₂)</text>
+            <text x="340" y="170" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#0f172a">• <strong>PGF₂α:</strong> Contração miometrial (cólica) + Broncoconstrição</text>
+            <text x="340" y="186" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#0f172a">• <strong>PGE₂:</strong> Febre, hiperalgesia, vasodilatação, citoproteção gástrica</text>
+            <text x="340" y="202" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#0f172a">• <strong>PGI₂ (Prostaciclina):</strong> Vasodilatação e antiagregação plaquetária</text>
+            <text x="580" y="170" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#0f172a">• <strong>TXA₂:</strong> Agregação plaquetária e vasoconstrição</text>
+            <text x="580" y="186" font-family="'Segoe UI', sans-serif" font-size="7.5" fill="#0f172a">• <strong>PGD₂:</strong> Vasodilatação e broncoespasmo</text>
+        </svg>
+        <div class="svg-caption">Figura 1: Cascata do Ácido Araquidônico, Ações dos Eicosanoides e Sítios Farmacológicos</div>
+    </div>
+
+    <!-- CASO CLÍNICO 1: DISMENORREIA -->
+    <div class="clinical-case-card">
+        <div class="clinical-case-header">
+            <span>CASO CLÍNICO 1: Dismenorreia Primária (MHS, 16 anos)</span>
+            <span class="badge badge-blue">Fisiopatologia & Terapêutica</span>
+        </div>
+        <p><strong>Quadro:</strong> Jovem com cólicas intensas incapacitantes nos primeiros 2-3 dias da menstruação. Paracetamol não surtiu efeito. Tratada com sucesso com <strong>Diclofenaco</strong>.</p>
+        <p><strong>Fisiopatologia:</strong> Queda de progesterona no fim da fase lútea ➔ lise de lisossomos endometriais ➔ liberação de PLA2 e ácido araquidônico ➔ superprodução de <strong>PGF₂α e PGE₂</strong> ➔ vasoconstrição e contração miometrial violenta ("angina uterina") + dor referida e náuseas sistêmicas.</p>
+        <p><strong>Por que Diclofenaco funcionou e Paracetamol falhou?</strong> O Diclofenaco inibe a COX no tecido endometrial, cessando a síntese de PGF₂α. O Paracetamol é inativado em tecidos periféricos inflamatórios ricos em hidroperóxidos lipídicos (sem potência anti-inflamatória tecidual!).</p>
+    </div>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: O Tratamento de Lixo do Paracetamol & Hepatotoxicidade</div>
+        <p>Imagine o fígado como uma cidade processando o Paracetamol. Em doses normais, 90-95% do lixo vai para esteiras comuns seguras (glicuronidação e sulfatação). Apenas 5-10% vira <strong>lixo tóxico radioativo (o NAPQI via CYP2E1)</strong>. A cidade possui caminhões de lixo especiais com neutralizadores químicos (a <strong>Glutationa</strong>), que tornam o NAPQI inofensivo. Em uma <strong>superdosagem (>7,5g)</strong>, as esteiras comuns engarrafam, a produção de lixo radioativo explode e os caminhões de glutationa acabam (>70% depletados). O NAPQI livre queima as células hepáticas (necrose fulminante). A <strong>N-Acetilcisteína (NAC)</strong> é a ajuda de emergência que injeta novos suprimentos de matéria-prima para fabricar glutationa rapidamente!</p>
+    </div>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: O Cabo de Guerra Cardiovascular dos Coxibes</div>
+        <p>Nas paredes dos vasos, existe um cabo de guerra contínuo: de um lado, as <strong>plaquetas (com COX-1)</strong> puxam a corda do <strong>Tromboxano A2 (TXA₂)</strong> acelerando a formação de coágulos e fechando os vasos; do outro, o <strong>endotélio (com COX-2)</strong> puxa a corda da <strong>Prostaciclina (PGI₂)</strong> mantendo o vaso aberto e o sangue fluido. Os <strong>Coxibes</strong> cortam a corda da COX-2 endotelial (zeram a PGI₂ protetora), mas deixam o TXA₂ plaquetário puxando sozinho com força total! O resultado é o <strong>desbalanço pró-trombótico</strong> ➔ Infarto (IAM) e AVC (motivo da retirada do Vioxx/Bextra e retenção de receita dos remanescentes).</p>
+    </div>
+
+    <!-- CASO CLÍNICO 2: IATROGENIA NA IDOSA -->
+    <div class="clinical-case-card">
+        <div class="clinical-case-header">
+            <span>CASO CLÍNICO 2: Iatrogenia Medicamentosa na Idosa (D. Maria, 68 anos)</span>
+            <span class="badge badge-red">Nefrotoxicidade • Gastrotoxicidade • Critérios de Beers</span>
+        </div>
+        <p><strong>Quadro:</strong> Idosa com osteoartrite, queixa de dor epigástrica em queimação há 4 semanas, edema em MMII e PA 150x96 mmHg. Usava <strong>Diclofenaco ≥ 5x/semana + Diprospan® (Betametasona IM)</strong> por conta própria. Exames: Creatinina = 2,1 mg/dL, Ureia = 75 mg/dL.</p>
+        <p><strong>Mecanismo da Lesão Renal Aguda:</strong> As prostaglandinas renais mantêm a <strong>arteríola aferente dilatada</strong> para garantir a filtração glomerular. O AINE causou vasoconstrição aferente ➔ queda da pressão capilar glomerular ➔ <strong>queda abrupta da TFG (Insuficiência Renal Aguda hemodinâmica)</strong> + retenção de Na⁺/água e descontrole pressórico. A associação sinérgica com corticoide causou gastrite enantematosa difusa (Critérios de Beers).</p>
+        <p><strong>Conduta:</strong> Suspensão imediata de AINE e corticoide; Omeprazol por 2 meses; Enalapril; fisioterapia + perda de peso + resgate seguro com <strong>Codeína + Paracetamol</strong>.</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- MÓDULO 3: GLICOCORTICOIDES / ANTI-INFLAMATÓRIOS ESTEROIDAIS -->
+    <h2>3. Farmacologia dos Glicocorticoides (AIEs)</h2>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">🧬 Mecanismo Celular: Transativação vs. Trans-repressão</div>
+            <p>• <strong>Transativação (Indução):</strong> O complexo GC-GR liga-se a elementos GRE no DNA e induz a síntese de <strong>Anexina-1 (Lipocortina-1)</strong>, que <strong>inibe diretamente a PLA2</strong> no topo da cascata.<br>
+            • <strong>Trans-repressão (Inibição):</strong> Inibe os fatores de transcrição <strong>NF-κB e AP-1</strong>, suprimindo citocinas (TNF-α, IL-1, IL-6), iNOS, COX-2 e moléculas de adesão.</p>
+        </div>
+        <div class="card">
+            <div class="card-header">🧪 Relação Estrutura-Atividade (SAR)</div>
+            <p>• <strong>Hidroxila (-OH) em C-11β:</strong> Obrigatória para ligação ao receptor. Cortisona e Prednisona são pró-fármacos sem ação tópica direta (precisam da 11β-HSD1 hepática).<br>
+            • <strong>Fluoração em C-9/C-6:</strong> Aumenta muito a potência (Dexametasona, Betametasona).<br>
+            • <strong>Resistência à 11β-HSD2 Placentária:</strong> Betametasona/Dexametasona cruzam a placenta e aceleram a <strong>maturação pulmonar fetal</strong> (surfactante por pneumócitos II).</p>
+        </div>
+    </div>
+
+    <h3>Tabela de Equivalência de Doses dos Corticosteroides</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Fármaco</th>
+                <th>Potência Anti-inflamatória</th>
+                <th>Potência Mineralocorticoide (Retenção Na⁺)</th>
+                <th>Duração da Supressão de ACTH</th>
+                <th>Dose Oral Equivalente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Hidrocortisona (Cortisol)</strong></td>
+                <td>1 (Padrão)</td>
+                <td>1 (Padrão)</td>
+                <td><span class="badge badge-blue">Curta (8 - 12h)</span></td>
+                <td><strong>20 mg</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Prednisona / Prednisolona</strong></td>
+                <td>4 a 5</td>
+                <td>0,3</td>
+                <td><span class="badge badge-amber">Intermediária (12 - 36h)</span></td>
+                <td><strong>5 mg</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Metilprednisolona / Triancinolona</strong></td>
+                <td>5</td>
+                <td>0 a 0,25</td>
+                <td><span class="badge badge-amber">Intermediária (12 - 36h)</span></td>
+                <td><strong>4 mg</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Dexametasona / Betametasona</strong></td>
+                <td>25 a 30</td>
+                <td>0</td>
+                <td><span class="badge badge-red">Longa (36 - 72h)</span></td>
+                <td><strong>0,75 mg</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Fludrocortisona</strong></td>
+                <td>10</td>
+                <td><strong>250</strong></td>
+                <td>Mineralocorticoide</td>
+                <td><strong>2 mg</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-red">
+        <div class="callout-title">🚨 Regra de Ouro: Supressão do Eixo HHA e Desmame Obrigatório</div>
+        <p>O uso de dose equivalente à <strong>Prednisona ≥ 20 mg/dia por mais de 3 semanas</strong> atrofia o córtex da adrenal. A <strong>interrupção abrupta é estritamente proibida</strong> pelo risco de <strong>Crise Adrenal Aguda (Addisoniana)</strong> fatal (choque refratário e hipoglicemia). O desmame deve ser lento e gradual ao longo de semanas!</p>
+    </div>
+
+    <!-- MÓDULO 4: FARMACOLOGIA DOS OPIOIDES -->
+    <h2>4. Farmacologia dos Opioides e Manejo da Dor Oncológica</h2>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: O Disjuntor Celular dos Opioides</div>
+        <p>A sinapse de dor é como um transmissor elétrico de alta voltagem. O terminal pré-sináptico precisa que entre cálcio (a faísca) para lançar as caixas de pólvora (Glutamato e Substância P). Quando o opioide se liga ao receptor Gi/o, ele age como um <strong>disjuntor duplo</strong>: (1) <strong>Corta a faísca pré-sináptica</strong> fechando os canais de Ca²⁺ (nenhuma pólvora é liberada); (2) <strong>Abre as comportas de água pós-sinápticas</strong> deixando o potássio (K⁺) vazar, encharcando o neurônio receptor em uma hiperpolarização tão profunda que faísca nenhuma consegue fazê-lo disparar!</p>
+    </div>
+
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-header">💊 Perfis Farmacocinéticos dos Opioides</div>
+            <p>• <strong>Morfina:</strong> Padrão do Degrau 3. Metabolizada em <strong>M6G (ativo potente)</strong> e M3G (neurotóxico). Acumula no rim.<br>
+            • <strong>Codeína:</strong> Pró-fármaco ativado por <strong>CYP2D6</strong> (10% dos caucasianos são não metabolizadores).<br>
+            • <strong>Tramadol:</strong> Agonista µ fraco + bloqueio de recaptação de 5-HT/NA. Risco de <strong>convulsões</strong>.<br>
+            • <strong>Metadona:</strong> Agonista µ + antagonista NMDA. Meia-vida longa (>24h). <strong>Segura na insuficiência renal</strong>.<br>
+            • <strong>Petidina:</strong> Metabólito <strong>Norpetidina é convulsivante</strong>. Causa <strong>midríase</strong> (antimuscarínico). Contraindicada em dor crônica.<br>
+            • <strong>Buprenorfina:</strong> Agonista parcial com <strong>efeito teto</strong> para apneia. Adesivo semanal.</p>
+        </div>
+        <div class="card">
+            <div class="card-header">🚨 Toxicidade, Overdose & Abstinência</div>
+            <p>• <strong>Tríade da Overdose:</strong> Coma + Depressão Respiratória (<8 irpm) + Miose Puntiforme ➔ <strong>Naloxona IV</strong>.<br>
+            • <strong>Tolerância:</strong> Ocorre para analgesia e sedação; <strong>NUNCA ocorre para Miose e Constipação</strong>.<br>
+            • <strong>Hiperalgesia por Opioide (OIH):</strong> Aumento do opioide <u>piora</u> a dor (ativação NMDA). Melhora ao reduzir dose ou usar Cetamina.<br>
+            • <strong>Abstinência:</strong> Midríase, piloereção (*cold turkey*), vômitos, diarreia profusa, lacrimejamento e taquicardia.</p>
+        </div>
+    </div>
+
+    <!-- MÓDULO 5: DORES NEUROPÁTICA E NOCIPLÁSTICA (FIBROMIALGIA) -->
+    <h2>5. Dores Neuropática e Nociplástica & Analgésicos Adjuvantes</h2>
+
+    <div class="analogy-box">
+        <div class="analogy-title">💡 Analogia Didática: A Fibromialgia (Dor Nociplástica)</div>
+        <p>A dor nociceptiva é como uma fogueira real queimando seu pé. A dor neuropática é como o fio do sensor de calor cortado soltando faíscas. A <strong>dor nociplástica (Fibromialgia)</strong> é o <strong>botão de volume do aparelho de som que ficou travado no volume máximo (100%), associado ao cancelamento de ruído estragado</strong>. Não há fogo nem fio quebrado na periferia; é o amplificador central do cérebro que transforma qualquer ruído normal em dor ensurdecedora! Por isso, <strong>AINEs e opioides não funcionam</strong>, pois a fogueira não existe. O tratamento exige regular o amplificador com <strong>Duloxetina, Pregabalina ou Amitriptilina</strong>.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Classe Adjuvante</th>
+                <th>Fármacos</th>
+                <th>Mecanismo Molecular</th>
+                <th>Indicações & Efeitos Adversos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Tricíclicos (ADT)</strong></td>
+                <td>Amitriptilina, Nortriptilina</td>
+                <td>Bloqueio de SERT e NET (via descendente inibitória).</td>
+                <td>Dor neuropática e óssea. Efeitos anticolinérgicos (boca seca, retenção urinária, sedação, arritmias).</td>
+            </tr>
+            <tr>
+                <td><strong>Duais (IRSN)</strong></td>
+                <td>Duloxetina, Venlafaxina</td>
+                <td>Inibição seletiva de SERT e NET sem efeito anticolinérgico.</td>
+                <td><strong>1ª linha na Fibromialgia e Neuropatia Diabética</strong>. Náuseas, insônia, elevação de PA.</td>
+            </tr>
+            <tr>
+                <td><strong>Gabapentinoides</strong></td>
+                <td>Pregabalina, Gabapentina</td>
+                <td><strong>Ligação à subunidade α₂δ dos canais de Ca²⁺ pré-sinápticos</strong> ➔ suprime Glutamato e Substância P.</td>
+                <td>Dor neuropática periférica e fibromialgia. Tontura, sedação, <strong>edema periférico</strong> e ganho de peso.</td>
+            </tr>
+            <tr>
+                <td><strong>Bloqueadores de Na⁺</strong></td>
+                <td>Carbamazepina</td>
+                <td>Bloqueio de canais de Na⁺ voltagem-dependentes inativados.</td>
+                <td><strong>1ª escolha absoluta para Neuralgia do Trigêmeo</strong>. Sedação, hiponatremia, indução CYP3A4.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- MÓDULO 6: PRÁTICA DE PRESCRIÇÃO E LEGISLAÇÃO -->
+    <h2>6. Prática de Prescrição e Legislação (Portaria 344/98)</h2>
+
+    <div class="question-box">
+        <div class="question-title">📋 Prática 1: Carbamazepina na Neuralgia do Trigêmeo (400 mg/dia em suspensão 20 mg/mL)</div>
+        <div class="answer-text">
+            • <strong>Receituário:</strong> Receita de Controle Especial em 2 vias (Branca) — Lista C1.<br>
+            • <strong>Volume administrado:</strong> 200 mg manhã (<strong>10 mL</strong>) + 200 mg noite (<strong>10 mL</strong>) = <strong>20 mL/dia</strong>.<br>
+            • <strong>Máximo prescrito:</strong> Anticonvulsivantes permitem <strong>até 180 dias de tratamento</strong> (20 mL/dia × 180 dias = 3.600 mL ➔ <strong>36 frascos de 100 mL</strong>).<br>
+            • <strong>Validade da receita:</strong> <strong>30 dias</strong> em todo o território nacional.
+        </div>
+    </div>
+
+    <div class="question-box">
+        <div class="question-title">📋 Prática 2: Tramadol e Morfina</div>
+        <div class="answer-text">
+            • <strong>Tramal® Gotas (100 mg/mL – 40 gotas 4x/dia):</strong> Receita de Controle Especial em 2 vias Branca (Adendo Lista A1). Máximo para <strong>60 dias de tratamento</strong>.<br>
+            • <strong>Morfina Solução Oral (10 mg/mL – 2 mL 4/4h):</strong> <strong>Notificação de Receita "A" (Amarela)</strong> (Lista A1 Entorpecentes). Dose de 12 mL/dia. Máximo legal de <strong>30 dias de tratamento</strong> (12 mL/dia × 30 dias = 360 mL ➔ <strong>6 frascos de 60 mL</strong>).
+        </div>
+    </div>
+
+    <!-- RESUMO MNEMÔNICO FINAL -->
+    <div class="callout callout-green" style="margin-top:14px;">
+        <div class="callout-title">🏆 Checklist Final de Alto Rendimento para Gabaritar a Prova</div>
+        <div class="grid-2" style="margin-top:3px;">
+            <ul style="font-size:8pt; margin:0; padding-left:14px;">
+                <li><strong>Dor vs. Nocicepção:</strong> Nocicepção = transdução neural; Dor = percepção consciente integrada.</li>
+                <li><strong>Dor Referida:</strong> Convergência de fibras viscerais e cutâneas no corno dorsal medular.</li>
+                <li><strong>Paracetamol:</strong> Inibido por peróxidos; hepatotóxico via NAPQI (CYP2E1); antídoto = N-Acetilcisteína.</li>
+                <li><strong>Coxibes:</strong> Bloqueiam PGI₂ endotelial mantendo TXA₂ plaquetário livre ➔ Risco de IAM/AVC.</li>
+                <li><strong>AINE no Rim:</strong> Fecha arteríola aferente ➔ Queda da TFG e retenção hidrossalina.</li>
+            </ul>
+            <ul style="font-size:8pt; margin:0; padding-left:14px;">
+                <li><strong>AIEs Mecanismo:</strong> Anexina-1 inibe PLA2; inibição de NF-κB; desmame obrigatório em uso >3 semanas.</li>
+                <li><strong>Opioides:</strong> Proteína Gi/o ➔ fecha Ca²⁺ pré e abre K⁺ pós. Tríade overdose = Coma + Apneia + Miose.</li>
+                <li><strong>Fibromialgia:</strong> Dor nociplástica. Tratar com Duloxetina, Pregabalina ou Amitriptilina. NÃO usar AINE/Opioide!</li>
+                <li><strong>Gabapentinoides:</strong> Ligam-se à subunidade α₂δ de canais de Ca²⁺. Causa edema periférico.</li>
+                <li><strong>Neuralgia do Trigêmeo:</strong> 1ª escolha = Carbamazepina (bloqueador de canal de Na⁺).</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

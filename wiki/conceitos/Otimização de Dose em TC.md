@@ -1,0 +1,65 @@
+---
+title: "Otimização de Dose em Tomografia Computadorizada"
+aliases:
+  - "otimizacao-de-dose-em-tc"
+  - "CT Dose Optimization"
+  - "Redução de Dose em TC"
+  - "ALARA em TC"
+type: "conceito"
+---
+
+# Otimização de Dose em Tomografia Computadorizada
+
+## 1. Definição Conceitual e Fundamentação Física
+
+A **otimização de dose em Tomografia Computadorizada (TC)** engloba o conjunto de estratégias físicas, tecnológicas e clínicas destinadas a minimizar a exposição à radiação ionizante do paciente, mantendo a qualidade de imagem (ruído, resolução espacial e contrast-to-noise ratio) estritamente necessária para o diagnóstico médico preciso. O princípio reitor fundamenta-se na diretriz internacional **[[Radioproteção|alara]]** (*As Low As Reasonably Achievable*).
+
+Fisicamente, a otimização contrapõe-se à simples redução cega de corrente ou tensão do tubo, visto que subexposição excessiva gera artefatos quânticos severos e degrada a detectabilidade de lesões de baixo contraste. A relação fundamental entre a dose absorvida ($D$), expressa em termos de métricas como o Índice de Dose de Tomografia Computadorizada Volumétrica ($CTDI_{vol}$) e o Produto Dose-Comprimento ($DLP$), e a qualidade de imagem é governada pela variância do ruído estatístico ($\sigma^2$):
+
+$$
+\sigma^2 \propto \\frac{1}{I_0 \cdot e^{-\int \mu(s) ds}}
+$$
+
+Onde $I_0$ representa a intensidade incidente de fótons de raios X e $\mu(s)$ o coeficiente de atenuação linear ao longo da trajetória do feixe. A otimização moderna busca desacoplar essa relação estrita por meio de avanços tecnológicos.
+
+---
+
+## 2. Formulações Matemáticas e Métricas Associadas
+
+A quantificação da otimização de dose exige o uso rigoroso de métricas padronizadas no acervo de Física Médica:
+
+- **Índice de Dose de Tomografia Computadorizada ($CTDI_{vol}$):** Métrica padrão de saída de radiação normalizada para a varredura helicoidal ou axial:
+
+$$
+CTDI_{vol} = \\frac{1}{pitch} \cdot \\frac{1}{100} \int_{-50}^{50} D(z) dz
+$$
+
+- **Dose Size-Specific Dose Estimate ($SSDE$):** Correção do $CTDI_{vol}$ baseada nas dimensões efetivas do paciente ($d_{eff}$), calculada a partir de imagens de sobreposição (topograma) ou cortes axiais:
+
+$$
+SSDE = f_{size} \cdot CTDI_{vol}
+$$
+
+Onde $f_{size}$ é o fator de conversão dependente do diâmetro anteroposterior e lateral do paciente.
+
+---
+
+## 3. Aplicações no Acervo e Contexto de Pesquisa
+
+No contexto do acervo de pesquisa (USP/FAPESP), a **otimização-de-dose-em-tc** interage diretamente com várias frentes tecnológicas e normativas:
+
+1. **Níveis de Referência Diagnóstica (DRLs):** Atua como ferramenta de auditoria clínica. Conforme discutido na literatura recente de McCollough (2026), a otimização de protocolos visa transitar os valores institucionais do percentil 75 (*DRL*) para o percentil 50 (*Achievable Dose*), garantindo conformidade com [[Níveis de Referência Diagnóstica (DRL)|niveis-de-referencia-diagnostica-drl]].
+2. **Detetores de Contagem de Fótons ([[Photon Counting Detector CT (PCD-CT)|photon-counting-ct]]):** Representam um salto qualitativo na otimização. A eliminação do ruído eletrônico e a discriminação energética permitem a obtenção de imagens virtuais monocromáticas e mapas de iodo otimizados sem custo adicional de dose, correlacionando-se diretamente com a [[Task Based Image Quality|task-based-image-quality]] e a detectabilidade de lesões sutis.
+3. **Reconstrução Baseada em Inteligência Artificial ([[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]]):** Permite a supressão de ruído estruturado em exames adquiridos com baixas correntes ($mA$), permitindo forte redução no [[Métricas de Dose em TC|metricas-de-dose-tc]] ($CTDI_{vol}$, $DLP$, $SSDE$) sem perda de acurácia diagnóstica.
+
+---
+
+## 🔗 Páginas Relacionadas
+- [[Radioproteção|alara]]
+- [[Métricas de Dose em TC|metricas-de-dose-tc]]
+- [[Níveis de Referência Diagnóstica (DRL)|niveis-de-referencia-diagnostica-drl]]
+- [[Photon Counting Detector CT (PCD-CT)|photon-counting-ct]]
+- [[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]]
+- [[McCollough 2026 - Evolução das Doses de Radiação em TC|mccollough-2026-good-news-ct-doses]]
+- [[Risco Oncológico e Epidemiologia da Radiação em TC|risco-oncologico-radiacao-tc]]
+- [[Task Based Image Quality|task-based-image-quality]]

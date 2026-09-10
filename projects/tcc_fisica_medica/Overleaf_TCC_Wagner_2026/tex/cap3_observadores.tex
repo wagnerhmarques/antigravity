@@ -1,0 +1,134 @@
+\chapter{A Evolução dos Observadores de Modelo Lineares e Validação Psicofísica MRMC}
+\label{chap:observadores_lineares}
+
+\section{O Observador Ideal Bayesiano e o Limite Superior Termodinâmico}
+\label{sec:io}
+
+O Observador Ideal (IO) representa o tomador de decisão estatístico ótimo que utiliza todas as informações físicas do feixe de radiação e do detector para maximizar a área sob a curva ROC ($AUC$), de acordo com o Lema de Neyman-Pearson \cite{barrett_myers_2004}.
+
+A estatística de teste do Observador Ideal para ruído gaussiano com matriz de covariância $\mathbf{K}$ e sinal determinístico $\mathbf{s}$ é obtida pelo logaritmo da razão de verossimilhança:
+\begin{equation}
+  t_{\text{IO}}(\mathbf{g}) = \mathbf{s}^T \mathbf{K}^{-1} \mathbf{g}
+  \label{eq:io_estatistica}
+\end{equation}
+
+O índice de detectabilidade do Observador Ideal é expresso pela distância de Mahalanobis:
+\begin{equation}
+  d'_{\text{IO}} = \sqrt{\mathbf{s}^T \mathbf{K}^{-1} \mathbf{s}} = \left[ \iint \frac{\left| W_{\text{task}}(u, v) \cdot TTF(u, v) \right|^2}{NPS(u, v)} \, du \, dv \right]^{1/2}
+  \label{eq:io_dprime}
+\end{equation}
+
+O Observador Ideal executa uma operação de pré-branqueamento (\emph{prewhitening} $\mathbf{K}^{-1/2}$), descorrelacionando completamente a estrutura de ruído antes de aplicar o filtro casado. Embora o IO estabeleça o limite físico máximo de informação contida na radiação, ele superestima grosseiramente a percepção de observadores humanos, servindo apenas como referência física teórica superior.
+
+\section{O Observador NPW e a Dedução Contínua do Modelo NPWE}
+\label{sec:npwe}
+
+Para aproximar os modelos matemáticos das limitações biológicas, desenvolveu-se o modelo sem pré-branqueamento (\emph{Non-Prewhitening} --- NPW), cuja premissa é que o olho humano não inverte matrizes de ruído, atuando como um filtro casado simples $\mathbf{w}_{\text{NPW}} = \mathbf{s}$ \cite{burgess1994}.
+
+A incorporação do filtro ocular $E(f)$ deu origem ao modelo NPWE (\emph{Non-Prewhitening with Eye Filter}), que foi adotado pelo relatório internacional AAPM TG-233 como referência normativa para a avaliação de tomógrafos clínicos \cite{aapm_tg233_2019}.
+
+Aplicando a diagonalização do Teorema de Wiener-Khinchin, a detectabilidade do modelo NPWE em coordenadas contínuas bidimensionais é descrita por:
+\begin{equation}
+  d'_{\text{NPWE}} = \frac{\iint \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ TTF(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \, du \, dv}{\left\{ \iint \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ TTF(u, v) \right]^2 \cdot \left[ E(u, v) \right]^4 \cdot NPS(u, v) \, du \, dv \right\}^{1/2}}
+  \label{eq:dprime_npwe_2d}
+\end{equation}
+
+Para sistemas com simetria rotacional no plano de corte axial, a integral é simplificada para a coordenada radial $f$:
+\begin{equation}
+  d'_{\text{NPWE}} = \frac{\int_{0}^{\infty} \left| W_{\text{task}}(f) \right|^2 \cdot \left[ TTF(f) \right]^2 \cdot \left[ E(f) \right]^2 \cdot 2\pi f \, df}{\left\{ \int_{0}^{\infty} \left| W_{\text{task}}(f) \right|^2 \cdot \left[ TTF(f) \right]^2 \cdot \left[ E(f) \right]^4 \cdot NPS(f) \cdot 2\pi f \, df \right\}^{1/2}}
+  \label{eq:dprime_npwe_radial}
+\end{equation}
+
+O modelo NPWE apresenta excelente correlação com leitores humanos em fundos homogêneos. No entanto, ele falha sistematicamente quando aplicado a fundos anatômicos complexos, pois não possui mecanismos para tratar o ruído estrutural.
+
+\section{O Desafio dos Fundos Estruturados: Hotelling Observer e Channelized Hotelling Observer}
+\label{sec:cho}
+
+\subsection{Formulação Algébrica do Observador de Hotelling}
+Quando uma lesão está localizada sobre tecidos anatômicos reais (como o parênquima pulmonar ou o trabeculado ósseo), o fundo introduz uma componente adicional de ruído estrutural. A matriz de covariância total é dada por $\mathbf{K}_{\text{total}} = \mathbf{K}_{\text{ruído}} + \mathbf{K}_{\text{anatômico}}$ \cite{barrett_myers_2004}.
+
+O Observador de Hotelling (HO) aplica a análise discriminante linear de Fisher para maximizar a separabilidade de classes sob fundos variáveis:
+\begin{equation}
+  \mathbf{w}_{\text{HO}} = \mathbf{K}_{\text{total}}^{-1} \langle \mathbf{s} \rangle \implies d'_{\text{HO}} = \sqrt{\langle \mathbf{s} \rangle^T \mathbf{K}_{\text{total}}^{-1} \langle \mathbf{s} \rangle}
+  \label{eq:ho_formulation}
+\end{equation}
+
+\subsection{Modelagem dos Canais Corticais: Gabor, Laguerre-Gauss e D-DOG}
+Para simular o processamento de imagens realizado pelos neurônios do córtex visual primário (área V1) e contornar o custo computacional da inversão da matriz $\mathbf{K}_{\text{total}}$, Barrett et al. \cite{barrett1993}, Yao \& Barrett \cite{yao1992} e Myers \& Barrett \cite{myers1987} introduziram o Observador de Hotelling Canalizado (\emph{Channelized Hotelling Observer} --- CHO).
+
+O CHO aplica uma matriz de canais corticais $\mathbf{T} \in \mathbb{R}^{C \times N}$ (onde $C \ll N$, tipicamente $C \in [4, 10]$ canais), reduzindo o vetor de imagem $\mathbf{g}$ a um vetor canalizado de baixa dimensionalidade $\mathbf{v} \in \mathbb{R}^C$:
+\begin{equation}
+  \mathbf{v} = \mathbf{T} \mathbf{g}
+  \label{eq:cho_reduction}
+\end{equation}
+
+O fluxo completo de processamento do modelo CHO está ilustrado no \cref{fig:cho_flow}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/flow3_cho_pipeline.png}
+  \caption{Decomposição Cortical e Processamento de Decisão no Channelized Hotelling Observer (CHO).}
+  \label{fig:cho_flow}
+\end{figure}
+
+A matriz de covariância no espaço dos canais $\mathbf{K}_{\mathbf{v}} = \mathbf{T} \mathbf{K}_{\text{total}} \mathbf{T}^T \in \mathbb{R}^{C \times C}$ é facilmente invertida, fornecendo o índice de detectabilidade do CHO:
+\begin{equation}
+  d'_{\text{CHO}} = \sqrt{\langle \mathbf{v}_{\mathbf{s}} \rangle^T \mathbf{K}_{\mathbf{v}}^{-1} \langle \mathbf{v}_{\mathbf{s}} \rangle}
+  \label{eq:dprime_cho}
+\end{equation}
+
+A \cref{fig:cho_channels} apresenta os três principais modelos de canais corticais utilizados na literatura.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.98\textwidth]{figuras/fig3_cho_cortical_channels.png}
+  \caption{Modelagem de Canais Corticais no Channelized Hotelling Observer (CHO). (A) Resposta em frequência dos canais passa-faixa Dense Difference of Gaussians (D-DOG) com espaçamento de meia oitava. (B) Perfis espaciais dos canais Laguerre-Gauss radiais ($LG_0$ a $LG_3$). (C) Mapa de sensibilidade bidimensional de um canal de Gabor orientado a $\theta = 45^\circ$. (D) Comportamento da detectabilidade $d'$ do modelo CHO em ruído anatômico estruturado comparado ao colapso do modelo NPWE não-canalizado.}
+  \label{fig:cho_channels}
+\end{figure}
+
+As formulações matemáticas dos canais corticais são:
+\begin{enumerate}
+  \item \textbf{Canais D-DOG (\emph{Dense Difference of Gaussians}):} Filtros passa-faixa concêntricos com espaçamento de meia oitava ($\alpha = 1{,}4$) e razão $a = 1{,}6$:
+  \begin{equation}
+    D\text{-}DOG_j(f) = \exp\left[ -\frac{f^2}{2\sigma_j^2} \right] - \exp\left[ -\frac{f^2}{2(a \sigma_j)^2} \right]
+    \label{eq:ddog}
+  \end{equation}
+  \item \textbf{Canais Laguerre-Gauss (LG):} Funções ortogonais com simetria circular ponderadas por Polinômios de Laguerre $L_n$:
+  \begin{equation}
+    LG_n(r; a_u) = \frac{\sqrt{2}}{a_u} \exp\left( -\frac{\pi r^2}{a_u^2} \right) L_n\left( \frac{2\pi r^2}{a_u^2} \right)
+    \label{eq:lg}
+  \end{equation}
+  \item \textbf{Canais de Gabor:} Funções sinusoidais moduladas por envelope gaussiano com orientação espacial $\theta$ e frequência foveal $f_c$ \cite{abbey2001}.
+\end{enumerate}
+
+\section{Validação Psicofísica e Decomposição Formal da Variância na ANOVA MRMC}
+\label{sec:mrmc}
+
+\subsection{Modelo Linear Misto de Efeitos Aleatórios}
+Para certificar a confiabilidade metrológica de um observador computacional, é imperativo comparar seus resultados com o desempenho de médicos radiologistas reais em estudos psicofísicos 2AFC sob análise estatística \emph{Multi-Reader Multi-Case} (MRMC) \cite{dorfman1992, obuchowski1995, hillis2011, racine2021}.
+
+O paradigma MRMC isola a variabilidade inerente aos leitores humanos da variabilidade amostral dos pacientes (casos clínicos). O modelo linear misto de Dorfman-Berbaum-Metz (DBM) e Obuchowski-Rockette-Hillis (ORH) decompõe a acurácia observada $Y_{ijk}$ (para a modalidade $i$, leitor $j$ e caso $k$) em:
+\begin{equation}
+  Y_{ijk} = \mu + \tau_i + R_j + C_k + (\tau R)_{ij} + (\tau C)_{ik} + (RC)_{jk} + \epsilon_{ijk}
+  \label{eq:mrmc_anova}
+\end{equation}
+onde:
+\begin{itemize}
+  \item $\mu$ é a média global de acurácia;
+  \item $\tau_i$ é o efeito fixo da modalidade tomográfica $i$;
+  \item $R_j \sim \mathcal{N}(0, \sigma^2_R)$ é o efeito aleatório do leitor $j$;
+  \item $C_k \sim \mathcal{N}(0, \sigma^2_C)$ é o efeito aleatório do caso clínico $k$;
+  \item $(\tau R)_{ij} \sim \mathcal{N}(0, \sigma^2_{\tau R})$ é a interação modalidade $\times$ leitor;
+  \item $(\tau C)_{ik} \sim \mathcal{N}(0, \sigma^2_{\tau C})$ é a interação modalidade $\times$ caso;
+  \item $(RC)_{jk} \sim \mathcal{N}(0, \sigma^2_{RC})$ é a interação leitor $\times$ caso;
+  \item $\epsilon_{ijk} \sim \mathcal{N}(0, \sigma^2_{\epsilon})$ é o erro residual aleatório.
+\end{itemize}
+
+\subsection{Graus de Liberdade Ajustados de Satterthwaite e Teste de Hipóteses}
+A estatística de teste $F$ para a hipótese de equivalência entre o modelo computacional e os leitores humanos ($H_0: \tau_{\text{modelo}} = \tau_{\text{humano}}$) utiliza a aproximação de Satterthwaite para os graus de liberdade efetivos do denominador ($df_{\text{den}}$):
+\begin{equation}
+  F = \frac{MS(\tau)}{MS(\tau R) + MS(\tau C) - MS(\tau RC)} \sim F(df_{\text{num}}, df_{\text{den}})
+  \label{eq:satterthwaite}
+\end{equation}
+
+Exige-se que o Coeficiente de Correlação Intraclasse ($ICC$) atinja $ICC \ge 0{,}90$ com intervalo de confiança de 95\% para que o modelo computacional seja aceito como substituto metrológico confiável da avaliação humana.

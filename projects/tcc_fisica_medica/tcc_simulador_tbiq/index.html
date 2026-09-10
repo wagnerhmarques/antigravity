@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBIQ Studio - Simulador de Física Médica & Qualidade de Imagem em TC</title>
+    <meta name="description" content="Software didático e modular para simulação e aprendizagem de Teoria de Detecção de Sinais, Métricas em Fourier (AAPM TG-233), Observadores de Modelo, Reconstrução por IA (DLR) e Tomografia por Contagem de Fótons (PCCT).">
+    
+    <!-- Google Fonts: Inter e Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX para renderização de fórmulas matemáticas nítidas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="dark-theme">
+    <div id="app" class="app-container">
+        <!-- Top Navbar Header -->
+        <header class="app-header">
+            <div class="brand-area">
+                <div class="logo-badge">
+                    <span class="logo-icon">⚛️</span>
+                    <span class="logo-glow"></span>
+                </div>
+                <div class="brand-info">
+                    <h1 class="brand-title">TBIQ Studio <span class="version-tag">v2.5 • Edição Orientador</span></h1>
+                    <p class="brand-subtitle">Laboratório Virtual de Física Perceptual & Metrologia em Tomografia Computadorizada</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button id="btn-lab-guide" class="action-btn btn-secondary" title="Abrir Roteiro Prático de Iniciação Científica">
+                    <span class="btn-icon">🔬</span>
+                    <span class="btn-text">Roteiros de IC (5 Práticas)</span>
+                </button>
+                <button id="btn-export-report" class="action-btn btn-secondary" title="Gerar Laudo de Controle de Qualidade AAPM TG-233">
+                    <span class="btn-icon">📑</span>
+                    <span class="btn-text">Laudo TG-233</span>
+                </button>
+                <button id="btn-2afc-mode" class="action-btn btn-accent" title="Iniciar Desafio Psicofísico 2AFC com Radiologista vs Aluno">
+                    <span class="btn-icon">👁️</span>
+                    <span class="btn-text">Desafio 2AFC (Teste Cego)</span>
+                </button>
+                <button id="btn-create-sim" class="action-btn btn-secondary" title="Criar e adicionar um novo simulador ao software">
+                    <span class="btn-icon">➕</span>
+                    <span class="btn-text">Novo Módulo (+)</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content Area with Navigation & Workspace -->
+        <div class="main-layout">
+            <!-- Sidebar / Simulators Navigation -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <span class="sidebar-title">MÓDULOS DO TCC</span>
+                    <span id="modules-count" class="badge">5 Módulos</span>
+                </div>
+                <nav id="simulators-nav" class="simulators-list">
+                    <!-- Gerado dinamicamente pelo SimulatorsRegistry -->
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="guide-box">
+                        <div class="guide-header">
+                            <span class="guide-icon">💡</span>
+                            <strong>Dica do Orientador</strong>
+                        </div>
+                        <p id="pedagogical-hint">Use a ferramenta de <strong>ROI (FFT 2D)</strong> para medir o NPS empírico diretamente dos pixels e compare com a curva teórica contínua.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center/Right Workspace: 3 Columns (Controls, Dynamic Charts, DICOM Viewport) -->
+            <main class="workspace">
+                <!-- Column 1: Controls & Educational Theory -->
+                <section class="panel-column controls-column">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <span id="module-badge" class="category-badge">Módulo 1</span>
+                                <h2 id="module-title" class="panel-title">Teoria de Detecção de Sinais</h2>
+                            </div>
+                            <button id="btn-reset-params" class="icon-btn" title="Restaurar parâmetros padrão">🔄</button>
+                        </div>
+
+                        <div class="clinical-scenario-banner">
+                            <span class="scenario-icon">🏥</span>
+                            <div class="scenario-text">
+                                <strong id="scenario-title">Cenário Clínico:</strong>
+                                <span id="scenario-desc">Rastreamento de nódulo pulmonar em LDCT</span>
+                            </div>
+                        </div>
+
+                        <!-- Presets Dropdown -->
+                        <div class="preset-selector-group">
+                            <label for="preset-select" class="control-label">Casos Clínicos Pré-Configurados:</label>
+                            <select id="preset-select" class="custom-select">
+                                <!-- Preenchido dinamicamente -->
+                            </select>
+                        </div>
+
+                        <!-- Dynamic Sliders Container -->
+                        <div id="dynamic-controls" class="controls-list">
+                            <!-- Sliders gerados pelo simulador ativo -->
+                        </div>
+
+                        <!-- Educational Pill Box & Math Formula Box -->
+                        <div class="education-card">
+                            <div class="education-header">
+                                <span class="edu-icon">📖</span>
+                                <strong>Fundamentação Físico-Matemática</strong>
+                            </div>
+                            <div id="module-equations" class="equations-box">
+                                <!-- Equações renderizadas via KaTeX -->
+                            </div>
+                            <div id="module-explanation" class="explanation-text">
+                                <!-- Explicação conceitual dinâmica -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Column 2: Dynamic Analytical Charts -->
+                <section class="panel-column charts-column">
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <span class="category-badge badge-cyan">Métricas Analíticas</span>
+                                <h2 class="panel-title">Espaço Teórico & Resposta Espectral</h2>
+                            </div>
+                            <div class="chart-toggles">
+                                <span id="metrics-hud-summary" class="metrics-pill">d' = 2.20 | Qualidade Baseada em Tarefa</span>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Gráficos 1 e 2 -->
+                        <div class="charts-container">
+                            <div class="chart-wrapper">
+                                <div class="chart-toolbar">
+                                    <span id="chart1-title" class="chart-label">Distribuições de Decisão / Resposta Espectral</span>
+                                    <span class="chart-tag">Domínio Teórico</span>
+                                </div>
+                                <canvas id="chart-canvas-1" width="560" height="260"></canvas>
+                                <div id="chart1-legend" class="chart-legend"></div>
+                            </div>
+
+                            <div class="chart-wrapper">
+                                <div class="chart-toolbar">
+                                    <span id="chart2-title" class="chart-label">Curva ROC / Desempenho / Pareto 3D</span>
+                                    <span class="chart-tag">Espaço Metrológico</span>
+                                </div>
+                                <canvas id="chart-canvas-2" width="560" height="260"></canvas>
+                                <div id="chart2-legend" class="chart-legend"></div>
+                            </div>
+                        </div>
+
+                        <!-- Metrics Footer Stats -->
+                        <div class="metrics-grid" id="module-metrics-grid">
+                            <!-- Preenchido dinamicamente com estatísticas físicas -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Column 3: Live Simulated DICOM / CT Viewport -->
+                <section class="panel-column dicom-column">
+                    <div class="panel-card dicom-card">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <span class="category-badge badge-green">Fatia Tomográfica</span>
+                                <h2 class="panel-title">Simulador DICOM em Tempo Real</h2>
+                            </div>
+                            <div class="viewport-controls">
+                                <button id="btn-toggle-roi" class="icon-btn" title="Ativar Ferramenta de ROI para medição de FFT 2D e ruído empírico">📊</button>
+                                <button id="btn-toggle-split" class="icon-btn" title="Alternar Comparador A/B Split-Screen">⚖️</button>
+                                <button id="btn-toggle-line-profile" class="icon-btn active" title="Alternar traçado de perfil radial de densidade (ESF/LSF)">📏</button>
+                            </div>
+                        </div>
+
+                        <!-- DICOM Canvas Viewport -->
+                        <div class="dicom-viewport-container" id="dicom-viewport-wrapper">
+                            <canvas id="dicom-canvas" width="380" height="380"></canvas>
+                            
+                            <!-- Overlaid Medical HUD -->
+                            <div class="dicom-hud top-left">
+                                <div class="hud-item"><span class="hud-label">PACIENTE:</span> <span class="hud-val">FANTOMA SINTÉTICO</span></div>
+                                <div class="hud-item"><span class="hud-label">MODALIDADE:</span> <span class="hud-val" id="hud-modality">TC HELICOIDAL</span></div>
+                                <div class="hud-item"><span class="hud-label">DOSE:</span> <span class="hud-val" id="hud-dose">CTDIvol 2.5 mGy</span></div>
+                            </div>
+                            <div class="dicom-hud top-right">
+                                <div class="hud-item"><span class="hud-label">MATRIZ:</span> <span class="hud-val">512 x 512</span></div>
+                                <div class="hud-item"><span class="hud-label">CORTE:</span> <span class="hud-val">1.0 mm</span></div>
+                                <div class="hud-item"><span class="hud-label">KERNEL:</span> <span class="hud-val" id="hud-kernel">Standard / DLR</span></div>
+                            </div>
+                            <div class="dicom-hud bottom-left">
+                                <div class="hud-item"><span class="hud-label">JANELA (W):</span> <span class="hud-val" id="hud-window">1500 HU</span></div>
+                                <div class="hud-item"><span class="hud-label">NÍVEL (L):</span> <span class="hud-val" id="hud-level">-600 HU</span></div>
+                                <div class="hud-item"><span class="hud-label">CURSOR:</span> <span class="hud-val" id="hud-cursor-val">-- HU</span></div>
+                            </div>
+                            <div class="dicom-hud bottom-right">
+                                <div class="hud-item"><span class="hud-label">d' LOCAL:</span> <span class="hud-val highlight" id="hud-dprime">2.20</span></div>
+                                <div class="hud-item"><span class="hud-label">CRITÉRIO ROSE:</span> <span class="hud-val" id="hud-rose">Incerteza</span></div>
+                            </div>
+
+                            <!-- Interactive 2AFC Challenge Overlay -->
+                            <div id="challenge-overlay" class="challenge-overlay hidden">
+                                <div class="challenge-modal">
+                                    <div class="challenge-header">
+                                        <h3>🎯 Desafio Psicofísico 2AFC (Escolha Forçada)</h3>
+                                        <span id="challenge-trial-counter" class="badge">Tentativa 1 de 10</span>
+                                    </div>
+                                    <p class="challenge-instruction">Clique na imagem (<strong style="color:var(--accent-cyan)">Esquerda</strong> ou <strong style="color:var(--accent-green)">Direita</strong>) onde você detecta a presença da lesão patológica sutil:</p>
+                                    
+                                    <div class="challenge-pair-container">
+                                        <div class="challenge-choice-box" id="choice-left" data-choice="left">
+                                            <span class="choice-tag">IMAGEM A</span>
+                                            <canvas id="canvas-2afc-left" width="180" height="180"></canvas>
+                                        </div>
+                                        <div class="challenge-choice-box" id="choice-right" data-choice="right">
+                                            <span class="choice-tag">IMAGEM B</span>
+                                            <canvas id="canvas-2afc-right" width="180" height="180"></canvas>
+                                        </div>
+                                    </div>
+
+                                    <div class="challenge-stats-bar">
+                                        <div>Acertos: <strong id="score-correct">0</strong> / <span id="score-total">0</span> (<span id="score-pct">0%</span>)</div>
+                                        <div>Seu d' Observado: <strong id="score-dprime">0.00</strong></div>
+                                        <button id="btn-exit-2afc" class="btn-sm btn-danger">Encerrar Teste</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DICOM Toolbar -->
+                        <div class="dicom-tools-bar">
+                            <div class="tool-group">
+                                <label class="tool-label">Janelamento (W/L):</label>
+                                <div class="preset-buttons">
+                                    <button class="wl-btn active" data-w="1500" data-l="-600">Pulmão</button>
+                                    <button class="wl-btn" data-w="400" data-l="50">Fígado</button>
+                                    <button class="wl-btn" data-w="40" data-l="40">AVC</button>
+                                    <button class="wl-btn" data-w="2000" data-l="400">Osso</button>
+                                    <button class="wl-btn" data-w="800" data-l="200">Angio</button>
+                                </div>
+                            </div>
+
+                            <div class="tool-group">
+                                <label class="tool-label">Mapa de Cores:</label>
+                                <select id="colormap-select" class="custom-select-sm">
+                                    <option value="gray" selected>Escala de Cinza (Padrão DICOM)</option>
+                                    <option value="bone">Bone (Osso Alto Contraste)</option>
+                                    <option value="rainbow">Rainbow (Pseudo-cor Espectral)</option>
+                                    <option value="hot">Hot Metal (Isquemia/Realce)</option>
+                                    <option value="inverted">Invertido</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Line Profile Scanner -->
+                        <div class="line-profile-container">
+                            <div class="profile-header">
+                                <span>Perfil de Atenuação Seccional [HU vs Posição (mm)]</span>
+                                <span class="profile-contrast" id="profile-contrast-val">ΔC = 35 HU</span>
+                            </div>
+                            <canvas id="profile-canvas" width="380" height="75"></canvas>
+                        </div>
+
+                        <!-- ROI Measurement Live Info Bar -->
+                        <div id="roi-stats-container" class="roi-stats-bar hidden">
+                            <span class="roi-badge">🔬 METROLOGIA ROI</span>
+                            <span id="roi-stats-info">Média: -- HU | σ: -- HU</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Modal 1: Roteiro de Práticas de Iniciação Científica -->
+        <div id="lab-guide-modal" class="modal-backdrop hidden">
+            <div class="modal-card modal-large">
+                <div class="modal-header">
+                    <h3>🔬 Bancada Virtual: 5 Roteiros Práticos de Iniciação Científica</h3>
+                    <button id="btn-close-lab-modal" class="icon-btn">✖</button>
+                </div>
+                <div class="modal-body">
+                    <p>Cada experimento aborda um problema físico-matemático real do TCC. Execute o roteiro no simulador e valide a hipótese física:</p>
+                    <div id="experiment-feedback" class="exp-feedback-banner">Selecione um experimento abaixo para iniciar.</div>
+                    <div id="experiments-list" class="experiments-grid">
+                        <!-- Preenchido dinamicamente pelo LabExperimentsGuide -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 2: Laudo Técnico de Controle de Qualidade AAPM TG-233 -->
+        <div id="report-modal" class="modal-backdrop hidden">
+            <div class="modal-card modal-medium">
+                <div class="modal-header">
+                    <h3>📑 Laudo Técnico de Metrologia e Qualidade Baseada em Tarefa (AAPM TG-233)</h3>
+                    <button id="btn-close-report-modal" class="icon-btn">✖</button>
+                </div>
+                <div class="modal-body" id="report-printable-area">
+                    <div class="report-header-box">
+                        <h4>UNIVERSIDADE DE SÃO PAULO - INSTITUTO DE FÍSICA / FACULDADE DE MEDICINA</h4>
+                        <p>SERVIÇO DE FÍSICA MÉDICA E RADIODIAGNÓSTICO • RELATÓRIO DE AUDITORIA TBIQ</p>
+                    </div>
+                    <div class="report-section">
+                        <strong>1. IDENTIFICAÇÃO DO PROTOCOLO E EQUIPAMENTO</strong>
+                        <div id="report-protocol-info" class="report-table"></div>
+                    </div>
+                    <div class="report-section">
+                        <strong>2. MÉTRICAS BASEADAS EM TAREFA (AAPM TG-233)</strong>
+                        <div id="report-metrics-table" class="report-table"></div>
+                    </div>
+                    <div class="report-section">
+                        <strong>3. PARECER FÍSICO-METROLÓGICO E BIOÉTICO</strong>
+                        <p id="report-conclusion" class="report-text"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-print-report" class="action-btn btn-accent">🖨️ Imprimir / Salvar PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal 3: Template de Novo Simulador -->
+        <div id="new-sim-modal" class="modal-backdrop hidden">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h3>🚀 Criador de Novo Simulador (Template de Código)</h3>
+                    <button id="btn-close-modal" class="icon-btn">✖</button>
+                </div>
+                <div class="modal-body">
+                    <p>O TBIQ Studio possui arquitetura em plugins. Qualquer aluno pode criar um novo simulador herdando de <code>SimulatorBase</code>:</p>
+                    <div class="code-box">
+                        <pre><code>// 1. Crie seu arquivo: js/modules/MeuNovoSimulador.js
+import { SimulatorBase } from '../core/SimulatorBase.js';
+import { globalRegistry } from '../core/SimulatorsRegistry.js';
+
+export class MeuNovoSimulador extends SimulatorBase {
+    constructor() {
+        super({
+            id: 'meu_novo_simulador',
+            title: 'Análise de Artefatos em TC',
+            badge: 'Módulo Customizado',
+            clinicalScenario: 'Detecção de Artefatos Metálicos',
+            scenarioDesc: 'Avaliação de próteses de titânio e redução de endurecimento de feixe.'
+        });
+    }
+
+    getParameters() {
+        return {
+            proteseMaterial: { type: 'select', options: ['Titânio', 'Aço Inox', 'Zircônia'], default: 'Titânio', label: 'Material' },
+            marLevel: { type: 'range', min: 0, max: 100, default: 50, label: 'Algoritmo MAR (%)' }
+        };
+    }
+
+    synthesizeSlice(w, h, params, math) {
+        const slice = new Float32Array(w * h);
+        // ... sua física tomográfica em HU ...
+        return slice;
+    }
+
+    renderCharts(c1, c2, params, math) {
+        // ... seus gráficos analíticos ...
+    }
+}
+
+// 2. Registre em 1 linha:
+globalRegistry.register(new MeuNovoSimulador());</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Principal -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

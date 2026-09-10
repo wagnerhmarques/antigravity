@@ -1,0 +1,90 @@
+\chapter{Introdução}
+\label{chap:introducao}
+
+\section{O Dilema Fundamental da Tomografia Computadorizada: Dose versus Desempenho Clínico}
+\label{sec:dilema_dose}
+
+A Tomografia Computadorizada (TC) revolucionou a medicina diagnóstica desde a sua introdução clínica na década de 1970 por Godfrey Hounsfield. Ao permitir a reconstrução tridimensional de secções transversais do corpo humano com elevada diferenciação de densidades de tecidos moles e resolução espacial submilimétrica, a TC consolidou-se como a modalidade de escolha para o estadiamento oncológico, o planejamento cirúrgico e radioterápico, a avaliação de traumas agudos e o rastreamento precoce de doenças pulmonares e vasculares \cite{mccollough2026, seeram2015, bushberg2020}.
+
+Contudo, o princípio físico basilar da formação da imagem tomográfica reside na atenuação exponencial de feixes de raios X transmitidos através do paciente \cite{attix1986}. A absorção e o espalhamento dessa radiação ionizante no tecido biológico provocam ionizações atômicas e quebras de ligações moleculares em estruturas de DNA celular, associando-se a riscos estocásticos de carcinogênese a longo prazo \cite{icrp103_2007}. Consequentemente, embora represente apenas de 10\% a 15\% do total de procedimentos radiológicos executados mundialmente, a TC responde por aproximadamente 65\% a 70\% de toda a dose coletiva de radiação ionizante de origem médica absorvida pela população humana \cite{iaea_5star_2026, mccollough2026}.
+
+Essa assimetria impõe a aplicação rigorosa do princípio fundamental da radioproteção: o princípio ALARA (\emph{As Low As Reasonably Achievable}) \cite{icrp103_2007, anvisa_rdc611_2022, anvisa_in93_2021}. De acordo com essa diretriz, os protocolos tomográficos devem ser continuamente otimizados para operar na menor dose de radiação compatível com o objetivo diagnóstico desejado.
+
+Para compreender a dificuldade física dessa otimização, é necessário analisar como os fótons de raios X se comportam estatisticamente. A detecção de fótons é um processo estocástico regido pela distribuição de Poisson \cite{knoll2010}. Em termos intuitivos, quanto menor o número de fótons emitidos pelo tubo de raios X, maiores são as flutuações estatísticas percentuais registradas pelos detectores. No domínio da imagem reconstruída, essa incerteza manifesta-se visualmente sob a forma de ruído quântico.
+
+A relação matemática fundamental entre o desvio padrão do ruído ($\sigma_{\text{ruído}}$), o número de fótons detectados ($N_{\text{fótons}}$) e o índice de dose volumétrico ($\text{CTDI}_{\text{vol}}$) é expressa por:
+\begin{equation}
+  \sigma_{\text{ruído}} \propto \frac{1}{\sqrt{N_{\text{fótons}}}} \propto \frac{1}{\sqrt{\text{CTDI}_{\text{vol}}}}
+  \label{eq:ruido_dose}
+\end{equation}
+
+Em termos práticos, se um físico médico tentar reduzir a dose de radiação pela metade sem alterar a tecnologia do tomógrafo ou o algoritmo de reconstrução, o nível de ruído da imagem aumentará automaticamente em um fator de $\sqrt{2} \approx 1{,}41$ (ou seja, cerca de 41\% de acréscimo de ruído). Esse ruído adicional sobrepõe-se às estruturas anatômicas sutis, reduzindo a capacidade do radiologista de identificar lesões de baixo contraste, como metástases hepáticas incipientes ou pequenos nódulos pulmonares em vidro fosco.
+
+\section{Limitações Estruturais das Métricas Físicas Globais Tradicionais}
+\label{sec:limitacoes_metricas}
+
+Durante quatro décadas, o controle de qualidade e a avaliação de desempenho de tomógrafos hospitalares apoiaram-se em grandezas físicas escalares derivadas da teoria de sistemas lineares e invariantes no espaço \cite{barrett_myers_2004}:
+\begin{enumerate}[label=\alph*)]
+  \item Desvio padrão do número CT ($\sigma_{\text{HU}}$), mensurado no centro de um simulador geométrico homogêneo de água;
+  \item Relação Sinal-Ruído (SNR) e Relação Contraste-Ruído (CNR), calculadas classicamente pela diferença de médias entre o alvo e o fundo dividida pelo desvio padrão:
+  \begin{equation}
+    \text{CNR} = \frac{|\overline{\mu}_{\text{alvo}} - \overline{\mu}_{\text{fundo}}|}{\sigma_{\text{fundo}}}
+    \label{eq:cnr_classica}
+  \end{equation}
+  \item Função de Transferência de Modulação (MTF), obtida a partir da resposta ao impulso de fios finos metálicos ou micro-esferas de alta densidade suspensas em meio uniforme.
+\end{enumerate}
+
+Embora essas métricas fossem adequadas para caracterizar o algoritmo analítico clássico da Retroprojeção Filtrada (FBP) --- que atua de forma estritamente linear e produz ruído gaussiano espacialmente estacionário ---, elas falham de maneira substancial na avaliação dos tomógrafos modernos \cite{aapm_tg233_2019}.
+
+Essa falha decorre do fato de que os equipamentos contemporâneos utilizam algoritmos não lineares, como as reconstruções iterativas e as redes neurais profundas. A CNR convencional possui limitações conceituais severas:
+\begin{itemize}
+  \item Primeiramente, a CNR avalia apenas a dispersão pontual dos valores em pixels isolados, sendo completamente cega para a textura espacial do ruído. Duas imagens podem apresentar exatamente o mesmo valor numérico de $\sigma_{\text{fundo}}$ e a mesma diferença de contraste, mas uma conter ruído fino e granular enquanto a outra apresenta manchas borradas de baixa frequência. Para a percepção do olho humano, a facilidade de encontrar uma lesão em cada uma dessas imagens é completamente distinta.
+  \item Em segundo lugar, a aplicação de filtros matemáticos de suavização espacial reduz o desvio padrão do fundo, inflando artificialmente o valor da CNR, ao mesmo tempo em que apaga bordas anatômicas e diminui a nitidez de detalhes diagnósticos finos.
+  \item Por fim, a CNR não incorpora nenhuma propriedade fisiológica do sistema visual humano, tratando a tomada de decisão médica como se fosse uma simples subtração aritmética de intensidades.
+\end{itemize}
+
+\section{A Mudança de Paradigma: Qualidade de Imagem Baseada em Tarefa}
+\label{sec:mudanca_paradigma}
+
+Diante dessas inconsistências, órgãos normativos internacionais, como o relatório AAPM TG-233 \cite{aapm_tg233_2019} e o ICRU Report 54 \cite{icru54_1996}, formalizaram a transição para o paradigma da Qualidade de Imagem Baseada em Tarefa (\emph{Task-Based Image Quality} --- TBIQ).
+
+No escopo da TBIQ, a qualidade da imagem deixa de ser tratada como um atributo físico isolado e passa a ser definida como a eficácia estatística com que um observador específico consegue responder a uma pergunta clínica sobre a imagem \cite{barrett_myers_2004}.
+
+O \cref{quadro:paradigmas} sumariza as diferenças estruturais fundamentais entre os dois paradigmas.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/flow2_comparativo_paradigmas.png}
+  \caption{Comparativo Estrutural entre o Paradigma Físico Clássico (Linear/Escalar) e o Paradigma Contemporâneo Baseado em Tarefa (TBIQ).}
+  \label{quadro:paradigmas}
+\end{figure}
+
+O pilar quantitativo da TBIQ é o Índice de Detectabilidade ($d'$), que integra de forma coerente as grandezas físicas do sistema tomográfico com as propriedades da visão humana, conforme esquematizado no \cref{fig:flow1_tbiq}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{figuras/flow1_tbiq_paradigm.png}
+  \caption{Pilares Fundamentais da Avaliação de Qualidade de Imagem Baseada em Tarefa (TBIQ), articulando Resolução ($TTF$), Ruído ($NPS$) e Fisiologia Visual ($E(f)$) no Índice de Detectabilidade ($d'$).}
+  \label{fig:flow1_tbiq}
+\end{figure}
+
+\section{Objetivos}
+\label{sec:objetivos}
+
+\subsection{Objetivo Geral}
+Estruturar, deduzir matematicamente e analisar criticamente a evolução dos modelos perceptivos e computacionais de avaliação de qualidade de imagem baseada em tarefas em Tomografia Computadorizada, partindo das formulações lineares clássicas até os observadores de aprendizado profundo contemporâneos e sua aplicação na otimização multiobjetivo de protocolos clínicos.
+
+\subsection{Objetivos Específicos}
+\begin{enumerate}[label=\alph*)]
+  \item Formalizar as deduções matemáticas da Teoria de Detecção de Sinais nos domínios espacial e de frequências, demonstrando a diagonalização da matriz de covariância via Teorema de Wiener-Khinchin;
+  \item Analisar a trajetória dos observadores lineares (IO, NPW, NPWE, HO e CHO), explicitando as aproximações do córtex visual e os métodos psicofísicos de validação humana (2AFC e ANOVA MRMC com decomposição formal de variâncias);
+  \item Investigar o colapso da linearidade em sistemas DLR, demonstrando o surgimento da não-estacionariedade e detalhando comparativamente as quatro filosofias comerciais de reconstrução profunda (GE, Canon, Siemens e Philips);
+  \item Examinar a fronteira científica dos Observadores Baseados em Aprendizado Profundo (DLMO), deduzindo os mecanismos de auto-atenção multi-cabeça nos \emph{Vision Transformers} e sua correspondência com a visão foveal humana;
+  \item Investigar os fundamentos biofísicos da Tomografia por Contagem de Fótons (PCCT), cristais semicondutores CdTe/Silício, \emph{charge sharing}, \emph{pulse pile-up} e a síntese de Imagens Monoenergéticas Virtuais ($VMI$);
+  \item Formular o problema de Otimização Multiobjetivo em TC através da Fronteira de Pareto Tridimensional $(D, T, -W)$, integrando dose ($D$), tempo operacional ($T$) e detectabilidade ($W$).
+\end{enumerate}
+
+\section{Estrutura da Monografia}
+\label{sec:estrutura}
+
+Esta monografia está organizada em sete capítulos principais: o \cref{chap:fundamentacao} estabelece os fundamentos teóricos da SDT e a dedução das métricas de Fourier; o \cref{chap:observadores_lineares} aborda a era dos observadores lineares e a validação psicofísica MRMC; o \cref{chap:colapso_linearidade} analisa a quebra da linearidade pelas reconstruções modernas, comparando os algoritmos comerciais DLR e o uso de simuladores antropomórficos; o \cref{chap:estado_da_arte} discute os observadores de aprendizado profundo (ViT), a física da PCCT e a otimização multiobjetivo; o \cref{chap:arquitetura_metrologia} detalha a arquitetura computacional, a metrologia experimental e os aspectos bioéticos; e o \cref{chap:conclusoes} sintetiza as conclusões e os direcionamentos futuros da pesquisa.

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Outfit:wght@400;600;700;800;900&amp;display=swap');
+      text, p, div {
+        font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+    </style>
+    <filter id="cardShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+    <clipPath id="cardClip">
+      <rect width="400" height="600" rx="36"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <!-- Fundo Base Vinho Profundo -->
+    <rect width="400" height="600" fill="#2d031c"/>
+
+    <!-- Facetas Poligonais em Tons de Vinho/Ameixa -->
+    <polygon points="0,0 285,0 160,165 0,110" fill="#3c0627"/>
+    <polygon points="285,0 400,115 250,225 160,165" fill="#4d0933"/>
+    <polygon points="0,110 160,165 75,310 0,270" fill="#350421"/>
+    <polygon points="160,165 250,225 235,370 75,310" fill="#46072e"/>
+    <polygon points="250,225 400,115 400,340 315,385" fill="#31031e"/>
+    <polygon points="400,340 400,475 310,600 235,465 315,385" fill="#520c36"/>
+    <polygon points="0,270 75,310 235,465 115,600 0,470" fill="#380523"/>
+    <polygon points="235,465 115,600 310,600" fill="#250217"/>
+
+    <!-- Acentos Geométricos Exatos dos Cantos -->
+    <polygon points="0,110 110,0 72,0 0,72" fill="#e8ff3b"/>
+    <path d="M 285 0 L 400 0 L 400 115 Z" fill="#ff007f"/>
+    <polygon points="0,470 0,600 115,600" fill="#a2ff92"/>
+    <polygon points="310,600 400,600 400,475" fill="#e8ff3b"/>
+
+    <!-- ENUMERAÇÃO DO CARD NO CANTO SUPERIOR DIREITO COM O AMARELO CARACTERÍSTICO -->
+    <text x="358" y="46" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#e8ff3b" text-anchor="middle">#11</text>
+
+    
+    <!-- 7 Símbolos de Ciência Profissionais Lucide (Translúcidos) -->
+    <g stroke="#ff007f" stroke-opacity="0.22" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <!-- 1. DNA (Topo Esquerdo) -->
+      <g transform="translate(45, 30) rotate(-35) scale(2.4)">
+        <path d="M2 15c6.667-6 13.333 0 20-6" />
+        <path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993" />
+        <path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993" />
+        <path d="m17 6-2.891-2.891M7 18l2.891 2.891M10 16l1.5 1.5M14 8l-1.5-1.5M16.5 10.5l1 1M6.5 12.5l1 1M20 9l.891.891M3.109 14.109l.891.891" />
+      </g>
+      <!-- 2. Buckyball / Nanociência (Topo Centro) -->
+      <g transform="translate(165, 20) rotate(15) scale(2.1)">
+        <path d="M3 21C4 10 10 4 21 3C20 14 14 20 3 21Z" />
+        <path d="M3 21L21 3M7.5 13.5L10.5 16.5M10.5 10.5L13.5 13.5M13.5 7.5L16.5 10.5" />
+      </g>
+      <!-- 3. Átomo (Topo Direito) -->
+      <g transform="translate(275, 26) scale(2.4)">
+        <circle cx="12" cy="12" r="1.4" fill="#ff007f" />
+        <path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z" />
+        <path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z" />
+      </g>
+      <!-- 4. Lâmpada da Inovação / Ciência (Lateral Esquerda) -->
+      <g transform="translate(14, 168) rotate(-15) scale(2.0)">
+        <path d="M9 18h6M10 22h4M9 14c-0.2-1-0.7-1.7-1.5-2.5C6.8 10.6 6 9.4 6 8c0-3.313 2.686-6 6-6s6 2.686 6 6c0 1.4-0.8 2.6-1.5 3.5-0.8 0.8-1.3 1.5-1.5 2.5" />
+      </g>
+      <!-- 5. Engrenagem da Tecnologia Médica (Lateral Direita) -->
+      <g transform="translate(348, 168) scale(2.0)">
+        <circle cx="12" cy="12" r="3.2" />
+        <circle cx="12" cy="12" r="6.8" />
+        <path d="M12 2v3.2M12 18.8v3.2M2 12h3.2M18.8 12h3.2M4.93 4.93l2.26 2.26M16.81 16.81l2.26 2.26M4.93 19.07l2.26-2.26M16.81 7.19l2.26-2.26" />
+      </g>
+      <!-- 6. DNA (Base Esquerda) -->
+      <g transform="translate(24, 475) rotate(-35) scale(2.5)">
+        <path d="M2 15c6.667-6 13.333 0 20-6" />
+        <path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993" />
+        <path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993" />
+        <path d="m17 6-2.891-2.891M7 18l2.891 2.891M10 16l1.5 1.5M14 8l-1.5-1.5M16.5 10.5l1 1M6.5 12.5l1 1M20 9l.891.891M3.109 14.109l.891.891" />
+      </g>
+      <!-- 7. Microscópio (Base Direita) -->
+      <g transform="translate(328, 465) rotate(15) scale(2.5)">
+        <path d="M6 18h8M3 22h18M14 22c3.86 0 7-3.14 7-7c0-3.86-3.14-7-7-7h-1M9 14h2M7 10V6h6v4c0 1.1-0.9 2-2 2H9c-1.1 0-2-0.9-2-2ZM12 6V2M9 2h6" />
+      </g>
+    </g>
+    
+
+    <!-- BADGE HERO FATO ou FAKE? (BORDAS JUSTAS, PÍLULA 'ou' REDUZIDA E COM FONTE +2, INCLINADO +4.5°) -->
+    <g transform="rotate(4.5, 200, 118)">
+      <!-- Traço decorativo Verde Menta contornando o topo da pílula branca -->
+      <path d="M 94 96 C 94 66 118 58 148 58 L 256 58" fill="none" stroke="#a2ff92" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- Pílula Branca Superior: FATO (borda justa) -->
+      <rect x="98" y="58" width="204" height="60" rx="30" fill="#ffffff" filter="url(#cardShadow)"/>
+      <text x="200" y="103" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="#350424" text-anchor="middle" letter-spacing="1.5">FATO</text>
+
+      <!-- Traço decorativo Rosa Choque contornando a base da pílula rosa -->
+      <path d="M 144 190 L 258 190 C 292 190 312 178 312 148" fill="none" stroke="#ff007f" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- Pílula Rosa Choque Inferior: FAKE? (borda justa, posicionada sem sobreposição da 'ou') -->
+      <rect x="84" y="125" width="232" height="62" rx="31" fill="#ff007f" filter="url(#cardShadow)"/>
+      <text x="200" y="172" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="52" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1.5">FAKE?</text>
+
+      <!-- Pílula Escura Central 'ou': REDUZIDA e com FONTE AUMENTADA EM 2 (17px), sem sobrepor 'FAKE' -->
+      <rect x="178" y="105" width="44" height="22" rx="11" fill="#350424" stroke="#ffffff" stroke-width="2.5"/>
+      <text x="200" y="121.5" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="17" font-weight="900" fill="#ffffff" text-anchor="middle">ou</text>
+    </g>
+
+    <!-- CAMPO DA PERGUNTA / AFIRMAÇÃO NA PARTE DA FRENTE -->
+    <rect x="22" y="214" width="356" height="254" rx="22" fill="#ffffff" filter="url(#cardShadow)"/>
+    <rect x="22" y="214" width="7" height="254" rx="3.5" fill="#ff007f"/>
+
+    <!-- Tag de Categoria no topo da caixa (SEM A NUMERAÇÃO DO CARD) -->
+    <rect x="75" y="228" width="250" height="26" rx="13" fill="#fceaf3"/>
+    <text x="200" y="245.5" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="11.5" font-weight="800" fill="#d8005b" text-anchor="middle" letter-spacing="0.5">
+      🩻 MITOS DO RAIO X
+    </text>
+
+    <!-- Texto da Pergunta entre aspas perfeitamente centralizado e com tamanho adaptativo -->
+    <text x="200" y="316.0" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="15.0" font-weight="900" font-style="italic" fill="#1a0210" text-anchor="middle">“Você continua emitindo radiação por</text>
+    <text x="200" y="337.0" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="15.0" font-weight="900" font-style="italic" fill="#1a0210" text-anchor="middle">algumas horas depois de fazer um</text>
+    <text x="200" y="358.0" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="15.0" font-weight="900" font-style="italic" fill="#1a0210" text-anchor="middle">simples raios X do tórax.”</text>
+
+    <!-- Divisória sutil e Chamada para Ação -->
+    <line x1="45" y1="420" x2="355" y2="420" stroke="#f2d5e5" stroke-width="1.2"/>
+    <text x="200" y="445" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#741d4f" text-anchor="middle">
+      👉 O que você acha? Vire o card para descobrir!
+    </text>
+
+    <!-- Rodapé: CIÊNCIA OU MITO? -->
+    <text x="200" y="510" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="24" font-weight="900" fill="#e8ff3b" text-anchor="middle" letter-spacing="3">CIÊNCIA OU MITO?</text>
+    <text x="200" y="535" font-family="'Outfit', system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="800" fill="#ffc2eb" text-anchor="middle" letter-spacing="1">FEIRA USP E AS PROFISSÕES • FÍSICA MÉDICA</text>
+  </g>
+</svg>
