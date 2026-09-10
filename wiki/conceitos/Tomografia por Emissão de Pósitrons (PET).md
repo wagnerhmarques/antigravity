@@ -15,7 +15,9 @@ O princípio físico fundamental da PET baseia-se no decaimento radioativo por e
 u_e$):
 
 $$
-p \rightarrow n + \beta^+ + \nu_e
+p 
+ightarrow n + \beta^+ + 
+u_e
 $$
 
 Após ser emitido pelo núcleo radioativo (por exemplo, $^{18}\text{F}$, $^{11}\text{C}$, $^{13}\text{N}$, $^{15}\text{O}$), o pósitron viaja uma curta distância no meio tecido-equivalente — conhecida como *distância de percurso do pósitron* ou *positron range*, tipicamente da ordem de milímetros (dependendo da energia cinética máxima do pósitron) — até perder sua energia cinética através de colisões com elétrons atômicos. 

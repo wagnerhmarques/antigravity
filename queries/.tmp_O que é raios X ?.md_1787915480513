@@ -1,0 +1,27 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[X-Ray Tube And Spectra]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Radioproteção]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[X-Ray Tube And Spectra]], [[Tomografia Computadorizada]], [[Radioproteção]]
+
+## 1. Definição e Natureza Eletromagnética
+
+Os raios-X constituem uma forma de radiação eletromagnética ionizante de alta frequência e comprimento de onda extremamente curto, situando-se no espectro eletromagnético entre a radiação ultravioleta extrema e os raios gama. Com comprimentos de onda tipicamente variando de $0.01\text{ nm}$ a $10\text{ nm}$ (energias de fótons variando de aproximadamente $0.1\text{ keV}$ a $500\text{ keV}$), os raios-X possuem a capacidade de penetrar a matéria e ionizar átomos e moléculas através da remoção de elétrons ligados.
+
+Em sistemas de [[Tomografia Computadorizada]], a radiação X é gerada de forma controlada para atuar como sonda não invasiva. A interação subsequente com os tecidos biológicos é governada principalmente por processos de atenuação como o [[Efeito Fotoelétrico]] e o [[Espalhamento Compton]], cujos coeficientes dependem fortemente da densidade eletrônica e do número atômico efetivo ($Z$) dos meios atravessados.
+
+## 2. Mecanismos de Geração e Espectro Energético
+
+A produção física de raios-X ocorre em tubos especializados de vácuo, conforme detalhado em [[X-Ray Tube And Spectra]]. O processo envolve a aceleração de elétrons térmicos emitidos por um cátodo em direção a um ânodo metálico (geralmente tungstênio, $Z = 74$) sob uma alta diferença de potencial ($kV_p$). A conversão da energia cinética dos elétrons em radiação dá-se por dois mecanismos fundamentais:
+
+1. **Radiação de Bremsstrahlung (Frenagem):** Ocorre quando elétrons incidentes sofrem forte desaceleração e desvio ao interagir com o campo eletrostático dos núcleos atômicos do ânodo. O espectro resultante é contínuo e limitado pela energia máxima:
+
+$$
+E_{\max} = e \cdot kV_p
+$$
+
+2. **Radiação Característica:** Ocorre quando um elétron incidente ejeta um elétron das camadas internas (camada K ou L) do átomo do alvo. A transição eletrônica subsequente de camadas externas para preencher a lacuna resulta na emissão de fótons com energias discretas e específicas do material do alvo:
+
+$$
+E_{\text{característica}} = E_{\text{externa}} - E_{\text{interna}}
+$$
+
+O espectro de emissão total resultante é policromático, exigindo filtragem intrínseca e extrínseca para mitigar a dose cutânea e endurecer o feixe antes da interação com o paciente.

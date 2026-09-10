@@ -1,0 +1,42 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral]]
+
+## 1. Fundamentação Conceitual
+
+O **Pixelprint** representa um arcabouço computacional e tecnológico avançado voltado para a fabricação aditiva de fantomas antropomórficos e específicos para pacientes (*patient-specific phantoms*) em Tomografia Computadorizada (TC). Desenvolvido para superar as limitações de uniformidade e homogeneidade dos fantomas tradicionais, o método baseia-se na deposição voxel a voxel de materiais com propriedades de atenuação radiológica controladas, permitindo reproduzir com alta fidelidade tanto a complexidade anatômica de tecidos moles e ósseos quanto a inserção de artefatos metálicos hiper-densos.
+
+Na física médica, a validação de protocolos avançados de aquisição — especialmente em cenários que envolvem implantes ortopédicos ou odontológicos — exige fantomas físicos cujos coeficientes de atenuação linear correspondam rigorosamente aos dados clínicos reais. O arcabouço Pixelprint traduz matrizes volumétricas DICOM em instruções de impressão 3D de alta resolução, mapeando diretamente a intensidade de cada voxel da imagem em composições de filamentos compósitos.
+
+## 2. Implementação Tecnológica e Materiais
+
+O processo estende-se frequentemente para arquiteturas de **Impressão 3D com Duplo Filamento**, combinando polímeros termoplásticos com dopantes minerais ou metálicos para modular a densidade eletrônica efetiva e o número atômico efetivo ($Z_{\text{eff}}$). Os materiais típicos empregados incluem:
+
+* **Matriz Polimérica Base:** Ácido Polilático (PLA) ou Acrilonitrila Butadieno Estireno (ABS), que servem como ligantes estruturais.
+* **Dopagem para Tecidos Moles e Ósseos:** Adição de partículas minerais (como sais de cálcio) ao filamento polimérico para sintonizar a faixa de Unidades Hounsfield (HU) desde tecidos adiposos até o osso trabecular.
+* **Dopagem para Implantes Metálicos:** Utilização de filamentos carregados com pós metálicos (por exemplo, aço inoxidável 17-4 PH ou titânio) para simular dispositivos de fixação espinhal, hastes ortopédicas ou próteses articulares.
+
+A relação entre a fração de inflição volumétrica (*infill*) e o número atômico efetivo do compósito rege-se por modelos de mistura efetiva. Seja $\rho_e$ a densidade eletrônica do material impresso, a atenuação linear macroscópica $\mu(E)$ para uma energia de fóton $E$ é descrita por:
+
+$$
+\mu(E) = \rho_e \cdot \sigma_t(E) = N_A \sum_{j} w_j \left( \frac{\rho}{A_j} \right) \left[ \sigma_{\text{photo}}(Z_j, E) + \sigma_{\text{Compton}}(E) \right]
+$$
+
+Onde $N_A$ é a constante de Avogadro, $w_j$ a fração em peso do elemento $j$, $A_j$ o número de massa, e $\sigma_{\text{photo}}$ e $\sigma_{\text{Compton}}$ as seçães de choque para efeito fotoelétrico e espalhamento Compton, respectivamente.
+
+## 3. Aplicações em Tomografia Computadorizada e Otimização
+
+O uso do Pixelprint e de fantomas de duplo filamento consolida-se em pilares fundamentais da física de imagem diagnóstica:
+
+* **Quantificação e Modulação de Artefatos Metálicos:** Permite modular de maneira controlada a severidade de estrias e artefatos de endurecimento de feixe. Métricas quantitativas, como o parâmetro de localização de Gumbel ($\mu$) e o índice normalizado $p\text{-index}$, escalam monotonicamente com a fração metálica embutida, servindo como referência padrão para testar algoritmos de Redução de Artefatos Metálicos (MAR).
+* **Avaliação de Tomografia Computadorizada Espectral (DECT / PCD-CT):** Com a capacidade de mimetizar a dependência energética da atenuação, fantomas fabricados via Pixelprint auxiliam na otimização de imagens virtuais monoenergéticas (VMI) em altas faixas de energia ($130-190\text{ keV}$), mitigando artefatos sem comprometer a conspicuidade anatômica.
+* **Dosimetria Computacional e Radiômica:** Assegura a reprodutibilidade metrológica necessária para estudos de otimização de dose e extração de biomarcadores de textura em ambientes clínicos complexos.
+
+## 4. Conexões e Wikilinks
+
+* [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]]
+* [[Tomografia Computadorizada Espectral]]
+* [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+* [[Métrica Gumbel p-index para Quantificação de Artefatos|metrica-gumbel-p-index]]
+* [[Unidades Hounsfield|Unidades_Hounsfield]]
+* [[Qualidade de Imagem em TC]]

@@ -1,0 +1,58 @@
+> 📅 **Data:** 2026-09-08 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]], [[Deep Learning Image Reconstruction (DLR)]], [[Reconstrução Iterativa]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **SSW-$d'$** (*Spatial-Spectral Windowed Detectability Index* ou *Size-Specific Weighted Detectability Index*) é uma extensão metodológica avançada do [[Índice de Detectabilidade]] ($d'$) convencional, concebida para superar as limitações da suposição de estacionariedade e linearidade espacial em Tomografia Computadorizada (TC) moderna.
+
+Nas formulações clássicas da Teoria de Detecção de Sinais padronizadas pela **[[AAPM TG-233 - Avaliação de Desempenho em TC]]**, o cálculo de $d'$ parte da premissa de que o ruído estocástico e a transferência de modulação são espacialmente estacionários em torno da região de interesse. Contudo, em tomógrafos clínicos com [[Reconstrução Iterativa]] estatística ou baseada em modelos (MBIR) e redes neurais de [[Deep Learning Image Reconstruction (DLR)]], as propriedades de imagem tornam-se marcadamente **não-lineares, não-estacionárias e dependentes da localização intra-phantom/intra-paciente**.
+
+O SSW-$d'$ introduz uma ponderação espacial e espectral finamente localizada (*Spatial-Spectral Windowing*), parametrizada pelas dimensões anatômicas específicas (*Size-Specific / Water-Equivalent Diameter* $D_{\text{w}}$) e pela janela de frequências relevante à tarefa clínica, garantindo que o índice predito reflita a detectabilidade real de lesões em condições não-estacionárias.
+
+---
+
+## 2. Formulação Matemática Rigorosa
+
+### A. Equação Fundamental do SSW-$d'$
+No formalismo de observadores antropomórficos não-branqueadores com filtro visual (*Non-Prewhitening with Eye Filter* — [[Observadores de Modelo (Model Observers)]]), o SSW-$d'$ é formulado integrando uma função de janelamento espectro-espacial $W_{\text{SSW}}(\mathbf{r}, \mathbf{u})$ que modula localmente a Função de Transferência de Tarefa ([[Task Transfer Function]]) e o Espectro de Potência de Ruído ([[Noise Power Spectrum]]):
+
+$$
+(d'_{\text{SSW}})^2 = \frac{\left[ \iint_{-\infty}^{\infty} |W_{\text{task}}(\mathbf{u})|^2 \cdot \left[ \text{TTF}_{\mathbf{r}_0}(\mathbf{u}) \right]^2 \cdot |E(\mathbf{u})|^2 \cdot |W_{\text{SSW}}(\mathbf{u})|^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} |W_{\text{task}}(\mathbf{u})|^2 \cdot \left[ \text{TTF}_{\mathbf{r}_0}(\mathbf{u}) \right]^2 \cdot \text{NPS}_{\mathbf{r}_0}(\mathbf{u}) \cdot |E(\mathbf{u})|^4 \cdot |W_{\text{SSW}}(\mathbf{u})|^2 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde:
+* $\mathbf{r}_0 = (x_0, y_0, z_0)$ define a coordenada espacial central da lesão/tarefa;
+* $W_{\text{task}}(\mathbf{u}) = \mathcal{F}\{\Delta \mu(\mathbf{r})\}$ é a transformada de Fourier do perfil de atenuação da lesão (sinal clínico);
+* $\text{TTF}_{\mathbf{r}_0}(\mathbf{u})$ é a [[Task Transfer Function]] medida no contraste e na vizinhança $\mathbf{r}_0$;
+* $\text{NPS}_{\mathbf{r}_0}(\mathbf{u})$ é o [[Noise Power Spectrum]] local extraído via janelas de apodização (ex.: Hann, Tukey ou Gaussiana) em torno de $\mathbf{r}_0$;
+* $E(\mathbf{u})$ representa a função de sensibilidade visual do olho humano (banda passante dependente da distância de observação);
+* $W_{\text{SSW}}(\mathbf{u})$ é o filtro de ponderação espectro-espacial dependente do tamanho/geometria do paciente e da janela diagnóstica;
+* $\sigma_{\text{int}}^2$ é o ruído interno estocástico do observador humano.
+
+### B. Ponderação Específica por Tamanho (*Size-Specific Weighting*)
+Quando o janelamento é calibrado em função do diâmetro equivalente em água ($D_{\text{w}}$) para normalização com métricas de dose ([[Métricas de Dose em TC]], como a SSDE — *Size-Specific Dose Estimate*), o fator de escala de atenuação local $\alpha(D_{\text{w}})$ modula o ruído de fundo:
+
+$$
+\text{NPS}_{\text{SSW}}(f; D_{\text{w}}) = \text{NPS}_0(f) \cdot \exp\left( -\mu_{\text{eff}} \cdot \left[ D_{\text{w}} - D_{\text{ref}} \right] \right)
+$$
+
+---
+
+## 3. Comparativo de Métricas de Qualidade de Imagem
+
+| Métrica | Sensível à Textura do Ruído? | Dependente da Tarefa Clínica? | Robusta para DLR e Reconstrução Iterativa? | Considera Não-Estacionariedade Local? |
+| :--- | :---: | :---: | :---: | :---: |
+| **[[Contrast To Noise Ratio]] (CNR)** | ❌ Não | ❌ Não | ❌ Falha gravemente | ❌ Não |
+| **$d'_{\text{NPWE}}$ Convencional** | ✅ Sim | ✅ Sim | ⚠️ Moderada (assume campo homogêneo) | ❌ Não |
+| **$d'_{\text{CHO}}$ (Channelized Hotelling)** | ✅ Sim | ✅ Sim | ✅ Alta | ⚠️ Depende da amostragem de canais |
+| **SSW-$d'$** | ✅ Sim | ✅ Sim | ✅ Excelente (calibrado localmente) | ✅ Sim (ponderação espaço-espectral) |
+
+---
+
+## 4. Relevância e Aplicações no Acervo de Pesquisa
+
+1. **Avaliação Fina de Redes Neurais ([[Deep Learning Image Reconstruction (DLR)]]):**
+   Algoritmos baseados em aprendizado profundo variam sua resposta de frequência conforme a proximidade de bordas de alto contraste ou estruturas ósseas. O SSW-$d'$ permite mapear a detectabilidade de nódulos pulmonares milimétricos e lesões hepáticas hipodensas sem subestimar o borramento não-linear periférico.
+2. **Otimização Multiobjetivo Pareada com Dose ([[Otimização Multiobjetivo em TC]]):**
+   Ao integrar o SSW-$d'$ com a SSDE, estabelece-se um índice de eficácia de dose por unidade de detectabilidade localizado ($\text{SSW-FOM} = \frac{(d'_{\text{SSW}})^2}{\text{SSDE}}$), orientando a modulação de corrente do tubo (AEC) para manter a diagnosticabilidade constante independentemente do biotipo do paciente.
+3. **Validação Psicofísica e Phantoms Híbridos:**
+   O SSW-$d'$ serve como métrica de referência para comparação com experimentos humanos no paradigma [[Estudo de Observadores 2AFC]], fornecendo coeficientes de correlação superiores ($r > 0,90$) frente a reconstruções modernas.

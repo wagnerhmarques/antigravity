@@ -1,0 +1,34 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]]
+
+## 1. Mapeamento Frequencial da Base de Conhecimento
+
+A varredura estrutural do acervo documental e da taxonomia corrente revela uma alta densidade de ocorrência em torno de conceitos fundamentais da teoria de formação de imagem baseada em tarefas (*Task-Based Image Quality*). A tabela abaixo sintetiza os termos com maior incidência quantitativa e relevância metrológica na base:
+
+| Termo / Conceito Canônico | Categoria Taxonômica | Frequência Relativa | Papel Metrológico Central |
+| :--- | :--- | :--- | :--- |
+| `[[Índice de Detectabilidade]]` ($d'$) | Conceito / Métrica | Altíssima | Síntese de desempenho diagnóstico e otimização multiobjetivo. |
+| `[[Tomografia Computadorizada]]` | Tecnologia / Domínio | Altíssima | Modalidade primária de aquisição e processamento de imagem. |
+| `[[Observadores de Modelo (Model Observers)]]` | Metodologia | Alta | Simulação estatística de percepção visual e detecção de lesões. |
+| `[[Task Transfer Function]]` ($\text{TTF}$) | Métrica Física | Alta | Avaliação da resolução espacial dependente de contraste. |
+| `[[Noise Power Spectrum]]` ($\text{NPS}$) | Métrica Física | Alta | Caracterização estocástica e espacial da textura do ruído. |
+| `[[Deep Learning Image Reconstruction (DLR)]]` | Tecnologia | Média-Alta | Mitigação de ruído e reconstrução não linear avançada. |
+
+## 2. Padrões de Agrupamento e Topologia de Conexões
+
+A análise de coocorrência demonstra que os nós do grafo do Obsidian estruturam-se em três eixos principais de pesquisa:
+
+1. **Eixo de Qualidade Baseada em Tarefas:** Centralizado em torno do `[[Índice de Detectabilidade]]`, conectando diretamente o `[[Noise Power Spectrum]]` e a `[[Task Transfer Function]]` conforme as diretrizes do `[[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]]`.
+2. **Eixo de Inteligência Artificial e Reconstrução:** Agrupa a `[[Reconstrução Iterativa]]`, `[[Deep Learning Image Reconstruction (DLR)]]` e os `[[Deep Learning Model Observer|deep-learning-model-observer]]` voltados à otimização de protocolos.
+3. **Eixo de Dosimetria e Otimização Multiobjetivo:** Integra as `[[Métricas de Dose em TC|ctdivol]]` e DLP com a fronteira de Pareto e algoritmos evolutivos como o `[[Algoritmo Genético NSGA-II|nsga-ii]]`.
+
+## 3. Equação de Ponderação Frequencial e Relevância
+
+A relevância estocástica de um termo $i$ na arquitetura da Wiki pode ser modelada considerando sua frequência de citação cruzada $F_i$ e sua centralidade de grau $C_D(i)$ no grafo de wikilinks:
+
+$$
+\mathcal{R}_i = \alpha \ln\left( F_i + 1 \right) + \beta \sum_{j \in \text{neigh}(i)} \frac{1}{\text{dist}(i, j)}
+$$
+
+Onde os parâmetros de ajuste $\alpha$ e $\beta$ ponderam, respectivamente, a densidade de ocorrência textual e a robustez topológica das conexões cruzadas dentro da taxonomia canônica.

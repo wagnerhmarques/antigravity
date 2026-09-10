@@ -1,0 +1,45 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento]], [[Tomografia Computadorizada Espectral]], [[Redução de Artefatos Metálicos]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Impressão 3D com Duplo Filamento]], [[Tomografia Computadorizada Espectral]], [[Redução de Artefatos Metálicos]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O termo **Pixelprint** refere-se a uma avançada metodologia de fabricação aditiva e modelagem computacional desenvolvida para a produção de fantomas antropomórficos e específicos para pacientes em [[Tomografia Computadorizada]] (TC). A tecnologia baseia-se na deposição voxel a voxel controlada de materiais poliméricos com diferentes concentrações de dopantes radiopacos, permitindo simular com altíssima fidelidade metrológica tanto os coeficientes de atenuação linear de tecidos moles e estruturas ósseas quanto a inserção de implantes metálicos com intensidades de artefatos controláveis.
+
+Na física de imagem diagnóstica, fantomas tradicionais baseados em moldes homogêneos falham em reproduzir a heterogeneidade anatômica complexa e a geometria exata de artefatos gerados por dispositivos ortopédicos ou odontológicos. O arcabouço *Pixelprint* supera essa limitação ao mapear matrizes de imagem DICOM diretamente em instruções de controle para impressoras 3D de extrusão de múltiplo filamento, unindo o planejamento de varredura à validação experimental de algoritmos de correção.
+
+---
+
+## 2. Formulação Matemática e Modelagem de Infiliação
+
+O princípio de funcionamento do *Pixelprint* baseia-se na modulação espacial da densidade de deposição (taxa de preenchimento ou *infill*) e na mistura de filamentos preenchidos com compostos de alta e baixa atenuação X. Seja $\rho_{\text{eff}}(x,y,z)$ a densidade efetiva simulada em um voxel tridimensional, esta é governada pela fração volumétrica de filamento dopado (por exemplo, ácido polilático - PLA dopado com cálcio ou aço inoxidável):
+
+$$
+\rho_{\text{eff}}(x,y,z) = \alpha \, \rho_{\text{matriz}}(x,y,z) + (1 - \alpha) \, \rho_{\text{dopado}}(x,y,z)
+$$
+
+Onde $\alpha \in \left[0, 1\right]$ representa o parâmetro de inflição controlado pelo algoritmo de fatiamento. Para a simulação rigorosa de artefatos metálicos, a intensidade dos artefatos de endurecimento de feixe e estrias pode ser quantificada utilizando o parâmetro de localização de Gumbel $\mu_G$, derivado da distribuição estatística dos valores de Hounsfield Unit (HU) nas regiões de interesse circundantes:
+
+$$
+f(x; \mu_G, \beta) = \frac{1}{\beta} \exp \left\{ -\frac{x - \mu_G}{\beta} - \exp \left( -\frac{x - \mu_G}{\beta} \right) \right\}
+$$
+
+Onde $\mu_G$ escala monotonicamente com a fração de metal embutido, permitindo correlacionar de forma quantitativa o projeto do fantoma impresso com a severidade observada no sinograma e na imagem reconstruída por [[Retroprojeção Filtrada (FBP)]] ou [[Reconstrução Iterativa]].
+
+---
+
+## 3. Aplicações em Dosimetria e Otimização de Protocolos
+
+* **Validação de Algoritmos de Redução de Artefatos:** Permite testar a eficácia de técnicas de eliminação de feixe endurecido e algoritmos baseados em aprendizado profundo com uma verdade fundamental (*ground truth*) conhecida.
+* **Tomografia Computadorizada Espectral:** Fantomas impressos via *Pixelprint* com múltiplos filamentos viabilizam a avaliação de imagens virtuais monoenergéticas (VMI) em diferentes faixas de keV para a mitigação de artefatos metálicos.
+* **Controle de Qualidade Quantitativo:** Assegura a rastreabilidade metrológica de exames que utilizam [[Unidades Hounsfield]], avaliando desvios na acurácia numérica decorrentes de fortes gradientes de atenuação.
+
+---
+
+## 4. Conexões e Wikilinks
+
+* [[Impressão 3D com Duplo Filamento]]
+* [[Tomografia Computadorizada Espectral]]
+* [[Redução de Artefatos Metálicos]]
+* [[Unidades Hounsfield]]
+* [[Qualidade de Imagem em TC]]

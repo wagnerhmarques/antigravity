@@ -1,0 +1,37 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Otimização Multiobjetivo em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer]], [[Otimização Multiobjetivo em TC]]
+
+## 1. Visão Geral da Matriz de Complementaridade
+
+A investigação científica no âmbito da física médica e tomografia computadorizada avança de forma sinérgica através da integração de frentes metrológicas distintas. Enquanto iniciativas de fomento tradicionais focam na infraestrutura de aquisição, caracterização estática de métricas físicas ou algoritmos isolados, o projeto de Doutorado Direto (FAPESP) expande esse escopo ao introduzir a modelagem cognitiva computacional avançada, a otimização multiobjetivo por fronteiras de Pareto e a validação clínica de ponta.
+
+A matriz abaixo sintetiza a articulação estrutural entre as frentes de pesquisa:
+
+| Eixo Estrutural | Projeto Universal CNPq (Infraestrutura & Base) | Projeto AIR (Metrologia & Reconstrução) | Projeto de Doutorado Direto FAPESP (Foco Avançado) |
+| :--- | :--- | :--- | :--- | 
+| **Foco Principal** | Aquisição de dados brutos e validação de base de tomógrafos multi-fabricantes | Metrologia analítica de qualidade de imagem baseada em tarefas ([[Task Based Image Quality|task-based-image-quality]]) | Observadores de aprendizado profundo ([[Deep Learning Model Observer|deep-learning-model-observer]]) e otimização multiobjetivo da tríade $(D, T, W)$ |
+| **Abordagem de Ruído e Resolução** | Avaliação paramétrica padrão de NPS e TTF clássicas | Implementação de métricas padronizadas conforme [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]] | Generalização inter-fabricantes via *leave-one-scanner-out* e calibração contra observadores humanos ([[Estudo de Observadores 2AFC|2afc-observer-study]]) |
+| **Otimização e Decisão** | Protocolos clínicos convencionais e reduções lineares de dose | Modelos lineares de observadores (NPWE, CHO) | Algoritmo Genético [[Algoritmo Genético NSGA-II|nsga-ii]] acoplado a modelos substitutos com Processos Gaussianos |
+
+---
+
+## 2. Aprofundamento Metodológico: Da Metrologia Física à Cognição Artificial
+
+O projeto Universal CNPq estabelece o arcabouço experimental e a infraestrutura de bancada com múltiplos tomógrafos clínicos, enquanto o projeto AIR consolida a automação metrológica de parâmetros físicos fundamentais como a [[Task Transfer Function|task-transfer-function]] e o [[Noise Power Spectrum|noise-power-spectrum]]. Contudo, a transição para ambientes clínicos modernos dominados por [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]] e [[Reconstrução Iterativa|iterative-reconstruction]] introduz não-linearidades espaciais que invalidam métricas baseadas apenas em regiões de interesse (ROI).
+
+O projeto de Doutorado Direto complementa diretamente essas fundações ao:
+
+1. **Superar os Limites dos Observadores Lineares Clássicos:** Enquanto os projetos anteriores utilizam observadores analíticos tradicionais (Hotelling e NPWE) sob premissas de estacionaridade do ruído, a tese desenvolve um [[Deep Learning Model Observer|deep-learning-model-observer]] com mecanismos de atenção (Vision Transformers) capaz de capturar artefatos texturais complexos gerados por algoritmos não-lineares.
+2. **Validação Perceptual Multicêntrica:** Integra dados psicofísicos robustos obtidos via estudos de escolhas forçadas ([[Estudo de Observadores 2AFC|2afc-observer-study]]) com radiologistas especialistas, estabelecendo um elo estatístico rigoroso entre o desempenho da inteligência artificial e a percepção diagnóstica humana real.
+3. **Formulações de Otimização Multiobjetivo:** Enquanto o CNPq e o AIR identificam o estado atual dos protocolos, a tese formula um problema de otimização vetorial na fronteira de Pareto para equilibrar simultaneamente a Dose ($D$), o Tempo Computacional/Operacional ($T$) e o Desempenho Diagnóstico quantificado pelo Índice de Detectabilidade ($W = d'$):
+
+$$
+\min_{\Theta} \left\{ D(\mathbf{p}), \, T(\mathbf{p}), \, -W\left(d'(\mathbf{p})\right) \right\} \quad \text{sujeito a} \quad \mathbf{p} \in \Omega_{\text{viável}}
+$$
+
+---
+
+## 3. Síntese da Transferibilidade Inter-Fabricantes
+
+Um diferencial crítico aportado pelo projeto de Doutorado Direto em relação às bases anteriores é a **validação *leave-one-scanner-out*** cobrindo 7 tomógrafos de 4 fabricantes distintos. Isso garante que a estimativa da detectabilidade ($d'$) e os protocolos otimizados não apresentem viés de sobreajuste (*overfitting*) a uma única plataforma de aquisição, consolidando uma ferramenta metrológica universal para o controle de qualidade e radioproteção em nível nacional.

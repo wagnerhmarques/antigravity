@@ -1,0 +1,29 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Deep Learning Model Observer]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]]
+
+## 1. Mapeamento de Frequência Terminológica no Acervo
+
+A análise do corpus documental e da taxonomia corrente da wiki revela uma alta densidade de termos associados à avaliação de qualidade de imagem baseada em tarefas (*Task-Based Image Quality*) e à metrologia em [[Tomografia Computadorizada]]. A estruturação atual orbita em torno da Teoria de Detecção de Sinais e de métodos avançados de reconstrução computacional.
+
+A tabela a seguir sintetiza os termos, siglas e constructos teóricos com maior reincidência nas notas de consulta, fontes e documentos taxonômicos do repositório:
+
+| Termo / Constructo | Sigla / Slug Canônico | Frequência Relativa | Eixo Temático Principal |
+| :--- | :--- | :--- | :--- |
+| **Índice de Detectabilidade** | $d'$, `detectability-index` | Altíssima | Qualidade de Imagem e Otimização |
+| **Observadores de Modelo** | `model-observers` | Altíssima | Percepção Visual e Desempenho Diagnóstico |
+| **Tomografia Computadorizada** | `tomografia-computadorizada` | Alta | Equipamentos e Física Aplicada |
+| **Task Transfer Function** | TTF, `task-transfer-function` | Alta | Resolução Espacial Dependente de Contraste |
+| **Noise Power Spectrum** | NPS, `noise-power-spectrum` | Alta | Caracterização de Ruído Estocástico |
+| **Deep Learning Image Reconstruction** | DLR, `deep-learning-reconstruction` | Média-Alta | Reconstrução Não-Linear e IA |
+| **Otimização Multiobjetivo em TC** | `otimizacao-multiobjetivo-tc` | Média | Dosimetria e Fronteira de Pareto |
+
+## 2. Padrões de Agrupamento Conceitual
+
+A distribuição dos termos evidencia um forte alinhamento com as diretrizes do relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]], integrando métricas físicas fundamentais através da seguinte formulação mestre do [[Índice de Detectabilidade]]:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde a sinergia entre [[Task Transfer Function]] e [[Noise Power Spectrum]] comanda a predição de desempenho executada por [[Observadores de Modelo (Model Observers)]], servindo como alicerce para projetos de Doutorado e investigações clínicas em [[Deep Learning Model Observer|deep-learning-model-observer]].

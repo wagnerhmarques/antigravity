@@ -1,0 +1,61 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Unidades Hounsfield]], [[Retroprojeção Filtrada (FBP)]], [[Reconstrução Iterativa]], [[Deep Learning Image Reconstruction (DLR)]], [[Métricas de Dose em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Unidades Hounsfield]], [[Retroprojeção Filtrada (FBP)]]
+
+## 1. Fundamentação Física e Atenuação da Radiação X
+
+A **[[Tomografia Computadorizada]]** é uma modalidade de imagem médica baseada na aquisição de múltiplas projeções radiográficas angulares ao redor de um eixo de rotação. O princípio físico fundamental baseia-se na atenuação diferencial de um feixe policromático de raios-X ao atravessar o volume anatômico do paciente, governado pela Lei de Beer-Lambert:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+Onde $I_0$ é a intensidade do feixe incidente, $I$ é a intensidade emergente após percorrer o trajeto linear $L$, e $\mu(x, y)$ representa o coeficiente de atenuação linear espacialmente variante no plano de corte transversal. Os valores absolutos de atenuação são convertidos para uma escala padronizada e independente do equipamento, denominada **Unidades Hounsfield** ($\text{UH}$):
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+Esta escala estabelece o ar como $-1000\text{ UH}$, a água destilada como $0\text{ UH}$ e tecidos hiperdensos (como ossos corticais) variando até $+3000\text{ UH}$.
+
+---
+
+## 2. Modelagem Matemática da Formação de Imagem e Transformada de Radon
+
+O arranjo geométrico de aquisição das projeções paralelas em um determinado ângulo $\theta$ é descrito matematicamente pela Transformada de Radon:
+
+$$
+P_{\theta}(t) = \mathcal{R}\{\mu(x, y)\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+Onde $t$ representa a coordenada de transposição do elemento detector perpendicular ao feixe central, e $\delta$ é a função delta de Dirac. O **Teorema da Seção Central** estabelece que a Transformada de Fourier 1D de uma projeção paralela corresponde a uma linha radial na frequência espacial 2D da imagem original:
+
+$$
+S_{\theta}(\omega) = \mathcal{F}_{1D}\{P_{\theta}(t)\} = \iint_{-\infty}^{\infty} \mu(x, y) e^{-j 2\pi \omega (x \cos\theta + y \sin\theta)} \\, dx \\, dy
+$$
+
+---
+
+## 3. Algoritmos de Reconstrução Tomográfica
+
+Para recuperar a distribuição espacial $\mu(x, y)$ a partir do conjunto de sinogramas, empregam-se diferentes abordagens analíticas e numéricas:
+
+### Retroprojeção Filtrada (FBP)
+A retroprojeção simples gera artefatos de borramento ($1/r$). Para corrigir tal efeito, aplica-se um filtro de rampa no domínio de Fourier ou uma convolução espacial com um núcleo (*kernel*):
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+### Reconstrução Iterativa (IR) e Aprendizado Profundo (DLR)
+Os métodos iterativos modelam estatisticamente o ruído quântico (estatística de Poisson) e a geometria do sistema por meio de otimização convexa. Em paralelo, a **[[Deep Learning Image Reconstruction (DLR)]]** substitui ou complementa os priors físicos tradicionais por operadores neurais não lineares treinados para minimizar a função de perda:
+
+$$
+hat{\theta} = arg\min_{\theta} \mathbb{E}_{(x,y)} \left[ \mathcal{L}\left(x, f_\theta(y)\right) \right]
+$$
+
+---
+
+## 4. Otimização e Dosimetria
+
+A avaliação quantitativa do desempenho do sistema e da segurança radiológica exige o monitoramento rigoroso de métricas padronizadas, destacando-se o Índice de Dose em Tomografia Computadorizada Ponderado ($\text{CTDI}_{\text{w}}$) e o Produto Dose-Comprimento ($\text{DLP}$), cruciais para a aplicação estrita do princípio ALARA em protocolos clínicos modernos.

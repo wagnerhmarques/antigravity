@@ -1,0 +1,37 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]], [[Métrica Gumbel p-index para Quantificação de Artefatos|metrica-gumbel-p-index]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+
+## 1. Definição e Fundamentação Física
+
+O **Pixelprint** representa um arcabouço computacional e tecnológico avançado para a fabricação aditiva de fantomas antropomórficos e específicos para pacientes destinados à avaliação e calibração em [[Tomografia Computadorizada]]. A metodologia fundamenta-se na deposição voxel a voxel de materiais compósitos com propriedades de atenuação de raios X controladas com precisão métrica, permitindo emular estruturas anatômicas complexas — incluindo tecidos moles, osso trabecular, osso cortical e implantes metálicos cirúrgicos.
+
+Na física de imagem diagnóstica, a criação de fantomas realistas é essencial para avaliar o impacto de artefatos de endurecimento de feixe, dispersão Compton e streak artifacts provocados por metais. O ecossistema *Pixelprint* supera as limitações de fantomas homogêneos ou moldados convencionalmente ao integrar controle estocástico ou determinístico da inflição de filamentos poliméricos dopados (tipicamente ácido polilático, PLA) diretamente no plano de impressão 3D.
+
+## 2. Formulação Matemática e Modelagem de Artefatos
+
+A modulação física das propriedades de atenuação e a quantificação rigorosa dos artefatos induzidos pelos implantes embutidos via *Pixelprint* podem ser modeladas por meio de funções de distribuição estatística. Seja $\mu(x, y)$ o mapa bidimensional de coeficientes de atenuação linear do fantoma impresso, e $I_\beta(s)$ a intensidade do feixe policromático transmitido ao longo da linha de projeção $s$ no ângulo $\beta$:
+
+$$
+I_\beta(s) = I_0 \exp\left( -\int \mu_{\text{efetiva}}(x, y; E) \\, ds \right)
+$$
+
+Para quantificar a severidade das estrias e artefatos de metal introduzidos por inserções metálicas de alta densidade (como aço inoxidável ou titânio) impressas pelo sistema de duplo filamento, utiliza-se a parametrização baseada na distribuição de Gumbel. O parâmetro de localização de Gumbel, denotado por $\mu_{\text{Gumbel}}$, quantifica a assimetria e a dispersão dos valores de tom cinza afetados por feixes endurecidos e ruído estrutural:
+
+$$
+f(x; \mu_{\text{Gumbel}}, \beta_{\text{scale}}) = \frac{1}{\beta_{\text{scale}}} \exp\left( -\frac{x - \mu_{\text{Gumbel}}}{\beta_{\text{scale}}} - \exp\left(-\frac{x - \mu_{\text{Gumbel}}}{\beta_{\text{scale}}}\right) \right)
+$$
+
+Adicionalmente, a severidade relativa dos artefatos é mapeada por meio do índice normalizado $p\text{-index}$, definido como:
+
+$$
+p_{\text{index}} = \frac{\sigma_{\text{artefato}}^2 - \sigma_{\text{fundo}}^2}{\sigma_{\text{ref}}^2}
+$$
+
+Onde $\sigma_{\text{artefato}}^2$ representa a variância espacial nas regiões estriadas ao redor do implante metálico embutido, $\sigma_{\text{fundo}}^2$ é a variância do tecido de fundo, e $\sigma_{\text{ref}}^2$ normaliza a escala em relação à referência basal sem metal ($0\%$ de inflição).
+
+## 3. Aplicações em Tomografia Computadorizada Espectral e Avançada
+
+* **Fantomas Específicos para Pacientes:** Permite incorporar geometrias reais de parafusos espinhais, placas ortopédicas ou próteses articulares extraídas de segmentações DICOM diretamente em fantomas físicos impressos.
+* **Avaliação de Técnicas de Redução de Artefatos Metálicos (MAR):** O controle refinado da intensidade do artefato através da variação da densidade de inflição do filamento dopado com metal (ex.: $50\%$ vs $85\%$) possibilita testar limites de algoritmos de correção baseados em sinograma e aprendizado profundo.
+* **Otimização de Imagens Monoenergéticas Virtuais (VMI):** Em sistemas de [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], fantomas baseados em *Pixelprint* auxiliam na determinação da faixa ideal de energia (ex.: $130-190$ keV) para supressão de artefatos severos mantendo a fidelidade dos contornos anatômicos circundantes.

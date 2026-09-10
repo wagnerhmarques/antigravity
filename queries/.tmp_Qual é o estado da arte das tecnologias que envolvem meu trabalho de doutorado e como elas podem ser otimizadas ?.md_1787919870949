@@ -1,0 +1,45 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Based Image Quality]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Channelized Hotelling Observer (CHO)]], [[Otimização Multiobjetivo em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Based Image Quality]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Channelized Hotelling Observer (CHO)]]
+
+## 1. Fundamentação do Estado da Arte em Tomografia Computadorizada
+
+A física médica contemporânea em [[Tomografia Computadorizada]] passou por uma transição paradigmática, abandonando métricas puramente físicas de baixo nível (como o desvio padrão em regiões de interesse e a Função de Transferência de Modulação isolada) em favor de uma avaliação baseada em tarefas diagnósticas reais (*Task-Based Image Quality*, [[Task Based Image Quality]]). O estado da arte repousa sobre a integração de detectores de contagem de fótons ([[Photon Counting Detector CT (PCD-CT)|photon-counting-detector-ct]]), algoritmos avançados de reconstrução não linear ([[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]]) e observadores matemáticos antropomórficos para otimização de protocolos.
+
+A detectabilidade diagnóstica de lesões sutis é quantificada pelo **Índice de Detectabilidade** ($d'$), formalizado pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]]. Para um observador linear ideal com pré-branqueamento e filtro visual humano (NPWE), o desempenho metrológico é expresso no domínio espacial de Fourier por:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde $W_{\text{task}}(u, v)$ representa a função de tarefa, $\text{TTF}(u, v)$ é a [[Task Transfer Function]], $\text{NPS}(u, v)$ é o [[Noise Power Spectrum]], $E(u, v)$ é o filtro de sensibilidade visual humana e $\sigma_{\text{int}}^2$ denota o ruído interno de decisão.
+
+## 2. Tecnologias Inovadoras e Arquitetura de Otimização
+
+As fronteiras tecnológicas atuais estruturam-se em torno de três pilares fundamentais:
+
+1. **Detecção Espectral por Contagem de Fótons (PCD-CT):** Substitui os detectores de conversão indireta (EID-CT) por semicondutores de silício ou telureto de cádmio (CdTe), eliminando o ruído eletrônico basal e permitindo limiarização energética (*energy thresholding*). Isso maximiza o contraste fotoelétrico e viabiliza a [[Virtual Monoenergetic Imaging (VMI)|virtual-monoenergetic-imaging]] com reduções substanciais na carga de iodo ([[Otimização e Redução de Meio de Contraste em TC|otimizacao-meio-de-contraste-tc]]) e na dose de radiação ($CTDI_{\text{vol}}$).
+
+2. **Reconstrução Baseada em Aprendizado Profundo (DLR):** Redes neurais convolucionais e modelos gerativos adversariais suprimem o ruído quântico em exames de ultrabaixa dose sem o desfoque excessivo característico da [[Reconstrução Iterativa]] tradicional. Contudo, devido à sua natureza espacialmente variante e não linear, exigem validação rigorosa via observadores de modelo para evitar alucinações de texturas e preservação métrica de Unidades Hounsfield (HU).
+
+3. **Observadores de Modelo Computacionais Avançados:** O **Channelized Hotelling Observer (CHO)** e os observadores baseados em *Deep Learning* ([[Deep Learning Model Observer|deep-learning-model-observer]]) emulam o desempenho de médicos radiologistas em estudos psicofísicos ([[Estudo de Observadores 2AFC|2afc-observer-study]]), permitindo varreduras paramétricas em larga escala com phantoms físicos e híbridos ([[Phantoms Híbridos|phantoms-hibridos]]).
+
+## 3. Metodologia de Otimização Multiobjetivo
+
+A otimização de protocolos clínicos complexos deixa de ser unidimensional e passa a ser tratada como um problema de otimização multiobjetivo no espaço de Pareto. Busca-se simultaneamente:
+
+- **Minimização da Dose ($D$):** Redução do produto dose-comprimento (DLP) e do índice $CTDI_{\text{vol}}$.
+- **Minimização do Tempo ($T$):** Otimização do tempo total de aquisição e processamento computacional de reconstrução.
+- **Maximização do Desempenho Diagnóstico ($W$):** Maximização do índice de detectabilidade ($d'$) ou da Área Sob a Curva ROC ($\text{AUC}$).
+
+Matematicamente, a fronteira de Pareto com $\varepsilon$-dominância é resolvida por algoritmos evolutivos avançados, como o [[Algoritmo Genético NSGA-II|nsga-ii]], operando sobre modelos substitutos baseados em Processos Gaussianos alimentados por métricas extraídas de [[Phantoms Híbridos|phantoms-hibridos]].
+
+## 4. Conexões e Wikilinks
+
+* [[Índice de Detectabilidade]]
+* [[Task Based Image Quality]]
+* [[Channelized Hotelling Observer (CHO)]]
+* [[Photon Counting Detector CT (PCD-CT)]]
+* [[Deep Learning Image Reconstruction (DLR)]]
+* [[Otimização Multiobjetivo em TC]]
+* [[AAPM TG-233 - Avaliação de Desempenho em TC]]

@@ -1,0 +1,31 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Task Transfer Function]], [[Modulation Transfer Function (MTF)]], [[Índice de Detectabilidade]], [[Noise Power Spectrum]], [[Reconstrução Iterativa]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Task Transfer Function]], [[Modulation Transfer Function (MTF)]], [[Índice de Detectabilidade]]
+
+## 1. Fundamentação Conceitual e Limitações da MTF Tradicional
+
+A **Task Transfer Function (TTF)** é uma métrica avançada de avaliação da resolução espacial em sistemas de Tomografia Computadorizada (TC) que supera as limitações da tradicional Função de Transferência de Modulação ($\text{MTF}$). Historicamente, a resolução espacial era caracterizada pela $\text{MTF}$ linear clássica, mensurada por meio de fios finos ou bordas afiadas em condições de baixo ruído.
+
+No entanto, os algoritmos de reconstrução modernos — como a [[Reconstrução Iterativa]] e a [[Deep Learning Image Reconstruction (DLR)]] — introduzem não-linearidades espaciais significativas. Nestes cenários, a resolução espacial passa a depender fortemente do contraste do objeto inserido e do nível de ruído local (dose de radiação). A $\text{MTF}$ convencional falha em descrever esses comportamentos, tornando indispensável o uso da $\text{TTF}$, formalizada por protocolos como o **AAPM TG-233**.
+
+## 2. Formulação Matemática
+
+A determinação da $\text{TTF}$ baseia-se tipicamente na análise de bordas utilizando fantomas padronizados. A partir do perfil de intensidade médio obtido de uma estrutura de teste, calcula-se a derivada para derivar a Função de Espalhamento de Linha específica para a tarefa ($\text{LSF}_{\text{task}}$):
+
+$$
+\text{LSF}_{\text{task}}(x) = \frac{d}{dx} \left[ overline{I}(x) \right]
+$$
+
+A **Task Transfer Function** no domínio da frequência espacial radial ($u$) é definida como o módulo normalizado da Transformada de Fourier da $\text{LSF}_{\text{task}}$:
+
+$$
+\text{TTF}(u) = \left| \frac{\int_{-\infty}^{\infty} \text{LSF}_{\text{task}}(x) e^{-j 2 \pi u x} \\, dx}{\int_{-\infty}^{\infty} \text{LSF}_{\text{task}}(x) \\, dx} \right|
+$$
+
+## 3. Importância Clínica e Metrológica
+
+A $\text{TTF}$ é crucial na física médica moderna pelos seguintes motivos:
+
+1. **Avaliação Task-Specific:** Mensura a fidelidade de transferência de sinal em condições clínicas reais, simulando estruturas de baixo contraste (ex.: nódulos pulmonares e lesões hepáticas).
+2. **Integração com Observadores Computacionais:** Atua em conjunto com o [[Noise Power Spectrum]] ($\text{NPS}$) para o cálculo do [[Índice de Detectabilidade]] ($d'$), permitindo estimar o desempenho de observadores humanos e matemáticos.
+3. **Otimização de Protocolos:** Permite quantificar o ganho real de nitidez e a supressão de ruído promovida por técnicas avançadas de reconstrução sem os vieses inerentes aos métodos lineares.

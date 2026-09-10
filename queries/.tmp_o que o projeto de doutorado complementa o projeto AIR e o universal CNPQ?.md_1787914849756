@@ -1,0 +1,47 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer|deep-learning-model-observer]], [[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]], [[Photon Counting Detector CT (PCD-CT)|photon-counting-ct]], [[Reconstrução Iterativa|iterative-reconstruction]], [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]]
+
+> 📅 **Data:** 2026-08-26 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer|deep-learning-model-observer]], [[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]]
+
+## 1. Contextualização e Matriz de Integração dos Projetos
+
+A pesquisa desenvolvida no âmbito da Física Médica e Tomografia Computadorizada (TC) estrutura-se de forma sinergética através de três pilares de financiamento e escopo complementares: o **Projeto de Doutorado Direto FAPESP** (focado no desenvolvimento e validação de observadores profundos com atenção), o **Projeto AIR** (focado na infraestrutura computacional avançada, algoritmos de reconstrução iterativa e deep learning em grande escala) e o **Auxílio Universal CNPq** (focado na metrologia experimental, aquisição em bancada/clínica com fantomas e validação dosimétrica multimodality).
+
+A articulação entre essas três frentes resolve o gargalo histórico da translação de métricas puramente físicas para a avaliação de desempenho baseada em tarefas ([[Task Based Image Quality|task-based-image-quality]]), integrando aspectos de [[Reconstrução Iterativa|iterative-reconstruction]], [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]] e novos detectores baseados em contagem de fótons ([[Photon Counting Detector CT (PCD-CT)|photon-counting-ct]]).
+
+---
+
+## 2. Comparativo Estrutural e Complementaridade Metodológica
+
+A tabela abaixo sintetiza os escopos, os eixos de atuação e as contribuições recíprocas entre os três projetos:
+
+| Dimensão Analítica | Auxílio Universal CNPq (Metrologia & Experimentação) | Projeto AIR (Infraestrutura & Algoritmos Base) | Projeto Doutorado Direto FAPESP (Observadores & Otimização) |
+| :--- | :--- | :--- | :--- |
+| **Foco Principal** | Metrologia experimental, dosimetria e validação física em múltiplos tomógrafos clínicos. | Desenvolvimento de arquiteturas computacionais de reconstrução e processamento de sinogramas. | Modelagem perceptual humana, observadores profundos e otimização multiobjetivo da tríade $(D, T, W)$. |
+| **Infraestrutura / Base** | Fantomas físicos antropomórficos, câmeras de ionização e dosímetros termoluminescentes. | Clusters de alto desempenho (HPC), frameworks de IA e pipelines de manipulação de sinogramas. | Redes baseadas em Vision Transformer, validação via 2AFC e algoritmos de otimização de Pareto. |
+| **Papel na Sinergia** | Fornece a **verdade fundamental experimental** e garante a rastreabilidade metrológica das doses absorvidas ($CTDI_{\text{vol}}$). | Fornece os **motores de reconstrução** e a base computacional para geração de imagens FBP, IR e DLR. | Implementa a **avaliação diagnóstica de ponta** baseada em tarefas ([[Índice de Detectabilidade|detectability-index]]) e tomada de decisão clínica. |
+
+---
+
+## 3. Integração Físico-Matemática e Otimização Multiobjetivo
+
+A complementariedade entre os projetos consolida-se na formulação do processo de otimização multiobjetivo no espaço de Pareto. Enquanto o Projeto AIR gera as imagens otimizadas por algoritmos não lineares e o CNPq valida as restrições dosimétricas reais, o Doutorado FAPESP emprega o [[Índice de Detectabilidade]] ($d'$) como função objetivo de desempenho visual ($W$).
+
+Matematicamente, a otimização conjunta operada pelo ecossistema dos projetos busca resolver o vetor de decisão $\mathbf{x} = [kVp, mAs, \text{pitch}, \text{filtro}]^T$ minimizando a dose e o tempo operacional, enquanto maximiza o desempenho do [[Deep Learning Model Observer|deep-learning-model-observer]] ($\Phi_{\theta}$):
+
+$$
+\min_{\mathbf{x}} \left\{ D(\mathbf{x}), \, T(\mathbf{x}), \, -W\left(\Phi_{\theta}(x_{\text{baixo}}), \text{TTF}, \text{NPS}\right) \right\}
+$$
+
+Onde a avaliação do desempenho do observador é governada pela relação estendida no domínio espacial e de Fourier:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+---
+
+## 4. Conclusão da Sinergia Institucional
+
+1. **Validação Cruzada:** Os dados coletados sob o fomento do CNPq alimentam o pipeline computacional do Projeto AIR, cujos outputs são avaliados pelos observadores neurais do Doutorado FAPESP.
+2. **Mitigação de Limitações:** O projeto de doutorado supera a dependência de estudos psicofísicos humanos exaustivos (2AFC), utilizando a infraestrutura do AIR e a validação metrológica do CNPq para estabelecer um padrão robusto e transferível entre múltiplos fabricantes de tomógrafos.
+3. **Impacto Clínico Translacional:** A união dos escopos garante que a redução de dose e de meio de contraste atinja rigorosa conformidade regulatória e exatidão quantitativa em unidades Hounsfield (HU).

@@ -1,0 +1,67 @@
+> 📅 **Data:** 2026-09-08 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[Deep Learning Image Reconstruction (DLR)]], [[Reconstrução Iterativa]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **SSW-$d'$** (*Spatial-Spectral Weighted Detectability Index* ou *Spatially Segmented Windowed $d'$*) é uma extensão metodológica avançada do clássico [[Índice de Detectabilidade]] ($d'$), concebida para quantificar a qualidade de imagem baseada em tarefas (*Task-Based Image Quality*) em cenários onde as premissas fundamentais da física de sistemas lineares são violadas.
+
+No paradigma tradicional preconizado pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** e pelos relatórios ICRU 54 e 98, o cálculo do $d'$ assume que o sistema de aquisição e reconstrução tomográfica exibe:
+1. **Estacionariedade em Sentido Amplo (WSS - *Wide-Sense Stationarity*):** O ruído de fundo possui propriedades estatísticas constantes ao longo de todo o campo de visão;
+2. **Invariância Espacial (LSI - *Linear Shift-Invariance*):** A função de espalhamento de ponto e a resolução espacial não dependem da posição anatômica ou do contraste do objeto.
+
+Contudo, a introdução clínica mandatória de algoritmos de [[Reconstrução Iterativa]] (IR) e, fundamentalmente, de [[Deep Learning Image Reconstruction (DLR)]], destruiu a validade dessas premissas. Redes neurais profundas e regularizadores iterativos geram **texturas de ruído altamente não-estacionárias, não-lineares, anisotrópicas e dependentes de dose e contraste local**. O SSW-$d'$ resolve essa limitação ao acoplar janelas espaciais locais (*spatial windows*) com filtros de frequência espectrais (*spectral filters*), permitindo avaliar a detectabilidade de lesões considerando a heterogeneidade anatômica e a variabilidade local da textura do ruído.
+
+---
+
+## 2. Formulação Matemática Rigorosa
+
+### A. Limitação do Framework Clássico Global ($d'^2_{\text{NPWE}}$)
+Na formulação padrão para observadores de modelo do tipo *Non-Prewhitening with Eye Filter* ([[Observadores de Modelo (Model Observers)]]), o índice assume propriedades globais integradas:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(\mathbf{u}) \right|^2 \cdot \left[ \text{TTF}(\mathbf{u}) \right]^2 \cdot \left[ E(\mathbf{u}) \right]^2 \, d\mathbf{u} \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(\mathbf{u}) \right|^2 \cdot \left[ \text{TTF}(\mathbf{u}) \right]^2 \cdot \text{NPS}(\mathbf{u}) \cdot \left[ E(\mathbf{u}) \right]^4 \, d\mathbf{u} + \sigma_{\text{int}}^2}
+$$
+
+Onde:
+- $\mathbf{u} = (u, v)$ representa a frequência espacial bidimensional;
+- $W_{\text{task}}(\mathbf{u})$ é o espectro da tarefa diagnóstica;
+- $\text{TTF}(\mathbf{u})$ é a [[Task Transfer Function]];
+- $\text{NPS}(\mathbf{u})$ é o [[Noise Power Spectrum]] médio global;
+- $E(\mathbf{u})$ é a função de transferência visual humana (*Eye Filter*);
+- $\sigma_{\text{int}}^2$ é o ruído interno do observador.
+
+---
+
+### B. Formalização do SSW-$d'$ (Janelamento Espaço-Frequência)
+Para lidar com a não-estacionariedade espacial, o SSW-$d'$ decompõe o volume de imagem através de uma transformada de Fourier janelada (*Short-Space Fourier Transform* ou janelas gaussianas ponderadas $w(\mathbf{r} - \mathbf{r}_0)$ centradas na coordenada da lesão $\mathbf{r}_0$):
+
+$$
+(d'_{\text{SSW}}(\mathbf{r}_0))^2 = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}, w}(\mathbf{u}, \mathbf{r}_0) \right|^2 \cdot \left[ \text{TTF}_{\text{local}}(\mathbf{u}, \mathbf{r}_0) \right]^2 \cdot \left[ E(\mathbf{u}) \right]^2 \, d\mathbf{u} \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}, w}(\mathbf{u}, \mathbf{r}_0) \right|^2 \cdot \left[ \text{TTF}_{\text{local}}(\mathbf{u}, \mathbf{r}_0) \right]^2 \cdot \text{NPS}_{\text{local}}(\mathbf{u}, \mathbf{r}_0) \cdot \left[ E(\mathbf{u}) \right]^4 \, d\mathbf{u} + \sigma_{\text{int}}^2}
+$$
+
+Nesta equação:
+- $W_{\text{task}, w}(\mathbf{u}, \mathbf{r}_0) = \mathcal{F}\left\{ \Delta\mu(\mathbf{r}) \cdot w(\mathbf{r} - \mathbf{r}_0) \right\}$ é o espectro da tarefa modulado pela janela de suporte local $w(\mathbf{r})$;
+- $\text{NPS}_{\text{local}}(\mathbf{u}, \mathbf{r}_0)$ é o Espectro de Potência de Ruído local estimado estritamente na Região de Interesse (ROI) circum-vizinha à lesão;
+- $\text{TTF}_{\text{local}}(\mathbf{u}, \mathbf{r}_0)$ é a resposta em frequência espacial medida na interface local sinal-fundo sob o contraste específico.
+
+---
+
+## 3. Tabela Comparativa: $d'$ Convencional vs. SSW-$d'$
+
+| Característica | $d'$ Convencional (AAPM TG-233) | SSW-$d'$ (Espaço-Espectral Ponderado) |
+| :--- | :--- | :--- |
+| **Premissa de Estacionariedade** | Assume ruído estacionário homogêneo (WSS). | Não assume WSS; modela variações ponto a ponto. |
+| **Linearidade do Sistema** | Válido estritamente para [[Retroprojeção Filtrada (FBP)]]. | Projetado para [[Deep Learning Image Reconstruction (DLR)]] e IR. |
+| **Cálculo do NPS** | Calculado em grandes ROIs uniformes no centro/periferia. | Calculado via janelas espaciais móveis ou locais ($\text{NPS}_{\text{local}}$). |
+| **Correlação com Leitores Humanos** | Perde correlação em ruídos texturizados ou com "aspecto plástico". | Mantém correlação robusta ($r > 0,85$) com testes psicofísicos ([[Estudo de Observadores 2AFC]]). |
+| **Dependência do Fundo** | Fundo considerado puramente uniforme. | Pondera o fundo anatômico e estrutural adjacente à lesão. |
+
+---
+
+## 4. Aplicações em Tomografia Computadorizada e Inteligência Artificial
+
+1. **Avaliação de Redes Convolucionais e DLR:**  
+   Algoritmos de aprendizado profundo processam regiões de borda e regiões homogêneas com filtros não-lineares distintos. O SSW-$d'$ quantifica com precisão se a redução de ruído promovida pela rede preserva a detectabilidade real de lesões hipodensas hepáticas ou microcalcificações sem introduzir borramento de textura.
+2. **Validação de Phantoms Antropomórficos:**  
+   Em meios não homogêneos (como phantoms impressos em 3D com texturas complexas), o SSW-$d'$ permite desacoplar a variabilidade do ruído anatômico do ruído estocástico quântico.
+3. **Otimização de Protocolos de Ultra-Baixa Dose:**  
+   Permite mapear mapas paramétricos 2D/3D de detectabilidade ao longo de todo o volume tomográfico, orientando a modulação de corrente do tubo ($mA$) em função da detectabilidade mínima requerida para a tarefa clínica.

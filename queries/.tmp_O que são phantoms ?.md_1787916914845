@@ -1,0 +1,36 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]], [[Dosimetria em Raios X]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]]
+
+## 1. Conceito e Classificação Geral
+
+Os *phantoms* (fantomas) são dispositivos simuladores projetados para reproduzir características físicas, geométricas e de atenuação radiológica de tecidos biológicos humanos ou de órgãos inteiros. Na Física Médica e na [[Tomografia Computadorizada]], eles constituem ferramentas fundamentais para a garantia da qualidade, calibração de equipamentos, otimização de protocolos de irradiação e validação de novos algoritmos de reconstrução de imagem.
+
+Eles podem ser categorizados em diferentes tipos principais com base em sua aplicação e complexidade:
+
+1. **Fantomas de Controle de Qualidade (QC) e Metrologia:** Dispositivos padronizados contendo insertos geométricos para avaliação de número de Hounsfield (HU), linearidade, resolução espacial e ruído.
+2. **Fantomas Antropomórficos:** Estruturas físicas complexas que mimetizam a anatomia humana real, utilizando materiais tecido-equivalentes para reproduzir a atenuação e o espalhamento de raios X em regiões específicas (como crânio, tórax, abdome e pelve).
+3. **Fantomas Híbridos:** Modelos de nova geração que integram estruturas físicas reais com gêmeos digitais computacionais de alta precisão, permitindo correlacionar métricas físicas analógicas com simulações digitais avançadas.
+
+## 2. Fundamentação Física e Interação com a Radiação
+
+A resposta de um *phantom* submetido a um feixe de raios X policromático é governada pelas leis de atenuação da radiação ionizante. A intensidade do feixe transmitido através do dispositivo obedece à lei de Lambert-Beer modificada:
+
+$$
+I = I_0 \int_{0}^{E_{\max}} \Phi_0(E) \exp \left( -\int \mu(ec{r}, E) \\, ds \right) dE
+$$
+
+Onde:
+- $\Phi_0(E)$ representa o espectro de energia dos fótons incidentes.
+- $\mu(ec{r}, E)$ é o coeficiente de atenuação linear espacialmente variante do material do *phantom* para a energia $E$.
+- $ds$ é o elemento de caminho ao longo da trajetória do feixe.
+
+Para simular com precisão o comportamento do tecido humano, os materiais constituintes dos *phantoms* (como resinas epóxi, polietileno de ultra alto peso molecular - UHMW, plásticos dopados com cálcio ou PTFE) devem apresentar números atômicos efetivos ($Z_{\text{eff}}$) e densidades eletrônicas por unidade de volume muito próximos aos dos tecidos biológicos reais (como gordura, água, osso trabecular e osso cortical).
+
+## 3. Aplicações Clínicas e Metrológicas
+
+Os *phantoms* são aplicados em diversas frentes da pesquisa e da prática clínica em radiologia diagnóstica:
+
+* **Validação de Dosimetria:** Permitem o posicionamento de câmaras de ionização, dosímetros termoluminescentes (TLD) ou dosímetros luminescentes opticamente estimulados (OSLD) para medir o índice de dose em tomografia computadorizada ($CTDI_{\text{vol}}$) e a dose absorvida em órgãos.
+* **Avaliação de Desempenho Baseada em Tarefas:** Em conjunto com o [[Noise Power Spectrum|NPS]] e a [[Task Transfer Function|TTF]], avaliam a detectabilidade de lesões de baixo contraste e o impacto de algoritmos de reconstrução iterativa e [[Deep Learning Image Reconstruction (DLR)|Deep Learning Image Reconstruction]].
+* **Gerenciamento de Artefatos:** Auxiliam na quantificação de artefatos de endurecimento de feixe e artefatos metálicos utilizando estruturas impressas em 3D com dopagens controladas.

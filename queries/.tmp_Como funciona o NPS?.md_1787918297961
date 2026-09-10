@@ -1,0 +1,51 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Noise Power Spectrum|Espectro de Potência do Ruído (NPS)]], [[Tomografia Computadorizada]], [[Deep Learning Image Reconstruction (DLR)]], [[NPWE Model Observer]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Noise Power Spectrum|Espectro de Potência do Ruído (NPS)]], [[Tomografia Computadorizada]], [[NPWE Model Observer]]
+
+## 1. Princípios Físicos e Decomposição do Ruído
+
+O funcionamento do **Espectro de Potência do Ruído** (*Noise Power Spectrum* - NPS) baseia-se na decomposição estatística das flutuações de pixel em uma imagem de Tomografia Computadorizada (TC) homogênea através de ferramentas de análise espectral. Enquanto o desvio padrão global ($\sigma$) fornece apenas uma métrica escalar da amplitude do ruído, o NPS quantifica como a energia do ruído está distribuída ao longo das diferentes frequências espaciais (medidas em $\text{mm}^{-1}$).
+
+A formulação fundamental utiliza a Transformada de Fourier Discreta bidimensional (DFT) aplicada sobre regiões de interesse ($N \times N$ pixels) após a remoção de tendências determinísticas de fundo (como artefatos de endurecimento do feixe): 
+
+$$
+W(f_x, f_y) = \frac{\Delta_x \Delta_y}{N_x N_y} \leftlangle \left| \sum_{x=0}^{N_x-1} \sum_{y=0}^{N_y-1} \Delta I(x, y) e^{-2\pi i (f_x x \Delta_x + f_y y \Delta_y)} \right|^2 \rightangle
+$$
+
+Onde $\Delta_x$ e $\Delta_y$ representam o espaçamento dos pixels, $\Delta I(x, y)$ é o ruído residual e $langle dots angle$ denota a média de *ensemble* sobre múltiplos cortes e realizações.
+
+## 2. Derivação e Relação com a Variância
+
+A área total sob a curva do NPS está diretamente relacionada à variância total do ruído na imagem, de acordo com o Teorema de Parseval:
+
+$$
+\sigma^2 = \iint_{-\infty}^{\infty} W(f_x, f_y) \\, df_x \\, df_y \approx \sum_{f_x} \sum_{f_y} W(f_x, f_y) \, \Delta f_x \, \Delta f_y
+$$
+
+Em sistemas de TC de gantry axial, o NPS bidimensional é frequentemente convertido em um perfil unidimensional radial $W(f)$ por meio de integração em coordenadas polares:
+
+$$
+W(f) = \int_{0}^{2\pi} W(f \cos\theta, f \sin\theta) \, \, \, d\theta
+$$
+
+Essa representação radial permite extrair a frequência espacial média ($f_{av}$), métrica essencial para caracterizar se a textura do ruído é de alta frequência (granulada) ou de baixa frequência (manchada).
+
+## 3. Impacto de Algoritmos de Reconstrução no NPS
+
+Diferentes abordagens de reconstrução alteram drasticamente a assinatura espectral do ruído:
+
+| Método de Reconstrução | Comportamento do NPS | Textura Visual Predominante |
+| :--- | :--- | :--- |
+| **Retroprojeção Filtrada (FBP)** | Predominância em altas frequências devido ao filtro de rampa. | Ruído fino, granulado (*sandy*). |
+| **Reconstrução Iterativa (IR)** | Supressão não linear de altas frequências, deslocando o NPS para a região inferior. | Ruído borrado ou manchado (*blotchy*). |
+| **Deep Learning Image Reconstruction (DLR)** | Preservação ou deslocamento do NPS para frequências mais altas com menor magnitude. | Textura natural com redução expressiva da amplitude. |
+
+## 4. Integração com Observadores de Modelo
+
+O NPS atua como a matriz de covariância do ruído no domínio da frequência para modelos de percepção visual, a exemplo do [[NPWE Model Observer]]. O índice de detectabilidade do observador NPWE utiliza o NPS para ponderar a tarefa visual e predizer o desempenho humano na detecção de lesões de baixo contraste:
+
+$$
+(d'^2_{\text{NPWE}}) = \frac{\left[ \iint_{-\infty}^{\infty} S(u, v) E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} S^2(u, v) W(u, v) E^4(u, v) \\, du \\, dv}
+$$
+
+Essa formulação permite validar a otimização de protocolos de dose e algoritmos avançados de reconstrução sem a necessidade de extensos ensaios clínicos psicofísicos.

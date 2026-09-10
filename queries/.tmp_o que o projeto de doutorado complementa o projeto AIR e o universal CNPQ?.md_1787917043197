@@ -1,0 +1,44 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Tomografia Computadorizada]], [[Deep Learning Model Observer|deep-learning-model-observer]], [[Índice de Detectabilidade|detectability-index]], [[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]], [[Reconstrução Iterativa|iterative-reconstruction]], [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]], [[Task Based Image Quality|task-based-image-quality]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Tomografia Computadorizada]], [[Deep Learning Model Observer|deep-learning-model-observer]], [[Índice de Detectabilidade|detectability-index]], [[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]]
+
+## 1. Visão Geral da Matriz de Complementaridade
+
+No ecossistema de pesquisa em física médica e tomografia computadorizada desenvolvido no laboratório, a articulação entre o **Projeto de Doutorado Direto FAPESP**, o **Projeto AIR** (focado em Reconstrução Avançada e Inteligência Artificial) e o **Projeto Universal CNPq** constitui um programa de investigação contínuo e hierarquizado. Enquanto as iniciativas de fomento institucional (AIR e Universal CNPq) estabelecem a infraestrutura metrológica base, a aquisição de dados brutos (*raw data*), a validação de algoritmos fundamentais de reconstrução ([[Reconstrução Iterativa|iterative-reconstruction]] e [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]]) e a automação de métricas físicas clássicas ([[Task Transfer Function|task-transfer-function]] e [[Noise Power Spectrum|noise-power-spectrum]]), o **Projeto de Doutorado Direto** eleva o escopo para a fronteira da percepção computacional e da otimização multiobjetivo baseada em tarefas.
+
+A transição conceitual e metodológica entre os projetos fundamentais e a tese de doutorado pode ser estruturada em dimensões complementares:
+
+| Dimensão de Investigação | Projetos AIR & Universal CNPq (Fundação & Infraestrutura) | Projeto de Doutorado Direto FAPESP (Fronteira & Aplicação Avançada) |
+| :--- | :--- | :--- |
+| **Foco Metrológico Primário** | Automação e calibração de métricas físicas lineares e não-lineares ($TTF$, $NPS$, $d'$ clássico). | Desenvolvimento, validação e atenção de observadores profundos ([[Deep Learning Model Observer|deep-learning-model-observer]]). |
+| **Validação Perceptual** | Foco em observadores matemáticos tradicionais ([[Channelized Hotelling Observer (CHO)|cho-model-observer]], [[NPWE Model Observer|npwe-model-observer]]). | Integração de estudos psicofísicos humanos via [[Estudo de Observadores 2AFC|2-AFC]] com radiologistas especialistas. |
+| **Escopo de Otimização** | Avaliação isolada de protocolos de baixa dose e desempenho de algoritmos de reconstrução. | Formulação de otimização multiobjetivo da tríade $(D, T, -W)$ via fronteira de Pareto e [[Algoritmo Genético NSGA-II|nsga-ii]]. |
+| **Transferibilidade Tecnológica** | Caracterização em tomógrafos específicos do laboratório/hospital de origem. | Validação robusta inter-fabricantes (*leave-one-scanner-out*) em 7 tomógrafos de 4 fabricantes distintos. |
+
+## 2. Aprofundamento da Contribuição do Doutorado sobre as Bases do AIR e CNPq
+
+### A. Transição de Observadores Lineares para Deep Learning Model Observers
+Os projetos AIR e Universal CNPq fornecem a base necessária para o cálculo rigoroso do índice de detectabilidade ($d'$) utilizando o arcabouço do [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]], empregando observadores clássicos como o *Hotelling Observer* e o CHO com canais de Gabor ou Dense Difference of Gaussians (D-DOG). 
+
+O projeto de doutorado complementa essa frente ao introduzir uma arquitetura baseada em *Vision Transformers* e mecanismos de atenção para estimar $d'$ diretamente em imagens não-lineares reconstruídas por [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]]. Matematicamente, o observador profundo modela a função não-linear complexa de detecção de lesões de baixo contraste sem as limitações de linearidade impostas pelos modelos clássicos:
+
+$$
+\hat{d}'_{\text{DL}} = \mathcal{G}_{\Phi} \left( \mathbf{x}_{\text{recon}}, \mathbf{m}_{\text{aquisiçã o}} \right)
+$$
+
+Onde $\mathcal{G}_{\Phi}$ representa a rede neural profunda parametrizada pelos pesos $\Phi$, alimentada pela imagem reconstruída $\mathbf{x}_{\text{recon}}$ e pelos metadados físicos de aquisição $\mathbf{m}_{\text{aquisiçã o}}$.
+
+### B. Expansão para Otimización Multiobjetivo e Fronteira de Pareto
+Enquanto o projeto Universal CNPq avalia o impacto isolado da redução de dose ($CTDI_{\text{vol}}$) e do ruído estatístico sobre a qualidade da imagem, o doutorado introduz um formalismo de otimização multiobjetivo simultânea. A qualidade de imagem baseada em tarefas ([[Task Based Image Quality|task-based-image-quality]]), medida através do $d'$ validado, deixa de ser apenas uma métrica de relatório e passa a integrar a função de custo a ser maximizada juntamente com a minimização de dose e tempo operacional:
+
+$$
+\min_{\Theta} \mathbf{F}(\Theta) = \left[ D(\Theta), \, T(\Theta), \, -W(d'(\Theta)) \right]^T
+$$
+
+Sujeito às restrições metrológicas de preservação do número Hounsfield e estabilidade da textura de ruído caracterizadas nas fases anteriores dos projetos AIR/CNPq.
+
+### C. Validação Antropomórfica e Phantoms Híbridos
+A infraestrutura de phantoms físicos e simulações do projeto AIR é expandida no doutorado através do uso de [[Phantoms Híbridos|phantoms-hibridos]] e dados clínicos multicêntricos cobrindo três anatomias críticas (tórax, abdome e crânio), permitindo um rigor estatístico mais elevado com estudos psicofísicos MRMC (*Multi-Reader Multi-Case*) envolvendo ao menos 20 radiologistas especialistas por sítio anatômico.
+
+## 3. Conclusão da Integração Acadêmica
+Pode-se concluir que o projeto de Doutorado Direto não duplica, mas coroa e expande os projetos AIR e Universal CNPq. Ele utiliza as ferramentas metrológicas de NPS, TTF e $d'$ clássico validadas naqueles fomentos para treinar, calibrar e validar o primeiro observador de aprendizado profundo de alta robustez inter-fabricantes, convertendo dados físicos brutos em uma ferramenta clínica autônoma de otimização de protocolos em [[Tomografia Computadorizada|tomografia-computadorizada]].

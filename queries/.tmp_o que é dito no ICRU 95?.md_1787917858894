@@ -1,0 +1,41 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[Qualidade de Imagem em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Contexto e Escopo do Relatório ICRU 95
+
+O **Relatório ICRU 95** (*Radiation Dose and Image Quality in X-Ray Imaging*) da Comissão Internacional de Unidades e Medidas de Radiação representa um marco regulatório e metodológico na física médica contemporânea. Sua principal contribuição é a consolidação definitiva da **qualidade de imagem baseada em tarefas** (*Task-Based Image Quality*) como o padrão ouro para a avaliação de sistemas de imagem por raios-X e [[Tomografia Computadorizada]]. 
+
+Tradicionalmente, a avaliação de sistemas radiológicos confiava em métricas físicas isoladas e genéricas, tais como a Relação Sinal-Ruído ([[Contrast To Noise Ratio|CNR]]) e curvas de Função de Transferência de Modulação (MTF) sem considerar o conteúdo estocástico ou a geometria da lesão. O ICRU 95 estabelece diretrizes rigorosas para que a mensuração da qualidade de imagem esteja intrinsecamente acoplada à tarefa diagnóstica específica que o sistema se propõe a realizar (ex.: detecção de nódulos pulmonares de baixo contraste ou microcalcificações em exames de mama).
+
+## 2. Pilares Metodológicos Fundamentais
+
+O documento estrutura a avaliação de desempenho em torno de três eixos fundamentais que descrevem a propagação do sinal e do ruído no sistema de aquisição e reconstrução:
+
+1. **Resolução Espacial Dependente de Contraste e Geometria:** Avaliada por meio da **[[Task Transfer Function]]** ($\text{TTF}$), substituindo abordagens puramente lineares e determinísticas por métricas que refletem a fidelidade de transferência de sinais específicos na presença de ruído.
+2. **Textura e Magnitude do Ruído Estocástico:** Caracterizada pelo **[[Noise Power Spectrum]]** ($\text{NPS}$), que descreve como a variância do ruído se distribui no espaço de frequência espacial bidimensional $\mathbf{u} = (u, v)$, permitindo modelar a não-stationariedade introduzida por algoritmos modernos de **[[Reconstrução Iterativa]]** e **[[Deep Learning Image Reconstruction (DLR)]]**.
+3. **Desempenho de Detecção Humana e Matemática:** Sintetizado pelo **[[Índice de Detectabilidade]]** ($d'$), calculado através de observadores matemáticos ideais e antropomórficos.
+
+## 3. Formulação do Desempenho Diagnóstico
+
+O ICRU 95 enfatiza que a eficiência de um sistema radiológico na detecção de uma patologia deve ser quantificada através da Teoria de Detecção de Sinais (SDT). O observador linear ideal e o *Channelized Hotelling Observer* (CHO) são recomendados para estimar a separabilidade estatística entre as hipóteses de sinal presente ($H_1$) e ausente ($H_0$). 
+
+A relação matemática fundamental formalizada nas diretrizes para o observador ideal com branqueamento de ruído (*Prewhitening*) no domínio contínuo é expressa por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+- $W_{\text{task}}(u, v)$ representa a função de tarefa no espaço de Fourier correspondente à geometria e ao contraste do sinal de interesse.
+- $\text{TTF}(u, v)$ é a função de transferência baseada na tarefa.
+- $\text{NPS}(u, v)$ é o espectro de potência do ruído do sistema.
+
+Para simular o comportamento de observadores humanos, o documento também detalha a incorporação de filtros visuais e ruído interno de decisão, alinhando-se aos conceitos de **[[Observadores de Modelo (Model Observers)]]**.
+
+## 4. Implicações Práticas para Otimização de Sistemas e Dosimetria
+
+Com a introdução de reconstruções não-lineares e algoritmos avançados de inteligência artificial na prática clínica, as métricas tradicionais tornaram-se insuficientes. O ICRU 95 fornece o embasamento teórico para:
+- **Otimização Multiobjetivo:** Equilibrar a redução da dose de radiação administrada ao paciente (mensurada por grandezas como $\text{CTDI}_{\text{vol}}$ e DLP) com a preservação da detectabilidade de lesões sutis.
+- **Padronização de Testes de Aceitação:** Harmonizar protocolos de avaliação de desempenho entre diferentes fabricantes de equipamentos de tomografia computadorizada e radiografia digital.
+- **Superação das Limitações da CNR:** Demonstrar matematicamente por que imagens com a mesma CNR convencional podem apresentar desempenhos diagnósticos radicalmente distintos devido a alterações na textura do ruído provocadas por filtros de reconstrução.

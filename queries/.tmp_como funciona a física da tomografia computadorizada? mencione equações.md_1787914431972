@@ -1,0 +1,63 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Unidades Hounsfield]], [[Retroprojeção Filtrada (FBP)]], [[Índice de Detectabilidade]], [[Inteligência Artificial (IA)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Unidades Hounsfield]]
+
+## 1. Fundamentos Físicos e Interação da Radiação
+
+A **[[Tomografia Computadorizada]]** fundamenta-se na medição da atenuação diferencial de um feixe de raios-X policromático ao atravessar o volume anatômico sob múltiplos ângulos de projeção. O processo físico de atenuação linear é descrito pela Lei de Beer-Lambert modificada para trajetos lineares:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+Onde $I_0$ representa a intensidade incidente do feixe, $I$ é a intensidade emergente após percorrer o caminho linear $L$, e $\mu(x, y)$ denota o coeficiente de atenuação linear espacialmente variante no plano transversal do paciente.
+
+Para padronizar e quantificar os valores de atenuação de forma independente do equipamento, os coeficientes lineares $\mu$ são convertidos para as **[[Unidades Hounsfield]]** ($\text{UH}$), expressas por:
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+Onde $\mu_{\text{água}}$ e $\mu_{\text{ar}}$ representam os coeficientes de atenuação linear da água destilada e do ar sob condições padrão de calibração.
+
+---
+
+## 2. Formação de Projeções e o Sinograma
+Thecnicamente, o conjunto de dados brutos adquiridos pelo sistema de detecção em diferentes ângulos $\theta$ constitui o **sinograma**. Cada linha do sinograma corresponde à transformada de Radon da distribuição de atenuação espacial:
+
+$$
+P_{\theta}(t) = \mathcal{R}\{\mu(x, y)\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+Onde $t$ representa a coordenada espacial do elemento detector perpendicular ao feixe central e $\delta$ é a função delta de Dirac.
+
+A relação matemática que viabiliza a reconstrução da imagem a partir das projeções unidimensionais é o **Teorema da Seção Central (Fourier Slice Theorem)**, que estabelece que a Transformada de Fourier 1D de uma projeção paralela $P_{\theta}(t)$ equivale a uma linha radial através da origem na Transformada de Fourier 2D da função original $\mu(x, y)$:
+
+$$
+S_{\theta}(\omega) = \mathcal{F}_{1D}\{P_{\theta}(t)\} = \iint_{-\infty}^{\infty} \mu(x, y) e^{-j 2\pi \omega (x \cos\theta + y \sin\theta)} \\, dx \\, dy
+$$
+
+---
+
+## 3. Algoritmos de Reconstrução: Da Retroprojeção Filtrada à Inteligência Artificial
+
+A retroprojeção simples gera imagens severamente borradas com o perfil $1/r$. Para eliminar este artefato, aplica-se a **[[Retroprojeção Filtrada (FBP)]]**, incorporando um filtro de rampa $|\omega|$ no domínio da frequência:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+Nos regimes contemporâneos de baixa dose, métodos avançados como a **Reconstrução Iterativa (IR)** e algoritmos baseados em **[[Inteligência Artificial (IA)]]** (DLR) resolvem problemas inversos penalizados para suprimir o ruído quântico (estatística de Poisson) e preservar a detectabilidade de lesões avaliada por métricas avançadas como o **[[Índice de Detectabilidade]]** ($d'$):
+
+$$
+hat{\theta} = arg\min_{\theta} \mathbb{E}_{(x,y)} \left[ \mathcal{L}\left(x, f_\theta(y)\right) \right]
+$$
+
+---
+
+## 4. Conexões e Wikilinks
+- [[Tomografia Computadorizada]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Unidades Hounsfield]]
+- [[Índice de Detectabilidade]]
+- [[Inteligência Artificial (IA)]]

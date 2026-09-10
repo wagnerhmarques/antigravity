@@ -1,0 +1,55 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer|deep-learning-model-observer]], [[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]], [[Task Transfer Function|task-transfer-function]], [[Noise Power Spectrum|noise-power-spectrum]], [[Photon Counting Detector CT (PCD-CT)|photon-counting-ct]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer|deep-learning-model-observer]], [[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]]
+
+## 1. Contextualização e Alinhamento Estratégico da Pesquisa
+
+A investigação científica em física médica e tomografia computadorizada (TC) no âmbito do laboratório insere-se em uma macrovisão de transição tecnológica e metrológica. O ecossistema de fomento atual articula-se em três pilares complementares:
+
+* **Projeto Universal CNPq:** Focado na infraestrutura metrológica básica, estabelecimento de curvas de referência, padronização de medições físicas puras e consolidação da metrologia de base em TC convencional e emergente.
+* **Projeto AIR (*Artificial Intelligence in Radiology* / Redes de Investigação):** Direcionado ao desenvolvimento de algoritmos de reconstrução avançada, processamento de imagem em larga escala e integração inicial de redes neurais profundas para eliminação de ruído e preservação radiométrica.
+* **Projeto de Doutorado Direto FAPESP (Wagner Henrique Marques):** Atua como o elemento de **validação perceptual, observadores de aprendizado profundo (*deep learning model observers*) e otimização multiobjetivo baseada em tarefas** para fechar o ciclo entre a física instrumental e a decisão diagnóstica humana.
+
+---
+
+## 2. Análise Comparativa da Complementaridade Acadêmica e Metodológica
+
+A tabela a seguir detalha o vetor de complementarnça entre as frentes de fomento, evidenciando como o Doutorado Direto expande e consolida as fundações estabelecidas pelo projeto Universal CNPq e pelo projeto AIR:
+
+| Eixo Estrutural | Projeto Universal CNPq | Projeto AIR | Projeto de Doutorado Direto FAPESP |
+| :--- | :--- | :--- | :--- |
+| **Foco Principal** | Metrologia física primária, padronização de fantomas e dosimetria global. | Desenvolvimento e teste de algoritmos de IA e reconstrução não-linear. | Observadores profundos, validação 2AFC e otimização multiobjetivo da tríade $(D, T, W)$. |
+| **Abordagem de Qualidade** | Métricas físicas tradicionais ([[Task Transfer Function|TTF]], [[Noise Power Spectrum|NPS]], [[Contrast To Noise Ratio|CNR]]). | Avaliação de ganho estrutural e supressão de ruído estocástico via CNNs/GANs. | Qualidade baseada em tarefas ([[Índice de Detectabilidade|d' $\ge 0,90$]]) e validação psicofísica. |
+| **Integração Perceptual** | Ausente (foco puramente instrumental e físico). | Parcial (validação limitada por métricas de erro quadrático e similaridade). | Rigorosa: calibração contra observadores humanos especialistas via estudos [[Estudo de Observadores 2AFC|2-AFC]]. |
+| **Escopo de Otimização** | Conformidade com diretrizes de dose e protocolos normativos vigentes. | Redução de artefatos e melhoria estética/diagnóstica de imagens de baixa dose. | Otimização de Pareto multiobjetivo ($\varepsilon$-dominância) balanceando Dose, Tempo e Desempenho. |
+
+---
+
+## 3. Mecanismos de Transição e Sinergia Tecnológica
+
+A integração operacional entre as três frentes ocorre através de um fluxo contínuo de dados e validação, estruturado em três frentes principais:
+
+### A. Da Metrologia Física (CNPq) para a Modelagem Matemática (AIR)
+Enquanto o **Universal CNPq** fornece o arcabouço metrológico para a aquisição rigorosa de dados em fantomas físicos e híbridos, garantindo a rastreabilidade dos números Hounsfield ($HU$) e a exatidão das medições de $CTDI_{\text{vol}}$ e DLP, o **Projeto AIR** consome esses dados para treinar e ajustar arquiteturas de reconstrução iterativa e redes neurais de aprendizado profundo ([[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]]). 
+
+### B. Do Processamento de Imagem (AIR) para o Desempenho Baseado em Tarefas (Doutorado)
+O **Projeto de Doutorado Direto** toma como ponto de partida as imagens geradas pelos algoritmos otimizados no **Projeto AIR** e avança para a etapa crítica que falta na literatura atual: a **avaliação perceptual e objetiva baseada em tarefas**. Matematicamente, a relação de transferência de desempenho é modelada pela otimização do índice de detectabilidade $d'$ sob a formulação do observador de Hotelling com canais antropomórficos (CHO) e redes de atenção:
+
+$$
+d'^2_{\text{CHO}} = \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)^T \left( \mathbf{U}^T \mathbf{K} \mathbf{U} \right)^{-1} \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)
+$$
+
+### C. Otimização Multiobjetivo e Fronteira de Pareto
+O diferencial exclusivo aportado pelo **Doutorado Direto** sobre o arcabouço prévio do CNPq e do AIR é a formulação da otimização multiobjetivo via [[Algoritmo Genético NSGA-II|nsga-ii]], resolvendo simultaneamente o vetor de custos da tríade $(D, T, -W)$:
+
+$$
+\min_{\theta} \left\{ D(\theta), \, T(\theta), \, -W(\theta) \right\}
+$$
+
+Onde $D$ é a dose de radiação, $T$ é o tempo operacional (aquisição e reconstrução) e $W$ é o desempenho diagnóstico quantificado pelo índice de detectabilidade $d'$ validado contra radiologistas.
+
+---
+
+## 4. Conclusão da Complementaridade
+
+O **Projeto de Doutorado Direto** não substitui, mas coroa e expande sinergicamente o **Universal CNPq** e o **Projeto AIR**. Ele transforma a infraestrutura física metrológica (CNPq) e os algoritmos de IA gerados (AIR) em uma ferramenta clínica validada, capaz de garantir que a redução agressiva de dose em tomografias computadorizadas modernas preserve rigorosamente a segurança diagnóstica perceptual do paciente.

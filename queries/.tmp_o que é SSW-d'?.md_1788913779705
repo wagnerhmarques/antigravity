@@ -1,0 +1,63 @@
+> 📅 **Data:** 2026-09-08 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[AAPM TG-233 - Avaliação de Desempenho em TC]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Métricas de Dose em TC]], [[Deep Learning Image Reconstruction (DLR)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **$\text{SSW-}d'$** (*Size-Specific Water Detectability Index* ou *Size-Specific Weighted Detectability Index*) é a extensão clínica do **[[Índice de Detectabilidade]] ($d'$)** calibrada e normalizada em função das dimensões anatômicas e do perfil de atenuação específico de cada paciente, quantificado primariamente pelo **Diâmetro Equivalente em Água** (*Water-Equivalent Diameter* — $\text{WED}$).
+
+Enquanto o cálculo canônico de $d'$ preconizado pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** é tradicionalmente executado em fantomas físicos cilíndricos de calibração padrão (como o fantoma de TC de 20 cm para crânio ou 32 cm para abdômen), o $\text{SSW-}d'$ resolve a limitação de transferibilidade dessas métricas para a variabilidade anatômica real de pacientes (pediátricos, normolíneos e obesos). O conceito opera de forma análoga à relação entre o $\text{CTDI}_{\text{vol}}$ e o $\text{SSDE}$ (*Size-Specific Dose Estimate*, AAPM TG-204/TG-220): assim como o $\text{SSDE}$ corrige a estimativa de dose pelo $\text{WED}$, o $\text{SSW-}d'$ estabelece a qualidade de imagem baseada em tarefas (*task-based image quality*) personalizada para a espessura equivalente de atenuação do paciente sob protocolos clínicos reais.
+
+---
+
+## 2. Formulação Matemática e Modelagem Paramétrica
+
+O cálculo do $\text{SSW-}d'$ baseia-se na dependência direta da resolução espacial em frequência ($\text{TTF}$) e do espectro de potência de ruído ($\text{NPS}$) em relação à atenuação do meio atravessado ($\text{WED}$) e à modulação automática de corrente do tubo (AEC / ATCM).
+
+### A. Formulação em Frequência Espacial (Observador NPWE Sensível ao Tamanho)
+Para um modelo de observador humano não-branqueador com filtro ocular (*Non-Prewhitening with Eye Filter* — NPWE), o $\text{SSW-}d'$ é expresso no domínio 2D da frequência espacial $\mathbf{u} = (u, v)$ como:
+
+$$
+(d'_{\text{SSW}})^2 = \frac{\left[ \iint_{-\infty}^{\infty} |W_{\text{task}}(u, v)|^2 \cdot \left[ \text{TTF}_{\text{WED}}(u, v) \right]^2 \cdot E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} |W_{\text{task}}(u, v)|^2 \cdot \left[ \text{TTF}_{\text{WED}}(u, v) \right]^2 \cdot \text{NPS}_{\text{WED}}(u, v) \cdot E^4(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde:
+* $\text{WED}$ é o diâmetro equivalente em água calculado a partir do mapa de unidades Hounsfield ($\text{HU}$) da secção tomográfica do paciente:
+  
+
+$$
+\text{WED} = 2 \sqrt{\frac{A}{\pi} \left( \frac{\overline{\text{HU}}_{\text{ROI}}}{1000} + 1 \right)}
+$$
+
+* $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ representa a função da tarefa clínica (tamanho, forma e contraste intrínseco da patologia alvo, como nódulo pulmonar ou lesão focal hepática);
+* $\text{TTF}_{\text{WED}}(u, v)$ é a **[[Task Transfer Function]]** obtida no regime de atenuação correspondente ao diâmetro do paciente;
+* $\text{NPS}_{\text{WED}}(u, v)$ é o **[[Noise Power Spectrum]]** característico da densidade espectral de ruído sob o nível de dose entregue pelo sistema para aquele calibre corporal;
+* $E(u, v)$ é a função de transferência do sistema visual humano ajustada para a distância de visualização diagnóstica;
+* $\sigma_{\text{int}}^2$ é a variância associada ao ruído cognitivo interno do observador.
+
+### B. Modelo Paramétrico de Escala Clínica
+Em programas de monitoramento contínuo de qualidade de imagem populacional, o $\text{SSW-}d'$ é frequentemente aproximado por leis de potência validadas empiricamente frente a fantomas multi-diâmetro (*Mercury Phantom*):
+
+$$
+d'_{\text{SSW}} \approx k_{\text{task}} \cdot \left( \frac{\text{SSDE}}{\text{SSDE}_{\text{ref}}} \right)^{\alpha} \cdot \left( \frac{\text{WED}}{\text{WED}_{\text{ref}}} \right)^{-\beta}
+$$
+
+Onde os expoentes $\alpha$ e $\beta$ dependem diretamente do comportamento linear ou não-linear do algoritmo de reconstrução em uso ([[Retroprojeção Filtrada (FBP)]], [[Reconstrução Iterativa]] ou [[Deep Learning Image Reconstruction (DLR)]]).
+
+---
+
+## 3. Comparativo Metrológico: $d'$ Convencional vs. $\text{SSW-}d'$
+
+| Característica | $d'$ Convencional (TG-233) | $\text{SSW-}d'$ (Específico ao Paciente) |
+| :--- | :--- | :--- |
+| **Objeto de Avaliação** | Fantoma físico homogêneo com diâmetro fixo (ex.: 20 cm ou 32 cm). | Geometria e atenuação do próprio paciente ajustada por $\text{WED}$. |
+| **Resposta do AEC** | Estática para a atenuação uniforme do cilindro. | Dinâmica, refletindo a modulação $z$ e $xy$ da corrente ao longo da anatomia. |
+| **Finalidade Primária** | Homologação de equipamento, controle de qualidade (CQ) e comparação entre *scanners*. | Auditoria clínica rotineira, otimização de protocolos e radioproteção baseada em tarefas. |
+| **Par Métrico de Dose** | $\text{CTDI}_{\text{vol}}$ | $\text{SSDE}$ (AAPM Report 204 / 220) |
+| **Sensibilidade à Textura** | Medida em fundo uniforme ideal. | Considera a perturbação de fundo anatômico e texturização complexa. |
+
+---
+
+## 4. Relevância na Prática Clínica e Otimização de Protocolos
+
+1. **Paridade Diagnóstica em Pacientes Extremos:** Permite verificar se pacientes pediátricos e obesos mantêm o mesmo limiar de detectabilidade ($d'_{\text{target}}$) para uma dada patologia crítica (ex.: hemorragia intracraniana ou metástase hepática de baixo contraste), evitando subdiagnósticos por subdosagem em biotipos maiores.
+2. **Validação de Algoritmos Avançados de [[Deep Learning Image Reconstruction (DLR)]]:** Redes neurais de reconstrução exibem forte dependência não-linear do nível de sinal de entrada. O $\text{SSW-}d'$ quantifica com precisão se a redução de ruído promovida pelo DLR se traduz em ganho real de detectabilidade quando a atenuação anatômica do paciente varia drasticamente ao longo do eixo $z$.
+3. **Sistemas Automatizados de Gestão de Dose e Qualidade:** Plataformas analíticas contemporâneas (*Radiation Dose Index Monitoring* — RDIM) utilizam o $\text{SSW-}d'$ acoplado ao $\text{SSDE}$ para traçar curvas populacionais de eficácia diagnóstica *versus* dose absorvida real, consolidando a fronteira de Pareto de otimização radiológica.

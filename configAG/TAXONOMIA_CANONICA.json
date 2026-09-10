@@ -1,0 +1,1146 @@
+{
+  "Índice de Detectabilidade": {
+    "categoria": "conceito",
+    "aliases": [
+      "d'",
+      "d-prime",
+      "detectability index",
+      "detectability-index",
+      "dprime",
+      "d′",
+      "indice de detectabilidade",
+      "indice-de-detectabilidade",
+      "ndice de detectabilidade",
+      "ndice-de-detectabilidade",
+      "índice de detectabilidade"
+    ]
+  },
+  "Task Transfer Function": {
+    "categoria": "conceito",
+    "aliases": [
+      "FTM",
+      "Funcao_de_Transferencia_Modulada_MTF",
+      "Função de Transferência de Modulação (MTF)",
+      "Função de Transferência de Modulação - FTM",
+      "MTF",
+      "MTF (Modulation Transfer Function)",
+      "Modulation_Transfer_Function_MTF",
+      "Modulação da Função de Transferência (MTF)",
+      "TTF",
+      "funcao-de-transferencia-de-tarefa",
+      "funcao_de_transferencia_de_modulacao",
+      "função de transferência da tarefa",
+      "task transfer function",
+      "task-transfer-function",
+      "ttf",
+      "ttf-task-transfer-function"
+    ]
+  },
+  "Noise Power Spectrum": {
+    "categoria": "conceito",
+    "aliases": [
+      "Espectro de Potencia de Ruido",
+      "Espectro de Potencia do Ruido",
+      "Espectro de Potencia do Ruido (NPS)",
+      "Espectro de Potência de Ruído (NPS)",
+      "Espectro de Potência de Ruído - NPS",
+      "Espectro de Potência do Ruído (NPS)",
+      "Espectro_Potencia_Ruido_NPS",
+      "NPS",
+      "Noise Power Spectrum (NPS)",
+      "espectro de potência de ruído",
+      "espectro-de-potencia-de-ruido",
+      "espectro-de-potencia-de-ruido-nps",
+      "espectro-de-potencia-do-ruido",
+      "espectro_de_potencia_do_ruido_nps",
+      "modelagem-de-ruido",
+      "noise power spectrum",
+      "noise-power-spectrum",
+      "nps",
+      "nps-noise-power-spectrum",
+      "ruido-em-tomografia-computadorizada",
+      "ruido-estocastico",
+      "ruido-quantico-e-textura",
+      "stochastic-noise",
+      "teoria_de_propagacao_de_ruido"
+    ]
+  },
+  "Observadores de Modelo (Model Observers)": {
+    "categoria": "conceito",
+    "aliases": [
+      "Model Observers",
+      "Modelos_de_Observadores_Computacionais",
+      "Observer_Models",
+      "computational-model-observers",
+      "model observers",
+      "model-observer",
+      "model-observers",
+      "observador de modelo",
+      "observadores computacionais",
+      "observadores de modelo",
+      "observadores-computacionais",
+      "observadores-de-modelo",
+      "observadores_computacionais_ideal"
+    ]
+  },
+  "Deep Learning Model Observer": {
+    "categoria": "conceito",
+    "aliases": [
+      "DL-MO",
+      "deep learning model observer",
+      "deep-learning-model-observer",
+      "deep-learning-model-observers",
+      "dl-mo",
+      "observador profundo",
+      "observadores profundos"
+    ]
+  },
+  "Deep Learning Image Reconstruction (DLR)": {
+    "categoria": "conceito",
+    "aliases": [
+      "DLR",
+      "deep learning image reconstruction",
+      "deep learning reconstruction",
+      "deep-learning-image-reconstruction",
+      "deep-learning-reconstruction",
+      "dlr",
+      "inteligencia-artificial-em-imagem-medica",
+      "inteligencia-artificial-em-tc",
+      "reconstrucao-baseada-em-aprendizado-profundo-dlr",
+      "reconstrucao-deep-learning",
+      "reconstrução por deep learning"
+    ]
+  },
+  "Reconstrução Iterativa": {
+    "categoria": "conceito",
+    "aliases": [
+      "IR",
+      "IR - Reconstrução Iterativa",
+      "Iterative Reconstruction (IR)",
+      "Iterative_Reconstruction_IR",
+      "Reconstrucao Iterativa (IR)",
+      "Reconstrucao_Iterativa_e_DLR",
+      "Reconstrucao_Iterativa_e_DLR_TC",
+      "Reconstrucao_Iterativa_em_TC",
+      "Reconstrução Iterativa (IR)",
+      "Reconstrução Iterativa e DLR",
+      "ir",
+      "iterative reconstruction",
+      "iterative-reconstruction",
+      "reconstrucao iterativa",
+      "reconstrucao-iterativa",
+      "reconstrução iterativa",
+      "reconstruções iterativas"
+    ]
+  },
+  "Photon Counting Detector CT (PCD-CT)": {
+    "categoria": "conceito",
+    "aliases": [
+      "PCD-CT",
+      "detectores de contagem de fótons",
+      "pcd-ct",
+      "photon counting ct",
+      "photon counting detector ct",
+      "photon-counting-ct",
+      "photon-counting-detector-ct"
+    ]
+  },
+  "AAPM TG-233 - Avaliação de Desempenho em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "TG-233",
+      "aapm tg 233",
+      "aapm tg233 ct performance",
+      "aapm-tg-233",
+      "aapm-tg-233-summary",
+      "aapm-tg233-ct-performance",
+      "tg233"
+    ]
+  },
+  "Task Based Image Quality": {
+    "categoria": "conceito",
+    "aliases": [
+      "TBIQ",
+      "qualidade de imagem baseada em tarefas",
+      "task based image quality",
+      "task-based-image-quality",
+      "tbiq"
+    ]
+  },
+  "Tomografia Computadorizada": {
+    "categoria": "conceito",
+    "aliases": [
+      "TC",
+      "Tomografia Computadorizada (CT)",
+      "computed tomography",
+      "computed-tomography",
+      "tc",
+      "tomografia computadorizada",
+      "tomografia computadorizada (TC)",
+      "tomografia-computadorizada"
+    ]
+  },
+  "Tomografia Computadorizada Espectral": {
+    "categoria": "conceito",
+    "aliases": [
+      "dect",
+      "dual-energy-ct",
+      "espectral",
+      "spectral ct",
+      "spectral-ct",
+      "tc espectral",
+      "tomografia computadorizada espectral",
+      "tomografia-computadorizada-espectral",
+      "tomografia-de-dupla-energia"
+    ]
+  },
+  "Inteligencia Artificial": {
+    "categoria": "conceito",
+    "aliases": [
+      "IA",
+      "Inteligencia Artificial (IA)",
+      "artificial intelligence",
+      "artificial-intelligence",
+      "ia",
+      "inteligencia artificial",
+      "inteligencia-artificial"
+    ]
+  },
+  "Pixelprint": {
+    "categoria": "conceito",
+    "aliases": [
+      "PixelPrint",
+      "pixel print",
+      "pixel-print",
+      "pixelprint"
+    ]
+  },
+  "Algoritmo Genético NSGA-II": {
+    "categoria": "conceito",
+    "aliases": [
+      "NSGA-II",
+      "algoritmo genetico nsga-ii",
+      "nsga ii",
+      "nsga-ii",
+      "nsga2"
+    ]
+  },
+  "Channelized Hotelling Observer (CHO)": {
+    "categoria": "conceito",
+    "aliases": [
+      "CHO",
+      "Channelized Hotelling Observer",
+      "Hotelling Observer",
+      "Model_Observers_Hotelling_CHO",
+      "channelized-hotelling-observer",
+      "cho",
+      "cho model observer",
+      "cho-model-observer",
+      "hotelling-observer"
+    ]
+  },
+  "NPWE Model Observer": {
+    "categoria": "conceito",
+    "aliases": [
+      "NPWE",
+      "non-prewhitening eye filter",
+      "npwe",
+      "npwe model observer",
+      "npwe-model-observer"
+    ]
+  },
+  "Hotelling Observer": {
+    "categoria": "conceito",
+    "aliases": [
+      "HO",
+      "ho",
+      "hotelling observer",
+      "hotelling-observer"
+    ]
+  },
+  "Modulação de Corrente de Tubo (TCM)": {
+    "categoria": "conceito",
+    "aliases": [
+      "TCM",
+      "controle-automatico-exposicao",
+      "corrente",
+      "modulacao de corrente do tubo",
+      "modulacao-de-corrente",
+      "produto-corrente-tempo",
+      "tcm",
+      "tensao",
+      "tube current modulation",
+      "tube-current-modulation"
+    ]
+  },
+  "Métricas de Dose em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "CTDIvol",
+      "DLP",
+      "SSDE",
+      "ctdi",
+      "ctdivol",
+      "dlp",
+      "dose-efetiva",
+      "dose-length-product",
+      "dosimetria-em-tomografia",
+      "metricas de dose",
+      "metricas de dose tc",
+      "metricas-de-dose-tc",
+      "ssde"
+    ]
+  },
+  "Virtual Monoenergetic Imaging (VMI)": {
+    "categoria": "conceito",
+    "aliases": [
+      "VMI",
+      "monoenergetic imaging",
+      "virtual monoenergetic imaging",
+      "virtual-monoenergetic-imaging",
+      "vmi"
+    ]
+  },
+  "Redução de Artefatos Metálicos": {
+    "categoria": "conceito",
+    "aliases": [
+      "MAR",
+      "mar",
+      "metal artifact reduction",
+      "reducao de artefatos metalicos",
+      "reducao-de-artefatos-metalicos"
+    ]
+  },
+  "Estudo de Observadores 2AFC": {
+    "categoria": "conceito",
+    "aliases": [
+      "2-afc",
+      "2AFC",
+      "2afc",
+      "2afc observer study",
+      "2afc-observer-study",
+      "2afc.md",
+      "Curva ROC",
+      "Curva_ROC_Metodologia_DBM",
+      "roc-curve",
+      "two-alternative forced choice"
+    ]
+  },
+  "ALARA": {
+    "categoria": "conceito",
+    "aliases": [
+      "ALARA",
+      "As Low As Reasonably Achievable",
+      "Otimização de Dose",
+      "Princípio ALARA",
+      "alara"
+    ]
+  },
+  "Contrast To Noise Ratio": {
+    "categoria": "conceito",
+    "aliases": [
+      "CNR",
+      "Relação Contraste-Ruído",
+      "contrast to noise ratio",
+      "contrast-to-noise-ratio"
+    ]
+  },
+  "Otimização de Dose em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "ALARA em TC",
+      "CT Dose Optimization",
+      "Modulação da Dose em TC",
+      "Otimizacao da Dose em Tomografia",
+      "Otimizacao_Dose_Radiologica",
+      "Otimizacao_Dose_TC",
+      "Otimizacao_de_Dose_e_Radioprotecao",
+      "Reducao de Dose",
+      "Reducao de Dose em Raio-X e TC",
+      "Reducao_De_Dose",
+      "Redução de Dose em TC",
+      "Redução de Dose em Tomografia",
+      "otimizacao de dose em tc",
+      "otimizacao-de-dose-em-tc"
+    ]
+  },
+  "Unidades Hounsfield": {
+    "categoria": "conceito",
+    "aliases": [
+      "HU",
+      "UH",
+      "Unidades Hounsfield (HU)",
+      "hounsfield-units",
+      "hu",
+      "numero-de-hounsfield",
+      "unidade-hounsfield",
+      "unidades hounsfield",
+      "unidades-hounsfield",
+      "unidades_hounsfield"
+    ]
+  },
+  "Controle de Qualidade em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "Controle de Qualidade",
+      "Controle de Qualidade (QC) em TC",
+      "Controle de Qualidade e Metrologia em Imagem Médica",
+      "Controle de Qualidade em Física Médica",
+      "Controle de Qualidade em Imagem Médica",
+      "Controle de Qualidade em Radiodiagnostico",
+      "Controle de Qualidade em Radiodiagnóstico",
+      "Controle de Qualidade em Radiologia",
+      "Controle_Qualidade_TC",
+      "Controle_de_Qualidade",
+      "QC",
+      "controle de qualidade em tc",
+      "controle-de-qualidade-em-tc",
+      "controle_de_qualidade_tc",
+      "qc-em-tc"
+    ]
+  },
+  "Dosimetria em Radiologia": {
+    "categoria": "conceito",
+    "aliases": [
+      "Dosimetria da Radiação",
+      "Dosimetria de Radiais",
+      "Dosimetria de Radiação",
+      "Dosimetria e Otimizacao em TC",
+      "Dosimetria e Segurança em Radiologia",
+      "Dosimetria em Medicina Nuclear",
+      "Dosimetria em Radiologia Diagnóstica",
+      "Dosimetria em Raio-X",
+      "Dosimetria em Tomografia Computadorizada",
+      "Dosimetria_e_Otimizacao_Dose_TC",
+      "dosimetria em radiologia",
+      "dosimetria-em-radiologia"
+    ]
+  },
+  "Inteligencia Artificial IA": {
+    "categoria": "conceito",
+    "aliases": [
+      "IA",
+      "Inteligencia Artificial em Imagem Medica",
+      "Inteligencia Artificial em Imagens Medicas",
+      "Inteligencia_Artificial_Em_Radiologia",
+      "Inteligência Artificial",
+      "Inteligência Artificial em Física Médica",
+      "Inteligência Artificial em Imagem Médica",
+      "Inteligência Artificial em Radiologia",
+      "Inteligência Artificial em Tomografia Computadorizada",
+      "inteligencia artificial ia",
+      "inteligencia-artificial-ia"
+    ]
+  },
+  "FBP": {
+    "categoria": "conceito",
+    "aliases": [
+      "FBP (Filtered Backprojection)",
+      "FBP - Filtered Backprojection",
+      "FBP - Retroprojeção Filtrada",
+      "FiltBackProjection (FBP)",
+      "Filtered_Backprojection_FBP",
+      "Filtro de Retroprojecao",
+      "Filtro de Retroprojecao Filtrada",
+      "Filtro de Retroprojecao Filtrada (FBP)",
+      "Filtro de Retroprojeção Filtrada (FBP)",
+      "Filtro_Retro_Projecao",
+      "Filtro_Retroprojecao",
+      "Filtro_Retroprojetocao",
+      "Filtros de Retroprojeção e FBP",
+      "Retroprojecao_Filtrada",
+      "Retroprojet_Filtrada_FBP",
+      "Retroprojetcao Filtrada (FBP)",
+      "Retroprojeção Filtrada (FBP)",
+      "fbp",
+      "retroprojecao_filtrada"
+    ]
+  },
+  "CNNs": {
+    "categoria": "conceito",
+    "aliases": [
+      "CNNs",
+      "Convolutional Neural Networks",
+      "Redes Neurais Convolucionais",
+      "Redes Neurais Convolucionais (CNNs)",
+      "cnns"
+    ]
+  },
+  "Deep Learning": {
+    "categoria": "conceito",
+    "aliases": [
+      "Aprendizado Profundo em Imagem Médica",
+      "Aprendizado Profundo na Física Médica",
+      "Deep Learning",
+      "Redes Neurais Artificiais",
+      "Redes Neurais Profundas",
+      "Redes_Neurais_Profundas_TC",
+      "aprendizado profundo",
+      "deep learning",
+      "deep-learning"
+    ]
+  },
+  "Radiomica": {
+    "categoria": "conceito",
+    "aliases": [
+      "Radiomica e Inteligencia Artificial",
+      "Radiomica_Em_TC",
+      "Radiômica",
+      "Radiômica e Biomarcadores de Imagem",
+      "radiomica"
+    ]
+  },
+  "Processamento de Imagens Médicas": {
+    "categoria": "conceito",
+    "aliases": [
+      "Processamento de Imagem",
+      "Processamento de Imagem Medica",
+      "Processamento de Imagem e Reconstrução (FBP/IR/DLR)",
+      "processamento de imagens medicas",
+      "processamento-de-imagens-medicas"
+    ]
+  },
+  "Phantoms Híbridos": {
+    "categoria": "conceito",
+    "aliases": [
+      "Fantomas Físicos",
+      "Fantomas Radiológicos",
+      "fantomas",
+      "phantom",
+      "phantoms",
+      "phantoms h bridos",
+      "phantoms hibridos",
+      "phantoms-h-bridos",
+      "phantoms-hibridos"
+    ]
+  },
+  "Simulação de Monte Carlo": {
+    "categoria": "conceito",
+    "aliases": [
+      "Monte Carlo",
+      "Simulacao_Monte_Carlo",
+      "Simulação de Monte Carlo",
+      "monte carlo simulation",
+      "monte-carlo",
+      "monte-carlo-simulation",
+      "simulacoes-de-monte-carlo",
+      "simulacoes-monte-carlo"
+    ]
+  },
+  "Níveis de Referência Diagnóstica (DRL)": {
+    "categoria": "conceito",
+    "aliases": [
+      "DRL",
+      "DRLs",
+      "Diagnostic Reference Levels",
+      "Níveis de Referência Diagnóstica",
+      "niveis de referencia diagnostica drl",
+      "niveis-de-referencia-diagnostica-drl"
+    ]
+  },
+  "Artefatos em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "artefato-em-tc",
+      "artefatos em tc",
+      "artefatos-de-imagem",
+      "artefatos-em-tc",
+      "artefatos-em-tomografia",
+      "artefatos-tc"
+    ]
+  },
+  "Ruído Quântico": {
+    "categoria": "conceito",
+    "aliases": [
+      "poisson-noise",
+      "quantum-noise",
+      "ruido quantico",
+      "ruido-de-poisson",
+      "ruido-fotonico",
+      "ruido-quantico"
+    ]
+  },
+  "Retroprojeção Filtrada (FBP)": {
+    "categoria": "conceito",
+    "aliases": [
+      "Retroprojecao Filtrada (FBP)",
+      "fbp",
+      "filtered-back-projection",
+      "retroproje o filtrada",
+      "retroproje-o-filtrada",
+      "retroprojecao filtrada",
+      "retroprojecao-filtrada"
+    ]
+  },
+  "Qualidade de Imagem em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "ct-image-quality",
+      "image-quality",
+      "qualidade de imagem em tc",
+      "qualidade-da-imagem",
+      "qualidade-de-imagem",
+      "qualidade-de-imagem-em-tc"
+    ]
+  },
+  "Modulation Transfer Function (MTF)": {
+    "categoria": "conceito",
+    "aliases": [
+      "funcao-de-transferencia-de-modulacao",
+      "funcao-de-transferencia-de-modulacao-mtf",
+      "modulation transfer function",
+      "modulation-transfer-function",
+      "mtf"
+    ]
+  },
+  "Deep Learning Reconstruction (DLR)": {
+    "categoria": "tecnologia",
+    "aliases": [
+      "deep learning reconstruction",
+      "deep-learning-reconstruction",
+      "deep-learning-reconstruction-dlr",
+      "dlr",
+      "reconstrucao-deep-learning"
+    ]
+  },
+  "Radioproteção": {
+    "categoria": "conceito",
+    "aliases": [
+      "alara",
+      "dose-de-radiacao",
+      "limitacao-de-dose",
+      "otimizacao-radiologica",
+      "principio-alara",
+      "principios-alara",
+      "princípio-alara",
+      "protecao-radiologica",
+      "radioprotecao"
+    ]
+  },
+  "Análise ROC": {
+    "categoria": "conceito",
+    "aliases": [
+      "analise-roc",
+      "auc-roc",
+      "curva-roc",
+      "receiver-operating-characteristic",
+      "roc analysis",
+      "roc-analysis"
+    ]
+  },
+  "SNR": {
+    "categoria": "conceito",
+    "aliases": [
+      "relacao-sinal-ruido",
+      "relação-sinal-ruído",
+      "signal-to-noise",
+      "signal-to-noise-ratio",
+      "snr",
+      "snr-relacao-sinal-ruido"
+    ]
+  },
+  "Resolução Espacial": {
+    "categoria": "conceito",
+    "aliases": [
+      "resolucao espacial",
+      "resolucao-espacial",
+      "resolucao-espacial-mtf",
+      "resolução espacial",
+      "spatial-resolution"
+    ]
+  },
+  "Reconstrução de Imagem": {
+    "categoria": "conceito",
+    "aliases": [
+      "Reconstrucao de Imagem em TC",
+      "Reconstrução de Imagem em TC",
+      "reconstru o de imagem",
+      "reconstru-o-de-imagem",
+      "reconstrucao de imagem",
+      "reconstrucao-de-imagem",
+      "reconstrucao-de-imagem-em-tc"
+    ]
+  },
+  "Física das Radiações": {
+    "categoria": "conceito",
+    "aliases": [
+      "Física da Radiação",
+      "fisica das radiacoes",
+      "fisica-da-radiacao",
+      "fisica-das-radiacoes",
+      "fisica-medica-radiacao"
+    ]
+  },
+  "Espalhamento Compton": {
+    "categoria": "conceito",
+    "aliases": [
+      "compton",
+      "compton-scattering",
+      "efeito compton",
+      "efeito-compton",
+      "espalhamento compton",
+      "espalhamento inelastico",
+      "espalhamento-compton"
+    ]
+  },
+  "Tomografia por Emissão de Pósitrons (PET)": {
+    "categoria": "conceito",
+    "aliases": [
+      "PET",
+      "PET-CT",
+      "SPECT",
+      "pet-ct",
+      "spect",
+      "tomografia por emissao de positrons pet",
+      "tomografia-por-emissao-de-positrons-pet"
+    ]
+  },
+  "Tomografia Computadorizada (TC)": {
+    "categoria": "conceito",
+    "aliases": [
+      "Baixa Dose em TC",
+      "Computed Tomography (CT)",
+      "tomografia computadorizada ct",
+      "tomografia-computadorizada-avancada",
+      "tomografia-computadorizada-ct"
+    ]
+  },
+  "Machine Learning": {
+    "categoria": "conceito",
+    "aliases": [
+      "Redes Adversariais Generativas (GANs)",
+      "Redes Neurais Convolucionais (CNN)",
+      "aprendizado de maquina",
+      "aprendizado-profundo",
+      "machine learning",
+      "machine-learning",
+      "machine-learning-fisica-medica"
+    ]
+  },
+  "Efeito Fotoelétrico": {
+    "categoria": "conceito",
+    "aliases": [
+      "efeito fotoelectrico",
+      "efeito fotoeletrico",
+      "efeito fotoelétrico",
+      "efeito-fotoelectrico",
+      "efeito-fotoeletrico",
+      "photoelectric",
+      "photoelectric-effect"
+    ]
+  },
+  "Artefatos em Tomografia": {
+    "categoria": "conceito",
+    "aliases": [
+      "artefatos-em-tomografia",
+      "artefatos em tomografia"
+    ]
+  },
+  "Artefatos em Imagem Diagnóstica": {
+    "categoria": "conceito",
+    "aliases": [
+      "artefatos-em-imagem-diagn-stica",
+      "artefatos em imagem diagn stica"
+    ]
+  },
+  "Ruído": {
+    "categoria": "conceito",
+    "aliases": [
+      "ru-do",
+      "ru do"
+    ]
+  },
+  "Métricas Objetivas de Qualidade de Imagem em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "metricas-objetivas-qualidade-imagem-tc",
+      "metricas objetivas qualidade imagem tc"
+    ]
+  },
+  "Radioterapia e Dosimetria": {
+    "categoria": "conceito",
+    "aliases": [
+      "radioterapia-e-dosimetria",
+      "radioterapia e dosimetria"
+    ]
+  },
+  "Radioterapia Intraoperatória (IORT)": {
+    "categoria": "conceito",
+    "aliases": [
+      "radioterapia-intraoperatoria-iort",
+      "radioterapia intraoperatoria iort"
+    ]
+  },
+  "Ressonância Magnética (MRI)": {
+    "categoria": "conceito",
+    "aliases": [
+      "ressonancia-magnetica-mri",
+      "ressonancia magnetica mri"
+    ]
+  },
+  "Point Spread Function (PSF)": {
+    "categoria": "conceito",
+    "aliases": [
+      "point-spread-function",
+      "point spread function"
+    ]
+  },
+  "Detective Quantum Efficiency (DQE)": {
+    "categoria": "conceito",
+    "aliases": [
+      "detective-quantum-efficiency",
+      "detective quantum efficiency"
+    ]
+  },
+  "Transformada de Radon": {
+    "categoria": "conceito",
+    "aliases": [
+      "transformada-de-radon",
+      "transformada de radon"
+    ]
+  },
+  "Sinograma": {
+    "categoria": "conceito",
+    "aliases": [
+      "sinograma",
+      "sinograma"
+    ]
+  },
+  "Pitch Helicoidal": {
+    "categoria": "conceito",
+    "aliases": [
+      "pitch-helicoidal",
+      "pitch helicoidal"
+    ]
+  },
+  "Crânio e Atenuação Óssea": {
+    "categoria": "conceito",
+    "aliases": [
+      "cr-nio",
+      "cr nio"
+    ]
+  },
+  "Metrologia em Raios X": {
+    "categoria": "conceito",
+    "aliases": [
+      "metrologia-em-raios-x",
+      "metrologia em raios x"
+    ]
+  },
+  "Problemas Inversos": {
+    "categoria": "conceito",
+    "aliases": [
+      "problemas-inversos",
+      "problemas inversos"
+    ]
+  },
+  "Allan Cormack": {
+    "categoria": "conceito",
+    "aliases": [
+      "allan-cormack",
+      "allan cormack"
+    ]
+  },
+  "Godfrey Hounsfield": {
+    "categoria": "conceito",
+    "aliases": [
+      "godfrey-hounsfield",
+      "godfrey hounsfield"
+    ]
+  },
+  "Justin Solomon": {
+    "categoria": "conceito",
+    "aliases": [
+      "justin-solomon",
+      "justin solomon"
+    ]
+  },
+  "Kyle J. Myers": {
+    "categoria": "conceito",
+    "aliases": [
+      "kyle-j-myers",
+      "kyle j myers"
+    ]
+  },
+  "Ehsan Samei": {
+    "categoria": "conceito",
+    "aliases": [
+      "ehsan-samei",
+      "ehsan samei"
+    ]
+  },
+  "Fronteira de Pareto": {
+    "categoria": "conceito",
+    "aliases": [
+      "fronteira-de-pareto",
+      "fronteira de pareto"
+    ]
+  },
+  "Otimização Multiobjetivo em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "otimizacao-multiobjetivo-tc",
+      "otimizacao multiobjetivo tc"
+    ]
+  },
+  "Otimização de Dose": {
+    "categoria": "conceito",
+    "aliases": [
+      "otimizacao-de-dose",
+      "otimizacao de dose"
+    ]
+  },
+  "Otimização": {
+    "categoria": "conceito",
+    "aliases": [
+      "otimiza-o",
+      "otimiza o"
+    ]
+  },
+  "Impressão 3D com Duplo Filamento": {
+    "categoria": "conceito",
+    "aliases": [
+      "impressao-3d-duplo-filamento",
+      "impressao 3d duplo filamento"
+    ]
+  },
+  "Teoria de Detecção de Sinais": {
+    "categoria": "conceito",
+    "aliases": [
+      "teoria-de-deteccao-de-sinais",
+      "teoria de deteccao de sinais"
+    ]
+  },
+  "DLR e Não-Estacionariedade do Ruído": {
+    "categoria": "conceito",
+    "aliases": [
+      "dlr_altera_estacionariedade_do_ruido",
+      "dlr_altera_estacionariedade_do_ruido"
+    ]
+  },
+  "NPWE e Premissa de Modelagem Linear": {
+    "categoria": "conceito",
+    "aliases": [
+      "npwe_assume_modelagem_linear",
+      "npwe_assume_modelagem_linear"
+    ]
+  },
+  "Tempo de Reconstrução como Objetivo Operacional": {
+    "categoria": "conceito",
+    "aliases": [
+      "tempo_de_reconstrucao_eh_objetivo_operacional",
+      "tempo_de_reconstrucao_eh_objetivo_operacional"
+    ]
+  },
+  "Protocolo CEP e Estudo 2AFC com Radiologistas": {
+    "categoria": "conceito",
+    "aliases": [
+      "protocolo_cep_2afc_radiologistas",
+      "protocolo_cep_2afc_radiologistas"
+    ]
+  },
+  "Análise de Potência MRMC": {
+    "categoria": "conceito",
+    "aliases": [
+      "analise_potencia_mrmc_eixo2",
+      "analise_potencia_mrmc_eixo2"
+    ]
+  },
+  "Photon Counting CT": {
+    "categoria": "conceito",
+    "aliases": [
+      "photon-counting-ct",
+      "photon counting ct"
+    ]
+  },
+  "Controle Automático de Exposição em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "controle-automatico-de-exposicao-ct",
+      "controle automatico de exposicao ct"
+    ]
+  },
+  "Filtragem Bowtie": {
+    "categoria": "conceito",
+    "aliases": [
+      "filtragem-bowtie",
+      "filtragem bowtie"
+    ]
+  },
+  "U-Net": {
+    "categoria": "conceito",
+    "aliases": [
+      "u-net",
+      "u net"
+    ]
+  },
+  "Transformers": {
+    "categoria": "conceito",
+    "aliases": [
+      "transformers",
+      "transformers"
+    ]
+  },
+  "Physics-Informed Neural Networks (PINNs)": {
+    "categoria": "conceito",
+    "aliases": [
+      "physics informed neural networks pinns",
+      "physics-informed-neural-networks-pinns",
+      "pinns"
+    ]
+  },
+  "AAPM TG-233 - Sumário Executivo": {
+    "categoria": "conceito",
+    "aliases": [
+      "aapm-tg-233-summary",
+      "aapm tg 233 summary"
+    ]
+  },
+  "Hoeijmakers 2026 - Qualidade de Imagem em TC Moderna": {
+    "categoria": "conceito",
+    "aliases": [
+      "hoeijmakers-2026-image-quality-modern-ct",
+      "hoeijmakers 2026 image quality modern ct"
+    ]
+  },
+  "Greffier 2026 - Avaliação de DLR em TC com Phantoms": {
+    "categoria": "conceito",
+    "aliases": [
+      "greffier-2026-dlr-ct-phantom",
+      "greffier 2026 dlr ct phantom"
+    ]
+  },
+  "McCollough 2026 - Evolução das Doses de Radiação em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "mccollough-2026-good-news-ct-doses",
+      "mccollough 2026 good news ct doses"
+    ]
+  },
+  "Pasyar 2026 - Impressão 3D de Phantoms para TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "dual-filament-3d-printing-ct-phantoms-pasyar-2026",
+      "dual filament 3d printing ct phantoms pasyar 2026"
+    ]
+  },
+  "Schilder 2026 - IA em Imagens Médicas": {
+    "categoria": "conceito",
+    "aliases": [
+      "schilder-2026-anticipating-ai-medical-imaging",
+      "schilder 2026 anticipating ai medical imaging"
+    ]
+  },
+  "Wong 2026 - IA no Imageamento Biomédico": {
+    "categoria": "conceito",
+    "aliases": [
+      "wong-2026-ai-biomedical-imaging",
+      "wong 2026 ai biomedical imaging"
+    ]
+  },
+  "Solomon 2016 - Modelos de Observadores em TC": {
+    "categoria": "conceito",
+    "aliases": [
+      "solomon-2016-observer-models",
+      "solomon 2016 observer models"
+    ]
+  },
+  "Model Observers e Índice de Detectabilidade em Raios X": {
+    "categoria": "conceito",
+    "aliases": [
+      "model-observers-detectability-index-xray",
+      "model observers detectability index xray"
+    ]
+  },
+  "Model Observers e Detectabilidade em Raios X": {
+    "categoria": "conceito",
+    "aliases": [
+      "model-observers-and-detectability-index-in-x-ray-imaging",
+      "model observers and detectability index in x ray imaging"
+    ]
+  },
+  "Inteligência Artificial em Física Médica (Nuovo Cimento)": {
+    "categoria": "conceito",
+    "aliases": [
+      "artificial-intelligence-in-medical-physics-nuovo-cimento",
+      "artificial intelligence in medical physics nuovo cimento"
+    ]
+  },
+  "Projeto Doutorado Direto FAPESP Wagner 2026": {
+    "categoria": "conceito",
+    "aliases": [
+      "projeto-dd-fapesp-wagner-2026",
+      "projeto dd fapesp wagner 2026"
+    ]
+  },
+  "O Índice de Detectabilidade em Tomografia Computadorizada": {
+    "categoria": "conceito",
+    "aliases": [
+      "indice-de-detectabilidade-em-tomografia-computadorizada",
+      "indice de detectabilidade em tomografia computadorizada"
+    ]
+  },
+  "Endurecimento do Feixe": {
+    "categoria": "conceito",
+    "aliases": [
+      "endurecimento do feixe",
+      "endurecimento-do-feixe"
+    ]
+  },
+  "Atenuação Linear": {
+    "categoria": "conceito",
+    "aliases": [
+      "atenuação linear",
+      "atenuação-linear"
+    ]
+  },
+  "Radiação de Frenamento (Bremsstrahlung)": {
+    "categoria": "conceito",
+    "aliases": [
+      "radiação de frenamento (bremsstrahlung)",
+      "radiação-de-frenamento-(bremsstrahlung)"
+    ]
+  },
+  "Radiação Característica": {
+    "categoria": "conceito",
+    "aliases": [
+      "radiação característica",
+      "radiação-característica"
+    ]
+  },
+  "Espectro de Raios X": {
+    "categoria": "conceito",
+    "aliases": [
+      "espectro de raios x",
+      "espectro-de-raios-x"
+    ]
+  },
+  "Transformada de Fourier 2D": {
+    "categoria": "conceito",
+    "aliases": [
+      "transformada de fourier 2d",
+      "transformada-de-fourier-2d"
+    ]
+  },
+  "Função de Sensibilidade Visual Humana": {
+    "categoria": "conceito",
+    "aliases": [
+      "função de sensibilidade visual humana",
+      "função-de-sensibilidade-visual-humana"
+    ]
+  },
+  "Phantoms Antropomórficos": {
+    "categoria": "conceito",
+    "aliases": [
+      "phantoms antropomórficos",
+      "phantoms-antropomórficos"
+    ]
+  },
+  "Eliminação do Ruído Eletrônico": {
+    "categoria": "conceito",
+    "aliases": [
+      "eliminação do ruído eletrônico",
+      "eliminação-do-ruído-eletrônico"
+    ]
+  }
+}

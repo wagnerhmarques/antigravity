@@ -1,0 +1,64 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Photon Counting Detector CT (PCD-CT)]], [[Virtual Monoenergetic Imaging (VMI)]]
+
+## 1. Dependência Energética do Coeficiente de Atenuação Linear
+
+As **[[Unidades Hounsfield]] (UH)** quantificam a atenuação dos raios X em um determinado voxel em relação à atenuação da água pura. A formulação operacional fundamental é expressa por:
+
+$$
+\text{UH}(E) = 1000 \times \frac{\mu_{\text{tecido}}(E) - \mu_{\text{água}}(E)}{\mu_{\text{água}}(E)}
+$$
+
+O coeficiente de atenuação linear ($\mu$), medido em $\text{cm}^{-1}$, não é um parâmetro fixo do material, mas sim uma função direta da energia do feixe fotônico ($E$). Em sistemas de [[Tomografia Computadorizada]] convencionais, o feixe emitido pelo tubo de anodo giratório é policromático. A tensão aplicada ao tubo (medida em $\text{kVp}$) determina a energia máxima e a energia efetiva ($E_{\text{ef}}$) dos fótons no espectro de *bremsstrahlung*.
+
+Fisicamente, $\mu(E)$ é determinado pela combinação do [[Efeito Fotoelétrico]] e do [[Espalhamento Compton]]:
+
+$$
+\mu(E) \approx \rho_e \cdot \left( \sigma_{\text{foto}} + \sigma_{\text{Compton}} \right) \propto \rho \cdot \left( k_1 \cdot \frac{Z_{\text{ef}}^3}{E^3} + k_2 \cdot f_{\text{Compton}}(E) \right)
+$$
+
+Onde:
+* $\rho_e$ e $\rho$ representam a densidade eletrônica e a densidade de massa do meio;
+* $Z_{\text{ef}}$ é o número atômico efetivo do tecido ou material;
+* $E$ é a energia efetiva do feixe de raios X determinada pelo $\text{kVp}$.
+
+Quando a tensão do tubo ($\text{kVp}$) é reduzida, a energia média $E_{\text{ef}}$ diminui. Como a probabilidade do [[Efeito Fotoelétrico]] é inversamente proporcional ao cubo da energia ($E^{-3}$), a atenuação de materiais com elevado $Z_{\text{ef}}$ aumenta a taxas significativamente maiores do que a da água.
+
+---
+
+## 2. Comportamento do Número Tomográfico por Classe de Material
+
+A magnitude e o sentido da variação dos valores de UH frente à alteração do $\text{kVp}$ dependem da relação entre o $Z_{\text{ef}}$ do material e o da água ($Z_{\text{ef, água}} \approx 7,42$).
+
+| Classe de Material | Número Atômico Efetivo ($Z_{\text{ef}}$) | Variação de UH ao Reduzir o $\text{kVp}$ (ex: $120 \to 80\text{ kVp}$) | Mecanismo Físico Dominante |
+| :--- | :--- | :--- | :--- |
+| **Meios de Contraste (Iodo)** | $Z = 53$ ($Z_{\text{ef}} \gg Z_{\text{água}}$) | **Aumento Acentuado** ($+50\%$ a $+100\%$ nas UH) | Forte elevação da seção de choque fotoelétrica ao se aproximar da borda K de absorção do Iodo ($33,2\text{ keV}$). |
+| **Tecido Ósseo (Cortical)** | $Z_{\text{ef}} \approx 12 - 14$ ($Z_{\text{ef}} > Z_{\text{água}}$) | **Aumento Significativo** ($+100$ a $+400\text{ UH}$) | Presença de elementos de maior $Z$ (Cálcio $Z=20$, Fósforo $Z=15$), amplificando o efeito fotoelétrico. |
+| **Tecidos Moles (Fígado, Músculo)** | $Z_{\text{ef}} \approx 7,4 - 7,6$ ($\approx Z_{\text{água}}$) | **Variação Mínima** ($\le \pm 5\text{ UH}$) | Domínio do [[Espalhamento Compton]]; a razão $\mu_{\text{tecido}}/\mu_{\text{água}}$ permanece praticamente constante. |
+| **Tecido Adiposo (Gordura)** | $Z_{\text{ef}} \approx 6,3 - 6,5$ ($Z_{\text{ef}} < Z_{\text{água}}$) | **Ligeira redução** (ex: de $-90\text{ UH}$ para $-105\text{ UH}$) | $\mu_{\text{água}}$ cresce ligeiramente mais rápido que $\mu_{\text{gordura}}$ ao reduzir o $\text{kVp}$, tornando o valor relativo mais negativo. |
+| **Água Purificada** | $Z_{\text{ef}} = 7,42$ | **Invariável a $0\text{ UH}$** | Definida estritamente como ponto zero de referência da escala. |
+| **Ar** | $Z_{\text{ef}} \approx 7,6$ (densidade $\approx 0$) | **Invariável a $-1000\text{ UH}$** | Definido estritamente como ponto âncora inferior da escala Hounsfield. |
+
+---
+
+## 3. Formulação da Ganho de Contraste Relativo
+
+O contraste sinal-fundo entre um meio contrastado com iodo e o tecido mole vizinho é expresso por:
+
+$$
+\Delta\text{UH}(\text{kVp}) = \text{UH}_{\text{iodo}}(\text{kVp}) - \text{UH}_{\text{fundo}}(\text{kVp}) \propto \frac{\mu_{\text{foto, iodo}}(E_{\text{ef}}) - \mu_{\text{foto, fundo}}(E_{\text{ef}})}{\mu_{\text{água}}(E_{\text{ef}})}
+$$
+
+Ao migrar de $120\text{ kVp}$ para $80\text{ kVp}$, o valor Hounsfield do iodo pode saltar de $\sim 300\text{ UH}$ para $\sim 550\text{ UH}$ para a mesma concentração vascular. Esse ganho possibilita protocolos de otimização de dose de contraste em angiografias tomográficas, reduzindo o volume de iodo injetado sem perda de diagnosticabilidade.
+
+---
+
+## 4. Implicações Tecnológicas, Metrológicas e em Aprendizado Profundo
+
+1. **Imagens Monoenergéticas Virtuais ([[Virtual Monoenergetic Imaging (VMI)]]):**
+   Para eliminar a dependência indesejada do $\text{kVp}$ em análises quantitativas, a Tomografia Computadorizada de Dupla Energia (DECT) realiza a decomposição espectral do feixe. O algoritmo sintetiza mapas monoenergéticos em $keV$, onde a densidade tomográfica é expressa em energias fixas, desacoplando o efeito da voltagem do tubo.
+
+2. **Contagem de Fótons ([[Photon Counting Detector CT (PCD-CT)]]):**
+   Em detectores PCD-CT, o limiar de energia (*energy thresholding*) permite registrar fótons em *bins* energéticos específicos. Isso estabiliza a resposta em UH e permite maximizar a relação contraste-ruído ($CNR$) em exames de baixa dose energética.
+
+3. **Reprodutibilidade Radiômica e Controle de Qualidade:**
+   Variações não documentadas na tensão do tubo modificam a distribuição histogramétrica de voxels e a extração de atributos radiômicos de primeira e segunda ordem. Os programas de CQ devem incluir fantomas multifluxo calibrados em múltiplos níveis de $\text{kVp}$ para garantir a robustez de modelos baseados em redes neurais de aprendizado profundo.

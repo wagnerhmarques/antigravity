@@ -1,0 +1,58 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Transformada de Radon]], [[Retroprojeção Filtrada (FBP)]], [[Física de Detectores em Tomografia Computadorizada]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Transformada de Radon]], [[Retroprojeção Filtrada (FBP)]]
+
+## 1. Princípios Físicos da Aquisição e Lei de Atenuação
+
+A [[Tomografia Computadorizada]] é uma modalidade diagnóstica avançada baseada na medição da atenuação de feixes de raios-X colimados ao transpassar o volume anatômico sob múltiplos ângulos de projeção ($\theta$). A interação primária da radiação ionizante com a matéria ocorre predominantemente por Efeito Fotoelétrico e Espalhamento Compton, sendo a intensidade do feixe emergente governada pela Lei de Beer-Lambert modificada para trajetos lineares:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+Onde:
+- $I_0$ é a intensidade do feixe incidente;
+- $I$ é a intensidade da radiação transmitida;
+- $\mu(x, y)$ representa o coeficiente de atenuação linear espacialmente variante no plano anatômico transversal;
+- $L$ denota o caminho linear percorrido pelo fóton.
+
+Metrologicamente, os coeficientes de atenuação são mapeados em escala padronizada de Unidades Hounsfield ($\text{UH}$), referenciadas aos valores do ar ($-1000\text{ UH}$) e da água destilada ($0\text{ UH}$):
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+---
+
+## 2. Modelagem Matemática e Transformada de Radon
+
+O conjunto de projeções paralelas adquiridas em um ângulo específico $\theta$ forma um sinograma, matematicamente descrito pela Transformada de Radon bidimensional:
+
+$$
+P_{\theta}(t) = \mathcal{R}\{\mu(x, y)\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+Onde $t$ é a coordenada de transposição do elemento detector perpendicular ao feixe, e $\delta$ é a função delta de Dirac. 
+
+A reconstrução da imagem tridimensional a partir dessas projeções fundamenta-se no **Teorema da Seção Central (Fourier Slice Theorem)**. Ele estabelece que a Transformada de Fourier 1D de uma projeção paralela $P_{\theta}(t)$ equivale exatamente a uma linha radial de orientação $\theta$ na Transformada de Fourier 2D da função original $\mu(x, y)$:
+
+$$
+S_{\theta}(\omega) = \mathcal{F}_{1D}\{P_{\theta}(t)\} = \iint_{-\infty}^{\infty} \mu(x, y) e^{-j 2\pi \omega (x \cos\theta + y \sin\theta)} \\, dx \\, dy = M(\omega \cos\theta, \omega \sin\theta)
+$$
+
+---
+
+## 3. Retroprojeção Filtrada (Filtered Backprojection - FBP)
+
+A retroprojeção simples gera artefatos de borramento estrutural ($\frac{1}{r}$). Para restaurar a nitidez espacial, aplica-se o filtro de rampa (frequência $|\omega|$) no domínio de Fourier antes da retroprojeção angular:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+No domínio espacial, essa operação equivale à convolução das projeções brutas com um núcleo de alta frequência (kernel):
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left( P_{\theta} * k \right)(x \cos\theta + y \sin\theta) \, \, \, d\theta
+$$
+

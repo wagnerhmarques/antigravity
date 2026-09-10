@@ -1,0 +1,54 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Transformada de Radon]], [[Unidades Hounsfield]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]]
+
+## 1. Contexto Histórico e Fundação Teórica
+
+A tomografia computadorizada (TC) moderna teve seus fundamentos teóricos estabelecidos décadas antes de sua primeira implementação clínica. Em **1917**, o matemático austríaco **Johann Radon** demonstrou matematicamente que uma função tridimensional ou bidimensional poderia ser reconstruída a partir de um conjunto infinito de suas integrais de linha (conhecida posteriormente como a Transformada de Radon). Contudo, a aplicação prática dessa teoria em sistemas de imagem médica exigia avanços computacionais que só se tornaram viáveis na segunda metade do século XX.
+
+O desenvolvimento prático e o surgimento oficial da TC como modalidade diagnóstica ocorreram no início da década de **1970**, revolucionando a radiologia diagnóstica ao substituir a radiografia planar de projeção sumária por imagens tomográficas seccionais de alta resolução de contraste.
+
+---
+
+## 2. Marcos Cronológicos Cruciais na História da Tomografia Computadorizada
+
+A tabela abaixo resume os principais eventos que marcaram o surgimento e o desenvolvimento inicial da TC:
+
+| Ano | Cientista / Pesquisador | Contribuição Tecnológica / Científica |
+| :--- | :--- | :--- |
+| **1917** | Johann Radon | Formulação do teorema matemático da inversão de integrais de linha (Transformada de Radon). |
+| **1963** | Allan MacLeod Cormack | Desenvolvimento independente de soluções matemáticas para o cálculo de coeficientes de atenuação linear a partir de feixes de raios-X. |
+| **1967–1970** | Sir Godfrey Newbold Hounsfield | Construção do primeiro protótipo funcional de tomógrafo nos *Central Research Laboratories* da EMI (Londres), utilizando princípios de varredura translacional e rotacional. |
+| **1971** | Hounsfield e Ambrose | Realização do **primeiro exame clínico de tomografia computadorizada em um paciente humano** (diagnóstico de cisto cerebral no Atkinson Morley Hospital, em Londres). |
+| **1975** | Robert S. Ledley | Introdução do primeiro scanner de corpo inteiro (*Whole-Body Scanner*), expandindo a TC para além da neurorradiologia. |
+
+---
+
+## 3. Fundamentação Matemática do Princípio de Aquisição
+
+A reconstrução tomográfica baseia-se na medição da atenuação do feixe de raios-X ao longo de múltiplos caminhos lineares $L$, descrita pela lei da atenuação exponencial:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+Onde $I_0$ é a intensidade do fóton incidente, $I$ é a intensidade emergente e $\mu(x, y)$ representa o coeficiente de atenuação linear espacialmente variante. A quantificação rigorosa desses coeficientes deu origem à escala normalizada de Unidades Hounsfield ($\text{UH}$):
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+Com o advento dos algoritmos analíticos de reconstrução, como a **Retroprojeção Filtrada (FBP)**, o teorema da seção central de Fourier viabilizou a conversão rápida de sinogramas em matrizes de imagem bidimensionais:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Tomografia Computadorizada]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Reconstrução Iterativa]]
+- [[Deep Learning Image Reconstruction (DLR)]]

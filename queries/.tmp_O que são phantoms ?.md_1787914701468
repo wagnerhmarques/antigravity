@@ -1,0 +1,49 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Phantoms Híbridos em Tomografia Computadorizada]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]], [[Qualidade de Imagem em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Phantoms Híbridos em Tomografia Computadorizada]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]]
+
+## 1. Conceito e Classificação Fundamental
+
+*Phantoms* (ou fantomas radiológicos) são dispositivos simuladores projetados para reproduzir características físicas, geométricas e de atenuação de radiação dos tecidos biológicos humanos. Na Física Médica e na [[Tomografia Computadorizada|tomografia-computadorizada]], eles constituem a base instrumental para o controle de qualidade, metrologia radiológica, otimização de protocolos de aquisição e validação de novos algoritmos de reconstrução de imagem.
+
+Tradicionalmente, os fantomas são classificados em três categorias principais:
+
+1. **Fantomas Geométricos (Metrológicos):** Estruturas padronizadas contendo padrões de alto e baixo contraste, rampas inclinadas e insertos uniformes para avaliação de resolução espacial, linearidade do número de Hounsfield (HU), uniformidade e ruído.
+2. **Fantomas Antropomórficos:** Dispositivos que mimetizam a anatomia humana real (esqueleto, órgãos e tecidos moles) utilizando materiais tecido-equivalentes. São aplicados em estudos de dosimetria organ a organo e avaliações visuais qualitativas.
+3. **Fantomas Híbridos:** Modelos de última geração que combinam uma estrutura física real (para contemplar imperfeições de hardware, dispersão Compton e policromaticidade do feixe) com um gêmeo digital tridimensional exato, viabilizando análises quantitativas avançadas de tarefas clínicas.
+
+## 2. Parâmetros Físicos e Avaliação Metrológica
+
+A interação da radiação ionizante com o material do fantoma é regida pela atenuação mássica linear $\mu(ec{r}, E)$, dependente da posição espacial $ec{r}$ e da energia do fóton $E$. A relação com o número de Hounsfield medido no sistema de TC é expressa por:
+
+$$
+\text{HU} = 1000 \times \frac{\mu(E) - \mu_{\text{água}}(E)}{\mu_{\text{água}}(E)}
+$$
+
+Os fantomas permitem aferir com rigor métricas fundamentais da [[Qualidade de Imagem em TC|qualidade-de-imagem]]:
+
+* **Task Transfer Function (TTF):** Quantifica a resolução espacial dependente de contraste através da modulação espacial do sinal:
+  
+
+$$
+\text{TTF}(u, v) = \left| \mathcal{F} \left\{ \frac{d}{dx} \text{Perfil}(x) \right\} \right|
+$$
+
+* **Noise Power Spectrum (NPS):** Caracteriza a textura e a magnitude espacial do ruído na imagem reconstruída:
+  
+
+$$
+\text{NPS}(u, v) = \lim_{X, Y \to \infty} \frac{\Delta x \Delta y}{X Y} langle |\mathcal{F}\{I(x, y) - \bar{I}(x, y)\}|^2 angle
+$$
+
+## 3. Comparação entre Tipos de Fantomas
+
+| Tipo de Fantoma | Vantagens Principais | Limitações Técnicas | Aplicações Principais |
+| :--- | :--- | :--- | :--- |
+| **Geométrico** | Alta precisão metrológica, reprodutibilidade e facilidade de alinhamento. | Ausência de realismo anatômico; incapacidade de testar ruído estrutural complexo. | Controle de qualidade periódico, calibração de rotina e testes de aceitação de scanners. |
+| **Antropomórfico** | Fidelidade anatômica visual; simulação realista de dispersão e atenuação corporal. | Custo elevado; dificuldade de inserção de métricas estritas de resolução espacial em pontos isolados. | Dosimetria clínica, treinamentos práticos de radiologia e avaliações qualitativas. |
+| **Híbrido** | Integração sinérgica entre o mundo físico e digital; ideal para validação de inteligência artificial. | Complexidade de fabricação avançada (ex: impressão 3D multimaterial). | Validação de [[Reconstrução Iterativa|reconstrucao-iterativa]], [[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]] e observadores computacionais. |
+
+## 4. Relevância na Pesquisa Contemporânea
+
+Com o advento de técnicas avançadas de processamento, os fantomas deixaram de ser meras ferramentas passivas de controle de qualidade e passaram a atuar como plataformas ativas de teste para algoritmos de aprendizado profundo, reduções de artefatos metálicos e protocolos de ultrabaixa dose de radiação ([[Métricas de Dose em TC|metricas-de-dose-em-tc]]).

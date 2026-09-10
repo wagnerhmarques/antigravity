@@ -1,0 +1,62 @@
+> 📅 **Data:** 2026-09-08 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]], [[Deep Learning Image Reconstruction (DLR)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **SSW-$d'$** (*Spatial/Size-Specific Windowed Detectability Index* ou Índice de Detectabilidade com Ponderação Espacial/Janela Específica) é uma extensão metodológica avançada do [[Índice de Detectabilidade]] ($d'$) clássico formalizado pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]**. 
+
+Enquanto o $d'$ convencional (como $d'_{\text{NPWE}}$ ou $d'_{\text{PW}}$) assume frequentemente estacionariedade estatística e foca em tarefas de detecção pontual de localização conhecida (*Signal Known Exactly / Background Known Exactly* - SKE/BKE), o modelo **SSW-$d'$** incorpora o confinamento espacial, a modulação de janela anatômica (*display windowing*) e a resposta de escala de sub-regiões (*sub-windowing*). Essa abordagem visa modelar a detecção em condições realistas de visualização radiológica e compensar a não-estacionariedade e não-linearidade induzidas por algoritmos de [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]].
+
+O SSW-$d'$ integra simultaneamente:
+1. A **Função de Transferência da Tarefa** específica da sub-região ($\text{TTF}(u, v)$).
+2. O **Espectro de Potência de Ruído** localmente confinado ($\text{NPS}(u, v)$).
+3. O **Filtro de Janela de Visualização e Escala Espacial** ($W_{\text{SSW}}(u, v)$ ou função de janela perceptiva/escala).
+4. O **Filtro Visual Humano e Ruído Interno** ($E(u, v)$ e $\sigma_{\text{int}}$).
+
+---
+
+## 2. Formulação Matemática Rigorosa do SSW-$d'$
+
+Para uma tarefa bidimensional no plano tomográfico com coordenadas de frequência espacial $(u, v)$ e frequência radial $f = \sqrt{u^2 + v^2}$, o quadrado do índice de detectabilidade com ponderação espacial/janela específica ($d'^2_{\text{SSW}}$) sob o modelo de observador não-branqueador com filtro ocular (*NPWE*) é formulado como:
+
+$$
+d'^2_{\text{SSW}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ W_{\text{SSW}}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ W_{\text{SSW}}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde os componentes físicos e metrológicos representam:
+
+* $W_{\text{task}}(u, v)$: Transformada de Fourier da diferença de coeficiente de atenuação da lesão em relação ao fundo imediato ($\mathcal{F}\{\Delta \mu(x, y)\}$);
+* $\text{TTF}(u, v)$: [[Task Transfer Function]], que captura o ganho/preservação de contraste específico do nível de sinal;
+* $W_{\text{SSW}}(u, v)$: Função de resposta da sub-janela espacial/escala (*Spatial/Size-Specific Window*), que pondera o campo de visão efetivo analisado pelo observador e o recorte de contraste (*window width / window level*);
+* $\text{NPS}(u, v)$: [[Noise Power Spectrum]] bidimensional extraído da região de interesse correspondente;
+* $E(u, v)$: Função de transferência do sistema visual humano (frequentemente parametrizada por $E(f) = |f|^c \exp(-k |f|^d)$ para uma dada distância de visualização);
+* $\sigma_{\text{int}}^2$: Variância do ruído estocástico interno associado ao processo cognitivo de decisão humana.
+
+### Caso de Simetria Radial (Integração Polar 1D)
+Quando tanto a tarefa quanto a textura estatística do ruído são isotrópicas no plano axial:
+
+$$
+d'^2_{\text{SSW}} = \frac{\left[ 2\pi \int_{0}^{\infty} \left| W_{\text{task}}(f) \right|^2 \cdot \left[ \text{TTF}(f) \right]^2 \cdot \left[ W_{\text{SSW}}(f) \right]^2 \cdot \left[ E(f) \right]^2 \cdot f \\, df \right]^2}{2\pi \int_{0}^{\infty} \left| W_{\text{task}}(f) \right|^2 \cdot \left[ \text{TTF}(f) \right]^2 \cdot \left[ W_{\text{SSW}}(f) \right]^2 \cdot \text{NPS}(f) \cdot \left[ E(f) \right]^4 \cdot f \\, df + \sigma_{\text{int}}^2}
+$$
+
+---
+
+## 3. Comparação Metrológica: $d'$ Tradicional vs. SSW-$d'$
+
+| Propriedade Metrológica | $d'$ Clássico (SKE/BKE) | SSW-$d'$ (*Size/Spatial-Specific Windowed*) | Observador CHO Discreto | Observadores Profundos (DL-MO) |
+| :--- | :--- | :--- | :--- | :--- |
+| **Hipótese de Ruído** | Estacionário e Homogêneo | Localmente quase-estacionário | Matriz de covariância amostrada | Não-linear / Não-estacionário |
+| **Modelagem de Janela** | Ignora largura/nível de janela | Integra diretamente o filtro de janela visual | Canais antropomórficos (D-DOG) | Aprendizado implícito da exibição |
+| **Sensibilidade a Bordas** | Baixa (campo infinito) | Alta (confinamento por sub-janela) | Média (limitada pelos canais) | Altíssima (convoluções locais) |
+| **Linearidade do Sistema** | Assume FBP linear | Ajustado para DLR e Reconstrução Iterativa | Lida com correlações cruzadas | Totalmente livre de linearidade |
+| **Custo Computacional** | Quase instantâneo (FFT analítica) | Baixo / Moderado (integração 2D) | Moderado (inversão matricial) | Alto (inferência de rede neural) |
+
+---
+
+## 4. Relevância e Aplicações no Acervo do Pesquisador
+
+1. **Avaliação Fidedigna de Algoritmos DLR:**
+   Conforme documentado em trabalhos como `[[Solomon 2016 - Modelos de Observadores em TC]]` e `[[Greffier 2026 - Avaliação de DLR em TC com Phantoms]]`, reconstruções avançadas alteram radicalmente a distribuição espectral do ruído no espaço periférico vs. central. O SSW-$d'$ evita superestimar o desempenho em lesões pequenas ao considerar a janela exata de observação clínica.
+2. **Otimização de Protocolos de Baixa Dose:**
+   No escopo da otimização de dose ([[Otimização Multiobjetivo em TC]]), o SSW-$d'$ atua como métrica de restrição clínica na determinação do limiar mínimo de detecção para estruturas críticas (ex.: lesões hipodensas hepáticas de 3 mm a 5 mm sob $100\text{ kVp}$ e baixos $\text{mAs}$).
+3. **Validação Cruzada com Estudos Psicofísicos 2-AFC:**
+   Em experimentos com radiologistas (`[[Estudo de Observadores 2AFC]]`), o SSW-$d'$ demonstra coeficientes de correlação superiores ($r > 0,90$) aos de $d'$ puramente analíticos, diminuindo a discrepância entre a predição computacional e o diagnóstico humano real.

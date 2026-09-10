@@ -1,0 +1,26 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Controle de Qualidade em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]]
+
+## 1. Fundamentação Física da Dependência Energética
+A conversão dos coeficientes de atenuação linear em [[Unidades Hounsfield]] é diretamente dependente do espectro energético do feixe de raios X, o qual é modulado pela tensão de pico aplicada ao tubo ([[Tensão de Tubo kVp]]). O coeficiente de atenuação linear total de um meio material ($\mu$) é a soma ponderada das principais interações fóton-matéria na faixa diagnóstica: o [[Efeito Fotoelétrico]] e o [[Espalhamento Compton]].
+
+O coeficiente do efeito fotoelétrico é inversamente proporcional ao cubo da energia dos fótons e diretamente proporcional ao cubo do número atômico efetivo ($Z_{\text{eff}}$) do meio:
+
+$$
+\mu_{\text{fotoelétrico}} propto \frac{Z_{\text{eff}}^3}{E^3}
+$$
+
+Em contrapartida, a seção de choque para o espalhamento Compton depende fracamente da energia e é governada principalmente pela densidade eletrônica do material. Quando a tensão do tubo ([[Tensão de Tubo kVp]]) é alterada (por exemplo, de $80\text{ kVp}$ para $140\text{ kVp}$), o espectro policromático desloca-se para energias médias distintas. Como materiais de alto número atômico — a exemplo de ossos corticais e meios de contraste iodados — apresentam forte dependência do efeito fotoelétrico em baixas energias, a atenuação medida sofre variações significativas, alterando diretamente o número tomográfico correspondente.
+
+## 2. Comportamento Operacional e Variações na Escala Hounsfield
+Matematicamente, a escala de [[Unidades Hounsfield]] é normatizada em função dos coeficientes lineares do material, da água e do ar:
+
+$$
+\text{UH} = 1000 \times \frac{\mu_{\text{tecido}}(kVp) - \mu_{\text{agua}}(kVp)}{\mu_{\text{agua}}(kVp) - \mu_{\text{ar}}(kVp)}
+$$
+
+Como o feixe de raios X é policromático, o fenômeno de endurecimento do feixe (*beam hardening*) acentua-se em feixes mais brandos (baixas tensões), fazendo com que os fótons de menor energia sejam atenuados preferencialmente nas camadas periféricas do objeto. 
+
+* **Materiais de Baixo Z (Água e Tecidos Moles):** Apresentam comportamento predominantemente Compton, mantendo seus valores de [[Unidades Hounsfield]] relativamente estáveis ($0\text{ UH}$ para a água) independentemente da variação de $kVp$, desde que as correções de endurecimento de feixe do tomógrafo estejam calibradas adequadamente.
+* **Materiais de Alto Z (Iodo e Osso):** Apresentam alta sensibilidade à tensão do tubo. Em protocolos de baixa tensão (ex.: $70\text{ kVp}$ ou $80\text{ kVp}$), a proximidade com a borda de absorção K do iodo ($33,2\text{ keV}$) resulta em um aumento expressivo da atenuação linear, elevando drasticamente o número de [[Unidades Hounsfield]] do meio de contraste e melhorando a conspicuidade diagnóstica com menores concentrações molares.

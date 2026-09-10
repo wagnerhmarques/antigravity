@@ -1,0 +1,56 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Unidades Hounsfield]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Unidades Hounsfield]]
+
+## 1. Fundamentação Histórica e Marco Temporal
+
+A tomografia computadorizada (TC) clínica moderna surgiu no final da década de 1960 e início da década de 1970, revolucionando o diagnóstico por imagem ao superar as limitações físicas da radiografia planar bidimensional. O desenvolvimento conceitual e matemático ocorreu em duas frentes principais: a formulação teórica da reconstrução de imagens por Johann Radon em 1917, e a concretização tecnológica e clínica liderada pelo engenheiro britânico **Godfrey Hounsfield** e pelo físico sul-africano **Allan MacLeod Cormack**.
+
+O primeiro protótipo clínico funcional foi construído por Godfrey Hounsfield nos *Laboratórios Central Research and Engineering* da EMI Ltd. no Reino Unido. A primeira varredura em um paciente humano — especificamente a identificação de um cisto cerebral — ocorreu em **1º de outubro de 1971** no *Atkinson Morley's Hospital* em Wimbledon, Londres. Essa contribuição pioneira rendeu a Hounsfield e Cormack o Prêmio Nobel de Fisiologia ou Medicina em 1979.
+
+---
+
+## 2. Cronologia da Evolução Tecnológica das Gerações de TC
+
+Desde o seu surgimento, a arquitetura de aquisição de dados e o projeto mecânico dos scanners de TC evoluíram através de gerações distintas:
+
+| Geração | Ano de Introdução | Geometria do Feixe | Movimento do Tubo e Detectores | Tempo de Aquisição | Características Físicas |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1ª Geração** | 1972 | Lápis (*Pencil Beam*) | Translação e rotação ($180^\circ$); detector único | Vários minutos por corte | Feixe colimado estrito; uso inicial exclusivo para crânio |
+| **2ª Geração** | 1973 - 1974 | Leque estreito (*Narrow Fan*) | Translação e rotação; pequeno arranjo linear de detectores | Segundos a minutos | Aumento da cobertura angular e velocidade de varredura |
+| **3ª Geração** | 1975 - Presente | Leque largo (*Wide Fan*) | Rotação contínua tubo-detector (arco circular completo) | Frações de segundo | Domínio tecnológico predominante; arco de detectores em curva |
+| **4ª Geração** | 1978 | Leque largo (*Wide Fan*) | Tubo rotativo; anel fixo completo de detectores ($360^\circ$) | Subsecondo | Eliminação de artefatos de calibração de ganho de canal individual |
+| **5ª Geração** | Anos 1980 | Feixe de elétrons (*EBCT*) | Sem partes mecânicas móveis; feixe de elétrons varre alvo de Tungstênio | Milissegundos ($\approx 50\text{ ms}$) | Projetado especificamente para estudos cardíacos de alta resolução temporal |
+| **6ª/7ª Geração**| Anos 1990 - Atual | Espiral / Helicoidal e Multislice (MSCT) | Rotação gantry contínua acoplada ao avanço translacional da mesa | Alta velocidade volumétrica | Aquisição volumétrica contínua com matrizes de múltiplos detectores |
+
+---
+
+## 3. Fundamentação Matemática e Metrológica Inicial
+
+O avanço que viabilizou o surgimento da TC foi a capacidade de resolver numericamente o problema inverso da transformada de Radon. Dada a atenuação do feixe de raios-X descrita pela lei exponencial modificada:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+A reconstrução das matrizes matriciais de coeficientes de atenuação linear $\mu(x, y)$ exigia algoritmos computacionais eficientes. Os primeiros sistemas utilizavam retroprojeção algébrica e métodos iterativos simplificados, rapidamente substituídos pela **Retroprojeção Filtrada (Filtered Backprojection - FBP)**, fundamentada no Teorema da Seção Central de Fourier:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+Simultaneamente, a padronização quantitativa das medições densitométricas deu origem à escala de **Unidades Hounsfield ($\text{UH}$)**, estabelecendo referências físicas estritas para a calibração metrológica dos escâneres:
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Tomografia Computadorizada]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Reconstrução Iterativa]]
+- [[Unidades Hounsfield]]
+- [[Photon Counting Detector CT (PCD-CT)]]

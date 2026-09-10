@@ -1,0 +1,54 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Índice de Detectabilidade** ($d'$, *d-prime*) é a métrica objetiva padrão-ouro na física médica contemporânea para quantificar a qualidade de imagem baseada em tarefas (*Task-Based Image Quality*) em sistemas de raios-X e tomografia computadorizada, conforme formalizado pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]**. 
+
+Diferentemente de métricas tradicionais e isoladas — como a Relação Contraste-Ruído (CNR) e a Função de Transferência de Modulação (MTF) —, o índice $d'$ sintetiza a capacidade estatística de um observador (humano ou computacional) em discriminar uma hipótese de presença de sinal ($H_1$, contendo uma lesão ou estrutura anatômica de interesse) em meio a um fundo estocástico ruidoso ($H_0$, ausência de sinal).
+
+## 2. Fundamentação na Teoria de Detecção de Sinais
+
+A partir da Teoria de Detecção de Sinais (SDT), o índice $d'$ quantifica a separação normalizada entre as distribuições estatísticas das variáveis de decisão associadas às hipóteses $H_0$ e $H_1$:
+
+$$
+d' = \frac{langle t angle_{H_1} - langle t angle_{H_0}}{\sqrt{\frac{1}{2} \left( \sigma_{t, H_1}^2 + \sigma_{t, H_0}^2 \right)}}
+$$
+
+Onde $langle t angle$ representa o valor esperado da variável de decisão e $\sigma_t^2$ a sua variância sob cada hipótese respectiva.
+
+## 3. Formulação Matemática no Domínio da Frequência Espacial
+
+Para observadores lineares e estacionários avaliados no domínio da frequência espacial bidimensional $\mathbf{u} = (u, v)$, o cálculo analítico do índice $d'$ integra a resposta espacial do sistema, a geometria da tarefa diagnóstica e a textura do ruído estocástico.
+
+### A. Observador Hotelling com Pré-Branqueamento (PW)
+
+O observador ideal linear para ruído gaussiano estacionário é expresso por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v)$ é a transformada de Fourier bidimensional da função de tarefa ($\Delta \mu$);
+* $\text{TTF}(u, v)$ é a **[[Task Transfer Function]]**, que descreve a resolução espacial dependente do contraste;
+* $\text{NPS}(u, v)$ é o **[[Noise Power Spectrum]]**, que caracteriza a potência e a correlação espacial do ruído.
+
+### B. Observador NPWE com Filtro Visual Humano
+
+Para aproximar o desempenho da percepção de médicos radiologistas, o modelo *Non-Prewhitening Matched Filter with Eye Filter* (NPWE) incorpora o filtro visual humano $E(u, v)$ e o ruído interno de decisão $\sigma_{\text{int}}$:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+## 4. Abordagem Matricial e Discreta (Channelized Hotelling Observer - CHO)
+
+Quando os sistemas apresentam não-linearidades espaciais complexas — frequentes em algoritmos de Reconstrução Iterativa (IR) e de Aprendizado Profundo ([[Deep Learning Image Reconstruction (DLR)]]) —, o cálculo analítico cede espaço para abordagens discretas baseadas em canais antropomórficos (como filtros de Gabor ou *Dense Difference of Gaussians* - D-DOG). Com o vetor de sinal $\Delta\bar{\mathbf{g}}$ e a matriz de covariância do ruído $\mathbf{K}$, o índice para o CHO é dado por:
+
+$$
+d'^2_{\text{CHO}} = \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)^T \left( \mathbf{U}^T \mathbf{K} \mathbf{U} \right)^{-1} \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)
+$$
+
+Onde $\mathbf{U}$ representa a matriz de projeção dos canais visuais humanos.

@@ -1,0 +1,101 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Retroprojeção Filtrada (FBP)]], [[Reconstrução Iterativa]], [[Índice de Detectabilidade]], [[Noise Power Spectrum]], [[Task Transfer Function]]
+
+## 1. Interação da Radiação X com a Matéria e Lei de Beer-Lambert
+
+A [[Tomografia Computadorizada]] (TC) baseia-se na medição da atenuação diferencial de feixes de raios X transmitidos através de um objeto biológico a partir de múltiplos ângulos. A interação da radiação ionizante com a matéria na faixa de energia clínica ($20\text{ keV}$ a $140\text{ keV}$) ocorre predominantemente por dois mecanismos físicos principais: o [[Efeito Fotoelétrico]] (preponderante em energias mais baixas e tecidos de alto número atômico $Z$) e o [[Espalhamento Compton]] (preponderante em tecidos moles e energias intermediárias a altas).
+
+A atenuação de um feixe de raios X monocromático e colimado ao atravessar um meio homogêneo é descrita pela **Lei de Beer-Lambert**:
+
+$$
+I = I_0 \exp(-\mu \cdot x)
+$$
+
+Onde $I_0$ representa a intensidade incidente, $I$ é a intensidade transmitida, $x$ é a espessura do meio e $\mu$ é o coeficiente de atenuação linear ($cm^{-1}$).
+
+Em um paciente (meio biologicamente heterogêneo e tridimensional), o coeficiente $\mu$ varia espacialmente como $\mu(x, y, z)$. A intensidade transmitida ao longo de um trajeto linear $L$ é expressa pela integral de linha:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+Ao tomarmos o logaritmo natural da razão de transmissão, obtém-se a medição física fundamental da projeção tomográfica (raio de projeção $p$):
+
+$$
+p = - \ln \left( \frac{I}{I_0} \right) = \int_L \mu(x, y) \\, dl
+$$
+
+Para padronizar os coeficientes de atenuação linear reconstruídos $\mu$ em uma escala independente do espectro do tubo de raios X ou de variações instrumentais, utiliza-se a escala de **Unidades Hounsfield (HU)**, definida metrologicamente em relação à água e ao ar sob condições padrão:
+
+$$
+\text{HU} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+Nesta escala, o ar corresponde a $-1000\text{ HU}$, a água destilada a $0\text{ HU}$, o tecido adiposo entre $-120\text{ HU}$ e $-60\text{ HU}$, tecidos moles entre $+30\text{ HU}$ e $+80\text{ HU}$, e o osso cortical de $+700\text{ HU}$ a $+3000\text{ HU}$.
+
+---
+
+## 2. Processo de Formação de Imagem e Reconstrução Tomográfica
+
+### A. Transformada de Radon e Sinograma
+A aquisição de projeções em um plano 2D sob diversos ângulos $\theta \in [0, \pi)$ gera um conjunto de dados brutos denominado **Sinograma**. Matematicamente, o sinograma é a representação da **Transformada de Radon** $\mathcal{R}$ da distribuição bi-dimensional $\mu(x, y)$:
+
+$$
+P_\theta(t) = \mathcal{R}\{\mu(x, y)\} = \iint_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+Onde $t$ é a posição ao longo do perfil de detecção no ângulo $\theta$, e $\delta$ é a função delta de Dirac que restringe a integração à reta $x \cos\theta + y \sin\theta = t$.
+
+### B. Teorema da Seção Central (Fourier Slice Theorem)
+O Teorema da Seção Central estabelece a ponte analítica entre a Transformada de Radon e o domínio de frequência. Ele afirma que a Transformada de Fourier 1D de uma projeção em ângulo $\theta$, denotada por $S_\theta(\omega)$, é idêntica ao perfil radial da Transformada de Fourier 2D da imagem original $M(u, v) = \mathcal{F}_{2D}\{\mu(x, y)\}$ avaliada ao longo do raio no ângulo $\theta$:
+
+$$
+S_\theta(\omega) = \mathcal{F}_{1D}\{P_\theta(t)\} = M(\omega \cos\theta, \omega \sin\theta)
+$$
+
+### C. Retroprojeção Filtrada (FBP)
+A aplicação direta da retroprojeção simples resulta em uma imagem desfocada (proporcional a $1/r$). Para corrigir essa distorção, a [[Retroprojeção Filtrada (FBP)]] aplica um filtro de rampa $|
+\omega|$ (filtro de Ram-Lak) no domínio de Fourier antes de retroprojetar os dados no espaço real:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_\theta(\omega) |\omega| e^{j 2\pi \omega (x \cos\theta + y \sin\theta)} \, d\omega \right] \, \, \, d\theta
+$$
+
+Equivalentemente, no domínio espacial, a operação corresponde à convolução das projeções $P_\theta(t)$ com o núcleo (*kernel*) de reconstrução $h(t)$:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} (P_\theta * h)(x \cos\theta + y \sin\theta) \, \, \, d\theta
+$$
+
+---
+
+## 3. Detecção de Sinal, Estocástica de Ruído e Qualidade Baseada em Tarefa
+
+No subsistema de detecção, os cintiladores de estado sólido convertem os fótons X emergentes em fótons ópticos, que são subsequentemente convertidos em corrente elétrica por fotodiodos de silício (conforme detalhado em [[Física de Detectores em Tomografia Computadorizada]]). O ruído quântico da contagem fotônica obedece à estatística de Poisson, onde a variância $\sigma^2$ do sinal é proporcional ao número médio de fótons incidentes $\bar{N}$:
+
+$$
+\sigma_{\text{Poisson}}^2 = \bar{N}
+$$
+
+Para quantificar o desempenho do sistema em regimes modernos de ultra-baixa dose e reconstruções não lineares (como [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]]), a metrologia da física médica utiliza a qualidade de imagem baseada em tarefas. O **[[Índice de Detectabilidade]]** ($d'$) do observador linear ideal (Hotelling) quantifica a capacidade de discriminação entre a presença de uma lesão e o ruído de fundo:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v)$ é a transformada de Fourier da tarefa anatômica/patológica (diferença de contraste do objeto);
+* $\text{TTF}(u, v)$ é a [[Task Transfer Function]], que expressa a resolução espacial dependente do contraste;
+* $\text{NPS}(u, v)$ é o [[Noise Power Spectrum]], que quantifica a potência e a textura espacial do ruído estocástico.
+
+---
+
+## 4. Comparação das Arquiteturas de Reconstrução em TC
+
+A tabela abaixo sintetiza os principais métodos de processamento e reconstrução de sinal na tomografia computadorizada contemporânea:
+
+| Paradigma de Reconstrução | Mecanismo Físico/Matemático | Preservação da Textura do Ruído | Vantagens Metrológicas | Limitações Principais |
+| :--- | :--- | :--- | :--- | :--- |
+| **[[Retroprojeção Filtrada (FBP)]]** | Inversão analítica direta da Transformada de Radon via filtro de rampa. | Alta (Padrão gaussiano/estacionário linear). | Alta velocidade computacional; linearidade estrita de HU. | Elevado ruído em protocolos de baixa dose; sensível a artefatos de feixe rígido. |
+| **[[Reconstrução Iterativa]] (IR)** | Minimização de função de custo com modelagem estatística de Poisson e física da óptica. | Moderada (Pode introduzir textura plástica/sintética em altas iterações). | Redução de dose de radiação ($30\%-60\%$); supressão de artefatos metabólicos e metálicos. | Alto custo computacional; a TTF torna-se dependente do contraste local. |
+| **[[Deep Learning Image Reconstruction (DLR)]]** | Redes Neurais Convolucionais profundas treinadas com dados de alta/baixa dose. | Alta (Preserva a textura natural do ruído da FBP com baixo ruído). | Redução extrema de ruído e dose; preservação da resolução de alto e baixo contraste. | Comportamento não linear complexo; exige validação rigorosa de generalização. |
+| **[[Photon Counting Detector CT (PCD-CT)]]** | Conversão direta de fótons em semicondutores (CdTe/CZT) com múltiplos limiares de energia. | Excelente (Eliminação do ruído eletrônico residual). | Resolução espacial ultra-alta ($< 0.2\text{ mm}$); imagem espectral intrínseca sem filtro de bowtie. | Alto custo do material detector e desafios no empilhamento de pulsos (*pulse pile-up*). |

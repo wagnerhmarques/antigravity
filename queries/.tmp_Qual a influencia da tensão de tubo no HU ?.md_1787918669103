@@ -1,0 +1,31 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]]
+
+## 1. Fundamentação Física da Dependência Energética
+
+As **Unidades Hounsfield (UH)** são definidas com base na atenuação linear dos fótons de raios X por um dado tecido em comparação com a água e o ar. Como o tubo de raios X opera emitindo um feixe policromático, a energia efetiva do feixe depende diretamente da tensão de pico aplicada ao tubo, denotada por $kVp$. 
+
+A atenuação linear $\mu$ de um material é fortemente dependente da energia dos fótons incidentes ($E$), sendo governada por duas principais interações na faixa de diagnóstico médico:
+* **Efeito Fotoelétrico:** Proporcional ao número atômico efetivo ao cubo e inversamente proporcional à energia do fóton ao cubo ($propto Z_{\text{eff}}^3 / E^3$).
+* **Espalhamento Compton:** Praticamente independente do número atômico e fracamente dependente da energia na faixa clínica.
+
+Quando a tensão de tubo ($kVp$) é alterada, o espectro de energia do feixe de raios X se desloca. Para materiais cujo número atômico efetivo difere significativamente do da água (como o osso cortical, $Z_{\text{eff}} \approx 13{,}8$, ou meios de contraste iodados, $Z = 53$), a variação no espectro energético altera de forma desproporcional o coeficiente de atenuação linear $\mu_{\text{tecido}}$ em relação a $\mu_{\text{agua}}$. Consequentemente, o valor do número tomográfico em Unidades Hounsfield varia substancialmente.
+
+## 2. Formulação Matemática do Número Tomográfico
+
+A relação formal entre a tensão de tubo e as Unidades Hounsfield é expressa pela equação fundamental da escala:
+
+$$
+\text{UH} = 1000 \times \frac{\mu_{\text{tecido}}(kVp) - \mu_{\text{agua}}(kVp)}{\mu_{\text{agua}}(kVp) - \mu_{\text{ar}}(kVp)}
+$$
+
+Como $\mu_{\text{tecido}}$ e $\mu_{\text{agua}}$ dependem funcionalmente do espectro gerado pela $kVp$ escolhida, qualquer alteração na tensão modifica os valores nominais medidos de tecidos com alto número atômico ou alta densidade eletrônica. 
+
+## 3. Impacto Clínico e Metrológico
+
+A dependência das Unidades Hounsfield em função da $kVp$ acarreta implicações diretas na prática da física médica e na radiologia diagnóstica:
+
+* **Meios de Contraste Iodados:** Em energias mais baixas (ex.: $70\text{ kVp}$ a $80\text{ kVp}$), o espectro de fótons aproxima-se da borda K do iodo ($\approx 33{,}2\text{ keV}$), resultando em um aumento acentuado do efeito fotoelétrico. Isso eleva drasticamente a atenuação aparente e, por conseguinte, os valores de UH do iodo, permitindo reduções na dose de contraste injetada.
+* **Caracterização de Tecidos e Cálculos de Composição:** Em exames de quantificação de gordura hepática, cálculos densitométricos renais ou avaliações ósseas, a utilização de protocolos com diferentes $kVp$ sem a devida correção ou padronização de calibração introduz erros sistemáticos na mensuração quantitativa.
+* **Radiômica e Aprendizado de Máquina:** Variações não controladas na tensão de tubo alteram as características texturais extraídas de imagens médicas, comprometendo a reprodutibilidade de *features* radiômicas e a robustez de modelos de Inteligência Artificial treinados em datasets multicêntricos.

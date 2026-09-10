@@ -1,0 +1,39 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]], [[Dosimetria em Raios X]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]], [[Dosimetria em Raios X]]
+
+## 1. Conceito e Classificação Geral
+
+*Phantoms* (ou fantomas) são dispositivos simuladores projetados para reproduzir características físicas, geométricas, de atenuação ou anatômicas de tecidos biológicos humanos ou de pacientes inteiros. Na Física Médica e na Tomografia Computadorizada (TC), eles constituem ferramentas fundamentais e indispensáveis para o controle de qualidade, a metrologia radiológica, a calibração de equipamentos, a otimização de protocolos e a avaliação de algoritmos avançados de reconstrução de imagem.
+
+A classificação dos *phantoms* divide-se em quatro categorias principais com base em sua finalidade e complexidade construtiva:
+
+1. **Fantomas de Calibração e Metrologia Estrita:** Focados na mensuração de parâmetros físicos fundamentais, contendo insertos homogêneos ou geometrias padronizadas para avaliar o Número de Hounsfield (HU), a linearidade, a uniformidade e a resolução espacial.
+2. **Fantomas Antropomórficos Físicos:** Construídos com materiais sólidos, líquidos ou géis tecido-equivalentes que reproduzem a complexidade anatômica macroscópica de regiões específicas (tórax, abdome, crânio) e permitem a inserção de dosímetros.
+3. **Fantomas Computacionais (Digitais):** Modelos matemáticos ou baseados em matrizes de voxels (como os modelos da ICRP) utilizados em simulações numéricas de transporte de radiação por Monte Carlo.
+4. **Fantomas Híbridos:** Sistemas avançados que fundem uma estrutura física real com um gêmeo digital tridimensional de alta fidelidade, permitindo correlacionar perfeitamente o comportamento analógico e digital do sistema de imagem.
+
+## 2. Fundamentação Matemática da Interação e Projeção
+
+Do ponto de vista físico, a resposta de um sistema de TC ao interagir com um *phantom* é governada pela atenuação policromática dos feixes de raios X. Seja o coeficiente de atenuação linear espacialmente variante do *phantom* dado por $\mu(ec{r}, E)$, onde $ec{r} = (x, y, z)$ representa o vetor de coordenadas espaciais e $E$ a energia do fóton. O sinograma resultante $p_{\theta}(l)$ é expresso por:
+
+$$
+p_{\theta}(l) = -\ln \left( \frac{I_{\theta}(l)}{I_0(l)} \right) = -\ln \left( \int_{0}^{E_{\max}} \Phi_0(E) \eta(E) \exp \left( -\iint_{\mathcal{L}_{\theta, l}} \mu(ec{r}, E) \\, ds \right) dE \right)
+$$
+
+Onde:
+- $\Phi_0(E)$ é o espectro de energia dos fótons incidentes.
+- $\eta(E)$ é a eficiência quântica de resposta do detector.
+- $\mathcal{L}_{\theta, l}$ representa a linha de trajetória do feixe de raios X para um ângulo $\theta$ e posição do detector $l$.
+
+Para avaliar a fidelidade da reconstrução $hat{f}(ec{r})$ em relação à matriz de referência $f_{\text{ref}}(ec{r})$ do *phantom*, utiliza-se o Índice de Similaridade Estrutural (SSIM):
+
+$$
+\text{SSIM}(f_{\text{ref}}, hat{f}) = \frac{\left( 2\mu_{f_{\text{ref}}}\mu_{hat{f}} + C_1 \right) \left( 2\sigma_{f_{\text{ref}}hat{f}} + C_2 \right)}{\left( \mu_{f_{\text{ref}}}^2 + \mu_{hat{f}}^2 + C_1 \right) \left( \sigma_{f_{\text{ref}}}^2 + \sigma_{hat{f}}^2 + C_2 \right)}
+$$
+
+## 3. Aplicações Práticas em Tomografia Computadorizada
+
+* Os *phantoms* permitem mensurar objetivamente a magnitude e a textura do ruído por meio do [[Noise Power Spectrum|Noise Power Spectrum (NPS)]], a resolução espacial através da [[Task Transfer Function|Task Transfer Function (TTF)]] e o desempenho em tarefas diagnósticas via [[Índice de Detectabilidade|detectability-index ($d'$)]].
+* Possibilitam a validação clínica de algoritmos de Reconstrução Iterativa (IR) e [[Deep Learning Image Reconstruction (DLR)|Deep Learning Image Reconstruction (DLR)]] sob condições controladas de dose e artefatos de feixe.
+* Desempenham papel crítico na dosimetria experimental e no cálculo de dose organo a organo através de câmaras de ionização ou dosímetros luminescentes.

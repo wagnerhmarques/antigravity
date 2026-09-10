@@ -1,0 +1,50 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Unidades Hounsfield]], [[Transformada de Radon]]
+
+> 📅 **Data:** 2026-08-26 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Transformada de Radon]], [[Unidades Hounsfield]]
+
+## 1. Contexto Histórico e Marco Temporal
+
+A Tomografia Computadorizada (TC) surgiu oficialmente no início da década de 1970, revolucionando o diagnóstico por imagem ao permitir a visualização de cortes transversanes do corpo humano sem sobreposição anatômica. O desenvolvimento prático e clínico da modalidade ocorreu em **1971**, na *Central Research Laboratories* da EMI (Electric and Musical Industries) em Hayes, Reino Unido, liderado pelo engenheiro britânico **Godfrey Hounsfield**.
+
+A primeira varredura clínica bem-sucedida em um paciente real foi realizada em **1 de outubro de 1972**, no *Atkinson Morley's Hospital* em Wimbledon, Londres, para investigar um cisto cerebral. Por essa contribuição monumental à medicina diagnóstica, Godfrey Hounsfield e o físico norte-americano Allan Cormack — que desenvolveu independentemente a base matemática da reconstrução de imagem na década de 1960 — foram laureados conjuntamente com o **Prêmio Nobel de Fisiologia ou Medicina em 1979**.
+
+---
+
+## 2. Fundamentação Matemática e Teórica Prévia
+
+Embora o primeiro protótipo comercial tenha operado em 1971, a fundamentação matemática que viabilizou a tomografia computadorizada foi estabelecida décadas antes no campo da matemática pura:
+
+- **Transformada de Radon (1917):** O matemático austríaco Johann Radon provou formalmente que uma função bidimensional contínua $\mu(x, y)$ pode ser reconstruída de forma unívoca a partir do conjunto infinito de suas integrais de linha (projeções) em todas as orientações angulares $\theta$:
+
+  
+
+$$
+P_{\theta}(t) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+- **Aplicações Preliminares (Anos 1950-1960):** Antes de Hounsfield, pesquisadores em áreas como radioastronomia (Ronald Bracewell, 1956) e medicina nuclear já utilizavam algoritmos preliminares de retroprojeção para reconstruir distribuições de fontes radioativas ou atenuação, mas sem a integração eletromecânica e computacional em tempo hábil para a radiologia diagnóstica.
+
+---
+
+## 3. Evolução das Gerações de Tomógrafos Computadorizados
+
+A partir do surgimento do primeiro sistema comercial (EMI Scanner, dedicado exclusivamente à neuro-imagem), a tecnologia evoluiu rapidamente através de gerações de projetos mecânicos e de detecção:
+
+| Geração | Movimento Mecânico do Tubo e Detectores | Geometria do Feixe | Tempo Aproximado de Varredura por Corte |
+| :--- | :--- | :--- | :--- |
+| **1ª Geração** | Translação e Rotação incremental ($180^\circ$) | Feixe lápis (*pencil beam*), único detector | $\approx 4 \text{ a } 5 \text{ minutos}$ |
+| **2ª Geração** | Translação e Rotação com incremento angular maior | Feixe em leque estreito (*narrow fan beam*), pequena matriz de detectores | $\approx 20 \text{ segundos}$ |
+| **3ª Geração** | Apenas Rotação contínua (Tubo e Detectores giram conjuntamente) | Feixe em leque largo (*wide fan beam*), arco curvo de detectores | $\approx 0.5 \text{ a } 1 \text{ segundo}$ |
+| **4ª Geração** | Apenas Rotação do Tubo (Anel fixo completo de detectores) | Feixe em leque largo, anel estacionário de detectores | $\approx 0.5 \text{ a } 1 \text{ segundo}$ |
+
+A partir da introdução da aquisição **helicoidal ou espiral** em 1989 e, posteriormente, da tecnologia **multislice (TMC)** e detecção de contagem de fótons ([[Tomografia Computadorizada de Contagem de Fótons (PCD-CT)]]), o tempo de aquisição diminuiu para frações de segundo, viabilizando exames cardiológicos e de perfusão avançados.
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Tomografia Computadorizada]]
+- [[Transformada de Radon]]
+- [[Unidades Hounsfield]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Tomografia Computadorizada de Contagem de Fótons (PCD-CT)]]

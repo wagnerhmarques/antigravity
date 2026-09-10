@@ -1,0 +1,55 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Unidades Hounsfield]], [[Retroprojeção Filtrada (FBP)]], [[Índice de Detectabilidade]], [[Física de Detectores em Tomografia Computadorizada]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Unidades Hounsfield]], [[Retroprojeção Filtrada (FBP)]]
+
+## 1. Fundamentação Física da Atenuação de Raios-X
+
+A **[[Tomografia Computadorizada]]** fundamenta-se na medição da atenuação diferencial de um feixe de raios-X policromático ao atravessar um volume anatômico sob múltiplos ângulos de projeção. O processo físico é regido pela Lei de Beer-Lambert modificada para trajetos lineares:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+Onde $I_0$ representa a intensidade inicial do feixe incidente, $I$ é a intensidade transmitida após percorrer o caminho linear $L$, e $\mu(x, y)$ denota o coeficiente de atenuação linear espacialmente variante no plano transversal do paciente.
+
+Metrologicamente, os coeficientes de atenuação bruta são convertidos em uma escala normalizada e independente do equipamento, denominada **[[Unidades Hounsfield]]** ($\text{UH}$):
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+Nesta escala padronizada, o ar corresponde a $-1000\text{ UH}$, a água destilada a $0\text{ UH}$, e tecidos densos ou ossos corticais variam tipicamente de $+700\text{ UH}$ a $+3000\text{ UH}$.
+
+---
+
+## 2. Modelagem Matemática e Transformada de Radon
+
+A aquisição de dados em tomografia gera um conjunto de projeções paralelas organizadas em um sinograma. A integral de linha do coeficiente de atenuação em um ângulo $\theta$ é descrita pela Transformada de Radon:
+
+$$
+[P_{\theta}(t) = \mathcal{R}\{\mu(x, y)\} = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy]
+$$
+
+Onde $t$ é a coordenada de transposição do elemento detector perpendicular ao feixe central, e $\delta$ é a função delta de Dirac. O Teorema da Seção Central estabelece que a Transformada de Fourier 1D de uma projeção paralela equivale a uma fatia radial 2D da transformada do objeto original:
+
+$$
+S_{\theta}(\omega) = \mathcal{F}_{1D}\{P_{\theta}(t)\} = \iint_{-\infty}^{\infty} \mu(x, y) e^{-j 2\pi \omega (x \cos\theta + y \sin\theta)} \\, dx \\, dy
+$$
+
+Para reconstruir a imagem analiticamente sem o desfoque inerente à retroprojeção simples, aplica-se a **[[Retroprojeção Filtrada (FBP)]]**, incorporando um filtro de rampa no domínio de frequência espacial $|\omega|$:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+---
+
+## 3. Detecção de Sinais e Métricas de Desempenho
+
+A conversão da radiação remanescente em sinais elétricos mensuráveis ocorre em subsistemas de detecção de estado sólido (cintiladores cerâmicos acoplados a fotodiodos de silício) ou em detectores de contagem de fótons ([[Photon Counting Detector CT (PCD-CT)]]). A eficiência do sistema é avaliada quantitativamente pelo **[[Índice de Detectabilidade]]** ($d'$), que sintetiza a resolução espacial, o espectro de ruído e a tarefa diagnóstica:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde $\text{TTF}(u, v)$ é a função de transferência baseada em tarefas, $\text{NPS}(u, v)$ é o espectro de potência do ruído, $E(u, v)$ representa o filtro visual do observador humano, e $\sigma_{\text{int}}^2$ é o ruído interno de decisão.

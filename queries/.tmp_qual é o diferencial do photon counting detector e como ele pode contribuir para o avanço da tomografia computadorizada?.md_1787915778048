@@ -1,0 +1,52 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Photon Counting Detector CT (PCD-CT)]], [[Tomografia Computadorizada]], [[Índice de Detectabilidade]], [[Reconstrução Iterativa]], [[Inteligência Artificial (IA)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Photon Counting Detector CT (PCD-CT)]], [[Tomografia Computadorizada]], [[Índice de Detectabilidade]]
+
+## 1. Fundamentação Física e Princípio de Funcionamento
+
+O **Photon-Counting Detector Computed Tomography (PCD-CT)** representa uma transformação de paradigma na arquitetura de aquisição de sinal em [[Tomografia Computadorizada]]. Em contraste direto com os detectores tradicionais de integração de energia (*Energy-Integrating Detectors* - EIDs), que convertem fótons de raios-X indiretamente em luz cintilante através de matrizes cerâmicas antes de mensurá-los por fotodiodos de silício, os detectores de contagem de fótons utilizam materiais semicondutores de conversão direta, como o Telureto de Cádmio ($\text{CdTe}$) ou o Telureto de Cádmio e Zinco ($\text{CdZnTe}$). 
+
+No PCD-CT, cada fóton de raio-X incidente interage com o cristal semicondutor e gera pares elétron-buraco proporcionais à sua energia instantânea. Sob a ação de um campo elétrico polarizado aplicado, essas cargas induzem um pulso de voltagem individual nos circuitos integrados de aplicação específica (ASICs). O sinal elétrico é processado e categorizado em múltiplos compartimentos de energia (*energy bins*) por meio de limiares de discriminação de amplitude (*energy thresholds*).
+
+$$
+\text{Sinal }_{\text{PCD}}(E) = \sum_{i=1}^{M} H\left(E - E_{\text{threshold}, i}\right) \cdot \delta\left(E - E_i\right)
+$$
+
+Onde $E_i$ representa a energia individual de cada fóton incidente e $H(\cdot)$ a função degrau que filtra ruídos eletrônicos inferiores ao primeiro limiar de corte.
+
+---
+
+## 2. Diferenciais Instrumentais: EID-CT vs. PCD-CT
+
+A tabela abaixo sintetiza as principais diferenças físico-instrumentais entre os detectores convencionais e os detectores de contagem de fótons:
+
+| Parâmetro Metrológico | Energy-Integrating Detector (EID-CT) | Photon-Counting Detector (PCD-CT) |
+| :--- | :--- | :--- |
+| **Modo de Conversão** | Indireto (Cintilador $\rightarrow$ Luz $\rightarrow$ Fotodiodo) | Direto (Semicondutor $\text{CdTe}$ / $\text{CdZnTe}$) |
+| **Ponderação Energética** | Ponderado linearmente pela energia total depositada ($E$) | Cada fóton é contado individualmente com registro de sua energia ($N$) |
+| **Ruído Eletrônico** | Integrado cumulativamente ao sinal final | Rejeitado por discriminação de limiar no nível de hardware |
+| **Resolução Espacial** | Limitada por septos ópticos reflexivos entre elementos ($>0.5\text{ mm}$) | Submilimétrica nativa sem septos (pixels de $\approx 0.15\text{ mm}$ a $0.2\text{ mm}$) |
+| **Capacidade Espectral** | Requer fontes duplas, comutação rápida de $kVp$ ou dupla camada | Intrínseca e multicanal (*multi-bin*) em qualquer aquisição de rotina |
+
+---
+
+## 3. Contribuições para o Avanço da Tomografia Computadorizada
+
+A introdução clínica e física do PCD-CT promove avanços expressivos em múltiplas frentes diagnósticas e dosimétricas:
+
+1. **Eliminação do Ruído Eletrônico e Ganho de DQE:** Em exames de baixa dose ([[Otimização de Dose em TC|otimizacao-de-dose-em-tc]]), o ruído eletrônico dos sistemas EID degrada severamente a [[Razão Sinal-Ruído (SNR)]]. No PCD-CT, o limiar de discriminação de baixa energia descarta completamente o ruído eletrônico residual, otimizando a Eficiência Quântica de Detectores ([[Índice de Detectabilidade|detectability-index]]) em pacientes de grande porte ou em protocolos pediátricos de ultrabaixa dose.
+2. **Aumento do Contraste do Iodo e Imagens Espectrais Nativas:** Como os fótons de menor energia sofrem atenuação diferencial acentuada por [[Efeito Fotoelétrico]] em meios iodados ($Z=53$), o PCD-CT amplifica o contraste vascular sem a necessidade de doses elevadas de contraste. Isso viabiliza a geração contínua de [[Virtual Monoenergetic Imaging (VMI)|virtual-monoenergetic-imaging]] com separação material quantitativa precisa.
+3. **Resolução Espacial Ultra-Alta (UHR):** A ausência de septos ópticos refletores entre os elementos de detecção permite a redução drástica do tamanho físico do pixel, viabilizando análises morfológicas finas de estruturas anatômicas complexas, como o parênquima pulmonar distal, pequenas artérias coronarianas e microestruturas ósseas do osso temporal.
+4. **Sinergia com Algoritmos Avançados:** As propriedades estatísticas do ruído no PCD-CT facilitam a modelagem física em algoritmos de [[Reconstrução Iterativa]] e em redes de [[Inteligência Artificial (IA)|inteligencia-artificial-ia]] ([[Deep Learning Reconstruction (DLR)|deep-learning-reconstruction]]), maximizando a detectabilidade de lesões sutis sem introduzir artefatos de textura artificial.
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Photon Counting Detector CT (PCD-CT)]]
+- [[Tomografia Computadorizada]]
+- [[Índice de Detectabilidade]]
+- [[Reconstrução Iterativa]]
+- [[Inteligência Artificial (IA)]]
+- [[Virtual Monoenergetic Imaging (VMI)]]
+- [[Deep Learning Reconstruction (DLR)]]

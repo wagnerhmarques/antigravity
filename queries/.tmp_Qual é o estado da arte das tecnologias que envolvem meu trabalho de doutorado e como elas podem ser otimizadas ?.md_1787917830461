@@ -1,0 +1,61 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Channelized Hotelling Observer (CHO)]], [[Deep Learning Model Observer]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Otimização Multiobjetivo em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Channelized Hotelling Observer (CHO)]], [[Deep Learning Model Observer]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Otimização Multiobjetivo em TC]]
+
+## 1. Fundamentação do Estado da Arte em Qualidade de Imagem Baseada em Tarefas
+
+A avaliação metrológica em [[Tomografia Computadorizada]] (TC) contemporânea abandonou o uso exclusivo de métricas puramente físicas de baixo nível, como o desvio padrão em regiões de interesse homogêneas e a Função de Transferência de Modulação (MTF) determinística. O estado da arte fundamenta-se no relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]**, que estabelece a [[Task Based Image Quality|task-based-image-quality]] através do **[[Índice de Detectabilidade]]** ($d'$). 
+
+O índice $d'$ sintetiza a interação entre a geometria do sinal clínico, a resposta espacial e de contraste do sistema e a textura do ruído estocástico. A formulação analítica do observador linear ideal com pré-branqueamento e filtro visual humano (NPWE) é expressa no domínio de Fourier 2D por:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \text{TTF}^2(u, v) \cdot E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \text{TTF}^2(u, v) \cdot \text{NPS}(u, v) \cdot E^4(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde $W_{\text{task}}(u, v)$ é a transformada de Fourier da diferença de atenuação do sinal, $\text{TTF}(u, v)$ é a **[[Task Transfer Function]]**, $\text{NPS}(u, v)$ é o **[[Noise Power Spectrum]]**, $E(u, v)$ representa o filtro espacial do sistema visual humano e $\sigma_{\text{int}}^2$ é o ruído interno de decisão do observador.
+
+## 2. Tecnologias Disruptivas no Ecossistema de Doutorado
+
+O ecossistema tecnológico que sustenta a pesquisa atual integra quatro pilares de inovação instrumental e computacional:
+
+1. **[[Photon Counting Detector CT (PCD-CT)]]:** Substitui os detectores tradicionais de conversão indireta por semicondutores de conversão direta (telureto de cádmio - CdTe ou iodeto de bismuto). O PCD-CT elimina o ruído eletrônico inerente através de limiarização de energia (*energy thresholding*), permitindo a reconstrução de imagens monoenergéticas virtuais ([[Virtual Monoenergetic Imaging (VMI)]]) com ganho expressivo na Relação Contraste-Ruído ($CNR$) e redução substancial na carga de iodo administrada.
+2. **[[Deep Learning Image Reconstruction (DLR)]]:** Arquiteturas de redes neurais profundas aplicadas à reconstrução que removem o ruído quântico de alta frequência sem incorrer no desfoque isotrópico característico de filtros espaciais lineares ou de algoritmos de reconstrução iterativa (IR) tradicionais.
+3. **[[Channelized Hotelling Observer (CHO)]] e [[Deep Learning Model Observer]]:** Substitutos computacionais altamente correlacionados com estudos psicofísicos de observadores humanos ([[Estudo de Observadores 2AFC|2afc-observer-study]]). O CHO utiliza um banco de filtros espaciais antropomórficos (como Diferenças de Gaussianas - DoG) para reduzir a dimensionalidade de matrizes de TC de $512 \times 512$ e computar a estatística de decisão de Hotelling no subespaço de canais:
+
+$$
+d'_{CHO} = \sqrt{\left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)^T \left( \mathbf{U}^T \mathbf{K} \mathbf{U} \right)^{-1} \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)}
+$$
+
+4. **[[Phantoms Híbridos|phantoms-hibridos]]:** Combinação de geometrias físicas antropomórficas com inserções estocásticas digitalizadas via fabricação aditiva de alta precisão ([[Pixelprint]]), permitindo simular a granulosidade anatômica real de tecidos humanos em bancadas metrológicas.
+
+## 3. Otimização Multiobjetivo e Fronteira de Pareto
+
+A otimização de protocolos avançados de TC deixa de ser uma abordagem de parâmetro único para se tornar um problema de tomada de decisão multiobjetivo. A tríade de projeto envolve a minimização da dose de radiação ($D$), a minimização do tempo operacional computacional ($T$) e a maximização do desempenho diagnóstico ($W = d'$).
+
+O problema é formalizado no espaço vetorial de custos através de algoritmos evolutivos como o **[[Algoritmo Genético NSGA-II|nsga-ii]]** com $\varepsilon$-dominância:
+
+$$
+\min_{\theta \in \Theta} \mathbf{J}(\theta) = \left[ D(\theta), \, T(\theta), \, -W(\theta) \right]^T
+$$
+
+Sujeito às restrições metrológicas de transferibilidade inter-fabricantes (validação *leave-one-scanner-out* em múltiplos tomógrafos clínicos) e à preservação da linearidade quantitativa das Unidades Hounsfield (HU). A tabela a seguir sintetiza a evolução das métricas de avaliação e otimização:
+
+| Abordagem Tradicional | Estado da Arte Atual (Doutorado) | Benefício Metrológico Principal |
+| :--- | :--- | :--- |
+| Desvio Padrão em ROI | [[Índice de Detectabilidade]] ($d'$) via NPWE / CHO | Correlação direta com a percepção diagnóstica humana |
+| MTF Determinística | [[Task Transfer Function]] ($\text{TTF}$) dependente de contraste | Incorporação de artefatos de sinal de baixo contraste |
+| Ruído Global Homogêneo | [[Noise Power Spectrum]] ($\text{NPS}$) bidimensional | Mapeamento de texturas de ruído não-estacionárias em DLR |
+| Escala Likert Subjetiva | [[Avaliação Subjetiva por Comparação aos Pares (Pairwise Comparison)|avaliacao-pareada-qualidade-imagem]] | Eliminação de viés de tendência central e aumento do ICC |
+
+## 4. Conexões e Wikilinks
+
+* [[Índice de Detectabilidade]]
+* [[Task Transfer Function]]
+* [[Noise Power Spectrum]]
+* [[Channelized Hotelling Observer (CHO)]]
+* [[Deep Learning Model Observer]]
+* [[Photon Counting Detector CT (PCD-CT)]]
+* [[Deep Learning Image Reconstruction (DLR)]]
+* [[Otimização Multiobjetivo em TC]]
+* [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+* [[Estudo de Observadores 2AFC]]

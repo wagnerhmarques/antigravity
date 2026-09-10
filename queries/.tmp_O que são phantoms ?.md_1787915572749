@@ -1,0 +1,40 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]]
+
+## 1. Definição Conceitual e Classificação
+
+*Phantoms* (ou fantomas) são dispositivos simuladores projetados para mimetizar as propriedades de atenuação, espalhamento e absorção de radiação ionizante dos tecidos biológicos humanos. Na física médica e na [[Tomografia Computadorizada]], esses dispositivos servem como ferramentas fundamentais e padronizadas para a metrologia radiológica, controle de qualidade, otimização de protocolos de varredura e validação de algoritmos avançados de reconstrução de imagem.
+
+Os fantomas podem ser classificados em quatro categorias principais com base em sua arquitetura e finalidade metrológica:
+
+1. **Fantomas Geométricos (Físicos):** Estruturas homogêneas ou padronizadas contendo insertos geométricos simples (esferas, cilindros, linhas e malhas) destinadas a testes estritos de desempenho físico, tais como a resolução espacial via [[Task Transfer Function]] (TTF) e a análise da textura de ruído via [[Noise Power Spectrum]] (NPS).
+2. **Fantomas Antropomórficos:** Dispositivos que replicam a geometria complexa e a heterogeneidade anatômica do corpo humano, utilizando materiais tecido-equivalentes para simular a atenuação real de órgãos, estruturas ósseas e tecidos moles.
+3. **Fantomas Computacionais (Digitais):** Modelos matemáticos ou baseados em matrizes de voxels (como os modelos da ICRP) que simulam computacionalmente a anatomia humana para simulações de transporte de radiação via [[Simulação de Monte Carlo]].
+4. **Fantomas Híbridos:** Sistemas que fundem a estrutura física real com gêmeos digitais tridimensionais de alta fidelidade, permitindo correlacionar imperfeições físicas de hardware (como artefatos de feixe policromático e espalhamento Compton) com simulações digitais avançadas.
+
+## 2. Modelagem Matemática e Avaliação Quantitativa
+
+A resposta de um sistema de tomografia ao varrer um fantphantom é governada pela interação da radiação com a matéria, descrita pela atenuação linear $\mu(ec{r}, E)$. O processo de formação do sinograma $p_{\theta}(l)$ com um feixe policromático de espectro $\Phi_0(E)$ é formalizado por:
+
+$$
+p_{\theta}(l) = -\ln \left( \int_{0}^{E_{\max}} \Phi_0(E) \eta(E) \exp \left( -\iint_{\mathcal{L}_{\theta, l}} \mu(ec{r}, E) \\, ds \right) dE \right)
+$$
+
+Onde:
+- $\eta(E)$ representa a eficiência quântica de resposta do detector.
+- $\mathcal{L}_{\theta, l}$ denota a trajetória linear do feixe de raios X.
+
+Para a validação psicofísica e avaliação de desempenho em tarefas diagnósticas, a qualidade de imagem obtida com o uso de fantomas é quantificada por métricas baseadas em tarefas, a exemplo do [[Índice de Detectabilidade]] ($d'$), calculado para observadores de modelo como o *Channelized Hotelling Observer* (CHO):
+
+$$
+d'^2_{\text{CHO}} = \frac{\left[ \int W(u) \cdot \Delta \text{TTF}(u) \\, du \right]^2}{\int W(u) \cdot \text{NPS}(u) \cdot W(u) \\, du}
+$$
+
+## 3. Aplicações Práticas e Relevância Metrológica
+
+A utilização de fantomas é indispensável nos seguintes contextos da prática clínica e de pesquisa avançada:
+
+- **Garantia da Qualidade (QC):** Asseguram a estabilidade longitudinal de tomógrafos clínicos, monitorando desvios nos valores de Número de Hounsfield (HU), uniformidade do feixe e dose absorbida.
+- **Otimização de Protocolos de Baixa Dose:** Permitem avaliar a eficácia de algoritmos de Reconstrução Iterativa (IR) e [[Deep Learning Image Reconstruction (DLR)]] na supressão de ruído quântico em varreduras de ultra-baixa dose ($CTDI_{\text{vol}} < 2\text{ mGy}$).-
+- **Redução do *Domain Gap*:** Fantomas impressos em 3D de alta precisão (como aqueles baseados em filamentos duplos e tecnologias de deposição voxelizada) viabilizam a reprodução de implantes metálicos com intensidades de artefatos controladas e referenciadas à verdade fundamental.

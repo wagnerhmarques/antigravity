@@ -1,0 +1,36 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Fundamentação Conceitual e Teórica
+
+O **Índice de Detectabilidade** ($d'$, *d-prime*) é a métrica objetiva padrão-ouro da física médica contemporânea para quantificar a qualidade de imagem em sistemas de raios-X e [[Tomografia Computadorizada]] baseada em tarefas (*Task-Based Image Quality*) [[AAPM TG-233 - Avaliação de Desempenho em TC]]. Diferente de métricas clássicas e isoladas — como a Relação Sinal-Ruído ([[Contrast To Noise Ratio|CNR]]) ou a resolução espacial pura —, o índice $d'$ sintetiza a capacidade estatística de um observador (humano ou matemático — [[Observadores de Modelo (Model Observers)]]) de discriminar uma hipótese de presença de sinal ($H_1$) em relação a uma hipótese de fundo contendo apenas ruído estocástico ($H_0$).
+
+Essa abordagem baseia-se na **Teoria de Detecção de Sinais**, integrando as propriedades físicas fundamentais do sistema de imagem: a resposta espacial e de contraste traduzida pela [[Task Transfer Function]] ($\text{TTF}$), a textura e a magnitude do ruído descritas pelo [[Noise Power Spectrum]] ($\text{NPS}$), e a geometria da tarefa clínica diagnóstica desejada.
+
+## 2. Formulação Matemática Rigorosa
+
+A formulação matemática padrão para o cálculo de $d'$ no domínio da frequência espacial bidimensional $\mathbf{u} = (u, v)$, considerando um observador linear e estacionário com pré-branqueamento (*Prewhitening* - $\text{PW}$), é dada por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+- $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ representa a função de tarefa, obtida pela Transformada de Fourier bidimensional da diferença de atenuação do sinal anatômico ou patológico em relação ao fundo circundante.
+- $\text{TTF}(u, v)$ é a função de transferência baseada na tarefa, que quantifica a preservação do contraste em função da frequência espacial.
+- $\text{NPS}(u, v)$ é o espectro de potência de ruído bi-dimensional, caracterizando a variância e a correlação espacial do ruído estocástico.
+
+Para modelar de forma mais acurada a percepção visual humana — especialmente em cenários complexos com algoritmos de reconstrução avançados como a [[Reconstrução Iterativa]] ou [[Deep Learning Image Reconstruction (DLR)]] —, utiliza-se o observador **NPWE** (*Non-Prewhitening Matched Filter with Eye Filter*), que incorpora o filtro visual do observador humano $E(u, v)$ e o ruído interno de decisão ($\sigma_{\text{int}}^2$):
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+## 3. Aplicações Práticas e Otimização Clínica
+
+O cálculo do índice de detectabilidade desempenha um papel crítico na pesquisa translacional em radiologia:
+
+- **Avaliação de Reconstruções Avançadas:** Sistemas dotados de aprendizado profundo geram texturas de ruído não-estacionárias onde o CNR tradicional perde correlação com a acurácia diagnóstica. O uso de $d'$ permite quantificar fidedignamente se a detectabilidade de lesões de baixo contraste é preservada ou suprimida.
+- **Otimização de Protocolos de Dose:** Permite balancear os limites de exposição à radiação em programas de [[Radioproteção]] e [[Métricas de Dose em TC]], identificando o limiar ótimo entre a redução de corrente e a acurácia diagnóstica.
+- **Validação com Phantoms:** Empregado em conjunto com phantoms físicos e simulações computacionais para padronizar a aceitação e o desempenho de novos equipamentos tomográficos.

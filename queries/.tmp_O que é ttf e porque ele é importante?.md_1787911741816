@@ -1,0 +1,76 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Task Transfer Function]], [[Modulation Transfer Function (MTF)]], [[Reconstrução Iterativa]], [[Deep Learning Image Reconstruction (DLR)]], [[Índice de Detectabilidade]], [[Noise Power Spectrum]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+## 1. Definição Conceitual e Fundamentação da Task Transfer Function (TTF)
+
+A **Task Transfer Function (TTF)** — ou Função de Transferência de Tarefa — é uma métrica fundamental da física médica moderna desenvolvida para quantificar a resolução espacial de sistemas de [[Tomografia Computadorizada]] em cenários não-lineares e dependentes do sinal.
+
+Historicamente, a resolução espacial era avaliada por meio da [[Modulation Transfer Function (MTF)]], assumindo que o sistema de imagem apresentasse comportamento Linear e Invariante no Espaço (LSI — *Linear Shift-Invariant*). Essa premissa era válida para algoritmos analíticos tradicionais, como a [[Retroprojeção Filtrada (FBP)]]. No entanto, a introdução de técnicas como a [[Reconstrução Iterativa]] e a [[Deep Learning Image Reconstruction (DLR)]] alterou radicalmente a formação de imagem. Esses algoritmos modernos aplicam filtros adaptativos que suprimem o ruído sem desfocar bordas de alto contraste, tornando a resposta em frequência dependente do contraste do objeto e do nível de dose administrado.
+
+A TTF foi formalizada para solucionar essa limitação — principalmente no âmbito do relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** —, estendendo o conceito da MTF para acomodar a resposta de frequência específica da tarefa clínica (*task-specific*).
+
+---
+
+## 2. Formulação Matemática e Dependência de Parâmetros
+
+A determinação da TTF é comumente realizada pela análise de perfis de borda extraídos de objetos de teste cilíndricos ou esféricos de contraste conhecido imersos em um meio homogêneo.
+
+A partir do perfil de intensidade médio radial $\overline{I}(r)$, deriva-se a *Line Spread Function* específica da tarefa ($LSF_{\text{task}}$):
+
+$$
+LSF_{\text{task}}(r) = \frac{d}{dr} \left[ \overline{I}(r) \right]
+$$
+
+A **Task Transfer Function** normalizada é obtida através do módulo da Transformada de Fourier da $LSF_{\text{task}}$, normalizada pela sua amplitude na frequência espacial zero ($u = 0$):
+
+$$
+TTF(u) = \left| \frac{\mathcal{F} \left\{ LSF_{\text{task}}(r) \right\}}{\mathcal{F} \left\{ LSF_{\text{task}}(r) \right\}_{u=0}} \right| = \left| \frac{\int_{-\infty}^{\infty} LSF_{\text{task}}(r) e^{-j 2 \pi u r} \\, dr}{\int_{-\infty}^{\infty} LSF_{\text{task}}(r) \\, dr} \right|
+$$
+
+Onde $u$ representa a frequência espacial (geralmente expressa em $\text{lp/cm}$ ou $\text{cm}^{-1}$).
+
+### Parâmetros Críticos que Governam a TTF:
+1. **Contraste Relativo do Objeto ($\Delta C$):** Em algoritmos não-lineares, objetos de alto contraste (ex.: osso/ar) resultam em curvas TTF com maior largura de banda (superior resolução espacial) do que estruturas de baixo contraste (ex.: lesões parenquimatosas focalizadas em fígado).
+2. **Nível de Dose e Ruído ($\sigma^2$):** A variação na dose altera a relação sinal-ruído (SNR), modificando a agressividade da supressão de ruído promovida por algoritmos baseados em [[Deep Learning Image Reconstruction (DLR)]] ou [[Reconstrução Iterativa]].
+3. **Kernel/Filtro de Reconstrução:** Kernels mais agudos (*sharp*) preservam frequências mais altas, deslocando a curva TTF para a direita.
+
+---
+
+## 3. Comparação Metrológica: MTF Clássica vs. TTF
+
+| Parâmetro / Propriedade | Modulation Transfer Function (MTF) | Task Transfer Function (TTF) |
+| :--- | :--- | :--- |
+| **Premissa Metrológica** | Linearidade e Invariância Espacial (LSI) | Sistemas Não-Lineares e Não-Invariantes |
+| **Dependência do Contraste** | Independente (curva única universal) | Altamente dependente (específica para cada $\Delta C$) |
+| **Dependência da Dose/Ruído** | Independente da dose de radiação | Dependente da dose e do ruído local |
+| **Algoritmos Suportados** | [[Retroprojeção Filtrada (FBP)]] | [[Reconstrução Iterativa]], [[Deep Learning Image Reconstruction (DLR)]] |
+| **Relevância Clínica** | Limitada em tomógrafos modernos | Elevada (prevê desempenho em tarefas diagnósticas reais) |
+
+---
+
+## 4. Importância Prática e Aplicações em Tomografia Computadorizada
+
+A TTF é uma métrica indispensável na física médica e no controle de qualidade contemporâneos pelas seguintes razões:
+
+1. **Caracterização Fidedigna de Algoritmos Avançados:** Permite mensurar rigorosamente até que ponto a [[Reconstrução Iterativa]] ou a [[Deep Learning Image Reconstruction (DLR)]] preservam a resolução espacial em lesões de baixo contraste ao aplicar redução de ruído adaptativa.
+2. **Cálculo do Índice de Detectabilidade ($d'$):** A TTF é a componente fundamental de resolução espacial na modelagem de observadores numéricos de desempenho ([[Observadores de Modelo (Model Observers)]]), unindo-se ao [[Noise Power Spectrum]] (NPS) para quantificar a detectabilidade de lesões:
+
+$$
+d'^2 = \frac{\left[ \iint_{-\infty}^{\infty} |W(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} |W(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot \text{NPS}(u, v) \cdot E^4(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+3. **Otimização de Dose e Protocolos Clínicos:** Oferece suporte metrológico para reduzir a dose de radiação ao menor nível possível (princípio ALARA/ALADA) sem comprometer o limite de resolução necessário para a tarefa diagnóstica pretendida.
+4. **Padronização e Controle de Qualidade:** Constitui a metodologia recomendada pelas diretrizes internacionais (**[[AAPM TG-233 - Avaliação de Desempenho em TC]]**) para testes de aceitação e acompanhamento metrológico de tomógrafos computadorizados modernos.
+
+---
+
+## 5. Conexões e Wikilinks
+- [[Task Transfer Function]]
+- [[Modulation Transfer Function (MTF)]]
+- [[Noise Power Spectrum]]
+- [[Índice de Detectabilidade]]
+- [[Reconstrução Iterativa]]
+- [[Deep Learning Image Reconstruction (DLR)]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Observadores de Modelo (Model Observers)]]
+- [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+- [[Qualidade de Imagem em TC]]

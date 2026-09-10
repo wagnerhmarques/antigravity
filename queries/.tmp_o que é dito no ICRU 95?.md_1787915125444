@@ -1,0 +1,28 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Fundamentação e Contexto do ICRU 95
+
+O **ICRU Report 95** (*Operational Metrics for Uncertainty and Image Quality in Medical Imaging*) estabelece diretrizes rigorosas para a metrologia da qualidade de imagem baseada em tarefas (*Task-Based Image Quality*), consolidando a transição de métricas puramente físicas e isoladas para abordagens estocásticas integradas.
+
+Enquanto relatórios anteriores focavam na medição separada da resolução espacial por meio da **[[Task Transfer Function]]** ($\text{TTF}$) e da textura do ruído através do **[[Noise Power Spectrum]]** ($\text{NPS}$), o ICRU 95 enfatiza a unificação dessas grandezas na predição do desempenho diagnóstico por meio do **[[Índice de Detectabilidade]]** ($d'$) e de **[[Observadores de Modelo (Model Observers)]]**.
+
+## 2. Abordagem Metrológica e Métricas Chave
+
+A publicação destaca a necessidade de caracterizar sistemas de raios-X e tomografia computadorizada considerando a interdependência entre a física do sistema de aquisição, os algoritmos de reconstrução não-lineares (como **[[Reconstrução Iterativa]]** e **[[Deep Learning Image Reconstruction (DLR)]]**) e a tarefa clínica específica.
+
+A relação formalizada para a avaliação de desempenho envolve a propagação de incertezas no espaço de Fourier bidimensional:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+- $W_{\text{task}}(u, v)$ representa a função de tarefa associada à patologia ou estrutura anatômica de interesse.
+- $\text{TTF}(u, v)$ descreve a resposta espacial dependente do contraste.
+- $\text{NPS}(u, v)$ quantifica a densidade espectral de potência do ruído estocástico.
+
+## 3. Implicações para a Prática e Otimização de Dose
+
+No contexto da **[[Radioproteção]]** e da otimização de protocolos, o ICRU 95 serve de base normativa para que os limites de dose baseados em **[[Métricas de Dose em TC]]** sejam avaliados não apenas pela restrição do risco estocástico associado à **[[Dose Efectiva]]**, mas pela garantia de que a detectabilidade diagnóstica permaneça clinicamente aceitável sob baixas taxas de radiação.

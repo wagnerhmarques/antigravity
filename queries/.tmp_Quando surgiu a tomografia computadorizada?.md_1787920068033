@@ -1,0 +1,48 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Física de Detectores em Tomografia Computadorizada]], [[Índice de Detectabilidade]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Física de Detectores em Tomografia Computadorizada]]
+
+## 1. Contexto Histórico e Marcos Cronológicos
+
+O desenvolvimento da Tomografia Computadorizada (TC) ocorreu ao longo das décadas de 1950, 1960 e 1970, fundamentando-se em avanços matemáticos prévios sobre a inversão de integrais de linha e no rápido crescimento da capacidade de processamento computacional. 
+
+Abaixo apresenta-se o cronograma dos principais marcos históricos que culminaram no surgimento e na consolidação clínica da TC:
+
+| Ano / Período | Cientista / Pesquisador | Contribuição Tecnológica e Científica |
+| :--- | :--- | :--- |
+| **1917** | Johann Radon | Formulação matemática da transformada inversa (Transformada de Radon), provando que uma função bidimensional pode ser reconstruída a partir de infinitas projeções lineares. |
+| **1963** | Allan MacLeod Cormack | Publicação de soluções matemáticas teóricas para o cálculo de coeficientes de atenuação radiológica a partir de medições experimentais de feixes de raios-X. |
+| **1967–1970** | Godfrey Newbold Hounsfield | Desenvolvimento do primeiro protótipo funcional de tomógrafo no *Central Research Laboratories of Electric and Musical Industries* (EMI Ltd.), na Inglaterra, utilizando fontes radioativas e detectores de cintilação. |
+| **1971** | Hounsfield & Ambrose | Realização do **primeiro exame clínico em paciente** no *Atkinson Morley's Hospital* em Wimbledon, Londres, para diagnóstico bem-sucedido de um cisto cerebral. |
+| **1979** | Hounsfield e Cormack | Concessão conjunta do **Prêmio Nobel de Fisiologia ou Medicina** pelo desenvolvimento da tomografia computadorizada assistida por computador. |
+
+---
+
+## 2. Fundamentação Matemática e Evolução das Gerações de Scanners
+
+O surgimento da tomografia computadorizada exigiu a superação de limitações na aquisição de dados e na modelagem geométrica do feixe. A reconstrução de imagens nas primeiras gerações baseava-se em equações algébricas e, posteriormente, na formulação analítica da Retroprojeção Filtrada, cuja representação no espaço contínuo é dada por:
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+Onde $S_{\theta}(\omega)$ representa a Transformada de Fourier da projeção paralela coletada no ângulo $\theta$, e $|\omega|$ atua como o filtro de rampa no domínio da frequência para compensar o desfoque inerente da retroprojeção simples.
+
+A arquitetura dos sistemas evoluiu através de gerações distintas com base na geometria do feixe e na configuração de detectores:
+
+- **1ª Geração (Translação-Rotação / Feixe Lápis):** Um único feixe colimado em forma de lápis e um único detector moviam-se linearmente para coletar uma projeção, girando em seguida por um pequeno incremento angular. O tempo de aquisição por corte era de aproximadamente $4\text{ a }5\text{ minutos}$.
+- **2ª Geração (Translação-Rotação / Feixe em Leque Estreito):** Introdução de um feixe em leque (*fan-beam*) e uma matriz linear com múltiplos detectores, reduzindo o tempo de varredura por corte.
+- **3ª Geração (Rotação-Rotação / Feixe em Leque Amplo):** O tubo de raios-X e um arco curvo contendo centenas ou milhares de detectores giravam simultaneamente a $360^\circ$ ao redor do paciente. Tornou-se o padrão arquitetural predominante na tomografia computadorizada moderna.
+- **4ª Geração (Rotação-Fixa):** O tubo de raios-X girava ao redor de um anel fixo composto por milhares de detectores estacionários circundantes.
+
+---
+
+## 3. Impacto Científico e Tecnológico na Física Médica
+
+O advento da tomografia computadorizada revolucionou o diagnóstico por imagem ao eliminar a sobreposição anatômica inerente à radiografia planar e permitir a quantificação precisa dos coeficientes de atenuação linear através de escalas padronizadas:
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+A introdução da modalidade abriu caminho para as pesquisas contemporâneas em otimização de dose de radiação, desenvolvimento de algoritmos de reconstrução iterativa e métodos baseados em aprendizado profundo (*Deep Learning Reconstruction* - DLR), além de métricas avançadas de qualidade de imagem baseadas em tarefas, como o [[Índice de Detectabilidade]].

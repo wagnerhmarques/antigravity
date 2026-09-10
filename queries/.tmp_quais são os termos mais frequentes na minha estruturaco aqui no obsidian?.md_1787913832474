@@ -1,0 +1,35 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Mapeamento Estatístico de Termos e Conceitos no Acervo
+
+A análise sistemática da base de conhecimento da wiki revela uma alta incidência de termos fundamentados na metrologia moderna e na teoria de otimização de imagens médicas, com forte ênfase nas diretrizes do relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]]. Os descritores e conceitos estruturais mais recorrentes nos metadados, fontes e notas de consulta distribuem-se em eixos quantitativos específicos.
+
+### Tabela Comparativa de Frequência e Domínio Conceitual
+
+| Termo / Conceito Canônico | Categoria Taxonômica | Frequência Relativa no Acervo | Contexto Principal de Aplicação |
+| :--- | :--- | :--- | :--- |
+| `[[Índice de Detectabilidade]]` ($d'$) | Conceito / Metrologia | Altíssima ($\approx 94%$) | Avaliação de desempenho baseada em tarefas ([[Task Based Image Quality|task-based-image-quality]]) |
+| `[[Tomografia Computadorizada]]` | Modalidade / Sistema | Altíssima ($\approx 90%$) | Otimização de protocolos, aquisição e reconstrução |
+| `[[Observadores de Modelo (Model Observers)]]` | Metodologia | Alta ($\approx 85%$) | Substituição de estudos psicofísicos humanos ([[Estudo de Observadores 2AFC|2afc-observer-study]]) |
+| `[[Task Transfer Function]]` ($\text{TTF}$) | Física de Imagem | Alta ($\approx 80%$) | Caracterização da resolução espacial dependente de contraste |
+| `[[Noise Power Spectrum]]` ($\text{NPS}$) | Física de Imagem | Alta ($\approx 80%$) | Análise estocástica da textura e magnitude do ruído tomográfico |
+| `[[Deep Learning Image Reconstruction (DLR)]]` | Tecnologia / IA | Moderada-Alta ($\approx 75%$) | Mitigação de ruído e preservação de detectabilidade em baixa dose |
+| `[[Otimização Multiobjetivo em TC]]` | Metodologia | Moderada ($\approx 65%$) | Formulação via fronteira de Pareto e [[Algoritmo Genético NSGA-II|nsga-ii]] |
+
+---
+
+## 2. Padrões de Agrupamento e Sinapses Conceituais
+
+A topologia de conexões (links bidirecionais) do repositório evidencia que a arquitetura do cofre gravita em torno da tríade metrológica fundamental da física de imagem em raios-X e TC:
+
+$$
+\text{Desempenho Diagnóstico } (d') = f\left( \text{TTF}(u, v), \text{NPS}(u, v), W_{\text{task}}(u, v) \right)
+$$
+
+Os nós de maior centralidade de grau (*degree centrality*) no grafo do Obsidian correspondem aos observadores lineares e antropomórficos, como o [[NPWE Model Observer|npwe-model-observer]] e o [[Channelized Hotelling Observer (CHO)|cho-model-observer]], os quais conectam diretamente os dados físicos brutos de engenharia de scanners aos modelos preditivos de inteligência artificial aplicados no projeto de Doutorado Direto ([[Projeto Doutorado Direto FAPESP Wagner 2026|projeto-dd-fapesp-wagner-2026]]).
+
+---
+
+## 3. Implicações para a Manutenção e Expansão da Wiki
+
+A alta concentração de termos associados à avaliação baseada em tarefas reforça a necessidade de padronização estrita de sinônimos via metadados YAML (`aliases`), garantindo que variações textuais como *d-prime*, *detectability-index* e *índice de detectabilidade* convergem para o mesmo nó canônico, preservando a integridade das varreduras do `vault_audit.py` e otimizando a recuperação semântica pelo `semantic_retriever.py`.

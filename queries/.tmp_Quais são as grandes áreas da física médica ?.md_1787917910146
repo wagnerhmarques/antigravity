@@ -1,0 +1,45 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Fisica Medica]], [[Tomografia Computadorizada]], [[Radioterapia]], [[Medicina Nuclear]]
+
+> 📅 **Data:** 2026-03-30 | 🔗 **Conexões:** [[Fisica Medica]], [[Tomografia Computadorizada]], [[Radioterapia]], [[Radioproteção]]
+
+## 1. Fundamentação e Divisão Estrutural da Física Médica
+
+A **[[Fisica Medica]]** é a disciplina que aplica os conceitos, métodos e teorias da física à medicina e à biologia humana, estruturando-se primordialmente em três grandes áreas de atuação clínica, científica e tecnológica: **Radiologia Diagnóstica e Imagem Médica**, **Radioterapia** e **Medicina Nuclear**. Cada uma destas vertentes emprega a interação da radiação ionizante e não ionizante com a matéria biológica para fins diagnósticos e terapêuticos, respaldando-se em rigor metrológico e nos princípios fundamentais de **[[Radioproteção]]** (Justificação, Otimização e Limitação de Dose).
+
+## 2. As Três Grandes Áreas de Atuação
+
+A tabela a seguir sintetiza os domínios, as modalidades tecnológicas principais e os objetivos físicos fundamentais de cada grande área da física médica:
+
+| Grande Área | Principais Tecnologias / Modalidades | Objetivo Físico e Clínico Principal |
+| :--- | :--- | :--- |
+| **Radiologia Diagnóstica e Imagem** | [[Tomografia Computadorizada (TC)]], Radiografia Digital, Ressonância Magnética, Ultrassonografia | Otimização da relação entre a qualidade diagnóstica da imagem e a dose de radiação absorvida pelo paciente, avaliando métricas como [[Índice de Detectabilidade]], [[Task Transfer Function]] e [[Noise Power Spectrum]]. |
+| **Radioterapia** | Aceleradores Lineares (LINAC), Braquiterapia, Tomoterapia, Próton-terapia | Entrega de uma distribuição de dose altamente conformiforme ao volume-alvo tumoral ($PTV$), maximizando a probabilidade de controle tumoral (TCP) e minimizando a toxicidade em tecidos sadios normais (NTCP). |
+| **Medicina Nuclear** | Tomografia por Emissão de Pósitrons ([[Tomografia por Emissão de Pósitrons (PET)|PET]]), SPECT, Radiofarmacoterapia | Imagem funcional e molecular in vivo e tratamento teragnóstico por meio da administração de radiofármacos emissores de partículas alfa, beta ou gama. |
+
+## 3. Formulação Matemática da Atenuação e Dosimetria
+
+Em todas as grandes áreas, a quantificação física fundamenta-se em modelos matemáticos rigorosos. Na Radiologia Diagnóstica, a atenuação do feixe de raios X é descrita pela lei de atenuação de Beer-Lambert:
+
+$$
+I(x) = I_0 \exp\left( -\int_{0}^{x} \mu(l) \\, dl \right)
+$$
+
+Onde $I_0$ e $I(x)$ representam as intensidades inicial e final do feixe, respectivamente, e $\mu(l)$ é o coeficiente de atenuação linear espacialmente variante ($\text{cm}^{-1}$). Na Tomografia Computadorizada, esses coeficientes são convertidos para a escala normalizada de Unidades Hounsfield ($\text{HU}$):
+
+$$
+\text{HU} = 1000 \times \frac{\mu - \mu_{\text{agua}}}{\mu_{\text{agua}} - \mu_{\text{ar}}}
+$$
+
+Por sua vez, na área de Radioterapia, a modelagem dosimétrica da dose absorvida ($D$, em Gray ou $\text{J/kg}$) em um meio material irradiado é governada pela transferência de energia de radiação ionizante:
+
+$$
+D = \frac{d\bar{E}}{dm}
+$$
+
+Onde $d\bar{E}$ é a energia média liberada pela radiação ionizante em um elemento de massa $dm$.
+
+## 4. Conexões e Wikilinks
+- [[Fisica Medica|fisica-medica]]
+- [[Tomografia Computadorizada|tomografia-computadorizada]]
+- [[Índice de Detectabilidade|detectability-index]]
+- [[Radioproteção|radioprotecao]]

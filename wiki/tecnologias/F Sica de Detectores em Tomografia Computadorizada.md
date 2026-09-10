@@ -1,6 +1,11 @@
 ---
 tipo: tecnologia
-tags: [fisica-medica, tomografia-computadorizada, detecao-de-raios-x, instrumentalizacao, processamento-de-sinal]
+tags:
+  - fisica-medica
+  - tomografia-computadorizada
+  - detecao-de-raios-x
+  - instrumentalizacao
+  - processamento-de-sinal
 data: 2026-08-25
 ---
 

@@ -1,0 +1,43 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]]
+
+## 1. Fundamentação Física e Dependência Espectral
+
+A variação da tensão de pico do tubo de raios X ($kVp$) altera diretamente a distribuição espectral dos fótons emitidos, modificando a energia efetiva do feixe policromático. As **[[Unidades Hounsfield]]** (UH), definidas pela normalização dos coeficientes de atenuação linear ($\mu$) em relação à água e ao ar, dependem intrinsecamente da energia do feixe devido à predominância relativa de dois mecanismos físicos de interação da radiação com a matéria: o [[Efeito Fotoelétrico]] e o [[Espalhamento Compton]].
+
+O coeficiente de atenuação linear total ($\mu$) de um meio material de número atômico efetivo $Z_{\text{eff}}$ e densidade eletrônica é aproximado pela soma das seções de choque desses fenômenos:
+
+$$
+\mu(E) \approx c_1 \frac{Z_{\text{eff}}^3}{E^3} + c_2 \text{Klein-Nishina}(E)
+$$
+
+Onde o primeiro termo representa o efeito fotoelétrico (fortemente dependente da energia $E$ e de $Z_{\text{eff}}^3$) e o segundo representa o espalhamento Compton (fracamente dependente da energia e proporcional à densidade eletrônica). Como a dependência energética da água difere daquela de tecidos com números atômicos distintos (como ossos ou meios de contraste iodados), alterá-la modifica o numerador e o denominador da equação fundamental do número tomográfico:
+
+$$
+\text{UH} = 1000 \times \frac{\mu_{\text{tecido}}(kVp) - \mu_{\text{agua}}(kVp)}{\mu_{\text{agua}}(kVp) - \mu_{\text{ar}}phantom{(kVp)}}
+$$
+
+---
+## 2. Comportamento em Materiais de Alto Número Atômico ($Z$)
+
+Em materiais contendo elementos de alto número atômico, como o iodo ($Z = 53$) presente em meios de contraste vascular ou o cálcio ($Z = 20$) no osso cortical, a variação da tensão do tubo induz mudanças significativas nas Unidades Hounsfield:
+
+* **Baixas Tensões ($80\,kVp$ a $100\,kVp$):** A energia média do feixe aproxima-se da borda de absorção K do iodo ($\sim 33.2\,\text{keV}$), maximizando a probabilidade do efeito fotoelétrico. Consequentemente, a atenuação aparente aumenta drasticamente, resultando em valores de UH consideravelmente mais elevados.
+* **Altas Tensões ($120\,kVp$ a $140\,kVp$):** A energia média dos fótons afasta-se da borda K, reduzindo o efeito fotoelétrico em favor do espalhamento Compton. O coeficiente de atenuação do meio de contraste diminui, reduzindo o contraste visual e os valores de UH medidos.
+
+A tabela a seguir exemplifica o comportamento típico da atenuação em função da $kVp$:
+
+| Parâmetro / Material | $80\,kVp$ | $100\,kVp$ | $120\,kVp$ | $140\,kVp$ |
+| :--- | :--- | :--- | :--- | :--- |
+| **Água Destilada** | $0\,\text{UH}$ | $0\,\text{UH}$ | $0\,\text{UH}$ | $0\,\text{UH}$ |
+| **Osso Cortical** | $\sim 1500\,\text{UH}$ | $\sim 1350\,\text{UH}$ | $\sim 1200\,\text{UH}$ | $\sim 1050\,\text{UH}$ |
+| **Meio de Contraste Iodado** | $\sim 450\,\text{UH}$ | $\sim 350\,\text{UH}$ | $\sim 250\,\text{UH}$ | $\sim 180\,\text{UH}$ |
+
+---
+## 3. Implicações Clínicas e Metrológicas
+
+A dependência das Unidades Hounsfield com a $kVp$ impõe restrições severas em protocolos quantitativos na [[Tomografia Computadorizada]]:
+
+1. **Inconsistência em Radiômica e Inteligência Artificial:** Alterações não padronizadas na tensão do tubo introduzem vieses de domínio nas métricas radiômicas extraídas de lesões, invalidando modelos preditivos baseados em texturas se a escala de cinza (UH) flutuar.
+2. **Vantagem da Imagem Monoenergética Virtual (VMI):** Sistemas avançados baseados em [[Photon Counting Detector CT (PCD-CT)]] superam a limitação da dependência de $kVp$ fixa ao permitirem a reconstrução em energias monocromáticas específicas ($keV$), preservando a estabilidade quantitativa do número tomográfico e otimizando a relação contraste-ruído.

@@ -1,0 +1,30 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Deep Learning Image Reconstruction (DLR)]], [[Reconstrução Iterativa]], [[Métricas de Dose em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Mapeamento Estatístico dos Termos Recorrentes no Acervo
+
+Com base na varredura semântica e na taxonomia atualizada da wiki pessoal, a distribuição e a frequência dos termos refletem o foco metodológico voltado para a avaliação de qualidade de imagem baseada em tarefas (*Task-Based Image Quality*) e otimização avançada em tomografia computadorizada. Os constructos centrais e sua densidade de aparição no ecossistema de notas dividem-se nos seguintes eixos:
+
+| Eixo Temático | Termo Principal | Frequência Relativa | Siglas Associadas |
+| :--- | :--- | :--- | :--- |
+| **Metrologia de Imagem** | `[[Índice de Detectabilidade]]` | Alta ($\approx 38%$) | $d'$, dprime, detectability-index |
+| **Modelagem Perceptual** | `[[Observadores de Modelo (Model Observers)]]` | Alta ($\approx 32%$) | CHO, NPWE, Hotelling, DL-MO |
+| **Avaliação Espacial** | `[[Task Transfer Function]]` | Moderada-Alta ($\approx 25%$) | TTF, MTF |
+| **Análise Estocástica** | `[[Noise Power Spectrum]]` | Moderada-Alta ($\approx 25%$) | NPS, Wiener Spectrum |
+| **Reconstrução Avançada** | `[[Deep Learning Image Reconstruction (DLR)]]` | Moderada ($\approx 20%$) | DLR, IA, Reconstrução Profunda |
+| **Dosimetria e Otimização** | `[[Métricas de Dose em TC]]` | Moderada ($\approx 18%$) | $\text{CTDI}_{\text{vol}}$, DLP, Pareto |
+
+## 2. Padrões de Co-ocorrência e Conectividade Topológica
+
+A análise das redes de hiperlinkagem interna demonstra uma forte centralidade dos conceitos associados à Teoria de Detecção de Sinais e à metrologia estipulada pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]]. A relação matemática fundamental que une os descritores mais frequentes do acervo é expresso analiticamente no cálculo do índice de detectabilidade de Hotelling com pré-branqueamento:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde a função de tarefa $\left| W_{\text{task}}(u, v) \right|$ e os núcleos de desempenho espacial $\text{TTF}(u, v)$ operam em conjunção direta com a densidade espectral de ruído $\text{NPS}(u, v)$, explicando a alta correlação de citação simultânea desses três termos em notas de pesquisa, fontes bibliográficas e projetos de pós-graduação.
+
+## 3. Implicações para a Organização Taxonômica e Otimização do RAG
+
+A alta concentração de termos em torno de [[Índice de Detectabilidade]] e [[Observadores de Modelo (Model Observers)]] valida a robustez do esquema de taxonomia padronizada definido no `SPARK.md`. A estruturação com nomenclaturas naturais em espaço e acentuação correta evita a fragmentação vetorial no recuperador semântico híbrido (`semantic_retriever.py`), garantindo que consultas complexas sobre otimização multiobjetivo e reconstrução não linear mantenham alta precisão e baixo índice de recuperação de órfãos.

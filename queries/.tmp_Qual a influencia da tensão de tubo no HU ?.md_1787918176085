@@ -1,0 +1,41 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Índice de Detectabilidade]], [[Noise Power Spectrum]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Controle de Qualidade em TC]]
+
+## 1. Fundamentação Física da Dependência Energética
+A conversão dos coeficientes de atenuação linear em [[Unidades Hounsfield]] ($\text{UH}$) é diretamente afetada pela tensão de pico do tubo de raios X ($kVp$). O coeficiente de atenuação linear ($\mu$) de um meio material depende fortemente da energia dos fótons incidentes e do número atômico efetivo ($Z_{\text{eff}}$) do tecido. O coeficiente total é a soma de duas principais interações na faixa diagnóstica:
+
+$$
+\mu(E) \approx \mu_{\text{fotoelétrico}}(E) + \mu_{\text{Compton}}(E)
+$$
+
+Onde a contribuição do efeito fotoelétrico é inversamente proporcional ao cubo da energia dos fótons e diretamente proporcional ao cubo do número atômico:
+
+$$
+\mu_{\text{fotoelétrico}} propto \frac{Z_{\text{eff}}^3}{E^3}
+$$
+
+Como o feixe gerado em sistemas convencionais de Tomografia Computadorizada é policromático, alterações na tensão do tubo ($kVp$) modificam a energia média do espectro de fótons emitidos. Consequentemente, materiais com $Z_{\text{eff}}$ significativamente diferente do da água — como ossos ($Z_{\text{eff}} \approx 13,8$) e meios de contraste iodados ($Z_{\text{eff}} = 53$) — apresentam variações expressivas em seus valores de $\text{UH}$ quando escaneados sob diferentes $kVp$, ao passo que tecidos moles, cuja composição atômica é próxima à da água, demonstram estabilidade relativa na escala.
+
+## 2. Formulação Matemática e o Papel do Endurecimento do Feixe
+A relação matemática que define a escala de $\text{UH}$ é expressa por:
+
+$$
+\text{UH} = 1000 \times \frac{\mu_{\text{tecido}}(kVp) - \mu_{\text{água}}(kVp)}{\mu_{\text{água}}(kVp) - \mu_{\text{ar}}phantom{(kVp)}}
+$$
+
+Como os coeficientes $\mu_{\text{tecido}}$ e $\mu_{\text{água}}$ variam de forma distinta com a mudança do espectro policromático, a redução da tensão do tubo (ex: de $120\text{ kVp}$ para $80\text{ kVp}$) aumenta o peso relativo das interações fotoelétricas. Isso provoca um incremento marcante no número tomográfico de materiais de alto número atômico:
+
+* **Água:** Mantém-se estritamente em $0\text{ UH}$ por definição em qualquer $kVp$.
+* **Tecidos Moles:** Apresentam variações marginais (geralmente inferiores a $\pm 10\text{ UH}$). 
+* **Osso Cortical:** Sofere aumento substancial nas $\text{UH}$ devido à elevação do componente fotoelétrico em baixas energias.
+* **Meios de Contraste Iodados:** Apresentam acentuada elevação nas $\text{UH}$ em tensões mais baixas (aproximando-se da borda K do iodo em torno de $33\text{ keV}$), permitindo otimização da dose de contraste.
+
+Ademais, o fenômeno de endurecimento do feixe (*beam hardening*) intensifica-se em feixes de menor $kVp$ se não houver correções rigorosas no pré-processamento dos dados brutos (sinograma), gerando artefatos de sombreamento e vieses quantitativos nas medições de $\text{UH}$ em regiões centrais de grandes volumes anatômicos.
+
+## 3. Impacto Clínico e Metrológico
+A dependência da tensão do tubo sobre as [[Unidades Hounsfield]] impõe restrições importantes em aplicações quantitativas avançadas:
+
+1. **Radiômica e Extração de Features:** Protocolos de aquisição com diferentes $kVp$ alteram os limiares de segmentação e os valores de intensidade, invalidando modelos preditivos se não houver padronização ou normalização estrita da escala de $\text{UH}$.
+2. **Imageamento Quantitativo e Caracterização Tecidual:** Em exames de dupla energia ou varreduras em múltiplos $kVp$, a variação do número tomográfico é explorada intencionalmente para a decomposição material (quantificação de iodo, gordura e cálcio).
+3. **Controle de Qualidade:** Rotinas de calibração metrológica exigem o monitoramento da constância de $\text{UH}$ utilizando fantomas padronizados sob condições fixas de $kVp$ para assegurar a reprodutibilidade longitudinal dos exames.

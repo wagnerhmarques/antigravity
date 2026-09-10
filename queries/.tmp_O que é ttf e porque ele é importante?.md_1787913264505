@@ -1,0 +1,82 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Task Transfer Function]], [[Noise Power Spectrum]], [[Índice de Detectabilidade]], [[Reconstrução Iterativa]], [[Deep Learning Image Reconstruction (DLR)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+## 1. Definição Conceitual e Necessidade Física
+
+A **Task Transfer Function (TTF)** — ou *Função de Transferência de Tarefa* — é uma métrica avançada de física médica utilizada para mensurar a resolução espacial em sistemas de [[Tomografia Computadorizada]] (TC) que empregam algoritmos de reconstrução não-lineares, tais como a [[Reconstrução Iterativa]] e a [[Deep Learning Image Reconstruction (DLR)]].
+
+Historicamente, a resolução espacial em sistemas lineares e invariantes no espaço — característicos da [[Retroprojeção Filtrada (FBP)]] — era determinada unicamente pela **Função de Transferência de Modulação (MTF - *Modulation Transfer Function*)**. A MTF clássica assume que a resposta em frequência do scanner é totalmente independente do contraste do objeto e da dose de radiação administrada. No entanto, o advento de algoritmos não-lineares invalidou essa premissa:
+
+1. **Dependência do Contraste:** Algoritmos iterativos e baseados em redes neurais profundas tratam bordas de alto contraste (ex.: osso/ar) de forma diferente de estruturas de baixo contraste (ex.: lesões hepáticas ou tecidos moles).
+2. **Dependência da Dose e Ruído:** A capacidade do algoritmo de suprimir o ruído quântico varia conforme a relação sinal-ruído local, fazendo com que a nitidez efetiva da imagem mude de acordo com o nível de mAs utilizado.
+
+A TTF soluciona essa limitação ao generalizar o conceito da MTF para cenários *task-specific* (específicos da tarefa clínica), medindo a transferência de modulação em função da frequência espacial para contrastes locais e níveis de dose pré-determinados, conforme formalizado pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]**.
+
+---
+
+## 2. Formulário Matemático e Metodologia de Medição
+
+A determinação experimental da TTF é realizada utilizando simuladores físicos (*phantoms*) contendo inserções cilíndricas de diferentes materiais (ex.: acrílico, ar, polietileno, teflon) imersos em um fundo homogêneo.
+
+A partir da amostragem radial da interface circular do objeto, obtém-se o perfil de borda médio $\overline{I}(x)$. A derivada desse perfil gera a *Line Spread Function* específica da tarefa ($LSF_{\text{task}}$):
+
+$$
+LSF_{\text{task}}(x) = \frac{d}{dx} \left[ \overline{I}(x) \right]
+$$
+
+A **Task Transfer Function** normalizada no domínio da frequência espacial ($u$) é definida como a magnitude da Transformada de Fourier da $LSF_{\text{task}}$, normalizada pela sua área na frequência zero:
+
+$$
+\text{TTF}(u) = \left| \frac{\int_{-\infty}^{\infty} LSF_{\text{task}}(x) e^{-j 2 \pi u x} \\, dx}{\int_{-\infty}^{\infty} LSF_{\text{task}}(x) \\, dx} \right|
+$$
+
+Em virtude da não-linearidade do pipeline moderno de reconstrução, a curva $\text{TTF}(u)$ é formalmente parametrizada como:
+
+$$
+\text{TTF} = f(u; \Delta C, D, K)
+$$
+
+Onde:
+- $u$: Frequência espacial (expressa em $\text{cm}^{-1}$ ou $\text{lp/cm}$).
+- $\Delta C$: Contraste nominal da inserção anatômica imersa no phantom.
+- $D$: Dose de radiação (representada pelo CTDIvol ou nível de ruído $\sigma^2$).
+- $K$: Kernel de reconstrução ou nível de intensidade do algoritmo iterativo/DLR.
+
+---
+
+## 3. Importância Clínica e Metrológica
+
+A TTF é de fundamental importância para a física médica moderna e para o controle de qualidade quantitativo pelos seguintes motivos:
+
+### Comparação Metrológica: MTF vs. TTF
+
+| Propriedade / Característica | MTF Clássica | Task Transfer Function (TTF) |
+| :--- | :--- | :--- |
+| **Premissa de Formação de Imagem** | Sistema Linear e Invariante no Espaço (LSI) | Sistemas Não-Lineares e Sujeitos a Filtros Adaptativos |
+| **Validade em Algoritmos** | Válida prioritariamente para [[Retroprojeção Filtrada (FBP)]] | Essencial para [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]] |
+| **Dependência do Contraste** | Independente (curva única para qualquer contraste) | Dependente (uma curva específica para cada $\Delta C$) |
+| **Dependência da Dose** | Independente da dose de exposição | Varia com a dose de radiação e a taxa de ruído quântico |
+| **Relevância Clínica** | Avaliação puramente geométrica do detector/foco | Avaliação da detectabilidade de patologias clínicas reais |
+
+### Integração no Cálculo do Índice de Detectabilidade ($d'$)
+
+A principal aplicação quantitativa da TTF é servir de entrada — juntamente com o [[Noise Power Spectrum]] (NPS) — para o cálculo do **[[Índice de Detectabilidade]]** ($d'$), derivado da [[Teoria de Detecção de Sinais]] e [[Observadores de Modelo (Model Observers)]]:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} |W(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} |W(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot \text{NPS}(u, v) \cdot E^4(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde $W(u,v)$ representa o espectro da tarefa clínica (tamanho e forma da lesão) e $E(u,v)$ modela a função de resposta visual humana (Eye Filter). Sem a TTF, o cálculo de $d'$ em scanners modernos com inteligência artificial seria incorreto, levando a previsões irreais do desempenho diagnóstico.
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Task Transfer Function]]
+- [[Noise Power Spectrum]]
+- [[Índice de Detectabilidade]]
+- [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+- [[Reconstrução Iterativa]]
+- [[Deep Learning Image Reconstruction (DLR)]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Observadores de Modelo (Model Observers)]]
+- [[Qualidade de Imagem em TC]]

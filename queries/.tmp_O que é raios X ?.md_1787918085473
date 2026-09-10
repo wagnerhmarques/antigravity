@@ -1,0 +1,39 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Radioproteção]]
+
+## 1. Definição Conceitual e Natureza Física
+
+Os raios-X constituem uma forma de radiação eletromagnética ionizante de alta frequência e comprimento de onda extremamente curto, situando-se no espectro eletromagnético entre os raios gama e a radiação ultravioleta. Descubertos por Wilhelm Conrad Röntgen em 1895, os fótons de raios-X possuem energias típicas que variam de poucos quilétron-volts ($\text{keV}$) a centenas de $\text{keV}$, o que lhes confere a capacidade de penetrar meios materiais opacos à luz visível.
+
+## 2. Mecanismos de Geração no Tubo de Raios-X
+
+A produção laboratorial e clínica de raios-X ocorre predominantemente em tubos a vácuo, onde elétrons acelerados por uma diferença de potencial ($kV_p$) colidem com um ânodo metálico de alto número atômico (geralmente tungstênio, $Z = 74$). Esse processo termiônico resulta em dois mecanismos físicos fundamentais de emissão:
+
+1. **Radiação de *Bremsstrahlung* (Frenagem):** Ocorre quando um elétron incidente sofre desaceleração brusca ao interagir com o campo coulombiano do núcleo atômico. A perda de energia cinética é convertida em um fóton contínuo de raios-X, cuja energia máxima é estipulada por:
+
+$$
+E_{\max} = e \cdot kV_p
+$$
+
+2. **Radiação Característica:** Ocorre quando um elétron colide e ejeta um elétron das camadas internas (camada K ou L) do átomo do alvo. A transição eletrônica subsequente de camadas externas para preencher a lacuna resulta na emissão de fótons com energias discretas e específicas do material do alvo.
+
+O espectro resultante é policromático, exigindo filtragem (inerente e adicional) para atenuar fótons de baixa energia que aumentariam a dose sem contribuir para a formação da imagem.
+
+## 3. Interação dos Raios-X com a Matéria
+
+Ao incidirem sobre os tecidos biológicos, os fótons de raios-X interagem com os elétrons e núcleos atômicos através de múltiplos processos estocásticos, sendo os mais relevantes para a imagem diagnóstica e a [[Radioproteção]]:
+
+- **Efeito Fotoelétrico:** Um fóton incidente transfere toda a sua energia para um elétron ligado (geralmente das camadas internas), ejetando-o na forma de fotoelétron. A probabilidade de ocorrência ($\tau$) é fortemente dependente do número atômico do meio ($Z$) e inversamente proporcional à energia cúbica do fóton:
+
+$$
+\tau propto \frac{Z^3}{E^3}
+$$
+
+- **Espalhamento Compton:** Ocorre a interação entre um fóton de alta energia e um elétron fracamente ligado nas camadas externas. O fóton cede parte de sua energia ao elétron e é espalhado sob um ângulo $\theta$, com um comprimento de onda modificado:
+
+$$
+\lambda' - \lambda = \frac{h}{m_e c} \left( 1 - \cos(\theta) \right)
+$$
+
+## 4. Aplicações em Tecnologias Avançadas
+
+Na física médica moderna, feixes de raios-X otimizados formam a base de modalidades complexas, incluindo a [[Tomografia Computadorizada]], a mamografia digital e sistemas de imagem de contagem de fótons ([[Photon Counting Detector CT (PCD-CT)]]), onde o conhecimento rigoroso do espectro e das interações atômicas é essencial para maximizar a relação sinal-ruído e minimizar a dose de radiação absorbida.

@@ -1,0 +1,58 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Observadores de Modelo (Model Observers)]], [[Otimização Multiobjetivo em TC]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Fundamentos do Estado da Arte em Imagem Baseada em Tarefas
+
+A avaliação metrológica de sistemas de [[Tomografia Computadorizada]] contemporânea superou o paradigma das métricas puramente físicas e determinísticas — como a Função de Transferência de Modulação tradicional ([[Modulation Transfer Function (MTF)|modulation-transfer-function]]) e o desvio padrão de regiões de interesse homogêneas. O estado da arte fundamenta-se na **Qualidade de Imagem Baseada em Tarefas** (*Task-Based Image Quality*), formalizada pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]] e ICRU Report 98. O eixo central dessa metrologia é o **[[Índice de Detectabilidade]]** ($d'$), que quantifica a capacidade estatística de um observador discriminar um sinal patológico em um fundo estocástico complexo.
+
+Matematicamente, para um observador linear ideal com pré-branqueamento (PW) no domínio da frequência espacial bidimensional $\mathbf{u} = (u, v)$, a detectabilidade é expressa por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v)$ representa a função de tarefa gerada pela transformada de Fourier da diferença de atenuação do sinal;
+* $\text{TTF}(u, v)$ é a [[Task Transfer Function]], caracterizando a resolução espacial dependente de contraste;
+* $\text{NPS}(u, v)$ é o [[Noise Power Spectrum]], que descreve a magnitude e a textura espacial do ruído estocástico.
+
+---
+
+## 2. Tecnologias Disruptivas e Convergência Tecnológica
+
+O ecossistema tecnológico atual do doutorado integra três inovações principais que redefinem os limites operacionais dos exames radiológicos:
+
+### A. Detector de Contagem de Fótons em Tomografia Computadorizada (PCD-CT)
+Os sistemas [[Photon Counting Detector CT (PCD-CT)]] substituem os detectores tradicionais de conversão indireta por semicondutores de conversão direta (telureto de cádmio - CdTe ou germineto de cádmio - CZT). Ao eliminar o ruído eletrônico basal através de limiares de energia individuais (*energy thresholding*) e realizar ponderação espectral de fótons de baixa energia, o PCD-CT eleva a relação contraste-ruído ($CNR$) e viabiliza reduções significativas na carga de meio de contraste iodado e na dose de radiação ($CTDI_{\text{vol}}$).
+
+### B. Reconstrução Baseada em Aprendizado Profundo (DLR)
+Algoritmos de [[Deep Learning Image Reconstruction (DLR)]] e redes neurais profundas substituem os métodos lineares de Retroprojeção Filtrada ([[Retroprojeção Filtrada (FBP)]]) e as reconstruções iterativas convencionais. A DLR atua como um operador não linear que suprime o ruído quântico de alta frequência sem incorrer no desfoque isotrópico excessivo, preservando as texturas anatômicas e maximizando o índice $d'$ em protocolos de ultrabaixa dose.
+
+### C. Observadores de Modelo e Inteligência Artificial (Model Observers)
+Para predizer com fidelidade o desempenho diagnóstico humano sem recorrer a exaustivos estudos psicofísicos ([[Estudo de Observadores 2AFC|2afc-observer-study]]), utilizam-se observadores matemáticos avançados como o [[Channelized Hotelling Observer (CHO)]] e observadores baseados em aprendizado profundo com mecanismos de atenção ([[Deep Learning Model Observer|deep-learning-model-observer]]).
+
+---
+
+## 3. Metodologia de Otimização Multiobjetivo
+
+A otimização de protocolos complexos em TC não pode ser tratada de forma isolada. O estado da arte exige uma abordagem multiobjetivo simultânea que equilibra a tríade composta pela dose de radiação ($D$), o tempo computacional e operacional ($T$), e o desempenho diagnóstico medido pelo índice de detectabilidade ($W = d'$).
+
+O problema de otimização é formalizado pela busca da Fronteira de Pareto através de algoritmos evolutivos avançados como o [[Algoritmo Genético NSGA-II|nsga-ii]] e modelos substitutos baseados em Processos Gaussianos:
+
+$$
+\min_{\mathbf{x}} \left( D(\mathbf{x}), \, T(\mathbf{x}), \, -W(\mathbf{x}) \right)
+$$
+
+Sujeito às restrições clínicas de manutenibilidade da linearidade de Unidades Hounsfield e aceitabilidade perceptual avaliada por métricas avançadas de comparação pareada ([[Avaliação Subjetiva por Comparação aos Pares (Pairwise Comparison)|avaliacao-pareada-qualidade-imagem]]).
+
+---
+
+## 4. Conexões e Wikilinks do Acervo
+
+* [[Índice de Detectabilidade]]
+* [[Photon Counting Detector CT (PCD-CT)]]
+* [[Deep Learning Image Reconstruction (DLR)]]
+* [[Task Transfer Function]]
+* [[Noise Power Spectrum]]
+* [[Observadores de Modelo (Model Observers)]]
+* [[Otimização Multiobjetivo em TC]]
+* [[AAPM TG-233 - Avaliação de Desempenho em TC]]

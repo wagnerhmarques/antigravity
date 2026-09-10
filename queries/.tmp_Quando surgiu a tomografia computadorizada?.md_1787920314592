@@ -1,0 +1,36 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Física de Detectores em Tomografia Computadorizada]]
+
+## 1. Contexto Histórico e Marco Temporal
+
+A tomografia computadorizada (TC) médica teve o seu desenvolvimento teórico e prático consolidado na **década de 1970**, revolucionando o diagnóstico por imagem ao superar as limitações inerentes à radiografia convencional baseada em projeção sumária. O marco fundamental da invenção ocorreu em **1972**, quando o engenheiro britânico **Godfrey Hounsfield** e o físico sul-africano (naturalizado estadunidense) **Allan Cormack** desenvolveram, de maneira independente, o primeiro protótipo funcional e a formulação matemática aplicável à reconstrução de imagens tomográficas transversais.
+
+O primeiro scanner comercial para exames clínicos de crânio foi instalado e testado clinicamente no *Atkinson Morley's Hospital* em Wimbledon, Reino Unido, em **outubro de 1971**, com os resultados oficiais sendo divulgados publicamente por Hounsfield em **abril de 1972**. Essa contribuição monumental rendeu a ambos o Prêmio Nobel de Fisiologia ou Medicina em **1979**.
+
+---
+
+## 2. Fundamentação Matemática e Evolução das Gerações de TC
+
+O princípio matemático que tornou a TC viável baseia-se na inversão da transformada de Radon, formalizada pioneiramente pelo matemático austríaco **Johann Radon em 1917**. A relação entre a atenuação do feixe de raios-X e a reconstrução espacial da matriz de coeficientes de atenuação linear $\mu(x, y)$ é descrita pela lei de atenuação exponencial:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+A evolução cronológica dos equipamentos de tomografia é classificada em gerações tecnológicas com base na geometria do feixe e no movimento mecânico do tubo de raios-X e dos detectores:
+
+| Geração | Ano de Introdução | Geometria do Feixe | Movimento do Tubo e Detector | Tempo de Aquisição | Principal Inovação / Limitação |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **1ª Geração** | 1972 (Hounsfield) | Lápis (*Pencil Beam*) | Translação linear seguida de rotação incremental ($1^\circ$) | Minutos por corte | Alta precisão inicial; tempo de varredura excessivamente longo. |
+| **2ª Geração** | Anos 1970 | Leque estreito (*Narrow Fan Beam*) | Translação linear com múltiplos detectores e rotação angular maior | Segundos a minutos | Aceleração da aquisição por múltiplos elementos detectores. |
+| **3ª Geração** | Anos 1970-1980 | Leque largo (*Wide Fan Beam*) | Rotação conjunta e contínua do tubo e arco de detectores em $360^\circ$ | Subsecond | Domínio comercial absoluto; eliminação do movimento de translação. |
+| **4ª Geração** | Anos 1980 | Leque largo (*Wide Fan Beam*) | Tubo rotativo em $360^\circ$ circundado por um anel fixo de detectores | Menor que $1\text{ s}$ | Estabilidade de calibração eletrônica a cada rotação. |
+
+---
+
+## 3. Marcos Tecnológicos Subsequentes
+
+- **Tomografia Helicoidal / Espiral (Anos 1980-1990):** Introdução do deslizamento contínuo da mesa acoplado à rotação ininterrupta do gantry, viabilizado por contatos elétricos deslizantes (*slip-ring technology*), permitindo a aquisição de volumes tridimensionais completos em única apneia.
+- **Tomografia Multislice / Multidetectores (MSCT - Anos 1990 em diante):** Substituição de fileiras únicas de detectores por matrizes bidimensionais, ampliando drasticamente a cobertura anatômica longitudinal por rotação do tubo.
+- **Contemporaneidade (PCD-CT e Inteligência Artificial):** A transição atual para detectores de contagem de fótons (*Photon-Counting Detectors* - PCD) e algoritmos de reconstrução profunda (*Deep Learning Reconstruction* - DLR) redefine os limites de resolução espacial e otimização da dose de radiação ionizante.

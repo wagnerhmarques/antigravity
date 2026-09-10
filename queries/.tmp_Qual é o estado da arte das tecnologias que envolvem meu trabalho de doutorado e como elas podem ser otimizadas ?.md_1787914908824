@@ -1,0 +1,35 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Channelized Hotelling Observer (CHO)]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Otimização Multiobjetivo em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Channelized Hotelling Observer (CHO)]], [[Deep Learning Image Reconstruction (DLR)]], [[Photon Counting Detector CT (PCD-CT)]]
+
+## 1. Fundamentação do Estado da Arte em Imagem Baseada em Tarefas
+
+A avaliação da qualidade de imagem em [[Tomografia Computadorizada]] transicionou de métricas determinísticas e puramente físicas (como a Função de Transferência de Modulação — MTF, e o Espectro de Potência de Ruído — NPS isolados) para abordagens baseadas em tarefas diagnósticas (*task-based image quality*), formalizadas pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]] e pela ICRU. O **[[Índice de Detectabilidade]]** ($d'$) consolidou-se como a métrica mestre para quantificar a capacidade de discriminação entre sinais patológicos e o fundo estocástico.
+
+A formulação analítica do observador ideal linear com pré-branqueamento e filtro visual humano (NPWE) no domínio da frequência espacial bidimensional é expressa por:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde $W_{\text{task}}(u, v)$ representa a função de tarefa, $\text{TTF}(u, v)$ a [[Task Transfer Function]], $\text{NPS}(u, v)$ o [[Noise Power Spectrum]], $E(u, v)$ o filtro visual humano e $\sigma_{\text{int}}^2$ a variância do ruído interno de decisão.
+
+## 2. Tecnologias Disruptivas e Arquiteturas Avançadas
+
+O ecossistema tecnológico contemporâneo apoia-se em pilares sinérgicos que redefinem os limites entre dose de radiação e detectabilidade clínica:
+
+- **[[Photon Counting Detector CT (PCD-CT)]]:** Supera as limitações dos detectores de integração de energia (EID-CT) através da contagem individual de fótons e limiarização de energia (*energy thresholding*). Elimina o ruído eletrônico, melhora a relação contraste-ruído ($CNR$) e viabiliza a criação de imagens monoenergéticas virtuais ([[Virtual Monoenergetic Imaging (VMI)]]) com reduções expressivas de carga de iodo e dose de radiação ($CTDI_{\text{vol}}$).
+- **[[Deep Learning Image Reconstruction (DLR)]]:** Substitui gradualmente a Retroprojeção Filtrada ([[Retroprojeção Filtrada (FBP)]]) e a Reconstrução Iterativa ([[Reconstrução Iterativa]]), suprimindo o ruído quântico em baixas doses sem incorrer no desfoque excessivo característico de filtros espaciais lineares.
+- **Observadores de Modelo e Inteligência Artificial ([[Channelized Hotelling Observer (CHO)]] e [[Deep Learning Model Observer]]):** Empregam arquiteturas baseadas em Vision Transformers e redes neurais convolucionais para estimar o índice $d'$ de forma automatizada, correlacionando-se fortemente com estudos psicofísicos de observadores humanos ([[Estudo de Observadores 2AFC|2afc-observer-study]]).
+
+## 3. Estratégias de Otimização Multiobjetivo
+
+A otimização de protocolos clínicos em tomografia computadorizada exige o balanceamento simultâneo de objetivos conflitantes. No contexto de pesquisas avançadas de doutorado, a otimização multiobjetivo da tríade composta por Dose de Radiação ($D$), Tempo Computacional de Reconstrução e Aquisição ($T$), e Desempenho Diagnóstico ($W = d'$ ou $\text{AUC}$) é formalizada utilizando a fronteira de Pareto com $\varepsilon$-dominância e algoritmos evolucionários como o [[Algoritmo Genético NSGA-II|nsga-ii]].
+
+A matriz de covariância do ruído $\mathbf{K}$ e o vetor de diferença de sinal $\Delta\bar{\mathbf{g}}$ no espaço discreto de canais antropomórficos ($\mathbf{U}$) determinam a detectabilidade do observador de Hotelling canalizado:
+
+$$
+d'^2_{\text{CHO}} = \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)^T \left( \mathbf{U}^T \mathbf{K} \mathbf{U} \right)^{-1} \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)
+$$
+
+Através da validação cruzada *leave-one-scanner-out* em múltiplos tomógrafos, assegura-se a transferibilidade dos modelos substitutos baseados em Processos Gaussianos, permitindo que phantoms híbridos antropomórficos ([[Phantoms Híbridos]]) substituam parcialmente ensaios clínicos exaustivos em humanos.

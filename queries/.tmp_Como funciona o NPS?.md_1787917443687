@@ -1,0 +1,51 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Espectro de Potência do Ruído]], [[Tomografia Computadorizada]], [[Deep Learning Image Reconstruction (DLR)]], [[Reconstrução Iterativa]], [[Qualidade de Imagem em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Espectro de Potência do Ruído]], [[Tomografia Computadorizada]], [[Deep Learning Image Reconstruction (DLR)]]
+
+## 1. Fundamentação Conceitual do NPS
+
+O **Espectro de Potência do Ruído** (*Noise Power Spectrum* - NPS) atua como uma ferramenta metrológica essencial na [[Tomografia Computadorizada]] para decompor a variação estocástica do sinal reconstruído em suas componentes de frequência espacial pura. Enquanto o desvio padrão global ($\sigma$) fornece apenas uma métrica escalar da flutuação de pixels em uma Região de Interesse (ROI), o NPS quantifica tanto a **magnitude** quanto a **textura** (granulometria) espacial do ruído, medido em unidades de $\text{mm}^{-1}$ ou $\text{cycles/cm}$.
+
+Matematicamente, o NPS trata-se da densidade espectral de potência bidimensional das flutuações residuais de intensidade em uma imagem de um fantoma homogêneo, permitindo avaliar de que maneira os filtros de retroprojeção, algoritmos de reconstrução iterativa e abordagens baseadas em inteligência artificial alteram o aspecto visual do ruído.
+
+## 2. Formulação Matemática
+
+A estimação computacional do NPS bidimensional ($W(f_x, f_y)$) baseia-se na extração de uma ROI homogênea de dimensões $N_x \times N_y$ pixels. Seja $\Delta I(x, y)$ a imagem de ruído residual obtida pela subtração da tendência determinística (como gradientes de feixe ou não-uniformidades) da matriz original de pixels:
+
+$$
+\Delta I(x, y) = I(x, y) - \bar{I}(x, y)
+$$
+
+O NPS bidimensional é calculado por meio da magnitude quadrada da Transformada de Fourier Discreta (DFT) da matriz residual, normalizada pelo espaçamento dos pixels e pelo tamanho da matriz, aplicando-se o operador de valor esperado ($langle dots angle$) sobre múltiplas realizações independentes:
+
+$$
+W(f_x, f_y) = \frac{\Delta_x \Delta_y}{N_x N_y} \leftlangle \left| \sum_{x=0}^{N_x-1} \sum_{y=0}^{N_y-1} \Delta I(x, y) e^{-2\pi i (f_x x \Delta_x + f_y y \Delta_y)} \right|^2 \rightangle
+$$
+
+Onde:
+* $\Delta_x$ e $\Delta_y$ correspondem ao tamanho físico dos pixels nas direções $x$ e $y$ (em $\text{mm}$).vida.
+* $f_x$ e $f_y$ representam as frequências espaciais correspondentes.
+
+Pelo Teorema de Parseval, a integral de $W(f_x, f_y)$ em todo o domínio de frequência reconduz diretamente à variância total ($\sigma^2$) do ruído:
+
+$$
+\sigma^2 = \iint_{-\infty}^{\infty} W(f_x, f_y) \\, df_x \\, df_y
+$$
+
+Para sistemas com simetria rotacional no gantry, o perfil unidimensional radial $W(f)$ é comumente obtido por integração polar ($f = \sqrt{f_x^2 + f_y^2}$):
+
+$$
+W(f) = \int_{0}^{2\pi} W(f \cos\theta, f \sin\theta) \, \, \, d\theta
+$$
+
+## 3. Aplicações na Avaliação de Algoritmos Avançados
+
+O comportamento do NPS difere drasticamente dependendo da tecnologia de reconstrução aplicada no tomógrafo:
+
+| Parâmetro / Métrica | Retroprojeção Filtrada (FBP) | Reconstrução Iterativa (IR) | Deep Learning Image Reconstruction (DLR) |
+| :--- | :--- | :--- | :--- |
+| **Textura do Ruído** | Alta frequência (granulado / *sandy*) | Deslocada para baixas frequências (manchado / *blotchy*) | Alta frequência preservada com supressão de magnitude |
+| **Estacionariedade** | Estacionário no campo de visão | Geralmente não-linear e dose-dependente | Projetado para preservar textura natural e reduzir ruído |
+| **Impacto Diagnóstico** | Previsível, porém ruidoso em baixas doses | Pode simular artefatos ou mascarar lesões sutis | Mantém a detectabilidade clínica em protocolos de baixa dose |
+
+Através do NPS, sistemas computacionais e observadores de modelo, a exemplo do [[NPWE Model Observer]], conseguem predizer com alta fidelidade o desempenho de tarefas de detecção visual humana sem a necessidade de extensos ensaios clínicos.

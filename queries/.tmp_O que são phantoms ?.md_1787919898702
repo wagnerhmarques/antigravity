@@ -1,0 +1,39 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]], [[Dosimetria em Raios X]], [[Metrologia Radiológica]]
+
+> 📅 **Data:** 2026-02-27 | 🔗 **Conexões:** [[Phantoms Híbridos]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]]
+
+## 1. Definição e Fundamentação Física
+
+*Phantoms* (ou fantomas) são dispositivos físicos, materiais ou simuladores matemáticos estruturados para mimetizar propriedades de atenuação, espalhamento e absorção de radiação ionizante dos tecidos biológicos humanos. Na física médica e na [[Tomografia Computadorizada]], os *phantoms* são ferramentas metrológicas fundamentais para calibração de equipamentos, garantia da qualidade, otimização de protocolos de aquisição e avaliação quantitativa do desempenho de sistemas de imagem.
+
+Do ponto de vista físico, a interação da radiação X com o meio material é regida pela atenuação mássica e linear, descrita pela lei de Beer-Lambert modificada para espectros policromáticos:
+
+$$
+I = \int_{0}^{E_{\max}} I_0(E) \exp \left( -\int \mu(ec{r}, E) \\, ds \right) dE
+$$
+
+Onde $\mu(ec{r}, E)$ representa o coeficiente de atenuação linear espacialmente variante e dependente da energia. Os *phantoms* são projetados para reproduzir valores de número de Hounsfield (HU) equivalentes aos encontrados in vivo para diferentes tecidos (como tecido adiposo, tecido mole, osso trabecular e osso cortical).
+
+## 2. Classificação dos Phantoms
+
+A taxonomia dos fantomas na imagem médica divide-se em quatro categorias principais conforme sua finalidade e arquitetura construtiva:
+
+| Tipo de Phantom | Descrição Estrutural | Aplicação Principal |
+| :--- | :--- | :--- | 
+| **Geométricos / Calibração** | Estruturas simples (cilindros, rampas, matrizes de furos) com materiais homogêneos. | Medição de ruído, uniformidade, linearidade de HU e calibração de rotina. |
+| **Antropomórficos Físicos** | Modelos anatômicos tridimensionais (tórax, crânio, abdome) construídos com materiais teciduais equivalentes. | Avaliação visual e quantitativa de artefatos, testes de desempenho *end-to-end* e dosimetria organ a organo. |
+| **Computacionais (Digitais)** | Modelos matemáticos e voxelizados baseados em malhas (ex. ICRP adult male/female). | Simulações de Monte Carlo, rastreamento de raios e modelagem de feixe. |
+| **Híbridos** | Combinação de estruturas físicas reais com gêmeos digitais tridimensionais de alta fidelidade obtidos por micro-TC. | Validação avançada de algoritmos de reconstrução iterativa ([[Reconstrução Iterativa|Reconstrução Iterativa (IR)]]) e aprendizado profundo ([[Deep Learning Image Reconstruction (DLR)]]). |
+
+## 3. Aplicações Metrológicas em Tomografia Computadorizada
+
+Os *phantoms* são indispensáveis em múltiplos domínios da metrologia radiológica:
+
+1. **Controle de Qualidade e Desempenho do Sistema:** Permitem monitorar a estabilidade da calibração do tomógrafo, avaliando parâmetros como a função de transferência baseada em tarefas ([[Task Based Image Quality|TTF]]), o espectro de potência do ruído ([[Noise Power Spectrum|NPS]]) e o índice de detectabilidade ($d'$).
+2. **Dosimetria e Otimização da Dose:** Através de câmaras de ionização ou dosímetros luminescentes inseridos em cavidades específicas, mensuram-se índices como o $CTDI_{\text{vol}}$ e a dose efetiva organ a organo, auxiliando no balanceamento entre qualidade diagnóstica e [[Radioproteção]].
+3. **Avaliação de Artefatos:** Utilizados para quantificar a severidade de artefatos de endurecimento de feixe e artefatos metálicos, utilizando métricas avançadas como a modelagem estatística de Gumbel para distribuição de estrias.
+
+$$
+d'^2 = \frac{\left[ \iint_{-\infty}^{\infty} W(u, v) \cdot \text{TTF}^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} W(u, v) \cdot \text{TTF}^2(u, v) \cdot \text{NPS}(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+

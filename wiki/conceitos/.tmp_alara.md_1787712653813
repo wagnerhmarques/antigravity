@@ -1,0 +1,51 @@
+---
+title: "ALARA (As Low As Reasonably Achievable)"
+slug: "alara"
+data_criacao: "2026-08-22"
+data_atualizacao: "2026-08-22"
+tags: ["otimizacao", "alara", "radioprotecao", "dose", "tc"]
+fontes_origem: ["[[mccollough-2026-go]]"]
+aliases: ["ALARA", "As Low As Reasonably Achievable"]
+---
+
+# ALARA (As Low As Reasonably Achievable)
+
+## Definição Conceitual e Fundamentação Física
+
+O princípio **ALARA** (*As Low As Reasonably Achievable* — Tão Baixo Quanto Razoavelmente Exequível) constitui um dos pilares fundamentais da proteção radiológica moderna, estabelecido pela Comissão Internacional de Proteção Radiológica (ICRP). Em Tomografia Computadorizada (TC), o princípio dita que todas as exposições à radiação ionizante devem ser mantidas tão baixas quanto razoavelmente exequível, levando em consideração fatores econômicos e sociais. 
+
+Em termos físicos e clínicos, o ALARA não significa reduzir a dose a zero, mas sim encontrar o equilíbrio ótimo entre a **qualidade de imagem** necessária para o diagnóstico médico preciso e o **detrimento biológico** associado à absorção de energia pela matéria viva. A otimização fundamenta-se na minimização da dose sem comprometer a acurácia diagnóstica, ponderando a estocasticidade do dano radiobiológico e a relação sinal-ruído ($SNR$) das imagens reconstruídas.
+
+## Formulações Matemáticas e Métricas de Otimização
+
+No contexto da física da TC, a efetivação do princípio ALARA é monitorada por grandezas dosimétricas padronizadas, tais como o Índice de Dose de Tomografia Computadorizada Volumétrica ($CTDI_{vol}$) e o Produto Dose-Comprimento ($DLP$):
+
+$$
+\ ext{DLP} = \ ext{CTDI}_{vol} \ imes L
+$$
+
+Onde $L$ representa o comprimento de varredura digitalizado ($z$-coverage). Os programas de otimização alinhados ao ALARA utilizam estas grandezas em conjunto com os **Níveis de Referência Diagnóstica ([[niveis-de-referencia-diagnostica-drl]])** para auditar, comparar e reduzir sistematicamente a dose aplicada em exames clínicos.
+
+Matematicamente, a otimização da dose sob o escopo do ALARA pode ser representada pela minimização da dose glandular ou efetiva $E$ sujeita a uma restrição de variância do ruído $\sigma^2$ aceitável para a tarefa diagnóstica:
+
+$$
+\min \left( E \right) \quad \ ext{sujeito a} \quad \sigma^2(\mu) \le \sigma^2_{\ ext{máx}}
+$$
+
+Onde $\mu$ representa o coeficiente de atenuação linear reconstruído e $\sigma^2_{\ ext{máx}}$ o limite superior tolerável para a detecção de estruturas anatômicas de interesse.
+
+## Contextualização no Acervo
+
+Nas pesquisas e documentos do presente acervo, o conceito de ALARA opera como a diretriz filosófica e prática que une a metrologia da radiação e as técnicas avançadas de aquisição e pós-processamento:
+
+1. **Controle de Qualidade e Dosimetria:** O ALARA direciona a utilização prática de grandezas como o $CTDI_w$ e o $CTDI_{vol}$ em feixes largos ($> 40\ ext{ mm}$), avaliando a resposta dos detectores e o perfil de dose para evitar exposições desnecessárias.
+2. **Protocolos de Aquisição:** Formula os programas de otimização que utilizam modulação de corrente automática de tubo, seleção dinâmica de quilovoltagem ($kVp$) e algoritmos de **[[reconstrucao-iterativa]]**.
+3. **Parâmetros de Desempenho:** Atua em consonância direta com os [[niveis-de-referencia-diagnostica-drl]], servindo como meta institucional para manter a dose coletiva populacional dentro de patamares seguros e otimizados.
+
+## Conexões Relacionadas
+
+- [[niveis-de-referencia-diagnostica-drl]]
+- [[otimizacao-de-dose-em-tc]]
+- [[ctdi]]
+- [[reconstrucao-iterativa]]
+- [[qualidade-imagem]]

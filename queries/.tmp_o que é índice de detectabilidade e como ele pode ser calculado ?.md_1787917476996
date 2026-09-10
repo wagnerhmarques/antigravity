@@ -1,0 +1,43 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Índice de Detectabilidade** ($d'$, *d-prime*) é a métrica objetiva padrão-ouro da física médica contemporânea (formalizada pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]**, ICRU Report 54 e ICRU Report 98) para quantificar a qualidade diagnóstica de uma imagem tomográfica baseada em tarefas (*Task-Based Image Quality*).
+
+Diferentemente de métricas clássicas puramente físicas como a Relação Contraste-Ruído ([[Contrast To Noise Ratio|CNR]]) e a Resolução Espacial isolada ([[Task Transfer Function|TTF]]), o índice $d'$ sintetiza a capacidade estatística de um observador (humano ou matemático — [[Observadores de Modelo (Model Observers)|model-observers]]) discriminar uma hipótese de sinal presente ($H_1$) contra uma hipótese de apenas ruído de fundo ($H_0$).
+
+## 2. Formulação Matemática Rigorosa (Teoria de Decisão e Espaço de Fourier)
+
+Pela Teoria de Detecção de Sinais (SDT), $d'$ quantifica a separação normalizada entre as distribuições das variáveis de decisão sob as hipóteses $H_1$ (sinal presente) e $H_0$ (sinal ausente):
+
+$$
+d' = \frac{langle t angle_{H_1} - langle t angle_{H_0}}{\sqrt{\frac{1}{2} \left( \sigma_{t, H_1}^2 + \sigma_{t, H_0}^2 \right)}}
+$$
+
+No domínio contínuo da frequência espacial bidimensional $\mathbf{u} = (u, v)$ para o Observador Linear Ideal (Prewhitening - PW) com ruído estacionário gaussiano:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+- $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ é a **Função de Tarefa** (*Task Function*), dada pela Transformada de Fourier 2D da diferença de atenuação do sinal anatômico ou patológico em relação ao fundo circundante;
+- $\text{TTF}(u, v)$ é a **[[Task Transfer Function|Task-based Transfer Function]]**, que descreve a resposta em frequência e a preservação de contraste do sistema para o sinal específico;
+- $\text{NPS}(u, v)$ é o **[[Noise Power Spectrum|Noise Power Spectrum]]**, que descreve a potência e a correlação espacial do ruído estocástico.
+
+Para predizer a percepção de médicos radiologistas, o modelo NPWE incorpora o filtro visual do olho humano $E(u, v)$ e o ruído interno de decisão ($\sigma_{\text{int}}$):
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+## 3. Métodos de Cálculo e Implementação Computacional
+
+O cálculo prático do índice de detectabilidade envolve etapas integradas de aquisição, processamento de imagem e modelagem matemática:
+
+1. **Aquisição de Imagens de Fantomas:** Utilização de fantomas cilíndricos ou antropomórficos escaneados sob protocolos clínicos ou de baixa dose.
+2. **Extração da TTF:** Medição da resposta espacial dependente do contraste através de inserções de esferas ou análise de bordas.
+3. **Cálculo do NPS:** Estimação bidimensional ou radial da textura e potência do ruído em regiões de interesse homogêneas.
+4. **Aplicação do Modelo de Observador:** Computação numérica via filtragem em frequência ou abordagens matriciais (como o *Channelized Hotelling Observer* — CHO) para obtenção de $d'$.

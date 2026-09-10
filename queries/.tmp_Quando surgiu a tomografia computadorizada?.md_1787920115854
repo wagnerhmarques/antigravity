@@ -1,0 +1,42 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Retroprojeção Filtrada (FBP)]], [[Transformada de Radon]], [[Física de Detectores em Tomografia Computadorizada]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Transformada de Radon]]
+
+## 1. Contexto Histórico e Cronologia do Surgimento
+
+A **[[Tomografia Computadorizada]]** (TC) teve seu desenvolvimento prático e clínico consolidado no início da década de 1970, revolucionando o diagnóstico por imagem ao permitir a visualização de cortes transversঞ্জেরes tridimensionais do corpo humano de forma não invasiva. O marco fundamental ocorreu em **1972**, quando o engenheiro britânico **Godfrey Hounsfield** e o físico sul-africano (naturalizado americano) **Allan Cormack** desenvolveram independentemente os fundamentos matemáticos e o primeiro protótipo funcional de um tomógrafo.
+
+Embora os princípios matemáticos da reconstrução de imagem a partir de projeções tenham sido descritos muito antes — notadamente pelo matemático austríaco **Johann Radon** em **1917** (através da formulação da *Transformada de Radon*) —, a tecnologia eletrônica, computacional e os detectores de raios-X da época não dispunham de capacidade de processamento suficiente para viabilizar a reconstrução numérica de imagens em tempo hábil. O primeiro scanner clínico cerebral foi instalado no *Atkinson Morley's Hospital* em Wimbledon, Reino Unido, realizando o primeiro exame em um paciente em **outubro de 1971** (com anúncio público oficial e publicação por Hounsfield em **1972**).
+
+## 2. Pilares Matemáticos e Tecnológicos Iniciais
+
+A viabilização da TC dependeu da união de avanços em três frentes fundamentais:
+
+1. **Modelagem Matemática (Transformada de Radon):** A relação entre os coeficientes de atenuação linear $\mu(x, y)$ de um meio e as projeções lineares coletadas externamente é descrita pela integral de linha:
+
+   
+
+$$
+P_{\theta}(t) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+2. **Algoritmos de Reconstrução:** A evolução das técnicas de retroprojeção simples para a **[[Retroprojeção Filtrada (FBP)]]** permitiu corrigir o desfoque espacial inerente às somas de projeções puras, aplicando um filtro de rampa no domínio da frequência:
+
+   
+
+$$
+\mu(x, y) = \int_{0}^{\pi} \left[ \int_{-\infty}^{\infty} S_{\theta}(\omega) |\omega| e^{j 2\pi \omega t} \, d\omega \right]_{t = x \cos\theta + y \sin\theta} \, \, \, d\theta
+$$
+
+3. **Instrumentação e Detecção:** Os primeiros sistemas utilizavam feixes estreitos de raios-X e detectores de iodeto de sódio ($\text{NaI}$) ou câmaras de xenônio, evoluindo posteriormente para matrizes complexas de estado sólido e detectores de contagem de fótons ([[Tomografia Computadorizada de Contagem de Fótons (PCD-CT)]]).
+
+## 3. Marcos Históricos da Evolução Tecnológica
+
+| Década / Ano | Marco Tecnológico / Científico | Descrição e Impacto Clínico |
+| :--- | :--- | :--- |
+| **1917** | Teoria Matemática | Johann Radon publica a demonstração de que uma função bidimensional pode ser reconstruída a partir de infinitas projeções lineares. |
+| **1963-1967** | Trabalhos Independentes de Cormack | Allan Cormack publica soluções práticas para o cálculo de coeficientes de atenuação, base para algoritmos futuros. |
+| **1971-1972** | Primeiro Exame Clínico (Hounsfield) | Instalação do protótipo no *Atkinson Morley's Hospital*; primeiro escaneamento bem-sucedido de um cisto cerebral. |
+| **1970s - 1980s** | Gerações de Scanners (1ª a 4ª Geração) | Transição de movimentos de translação-rotação para rotação contínua (anéis de deslizamento - *slip-ring*). |
+| **1990s** | Tomografia Helicoidal / Espiral | Introdução da aquisição volumétrica contínua com deslocamento simultâneo da mesa do paciente. |
+| **Século XXI** | TC Multislice (MDCT), Dual-Energy e DLR | Aumento drástico de canais de detecção, imagens espectrais e integração com **[[Inteligencia Artificial IA|Inteligência Artificial]]** e **[[Reconstrução Iterativa]]**. |

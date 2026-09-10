@@ -1,0 +1,37 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]], [[Otimização Multiobjetivo em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Projeto Doutorado Direto FAPESP Wagner 2026]], [[Índice de Detectabilidade]], [[Deep Learning Model Observer]], [[Tomografia Computadorizada]]
+
+## 1. Contextualização e Alinhamento Estratégico das Iniciativas
+
+A investigação científica em física médica e tomografia computadorizada (TC) avançada estruturada no âmbito do laboratório insere-se em uma matriz de fomento complementar composta pelo **Projeto de Doutorado Direto (FAPESP)**, pelo **Projeto AIR** (focado em reconstrução e inteligência artificial) e pelo **Auxílio Universal CNPq** (focado na infraestrutura metrológica e validação experimental). Enquanto o Projeto AIR fornece a base algorítmica de reconstrução avançada baseada em aprendizado profundo ([[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction-dlr]]) e o Universal CNPq consolida a infraestrutura de metrologia física (como a caracterização rigorosa de [[Task Transfer Function|task-transfer-function]] e [[Noise Power Spectrum|noise-power-spectrum]]), o **Projeto de Doutorado Direto FAPESP** opera como o elemento integrador de ponta na interseção entre percepção humana, observadores artificiais e otimização multiobjetivo baseada em tarefas ([[Task Based Image Quality|task-based-image-quality]]).
+
+## 2. Matriz de Complementaridade e Sinergia Metodológica
+
+A tabela a seguir detalha a divisão de papéis, as entregas tecnológicas e a sinergia direta entre as três frentes de fomento:
+
+| Eixo de Atuação | Projeto AIR (IA & Reconstrução) | Projeto Universal CNPq (Metrologia & Física) | Projeto Doutorado Direto FAPESP (Wagner, 2026) | Sinergia e Complementaridade Integrada |
+| :--- | :--- | :--- | :--- | :--- |
+| **Foco Primário** | Desenvolvimento de modelos de rede neural para supressão de ruído e artefatos em sinogramas e imagens. | Padronização metrológica, aquisição em fantomas físicos e calibração de detectores. | Desenvolvimento de [[Deep Learning Model Observer|deep-learning-model-observer]] com atenção e otimização multiobjetivo. | O Doutorado consome as imagens geradas pelo AIR e validadas metrologicamente pelo CNPq para estimar o desempenho diagnóstico real ($d'$). |
+| **Espaço de Dados** | Domínio do sinograma ($\mathbf{p}$) e domínio da imagem ruidosa ($\mathbf{x}$). | Fantomas antropomórficos físicos, medições de $CTDI_{\text{vol}}$ e dosimetria clínica. | Mapeamento end-to-end entre dados físicos/simulados e a métrica de detectabilidade ([[Índice de Detectabilidade|detectability-index]]). | Fechamento do ciclo: a otimização de dose ([[Métricas de Dose em TC|metrics-dose-tc]]) utiliza os modelos do doutorado validados pelo arcabouço CNPq/AIR. |
+| **Validação** | Métricas de erro de reconstrução (MSE, PSNR, SSIM) e preservação do Número CT. | Conformidade com diretrizes da AAPM (ex: [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]]) e normas IEC. | Estudos psicofísicos ([[Estudo de Observadores 2AFC|2afc-observer-study]]) com 20+ radiologistas especialistas. | O Doutorado eleva a validação técnica (AIR/CNPq) ao patamar clínico-perceptual humano. |
+
+## 3. Contribuições Específicas do Doutorado Direto sobre o Arcabouço Existente
+
+O projeto de Doutorado Direto expande significativamente o escopo dos projetos AIR e Universal CNPq através de quatro inovações fundamentais:
+
+1. **Superação de Métricas Tradicionais por Observadores Baseados em Atenção:** Enquanto o projeto AIR estabelece os algoritmos de reconstrução e o Universal CNPq mede o NPS e a TTF lineares, o Doutorado introduz arquiteturas baseadas em *Vision Transformers* para modelar o [[Deep Learning Model Observer|deep-learning-model-observer]]. Isso permite capturar não-linearidades espaciais complexas inseridas por algoritmos iterativos avançados e DLR comercial.
+2. **Integração na Fronteira de Pareto ($\varepsilon$-Dominância):** O projeto de doutorado implementa a otimização multiobjetivo formal via [[Algoritmo Genético NSGA-II|nsga-ii]] para resolver a tríade conflitante:
+
+$$
+_
+\min \left\{ D, \, T, \, -W \right\}
+$$
+
+Onde $D$ representa a dose de radiação ([[Métricas de Dose em TC|ctdivol]] / DLP), $T$ o tempo computacional de aquisição e reconstrução, e $W$ o desempenho de detectabilidade ($d'$ ou AUC) validado pelo ecossistema do CNPq.
+
+3. **Transferibilidade Inter-Fabricantes (*Leave-One-Scanner-Out*):** Utilizando a infraestrutura heterogênea consolidada no acervo (7 tomógrafos de 4 fabricantes distintos), o doutorado valida se os observadores treinados mantêm robustez estatística em diferentes ambientes tecnológicos, mitigando o viés de hardware presente em estudos isolados.
+
+## 4. Conclusão da Integração Sistêmica
+
+A articulação entre as três frentes garante que a pesquisa não permaneça restrita puramente ao desenvolvimento teórico de software (AIR) ou à bancada metrológica isolada (CNPq). O projeto de doutorado atua como a **instância de fechamento metodológico**, traduzindo melhorias físicas de aquisição e avanços de aprendizado de máquina em ganhos mensuráveis de eficácia diagnóstica clínica.

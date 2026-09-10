@@ -1,0 +1,68 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Métricas de Dose em TC]], [[Qualidade de Imagem em TC]]
+
+> 📅 **Data:** 2026-03-30 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Métricas de Dose em TC]]
+
+## 1. Natureza Física e Definição
+
+Os **raios X** constituem uma forma de radiação eletromagnética ionizante de alta energia, caracterizada por comprimentos de onda curtos (aproximadamente na faixa de $0{,}01 \text{ nm}$ a $10 \text{ nm}$) e energias de fótons variando tipicamente de $100 \text{ eV}$ a centenas de $\text{keV}$. No espectro eletromagnético, os raios X posicionam-se entre a radiação ultravioleta extrema e os raios gama.
+
+A diferenciação fundamental entre raios X e raios gama não reside na sua energia ou comprimento de onda, mas na sua **origem física**:
+- **Raios X:** São produzidos por processos extranucleares, através de interações de elétrons acelerados com a eletrosfera atômica ou por transições eletrônicas entre camadas internas.
+- **Raios Gama ($
+\gamma$):** São emitidos diretamente de reações e desintegrações do núcleo atômico instável.
+
+## 2. Mecanismos de Geração e Espectro de Emissão
+
+A geração de raios X em sistemas diagnósticos ocorre dentro de um tubo de raios X sob alto vácuo, no qual elétrons liberados do cátodo por emissão termiônica são acelerados por um potencial elétrico ($kV_p$) em direção a um alvo metálico no ânodo (geralmente tungstênio, $Z = 74$). A conversão da energia cinética dos elétrons incidentes resulta em dois processos radiativos fundamentais:
+
+### 2.1. Radiação de Frenagem (*Bremsstrahlung*)
+Ocorre quando um elétron incidente de alta velocidade passa próximo ao campo elétrico coulombiano do núcleo dos átomos do alvo. O elétron sofre desaceleração e desvio de trajetória, liberando parte ou a totalidade de sua energia cinética na forma de um fóton de raio X. Esse processo gera um **espectro contínuo** cuja energia máxima ($E_{\max}$) é numericamente igual à tensão máxima aplicada ao tubo:
+
+$$
+E_{\max} = e \cdot kV_p
+$$
+
+A intensidade espectral contínua pode ser expressa analiticamente pela relação de Kramers:
+
+$$
+\frac{dN}{dE} = K \cdot Z \cdot \left( E_{\max} - E \right)
+$$
+
+Onde $Z$ é o número atômico do alvo e $K$ é uma constante proporcional à corrente do tubo ($mA$).
+
+### 2.2. Radiação Característica
+Ocorre quando um elétron incidente possui energia suficiente para ejetar um elétron de uma camada interna (ex: camada $K$) do átomo do alvo. A lacuna gerada é prontamente preenchida por um elétron de uma camada mais externa (ex: camada $L$ ou $M$), emitindo um fóton com energia exatamente igual à diferença entre as energias de ligação dessas camadas:
+
+$$
+E_{\text{característico}} = E_K - E_L
+$$
+
+Para o tungstênio, as linhas características da camada $K$ ocorrem em energias discretas entre aproximadamente $59 \text{ keV}$ e $69 \text{ keV}$.
+
+## 3. Interação dos Raios X com a Matéria
+
+Ao atravessar a matéria, um feixe monocromático de raios X sofre atenuação exponencial regida pela lei de Beer-Lambert:
+
+$$
+I(x) = I_0 \cdot e^{-\mu x}
+$$
+
+Onde $I_0$ é a intensidade incidente, $x$ é a espessura do meio e $\mu$ é o coeficiente de atenuação linear. Na faixa de energias da radiologia diagnóstica e tomografia computadorizada ($20 \text{ keV}$ a $140 \text{ keV}$), os três principais mecanismos de interação são:
+
+| Mecanismo de Interação | Dependência do Número Atômico ($Z$) | Dependência da Energia ($E$) | Relevância Clínica / Diagnóstica |
+| :--- | :--- | :--- | :--- |
+| **[[Efeito Fotoelétrico]]** | $\propto Z^3$ | $\propto E^{-3}$ | Predomina em baixas energias; fornece alto contraste tecidual e diferenciação com meios de contraste (Iodo/Bário). |
+| **[[Espalhamento Compton]]** | Depende da densidade eletrônica $\rho_e$ | Decai suavemente com $E$ | Predomina em energias médias e altas; é a principal fonte de radiação espalhada e degradação de contraste. |
+| **Espalhamento Coerente (Rayleigh)** | $\propto Z^2$ | $\propto E^{-2}$ | Ocorre sem perda de energia; contribuição residual (< 5%) na faixa diagnóstica. |
+
+## 4. Relevância em Tomografia Computadorizada e Física Médica
+
+Em Tomografia Computadorizada (TC), os raios X são a ferramenta central de mapeamento volumétrico:
+1. **Unidades Hounsfield ($HU$):** O coeficiente de atenuação $\mu$ reconstruído em cada voxel é convertido no número TC relativo à água:
+
+$$
+HU = 1000 \times \frac{\mu_{\text{tecido}} - \mu_{\text{água}}}{\mu_{\text{água}}}
+$$
+
+2. **Policromaticidade e Endurecimento do Feixe:** Como o espectro gerado pelo tubo é policromático, fótons de menor energia são absorvidos preferencialmente ao atravessar o paciente. Isso provoca o fenômeno de endurecimento do feixe (*beam hardening*), exigindo filtros físicos (filtros em gravata borboleta / *bow-tie*) e algoritmos de correção numéricos.
+3. **Dosimetria e Proteção Radiológica:** O controle das propriedades do feixe de raios X é crucial para otimizar o compromisso entre a qualidade diagnóstica e a dose de radiação ionizante absorvida pelo paciente.

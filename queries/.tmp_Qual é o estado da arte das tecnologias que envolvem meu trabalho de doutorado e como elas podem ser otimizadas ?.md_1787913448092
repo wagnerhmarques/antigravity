@@ -1,0 +1,47 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[Deep Learning Model Observer]], [[Tomografia Computadorizada]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Otimização Multiobjetivo em TC]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[Deep Learning Model Observer]], [[Tomografia Computadorizada]], [[Photon Counting Detector CT (PCD-CT)]], [[Deep Learning Image Reconstruction (DLR)]], [[Otimização Multiobjetivo em TC]]
+
+## 1. Fundamentação do Estado da Arte em Imagem Baseada em Tarefas
+
+A metrologia contemporânea em [[Tomografia Computadorizada]] transitou de métricas puramente físicas de baixo nível — como o desvio padrão em regiões de interesse (ROI) e a Função de Transferência de Modulação (MTF) geométrica — para o paradigma da qualidade de imagem baseada em tarefas (*Task-Based Image Quality*), formalizado pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]] e ICRU. O ápice metodológico deste ecossistema reside na cuantificação rigorosa do [[Índice de Detectabilidade]] ($d'$), que sintetiza a resolução espacial dependente de contraste, a textura estocástica do ruído e a geometria do sinal patológico.
+
+Dada uma tarefa de detecção de um sinal conhecido em fundo estocástico, a detectabilidade ótima para um observador linear ideal (Hotelling / Prewhitening) no domínio de Fourier bidimensional é expressa por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde $W_{\text{task}}(u, v)$ representa a função de tarefa no domínio espacial convertida via transformada de Fourier, $\text{TTF}(u, v)$ é a [[Task Transfer Function]], e $\text{NPS}(u, v)$ é o [[Noise Power Spectrum]]. Para simular o sistema visual humano ([[Observadores de Modelo (Model Observers)|model-observers]]), o modelo Non-Prewhitening with Pattern Noise (NPWE) incorpora o filtro visual do observador humano $E(u, v)$ e o ruído interno de decisão $\sigma_{\text{int}}$:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+---
+
+## 2. Tecnologias de Ponta e Inovações Instrumentais
+
+O ecossistema tecnológico voltado à otimização diagnóstica e dosimétrica fundamenta-se em três pilares principais:
+
+1. **Detecção por Contagem de Fótons ([[Photon Counting Detector CT (PCD-CT)|photon-counting-detector-ct]]):** Substitui os detectores tradicionais de scintillação por semicondutores de conversão direta (CdTe ou CdZnTe). O PCD-CT elimina o ruído eletrônico via limiarização de energia (*energy thresholding*), permitindo aquisições multi-energéticas nativas, mitigação de artefatos de endurecimento de feixe (*beam hardening*) e aumento significativo da Razão Contraste-Ruído ($CNR$) com reduções expressivas na carga de meio de contraste iodado.
+2. **Reconstrução Baseada em Aprendizado Profundo ([[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]]):** Algoritmos de DLR removem o ruído quântico de alta frequência e os artefatos de projecções esparsas sem incorrer no desfoque isotrópico característico de filtros lineares, preservando a textura anatômica fina e elevando o $d'$ em protocolos de baixa dose de radiação.
+3. **Observadores Baseados em Deep Learning ([[Deep Learning Model Observer|deep-learning-model-observer]]):** Arquiteturas baseadas em redes neurais convolucionais e *Vision Transformers* treinadas para estimar diretamente o índice $d'$ a partir de volumes tomográficos e sinogramas, superando as limitações computacionais do clássico [[Channelized Hotelling Observer (CHO)|channelized-hotelling-observer]] em matrizes de alta dimensionalidade e correlacionando-se fortemente com estudos psicofísicos de radiologistas em [[Estudo de Observadores 2AFC|2afc-observer-study]].
+
+---
+
+## 3. Metodologia de Otimização Multiobjetivo
+
+A otimização de protocolos clínicos complexos exige a formulação de um problema de otimização multiobjetivo para equilibrar a tríade da Física Médica: Minimização de Dose ($D$), Minimização de Tempo ($T$) e Maximização de Desempenho Diagnóstico ($W = d'$):
+
+$$
+\min_{\mathbf{x}} \left\{ D(\mathbf{x}), T(\mathbf{x}), -W(\mathbf{x}) \right\}
+$$
+
+Sujeito às restrições regulatórias e clínicas de linearidade em Unidades Hounsfield e preservação de texturas:
+
+$$
+\left\{ \begin{array}{l}\text{HU}_{\text{ref}} - \epsilon \le \text{HU}(\mathbf{x}) \le \text{HU}_{\text{ref}} + \epsilon \ \text{ICC}(\text{TTF}, \text{NPS}) \ge 0{,}90\end{array} \right.
+$$
+
+Esta formulação é resolvida computacionalmente utilizando algoritmos evolutivos multiobjetivo, como o [[Algoritmo Genético NSGA-II|nsga-ii]], operando em conjunto com modelos substitutos baseados em Processos Gaussianos aplicados a [[Phantoms Híbridos|phantoms-hibridos]].

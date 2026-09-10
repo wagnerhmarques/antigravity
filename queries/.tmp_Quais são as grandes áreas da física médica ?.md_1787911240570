@@ -1,0 +1,74 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Física Médica]], [[Tomografia Computadorizada]], [[Radioproteção]], [[Radioterapia]], [[Medicina Nuclear]], [[Qualidade de Imagem em TC]], [[Inteligência Artificial em Saúde]], [[Simulação de Monte Carlo]]
+
+## 1. Divisão Taxonômica das Grandes Áreas da Física Médica
+
+A Física Médica é uma disciplina aplicada na interface entre a física teórica/experimental, a engenharia e a medicina. Conforme formalizado por organizações internacionais e nacionais de referência — como a *American Association of Physicists in Medicine* (AAPM), a *International Organization for Medical Physics* (IOMP) e a Associação Brasileira de Física Médica (ABFM) —, a especialidade subdivide-se tradicionalmente em quatro grandes áreas consolidadas, somadas a domínios emergentes de inovação tecnológica:
+
+1. **Física do Radiodiagnóstico e Imagem Médica:** Focada na otimização da aquisição, reconstrução e análise de imagens estruturais e funcionais obtidas via radiações ionizantes (Raios X, [[Tomografia Computadorizada]]) e não ionizantes (Ressonância Magnética, Ultrassom).
+2. **Física da Radioterapia (Radioterapia Oncológica):** Voltada ao planejamento, dosimetria e entrega precisa de doses terapêuticas de radiação em tecidos tumorais, preservando estruturas sadias adjacentes (*Organs at Risk* - OAR).
+3. **Física da Medicina Nuclear e Imagem Molecular:** Especializada na administração de radiofármacos para diagnóstico in vivo (PET/CT, SPECT/CT) e terapia radionuclídica (Teranóstica), além da dosimetria interna radiológica.
+4. **Radioproteção e Dosimetria das Radiações:** Área transversal encarregada do blindamento de instalações, monitoração individual, controle de efluentes radioativos e garantia do cumprimento do princípio ALARA (*As Low As Reasonably Achievable*).
+5. **Áreas Emergentes (Física Médica Computacional e Inteligência Artificial):** Integração de computação de alto desempenho, [[Simulação de Monte Carlo]], radiômica quantitativa e modelos de aprendizado profundo ([[Deep Learning Image Reconstruction (DLR)]]).
+
+---
+
+## 2. Formulada Matemática e Princípios Metrológicos Transversais
+
+Independentemente da subárea clínica, a física médica fundamenta-se na quantificação rigorosa da transferência de energia da radiação ionizante para a matéria biológica. A grandeza fundamental da dosimetria é a **Dose Absorvida** ($D$), definida como a energia média $d\bar{\epsilon}$ depositada pela radiação ionizante em um elemento de massa $dm$:
+
+$$
+D = \frac{d\bar{\epsilon}}{dm}
+$$
+
+A caracterização biológica do impacto da radiação traduz-se na **Dose Equivalente** ($H_T$), que pondera a dose absorvida no tecido $T$ pelo fator de ponderação da radiação $w_R$:
+
+$$
+H_T = \sum_{R} w_R \cdot D_{T,R}
+$$
+
+No domínio da qualidade de imagem e teoria de detecção em radiodiagnóstico, o desempenho estatístico da tarefa diagnóstica é expresso pelo **[[Índice de Detectabilidade]]** ($d'$), que combina formalmente a resolução espacial dependentemente do contraste, o ruído estocástico e a tarefa de detecção:
+
+$$
+d'^2 = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde $W_{\text{task}}(u, v)$ representa a transformada de Fourier do sinal patológico, $\text{TTF}(u, v)$ é a [[Task Transfer Function]] e $\text{NPS}(u, v)$ é o [[Noise Power Spectrum]].
+
+---
+
+## 3. Matriz Comparativa das Grandes Áreas
+
+A tabela a seguir sintetiza os objetivos técnicos, ferramentas e métricas centrais de cada grande subárea da Física Médica:
+
+| Grande Área | Foco Principal | Principais Modalidades / Tecnologias | Grandezas e Métricas Chave |
+| :--- | :--- | :--- | :--- |
+| **Física do Radiodiagnóstico** | Otimização da qualidade diagnóstica vs. redução de dose | TC, Mammografia, Raios X Digital, RM, Ultrassom | $d'$, TTF, NPS, DQE, CTDIvol, DLP, SSDE |
+| **Física da Radioterapia** | Conformidade de dose tumoral e proteção de tecidos sadios | Aceleradores Lineares (LINAC), IMRT, VMAT, Braquiterapia, Próton-Terapêutica | Dose Absorvida ($Gy$), TCP, NTCP, Índice Gamma ($\gamma$), PTV/OAR |
+| **Física da Medicina Nuclear** | Imagem molecular quantitativa e terapia por radionucleídeos | PET/CT, SPECT/CT, Câmaras Cintas, Teranóstica ($^{177}\text{Lu}$, $^{131}\text{I}$) | SUV, Atividade Comulativa (Bq), MIRD, Dosimetria Lesional Interna |
+| **[[Radioproteção]]** | Segurança radiológica de ocupantes, pacientes e público | Barreiras primárias/secundárias, Dosímetros de TLD/OSL, Monitores de Área | Dose Efetiva ($Sv$), kerma no ar ($K_{\text{ar}}$), Níveis de Referência Diagnósticos (DRLs) |
+| **Física Médica Computacional** | Automação, modelagem in silico e reconstrução por IA | [[Simulação de Monte Carlo]] (EGSnrc, Geant4), Redes Neural Convolucionais, DLR | Perda de Fidelidade, Matriz de Confusão, Feature Maps, Radiomics AUC |
+
+---
+
+## 4. Contexto no Acervo e Integração Tecnológica
+
+No acervo da LLM Wiki (USP/FAPESP), a divisão das áreas da física médica não ocorre de forma isolada, mas sim através de uma convergência metodológica centrada na **Tomografia Computadorizada** e no desenvolvimento de soluções computacionais de ponta:
+
+1. **Fronteira Radiodiagnóstico-Medicina Nuclear:** A introdução de detectores de contagem de fótons ([[Photon Counting Detector CT (PCD-CT)]]) revolucionou o radiodiagnóstico ao aproximá-lo da espectroscopia de energia, permitindo a quantificação direta de materiais (iodo, água, cálcio) de forma análoga à medicina nuclear quantitativa.
+2. **Conexão Radiodiagnóstico-Radioproteção:** Estudos de dosimetria física utilizam [[Phantoms Híbridos]] e simulações computacionais para estabelecer estratégias de [[Radioproteção|ALARA]], garantindo que avanços em alta resolução espacial não resultem em incrementos injustificados na dose absorvida pelo paciente.
+3. **Transversalidade da Inteligência Artificial:** Conforme evidenciado na nota sobre [[Inteligência Artificial em Saúde]], a física médica moderna utiliza modelos de IA tanto para a reconstrução de alta qualidade em radiodiagnóstico ([[Deep Learning Image Reconstruction (DLR)]]) quanto para o cálculo ultra-rápido de dose em radioterapia via redes neurais informadas pela física (PINNs).
+
+---
+
+## 5. Conexões e Wikilinks
+
+- [[Física Médica]]
+- [[Tomografia Computadorizada]]
+- [[Radioproteção]]
+- [[Índice de Detectabilidade]]
+- [[Task Transfer Function]]
+- [[Noise Power Spectrum]]
+- [[Photon Counting Detector CT (PCD-CT)]]
+- [[Deep Learning Image Reconstruction (DLR)]]
+- [[Simulação de Monte Carlo]]
+- [[Inteligência Artificial em Saúde]]

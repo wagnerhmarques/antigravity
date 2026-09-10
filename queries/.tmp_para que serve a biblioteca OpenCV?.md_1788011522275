@@ -1,0 +1,38 @@
+> 📅 **Data:** 2026-08-29 | 🔗 **Conexões:** [[Processamento Digital de Imagens]], [[Visão Computacional]], [[Tomografia Computadorizada]], [[Observadores de Modelo (Model Observers)]], [[Qualidade de Imagem em TC]]
+
+## 1. Visão Geral e Propósito da Biblioteca OpenCV
+
+A **OpenCV** (*Open Source Computer Vision Library*) é uma biblioteca de código aberto com bindings para C++, Python, Java e Julia, desenvolvida primariamente para processamento de imagens, visão computacional e aprendizado de máquina. No contexto da [[Física Médica]] e da engenharia de imagem em [[Tomografia Computadorizada]], a biblioteca atua como uma infraestrutura computacional essencial para manipulação matricial, extração automática de regiões de interesse (ROIs), filtragem espacial, pré-processamento de matrizes de atenuação e automação de rotinas de controle de qualidade.
+
+## 2. Principais Funcionalidades e Operações Algorítmicas
+
+A OpenCV fornece um ecossistema abrangente de algoritmos de baixo, médio e alto nível. Entre as funções mais empregadas na análise quantitativa de imagens médicas, destacam-se:
+
+- **Filtragem Espacial e Suavização:** Aplicação de operações de convoluição bidimensional e tridimensional para redução de ruído estocástico e realce de bordas estruturais utilizando filtros Gaussianos, medianos e bilaterais.
+- **Segmentação e Detecção de Contornos:** Algoritmos de limiarização adaptativa (*adaptive thresholding*), *Watershed* e algoritmos de detecção de bordas (como Canny) para a delimitação de órgãos em risco, lesões e alvos em phantoms de calibração.
+- **Análise no Domínio da Frequência:** Suporte otimizado à Transformada Rápida de Fourier (FFT), fundamental para a caracterização espectral de ruído em métricas como o [[Noise Power Spectrum]] (NPS) e a avaliação de resposta em frequência via [[Modulation Transfer Function (MTF)|Função de Transferência de Modulação (MTF)]].
+- **Transformações Geométricas e Registro:** Homografias e transformações afins para alinhamento rígido e não-rígido de imagens tomográficas sequenciais ou de modalidades híbridas (como PET/TC e SPECT/TC).
+
+A operação de suavização Gaussiana $2D$ aplicada sobre uma matriz de imagem $I(x, y)$ é modelada por:
+
+$$
+(I * G)(x, y) = \iint_{-\infty}^{\infty} I(x - u, y - v) \cdot \frac{1}{2\pi \sigma^2} \exp\left( -\frac{u^2 + v^2}{2\sigma^2} \right) \\, du \\, dv
+$$
+
+## 3. Aplicações em Física Médica e Tomografia Computadorizada
+
+Em pipelines de pesquisa e rotina em [[Tomografia Computadorizada]], a OpenCV costuma ser integrada a bibliotecas médicas especializadas (como PyDICOM e SimpleITK) para cumprir papéis críticos:
+
+1. **Automação no Controle de Qualidade (QC):** Identificação e segmentação automatizada de inserções de teste em simuladores físicos (*phantoms* como Catphan ou AAPM CT Phantom), calculando automaticamente a média das Unidades Hounsfield (HU) e o desvio padrão do ruído em regiões de interesse padronizadas.
+2. **Preparação de Dados para Observadores de Modelo:** Extração e alinhamento de *patches* contendo sinais anatômicos ou lesões sintéticas para treinamento e avaliação de modelos computacionais como o [[Channelized Hotelling Observer (CHO)]], o [[NPWE Model Observer]] e abordagens baseadas em [[Deep Learning Model Observer (DLMO)]].
+3. **Cálculo da Resolução Espacial:** Processamento de imagens de esferas ou fios de alto contraste para obtenção da *Point Spread Function* (PSF) e cálculo da MTF por diferenciação numérica do perfil de borda (*Edge Spread Function* - ESF).
+
+## 4. Estrutura dos Módulos Principais da OpenCV
+
+| Módulo OpenCV | Função Principal | Aplicação em Tomografia / Física Médica |
+| :--- | :--- | :--- |
+| `core` | Estruturas de dados matriciais e operações algebráticas | Manipulação direta de matrizes de atenução/HU e conversão de profundidades de bits. |
+| `imgproc` | Processamento de imagem, filtragem, transformação de cor e contornos | Segmentação de phantoms, suavização de ruído e cálculo de gradientes espaciais. |
+| `features2d` | Detecção e descrição de pontos característicos (SIFT, ORB) | Alinhamento e registro de projeções de raios-X e cortes anatômicos. |
+| `dnn` | Módulo de inferência para redes neurais profundas | Deploy de modelos de aprendizado profundo para segmentação de lesões e [[Deep Learning Image Reconstruction (DLR)]]. |
+| `calib3d` | Calibração de câmeras e geometria tridimensional | Correção geométrica e reconstrução em sistemas de tomografia cone-beam (CBCT). |

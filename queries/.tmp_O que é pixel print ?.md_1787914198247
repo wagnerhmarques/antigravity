@@ -1,0 +1,39 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]], [[Unidades Hounsfield]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+
+## 1. Fundamentação Conceitual e Arquitetura do Pixelprint
+
+O arcabouço **Pixelprint** refere-se a uma tecnologia avançada de fabricação aditiva voltada para a produção de fantomas antropomórficos e específicos para pacientes (*patient-specific phantoms*) em Tomografia Computadorizada (TC). Desenvolvido para superar as limitações dos fantomas homogêneos tradicionais ou impressos em material único, o Pixelprint baseia-se na deposição voxel a voxel de filamentos poliméricos dopados com diferentes números atômicos efetivos ($Z_{\text{eff}}$), permitindo replicar com alta fidelidade metrológica a heterogeneidade radiológica de tecidos moles, estruturas ósseas e implantes metálicos complexos.
+
+Na prática da física médica, a validação de protocolos de aquisição, a otimização de doses e o desenvolvimento de algoritmos de redução de artefatos dependem de fantomas que simulem de forma acurada não apenas a atenuação macroscópica de raios X, mas também a resposta espectral e a severidade de artefatos de feixe duro e de fótons espalhados gerados por dispositivos metálicos.
+
+## 2. Formulação Matemática da Densidade Radiológica e Modulação de Artefatos
+
+No método de impressão de duplo filamento associado ao Pixelprint, o coeficiente de atenuação linear efetivo $\mu(x, y, E)$ em cada ponto do fantoma impresso é controlado pela fração volumétrica de mistura dos filamentos constituintes:
+
+$$
+\mu(x, y, E) = f_{\text{matriz}}(x, y) \cdot \mu_{\text{matriz}}(E) + f_{\text{dopante}}(x, y) \cdot \mu_{\text{dopante}}(E)
+$$
+
+Onde $\mu_{\text{matriz}}(E)$ representa o coeficiente de atenuação do polímero base (como o ácido polilático, PLA) e $\mu_{\text{dopante}}(E)$ o do material dopante (por exemplo, compostos de cálcio para simulação óssea ou ligas metálicas como aço inoxidável para implantes). A exatidão radiométrica é avaliada por meio da concordância das Unidades Hounsfield ($\text{HU}$):
+
+$$
+\text{HU} = 1000 \times \frac{\mu(x, y, E_{\text{ef}} - \mu_{\text{água}}(E_{\text{ef}})}{\mu_{\text{água}}(E_{\text{ef}}) - \mu_{\text{ar}}(E_{\text{ef}})}
+$$
+
+Para a quantificação rigorosa da severidade de estrias e artefatos gerados por implantes metálicos embutidos, o modelo estatístico de Gumbel é frequentemente aplicado para caracterizar a distribuição assimétrica dos erros de atenuação nas regiões de interesse circundantes:
+
+$$
+F(x; \mu, \beta) = \exp \left\{ - \exp \left( - \frac{x - \mu}{\beta} \right) \right\}
+$$
+
+Onde $\mu$ representa o parâmetro de localização associado à intensidade dominante do artefato e $\beta$ o parâmetro de escala da dispersão estatística dos valores de $\text{HU}$ corrompidos.
+
+## 3. Aplicações em Tomografia Computadorizada Espectral e Redução de Artefatos
+
+A integração do **Pixelprint** com sistemas de Tomografia Computadorizada Espectral (como sistemas de contagem de fótons ou dupla energia) viabiliza:
+
+- **Controle Rigoroso de Artefatos Metálicos:** A fabricação de fantomas com inflição metálica controlada (ex.: de $0%$ a $85%$) permite isolar e quantificar o impacto de artefatos de endurecimento de feixe e espalhamento.
+- **Otimização de Imagens Virtuais Monoenergéticas (VMI):** O uso de níveis energéticos elevados ($130-190$ keV) em fantomas fabricados via Pixelprint demonstra mitigação significativa de estrias metálicas, preservando a delineação geométrica de estruturas anatômicas adjacentes a parafusos ortopédicos ou espinhais.
+- **Dosimetria e Radiômica Quantitativa:** Assegura a reprodutibilidade de métricas de textura e exatidão geométrica essenciais para testes de controle de qualidade e validação de inteligência artificial em exames de alta complexidade.

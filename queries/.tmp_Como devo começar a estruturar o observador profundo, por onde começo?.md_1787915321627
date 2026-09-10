@@ -1,0 +1,48 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Deep Learning Model Observer]], [[Índice de Detectabilidade]], [[Estudo de Observadores 2AFC]], [[Observadores de Modelo (Model Observers)]], [[Task Based Image Quality]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Deep Learning Model Observer]], [[Índice de Detectabilidade]], [[Estudo de Observadores 2AFC]]
+
+## 1. Arquitetura Inicial e Definição do Escopo Metodológico
+
+A estruturação de um observador-modelo baseado em aprendizado profundo (*Deep Learning Model Observer* - DLMO) exige uma abordagem metodológica rigorosa dividida em etapas incrementais. O ponto de partida fundamental consiste em estabelecer o pipeline de aquisição e a base de dados de treinamento, que deve conter pares rigorosos de imagens médicas com e sem sinal (lesões simuladas ou inseridas em phantoms).
+
+A formulação da rede neural deve ser projetada para estimar o [[Índice de Detectabilidade]] ($d'$) ou a probabilidade de acerto diretamente de volumes tomográficos ou regiões de interesse (ROIs) tridimensionais, mapeando a transformação não-linear imposta por algoritmos como [[Deep Learning Image Reconstruction (DLR)|deep-learning-reconstruction]].
+
+## 2. Pipeline de Desenvolvimento e Treinamento
+
+O processo de desenvolvimento de um DLMO com mecanismos de atenção (como Vision Transformers ou CNNs híbridas) consolida-se em quatro fases essenciais:
+
+1. **Geração e Curadoria do Dataset:** Extração de ROIs a partir de imagens de phantoms físicos ([[Phantoms Híbridos|phantoms-hibridos]]) e simulações numéricas, aplicando o paradigma *Signal Known Exactly / Background Known Exactly* (SKE/BKE).
+2. **Calibração contra Observadores Clássicos:** Utilização inicial de observadores lineares consolidados, como o *Channelized Hotelling Observer* ([[Channelized Hotelling Observer (CHO)|cho-model-observer]]) e o filtro [[NPWE Model Observer|npwe-model-observer]], para gerar os valores de referência (*ground truth* estatístico de $d'$).
+3. **Validação Psicofísica Humana:** Condução de experimentos de dupla escolha forçada ([[Estudo de Observadores 2AFC|2afc-observer-study]]) com radiologistas especialistas para assegurar que a acurácia da rede correlaciona-se estritamente com a percepção humana sob curvas ROC e AUC.
+4. **Otimização da Função de Perda:** Implementação de funções de perda baseadas na minimização do erro quadrático e na maximização da concordância de classificação de tarefas de baixo contraste.
+
+## 3. Formulação Matemática do Treinamento
+
+Para otimizar os pesos $\theta$ da rede neural profunda $\mathcal{G}_\theta$ de modo que ela emule o observador ideal em termos de detectabilidade, a função de perda ($\mathcal{L}$) é formulada no espaço de probabilidade do teste 2-AFC ou via regressão direta do índice $d'$:
+
+$$
+\mathcal{L}(\theta) = \frac{1}{K} \sum_{k=1}^{K} \left( d'_{\text{ref}}^{(k)} - \mathcal{G}_\theta\left( \text{ROI}_{\text{sinal}}^{(k)}, \text{ROI}_{\text{fundo}}^{(k)} \right) \right)^2
+$$
+
+Onde o índice de referência $d'_{\text{ref}}$ é calculado analiticamente por observadores lineares validados ou derivado da probabilidade de acerto humana através da relação estatística:
+
+$$
+P_{\text{2AFC}} = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\frac{d'}{\sqrt{2}}} e^{-\frac{x^2}{2}} \\, dx
+$$
+
+O vetor de decisão da rede é ponderado por mecanismos de atenção espacial orientados a destacar regiões anatômicas críticas, superando as limitações de observadores lineares estacionários perante texturas de ruído não-estacionárias.
+
+## 4. Tabela Comparativa das Abordagens de Observadores
+
+| Tipo de Observador | Vantagens Principais | Limitações Metodológicas | Correlação Humana ($r$) | Custo Computacional |
+| :--- | :--- | :--- | :--- | :--- |
+| **CNR Tradicional** | Simplicidade de cálculo | Falha em ruído não-estacionário | Baixa ($r \approx 0.36$) | Mínimo |
+| **NPWE / CHO** | Rigor matemático e analítico | Exige suposições lineares e estacionárias | Alta ($r \ge 0.85$) | Moderado |
+| **DLMO (Profundo)** | Captura não-linearidades e atenção contextual | Exige vasto conjunto de dados e validação cruzada | Muito Alta ($r > 0.90$) | Elevado (Treinamento) |
+
+## 5. Próximos Passos Recomendados
+
+- **Passo 1:** Implementar o baseline linear clássico com base nas diretrizes do [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]].
+- **Passo 2:** Estruturar a extração automatizada de perfis [[Task Transfer Function|task-transfer-function]] (TTF) e [[Noise Power Spectrum|noise-power-spectrum]] (NPS) para compor o acervo de treinamento.
+- **Passo 3:** Desenvolver a arquitetura baseada em Vision Transformer utilizando frameworks de Deep Learning em ambiente Python com validação *leave-one-scanner-out*.

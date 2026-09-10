@@ -1,0 +1,54 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Índice de Detectabilidade** ($d'$, *d-prime*) é a métrica objetiva padrão-ouro da física médica contemporânea (formalizada pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]], ICRU Report 54 e ICRU Report 98) para quantificar a qualidade diagnóstica de uma imagem tomográfica baseada em tarefa (*Task-Based Image Quality*).
+
+Diferentemente de métricas clássicas puramente físicas — como a Relação Sinal-Ruído ([[Contrast To Noise Ratio|CNR]]) e a Resolução Espacial isolada ([[Task Transfer Function|TTF]]) —, o índice $d'$ sintetiza a capacidade estatística de um observador (humano ou matemático — [[Observadores de Modelo (Model Observers)|model-observers]]) discriminar uma hipótese de sinal presente ($H_1$) contra uma hipótese de apenas ruído de fundo ($H_0$).
+
+---
+
+## 2. Formulação Matemática Rigorosa (Teoria de Decisão e Frequência Espacial)
+
+Pela Teoria de Detecção de Sinais (SDT), $d'$ quantifica a separação normalizada entre as distribuições das variáveis de decisão sob as hipóteses $H_1$ (sinal presente) e $H_0$ (sinal ausente):
+
+$$
+d' = \frac{langle t angle_{H_1} - langle t angle_{H_0}}{\sqrt{\frac{1}{2} \left( \sigma_{t, H_1}^2 + \sigma_{t, H_0}^2 \right)}}
+$$
+
+### A. Observador Linear Ideal / Hotelling com Pré-branqueamento (PW)
+No domínio contínuo da frequência espacial bidimensional $\mathbf{u} = (u, v)$, para ruído estacionário gaussiano:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ é a **Função de Tarefa** (*Task Function*), dada pela Transformada de Fourier 2D da diferença de atenuação do sinal anatômico/patológico em relação ao fundo circundante;
+* $\text{TTF}(u, v)$ é a **[[Task Transfer Function|Task-based Transfer Function]]**, que descreve a resposta em frequência e a preservação de contraste do sistema para o sinal específico;
+* $\text{NPS}(u, v)$ é o **[[Noise Power Spectrum|Noise Power Spectrum]]**, que caracteriza a potência e a correlação espacial do ruído estocástico.
+
+### B. Observador Não-Branqueador com Filtro Visual Humano (NPWE)
+Para predizer com fidelidade a percepção de médicos radiologistas, o modelo NPWE incorpora o filtro visual do olho humano $E(u, v)$ e o ruído interno de decisão ($\sigma_{\text{int}}$):
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+O filtro visual humano $E(f)$ (parametrizado em ciclos por grau de ângulo visual para uma distância de observação $d_{\text{obs}}$) é comumente modelado por:
+
+$$
+E(f) = |f|^c \exp\left( -k |f|^d \right)
+$$
+
+---
+
+## 3. Contexto no Acervo e Aplicações Práticas
+
+O Índice de Detectabilidade ($d'$) atua como a métrica mestre de otimização no ecossistema de pesquisas em tomografia computadorizada:
+
+1. **Avaliação Não-Linear de Deep Learning ([[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]] - DLR):** Permite comprovar aumentos significativos na detectabilidade de lesões de baixo contraste em protocolos de baixa dose, superando as falhas do CNR tradicional frente a texturas de ruído não-estacionárias.
+2. **Observadores Profundos com Atenção ([[Deep Learning Model Observer|deep-learning-model-observer]] - DL-MO):** Em projetos de Doutorado Direto, o observador computacional é treinado para estimar $d'$ diretamente de sinogramas e volumes 3D em phantoms físicos antropomórficos, sendo validado contra experimentos psicofísicos de radiologistas.
+3. **Otimização Multiobjetivo no Espaço de Pareto ([[Otimização Multiobjetivo em TC|otimizacao-multiobjetivo-tc]] / [[Algoritmo Genético NSGA-II|nsga-ii]]):** O índice $d'$ atua como a função-objetivo primária de qualidade de imagem ($\max d'$), balanceada simultaneamente contra a minimização de dose ($\min \text{CTDI}_{\text{vol}}$).

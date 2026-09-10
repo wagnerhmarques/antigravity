@@ -1,0 +1,44 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[X-Ray Tube And Spectra]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Radioproteção]]
+
+> 📅 **Data:** 2026-08-26 | 🔗 **Conexões:** [[X-Ray Tube And Spectra]], [[Tomografia Computadorizada]], [[Radioproteção]]
+
+## 1. Definição e Natureza Eletromagnética
+
+Os raios-X constituem uma forma de radiação eletromagnética ionizante de alta frequência e comprimento de onda extremamente curto, situando-se no espectro eletromagnético entre a radiação ultravioleta extrema e os raios gama. Comprimentos de onda típicos utilizados em aplicações médicas variam de $0.01\text{ nm}$ a $0.1\text{ nm}$ ($10\text{ pm}$ a $100\text{ pm}$), correspondendo a energias de fótons tipicamente entre $10\text{ keV}$ e $150\text{ keV}$.
+
+Devido à sua natureza dual (onda-partícula), os raios-X propagam-se à velocidade da luz no vácuo e interagem com a matéria de forma discreta através de fótons. Em sistemas de diagnóstico por imagem e [[Tomografia Computadorizada]], a utilidade clínica decorre da capacidade desses fótons de penetrar tecidos biológicos e sofrer atenuação diferencial de acordo com a densidade eletrônica e o número atômico efetivo ($Z$) dos meios materiais atravessados.
+
+## 2. Mecanismos Físicos de Geração
+
+A produção controlada de raios-X para fins médicos ocorre em tubos de vácuo especializados (conforme detalhado em [[X-Ray Tube And Spectra]]), onde elétrons acelerados por uma diferença de potencial elevada ($kV_p$) colidem com um alvo metálico de alto número atômico (geralmente tungstênio, $Z = 74$). O processo de conversão da energia cinética dos elétrons em radiação eletromagnética dá-se fundamentalmente por dois mecanismos:
+
+1. **Radiação de Bremsstrahlung (Frenagem):** Ocorre quando um elétron incidente penetra no campo elétrico do núcleo atômico do material do ânodo. O elétron sofre forte desaceleração e desvio em sua trajetória, resultando na perda de energia cinética que é emitida sob a forma de um fóton de raio-X. O espectro energético resultante é contínuo, estendendo-se desde zero até uma energia máxima estipulada pelo potencial aplicado:
+   
+
+$$
+E_{\max} = e \cdot kV_p
+$$
+
+2. **Radiação Característica:** Ocorre quando um elétron ejetado do feixe primário colide com um elétron das camadas internas (camada K ou L) do átomo do ânodo, removendo-o. O preenchimento dessa lacuna por um elétron de camada externa resulta na emissão de um fóton cuja energia corresponde exatamente à diferença de energia entre os orbitais envolvidos:
+   
+
+$$
+\Delta E = E_{\text{externa}} - E_{\text{interna}}
+$$
+
+## 3. Interação com a Matéria Biológica
+
+Ao atravessarem o corpo humano, os fótons de raios-X interagem com os átomos teciduais predominantemente através de dois processos principais nas faixas de energia diagnóstica:
+
+- **Efeito Fotoelétrico:** O fóton incidente transfere toda a sua energia para um elétron ligado das camadas internas, que é ejetado como fotoelétron. Este mecanismo depende fortemente do número atômico ($Z^3$) e da energia ($E^{-3}$), sendo responsável pelo contraste anatômico primário entre ossos e tecidos moles.
+- **Espalhamento Compton:** Ocorre a colisão inelástica entre o fóton e um elétron fracamente ligado das camadas externas, resultando na ejeção do elétron e no desvio (espalhamento) do fóton com perda parcial de energia. 
+
+A probabilidade de atenuação linear total ($\mu$) em um meio homogêneo é expressa pela somatória das seções de choque dos processos de interação:
+
+$$
+\mu(E) = \tau_{\text{fotoelétrico}}(E) + \sigma_{\text{Compton}}(E) + dots
+$$
+
+## 4. Relevância em Tomografia Computadorizada
+
+Na [[Tomografia Computadorizada]], o feixe policromático gerado sofre o fenômeno de endurecimento do feixe (*beam hardening*), exigindo calibrações metrológicas rigorosas e algoritmos de correção computacional para evitar artefatos de imagem. O controle preciso da dose, a filtragem do feixe e a otimização da energia do tubo são pilares fundamentais da [[Radioproteção]] e da garantia de qualidade diagnóstica.

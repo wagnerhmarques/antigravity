@@ -1,0 +1,58 @@
+> 📅 **Data:** 2026-09-08 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[Deep Learning Image Reconstruction (DLR)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **SSW-$d'$** (*Slice Sensitivity Windowed Detectability Index* ou Índice de Detectabilidade Ponderado pela Janela de Sensibilidade de Corte) é uma extensão tridimensional e quase-volumétrica do [[Índice de Detectabilidade]] ($d'$) convencional. Em tomografia computadorizada multislice (MDCT) e tomografia de feixe cônico (CBCT), o cálculo padrão do $d'$ (conforme preconizado pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|AAPM TG-233]]) é frequentemente restrito ao plano axial bidimensional ($x, y$), assumindo que a tarefa de detecção ocorre em uma única fatia isolada.
+
+Contudo, na rotina clínica, lesões patológicas (nódulos pulmonares, metástases hepáticas, hemorragias) possuem extensão volumétrica tridimensional, e a capacidade diagnóstica do observador depende fortemente da resolução longitudinal ao longo do eixo $z$. O **SSW-$d'$** incorpora o perfil de sensibilidade de corte (*Slice Sensitivity Profile* - SSP) e a função de abertura longitudinal (*Slice Sensitivity Window* - SSW) no modelo de observador matemático, permitindo quantificar com precisão o impacto da espessura de corte reconstruída, do *pitch* helicoidal e da amostragem longitudinal na detectabilidade de lesões volumétricas.
+
+---
+
+## 2. Formulação Matemática Rigorosa
+
+### A. Limitação do Modelo 2D Clássico
+No modelo 2D tradicional com observador não-branqueador com filtro visual ([[NPWE Model Observer|NPWE]]), a detectabilidade de uma lesão é calculada integrando apenas as frequências espaciais no plano $(u, v)$:
+
+$$
+d'^2_{\text{2D}} = \frac{\left[ \iint_{-\infty}^{\infty} |W_{\text{task}}(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} |W_{\text{task}}(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot \text{NPS}(u, v) \cdot E^4(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Esse modelo desconsidera a média volumétrica parcial (*partial volume effect*) introduzida pela integração finita do detector e da reconstrução no eixo $z$.
+
+### B. Integração da Janela de Sensibilidade de Corte (SSW)
+O SSW-$d'$ estende a formulação incorporando a resposta em frequência longitudinal $\text{TTF}_z(w)$ ou a convolução do perfil de espessura de corte $\text{SSW}(z)$ com a função de tarefa 3D $W_{\text{task}}(u, v, w)$:
+
+$$
+W_{\text{SSW}}(u, v) = \int_{-\infty}^{\infty} W_{\text{task}}(u, v, w) \cdot \text{SSW}(w) \\, dw
+$$
+
+Onde:
+* $W_{\text{task}}(u, v, w) = \mathcal{F}_{3D}\{\Delta \mu(x, y, z)\}$ representa o espectro volumétrico tridimensional da lesão alvo;
+* $\text{SSW}(w) = \mathcal{F}\{\text{SSP}(z)\}$ é a transformada de Fourier da resposta de sensibilidade de corte do tomógrafo ao longo do eixo $z$;
+* $\text{TTF}(u, v)$ e $\text{NPS}(u, v)$ são a [[Task Transfer Function]] e o [[Noise Power Spectrum]] medidos no plano axial com a espessura de corte correspondente.
+
+A detectabilidade ponderada final resulta em:
+
+$$
+d'^2_{\text{SSW}} = \frac{\left[ \iint_{-\infty}^{\infty} |W_{\text{SSW}}(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot E^2(u, v) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} |W_{\text{SSW}}(u, v)|^2 \cdot \text{TTF}^2(u, v) \cdot \text{NPS}(u, v) \cdot E^4(u, v) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+---
+
+## 3. Comparação Metrológica: Modelos de Detectabilidade em TC
+
+| Característica | $d'$ 2D Clássico (AAPM TG-233) | **SSW-$d'$ (Ponderado por Corte)** | $d'$ 3D Volumétrico Completo |
+| :--- | :--- | :--- | :--- |
+| **Domínio de Integração** | Frequências planas $(u, v)$ | Frequências planas $(u, v)$ filtradas por $\text{SSW}(w)$ | Volume espectral total $(u, v, w)$ |
+| **Sensibilidade à Espessura ($z$)** | Indireta (via ruído do corte) | **Direta** (modela efeito de volume parcial) | Direta (requer $\text{NPS}_{3D}$ e $\text{TTF}_{3D}$) |
+| **Custo Computacional** | Muito baixo | **Baixo/Moderado** | Alto (exige covariância 3D) |
+| **Representatividade Clínica** | Limitada para lesões esféricas pequenas | **Excelente para protocolos multislice de rotina** | Padrão-ouro para leitura volumétrica multiplanar |
+
+---
+
+## 4. Aplicação em Reconstruções Avançadas (IR e DLR)
+
+Em algoritmos modernos como [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]], a resolução e a textura do ruído variam acentuadamente entre o plano axial e o eixo longitudinal:
+
+1. **Modelagem do Efeito de Volume Parcial:** Em cortes espessos (ex.: $5\text{ mm}$), pequenos nódulos pulmonares sofrem atenuação aparente severa. O SSW-$d'$ penaliza matematicamente o sinal através do termo $\text{SSW}(w)$, refletindo a queda real de detectabilidade que o $d'$ 2D superestimaria.
+2. **Otimização de Espessura vs. Ruído:** Permitindo avaliar o *trade-off* exato entre cortes finos (menor volume parcial, maior ruído estocástico) e cortes espessos (menor ruído, maior borramento em $z$), orientando a parametrização de protocolos clínicos com rigor psicofísico.

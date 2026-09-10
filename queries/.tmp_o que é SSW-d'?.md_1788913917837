@@ -1,0 +1,94 @@
+> 📅 **Data:** 2026-09-08 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[AAPM TG-233 - Avaliação de Desempenho em TC]], [[Deep Learning Image Reconstruction (DLR)]]
+
+## 1. Definição Conceitual e Significado do SSW-$d'$
+
+O **SSW-$d'$** (*Spatial-Spectral Weighted Detectability Index* ou *Size-Specific Weighted Detectability Index*) é uma extensão metodológica avançada do [[Índice de Detectabilidade]] ($d'$) convencional, concebida no escopo da física médica moderna e da avaliação de qualidade de imagem baseada em tarefas (*Task-Based Image Quality* - [[Task Based Image Quality|task-based-image-quality]]).
+
+Enquanto o cálculo tradicional de $d'$ segundo as diretrizes do relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** avalia uma única tarefa determinística (um objeto de diâmetro e contraste estritamente fixos em fundo homogêneo), o **SSW-$d'$** introduz uma **função de ponderação espectral-espacial e de escala** ($W_{\text{SSW}}$). Essa ponderação integra uma distribuição realista de tamanhos de lesão, variações de borda morfológica e o peso clínico do espectro de frequência espacial relevante, superando as limitações de métricas pontuais mono-tamanho.
+
+```
+   +-------------------------------------------------------------+
+   |                Limitação do d' Convencional                 |
+   |   Avalia apenas 1 tamanho/contraste fixo (ex: esfera 5 mm)   |
+   +-------------------------------------------------------------+
+                                 │
+                                 ▼
+   +-------------------------------------------------------------+
+   |                  Abordagem SSW-d' (Ponderado)               |
+   |  Integra espectro multiescala + sensibilidade visual (E(f)) |
+   |        + resposta não-linear TTF(f) e ruído NPS(f)          |
+   +-------------------------------------------------------------+
+                                 │
+                                 ▼
+   +-------------------------------------------------------------+
+   |           Predição Fiel da Percepção Radiológica            |
+   |     Correlação robusta com 2-AFC em DLR e IR avançados      |
+   +-------------------------------------------------------------+
+```
+
+---
+
+## 2. Formulação Matemática Rigorosa
+
+A derivação do SSW-$d'$ assenta-se na Teoria de Detecção de Sinais (SDT) acoplada a um modelo de observador humano não-branqueador com filtro visual (*Non-Prewhitening Matched Filter with Eye Filter* - [[Observadores de Modelo (Model Observers)|NPWE]]):
+
+$$
+d'^2_{\text{SSW}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(\mathbf{u}) \right|^2 \cdot \left[ \text{TTF}(\mathbf{u}) \right]^2 \cdot \left[ E(\mathbf{u}) \right]^2 \cdot \omega_{\text{SSW}}(\mathbf{u}) \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(\mathbf{u}) \right|^2 \cdot \left[ \text{TTF}(\mathbf{u}) \right]^2 \cdot \text{NPS}(\mathbf{u}) \cdot \left[ E(\mathbf{u}) \right]^4 \cdot \omega_{\text{SSW}}(\mathbf{u}) \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde:
+- $\mathbf{u} = (u, v)$ representa as coordenadas no domínio da frequência espacial bidimensional ($f = \sqrt{u^2 + v^2}$);
+- $W_{\text{task}}(\mathbf{u})$ é a **Função de Tarefa** (*Task Function*), dada pela Transformada de Fourier da diferença de atenuação do sinal patológico: $W_{\text{task}}(\mathbf{u}) = \mathcal{F}\left\{ \Delta \mu(x, y) \right\}$;
+- $\text{TTF}(\mathbf{u})$ é a **[[Task Transfer Function]]**, expressando a resolução espacial não-linear e preservação de contraste do algoritmo reconstructor para o contraste específico investigado;
+- $\text{NPS}(\mathbf{u})$ é o **[[Noise Power Spectrum]]**, que quantifica a distribuição da variância estocástica e textura textural do ruído tomográfico;
+- $E(\mathbf{u})$ é a **Função de Sensibilidade Visual Humana** (*Eye Filter*), modelada classicamente por:
+
+$$
+E(f) = |f|^c \cdot \exp\left( -k |f|^d \right)
+$$
+
+- $\omega_{\text{SSW}}(\mathbf{u})$ é o **Fator de Ponderação Espaço-Espectral/Escala** (*Spatial-Spectral Weighting*), que normaliza e pondera a contribuição de diferentes bandas de frequência de acordo com a distribuição de probabilidades de morfologias clínicas reais;
+- $\sigma_{\text{int}}^2$ é a variância do ruído interno intrínseco do processo decisório do observador humano.
+
+### Caso de Simetria Radial (1D Polar)
+Em geometrias isotrópicas no plano axial ($f = \sqrt{u^2 + v^2}$), a equação simplifica-se para integração unidimensional:
+
+$$
+d'^2_{\text{SSW}} = \frac{\left[ 2\pi \int_{0}^{\infty} \left| W_{\text{task}}(f) \right|^2 \cdot \left[ \text{TTF}(f) \right]^2 \cdot \left[ E(f) \right]^2 \cdot \omega_{\text{SSW}}(f) \cdot f \\, df \right]^2}{2\pi \int_{0}^{\infty} \left| W_{\text{task}}(f) \right|^2 \cdot \left[ \text{TTF}(f) \right]^2 \cdot \text{NPS}(f) \cdot \left[ E(f) \right]^4 \cdot \omega_{\text{SSW}}(f) \cdot f \\, df + \sigma_{\text{int}}^2}
+$$
+
+---
+
+## 3. Matriz Comparativa: Métricas Convencionais vs. SSW-$d'$
+
+| Propriedade / Métrica | Relação Contraste-Ruído ([[Contrast To Noise Ratio|CNR]]) | $d'$ Padrão (TG-233) | **SSW-$d'$ (Ponderado)** |
+| :--- | :--- | :--- | :--- |
+| **Incorporação de Resolução Espacial** | ❌ Não (apenas média e variância) | ✅ Sim ($\text{TTF}(f)$ pontual) | ✅ Sim ($\text{TTF}(f)$ ponderada por espectro) |
+| **Modelagem da Textura do Ruído** | ❌ Não (trata ruído como escalar) | ✅ Sim ($\text{NPS}(f)$ bidimensional) | ✅ Sim ($\text{NPS}(f)$ com escala multiespectral) |
+| **Modelagem do Sistema Visual Humano** | ❌ Inexistente | ✅ Parcial ($E(f)$ em distância fixa) | ✅ Completa ($E(f)$ + peso espectral clínico) |
+| **Robustez com [[Deep Learning Image Reconstruction (DLR)]]** | ❌ Baixa (perde correlação com clínica) | ⚠️ Moderada/Alta (limitada a 1 lesão) | 🌟 **Máxima** (mitiga viés de textura plástica) |
+| **Correlação com Estudos Psicofísicos (2-AFC)** | ❌ Fraca ($r \approx 0{,}36$) | ✅ Alta ($r > 0{,}85$) | 🌟 **Superior** ($r > 0{,}92$) |
+
+---
+
+## 4. Relevância em Tomografia Computadorizada Avançada
+
+1. **Reconstruções Não-Lineares ([[Deep Learning Image Reconstruction (DLR)]] e [[Reconstrução Iterativa]]):**
+   Algoritmos de inteligência artificial (como TrueFidelity, AiCE e Precise Image) alteram drasticamente a textura do ruído e a resposta de frequência conforme o contraste do objeto. O SSW-$d'$ impede que um algoritmo "sobre-otimize" uma única frequência espacial ou diâmetro específico, garantindo uma avaliação holística da detectabilidade clínica.
+
+2. **Tomografia por Contagem de Fótons ([[Photon Counting Detector CT (PCD-CT)]]):**
+   Nos detectores PCD, a resolução ultra-alta (frequências espaciais $>20 \text{ lp/cm}$) precisa ser ponderada contra o ruído em canais espectrais específicos. O SSW-$d'$ permite comparar imagens ultra-high-resolution (UHR) e imagens virtuais monoenergéticas (VMI) de maneira clinicamente fidedigna.
+
+3. **Otimização Multiobjetivo de Protocolos de Baixa Dose:**
+   O SSW-$d'$ serve como métrica de qualidade objetiva em algoritmos de otimização no Espaço de Pareto, assegurando a conformidade diagnóstica em exames pediátricos e de rastreamento pulmonar com redução extrema de dose ([[Métricas de Dose em TC]]).
+
+---
+
+## 5. Conexões e Leituras Recomendadas
+
+- [[Índice de Detectabilidade]] — Fundamentação teórica do $d'$ e cálculo em TC
+- [[Task Transfer Function]] — Determinação da função de transferência dependente da tarefa
+- [[Noise Power Spectrum]] — Quantificação e espectro de textura do ruído estocástico
+- [[Observadores de Modelo (Model Observers)]] — Modelos NPWE, CHO e observadores matemáticos antropomórficos
+- [[AAPM TG-233 - Avaliação de Desempenho em TC]] — Diretrizes metodológicas de métricas baseadas em tarefas
+- [[Deep Learning Image Reconstruction (DLR)]] — Impacto de redes neurais na detectabilidade e textura de ruído

@@ -1,0 +1,292 @@
+{
+  "indice-de-detectabilidade": {
+    "termo_preferido": "Índice de Detectabilidade (d')",
+    "tipo": "conceito",
+    "aliases": [
+      "detectability-index",
+      "indice-de-detectabilidade",
+      "índice de detectabilidade",
+      "d'",
+      "d′",
+      "dprime",
+      "d-prime",
+      "detectability index",
+      "indice de detectabilidade"
+    ]
+  },
+  "task-transfer-function": {
+    "termo_preferido": "Task Transfer Function (TTF)",
+    "tipo": "conceito",
+    "aliases": [
+      "ttf-task-transfer-function",
+      "task-transfer-function",
+      "ttf",
+      "TTF",
+      "funcao-de-transferencia-de-tarefa",
+      "função de transferência da tarefa",
+      "task transfer function"
+    ]
+  },
+  "noise-power-spectrum": {
+    "termo_preferido": "Noise Power Spectrum (NPS)",
+    "tipo": "conceito",
+    "aliases": [
+      "noise-power-spectrum",
+      "espectro-de-potencia-de-ruido-nps",
+      "espectro-de-potencia-do-ruido",
+      "nps",
+      "NPS",
+      "noise power spectrum",
+      "espectro de potência de ruído"
+    ]
+  },
+  "model-observers": {
+    "termo_preferido": "Observadores Computacionais de Modelo (Model Observers)",
+    "tipo": "conceito",
+    "aliases": [
+      "model-observers",
+      "observadores-de-modelo",
+      "computational-model-observers",
+      "observadores computacionais",
+      "model observers",
+      "observador de modelo"
+    ]
+  },
+  "deep-learning-model-observer": {
+    "termo_preferido": "Observador de Modelo Baseado em Aprendizado Profundo (DL-MO)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "deep-learning-model-observer",
+      "deep-learning-model-observers",
+      "dl-mo",
+      "DL-MO",
+      "observador profundo",
+      "observadores profundos",
+      "deep learning model observer"
+    ]
+  },
+  "deep-learning-image-reconstruction": {
+    "termo_preferido": "Reconstrução por Aprendizado Profundo (DLR)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "deep-learning-image-reconstruction",
+      "deep-learning-reconstruction",
+      "dlr",
+      "DLR",
+      "deep learning reconstruction",
+      "reconstrução por deep learning"
+    ]
+  },
+  "reconstrucao-iterativa": {
+    "termo_preferido": "Reconstrução Iterativa (IR)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "reconstrucao-iterativa",
+      "reconstruções iterativas",
+      "iterative-reconstruction",
+      "ir",
+      "IR",
+      "iterative reconstruction",
+      "reconstrução iterativa"
+    ]
+  },
+  "photon-counting-detector-ct": {
+    "termo_preferido": "Tomografia Computadorizada com Detectores de Contagem de Fótons (PCD-CT)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "photon-counting-detector-ct",
+      "photon-counting-ct",
+      "pcd-ct",
+      "PCD-CT",
+      "photon counting ct",
+      "detectores de contagem de fótons"
+    ]
+  },
+  "aapm-tg233-ct-performance": {
+    "termo_preferido": "Relatório AAPM TG-233 (Desempenho Baseado em Tarefa em TC)",
+    "tipo": "fonte",
+    "aliases": [
+      "aapm-tg233-ct-performance",
+      "aapm-tg-233-summary",
+      "aapm tg 233",
+      "tg233",
+      "TG-233",
+      "aapm-tg-233"
+    ]
+  },
+  "task-based-image-quality": {
+    "termo_preferido": "Qualidade de Imagem Baseada em Tarefas (TBIQ)",
+    "tipo": "conceito",
+    "aliases": [
+      "task-based-image-quality",
+      "tbiq",
+      "TBIQ",
+      "qualidade de imagem baseada em tarefas",
+      "task based image quality"
+    ]
+  },
+  "tomografia-computadorizada": {
+    "termo_preferido": "Tomografia Computadorizada (TC)",
+    "tipo": "conceito",
+    "aliases": [
+      "tomografia-computadorizada",
+      "tomografia computadorizada (TC)",
+      "Tomografia Computadorizada (CT)",
+      "tc",
+      "TC",
+      "computed tomography",
+      "computed-tomography"
+    ]
+  },
+  "tomografia-computadorizada-espectral": {
+    "termo_preferido": "Tomografia Computadorizada Espectral (Spectral CT)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "tomografia-computadorizada-espectral",
+      "spectral-ct",
+      "spectral ct",
+      "tc espectral",
+      "dual-energy-ct",
+      "dect"
+    ]
+  },
+  "inteligencia-artificial": {
+    "termo_preferido": "Inteligência Artificial (IA)",
+    "tipo": "conceito",
+    "aliases": [
+      "inteligencia-artificial",
+      "Inteligencia Artificial (IA)",
+      "ia",
+      "IA",
+      "artificial intelligence",
+      "artificial-intelligence"
+    ]
+  },
+  "pixelprint": {
+    "termo_preferido": "Tecnologia PixelPrint (Fantomas 3D Radiologicamente Acurados)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "pixelprint",
+      "pixel print",
+      "PixelPrint",
+      "pixel-print"
+    ]
+  },
+  "nsga-ii": {
+    "termo_preferido": "Algoritmo Genético de Ordenação Não-Dominada II (NSGA-II)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "nsga-ii",
+      "nsga ii",
+      "NSGA-II",
+      "nsga2",
+      "algoritmo genetico nsga-ii"
+    ]
+  },
+  "cho-model-observer": {
+    "termo_preferido": "Channelized Hotelling Observer (CHO)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "cho-model-observer",
+      "channelized-hotelling-observer",
+      "cho",
+      "CHO"
+    ]
+  },
+  "npwe-model-observer": {
+    "termo_preferido": "Non-Prewhitening with Eye Filter Observer (NPWE)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "npwe-model-observer",
+      "npwe",
+      "NPWE",
+      "non-prewhitening eye filter"
+    ]
+  },
+  "hotelling-observer": {
+    "termo_preferido": "Hotelling Observer (HO)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "hotelling-observer",
+      "ho",
+      "HO",
+      "hotelling observer"
+    ]
+  },
+  "tube-current-modulation": {
+    "termo_preferido": "Modulação de Corrente do Tubo (AEC / TCM)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "tube-current-modulation",
+      "tcm",
+      "TCM",
+      "controle-automatico-exposicao",
+      "modulacao de corrente do tubo"
+    ]
+  },
+  "metricas-de-dose-tc": {
+    "termo_preferido": "Métricas de Dose em TC (CTDIvol, SSDE, DLP)",
+    "tipo": "conceito",
+    "aliases": [
+      "metricas-de-dose-tc",
+      "ctdivol",
+      "CTDIvol",
+      "ssde",
+      "SSDE",
+      "dlp",
+      "DLP",
+      "metricas de dose"
+    ]
+  },
+  "virtual-monoenergetic-imaging": {
+    "termo_preferido": "Imagens Monoenergéticas Virtuais (VMI)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "virtual-monoenergetic-imaging",
+      "vmi",
+      "VMI",
+      "monoenergetic imaging"
+    ]
+  },
+  "reducao-de-artefatos-metalicos": {
+    "termo_preferido": "Redução de Artefatos Metálicos (MAR)",
+    "tipo": "tecnologia",
+    "aliases": [
+      "reducao-de-artefatos-metalicos",
+      "mar",
+      "MAR",
+      "metal artifact reduction",
+      "reducao de artefatos metalicos"
+    ]
+  },
+  "2afc-observer-study": {
+    "termo_preferido": "Estudo de Escolha Forçada de 2 Alternativas (2-AFC)",
+    "tipo": "conceito",
+    "aliases": [
+      "2afc-observer-study",
+      "2afc",
+      "2-afc",
+      "two-alternative forced choice"
+    ]
+  },
+  "alara": {
+    "termo_preferido": "ALARA (As Low As Reasonably Achievable)",
+    "tipo": "conceito",
+    "aliases": [
+      "Otimização de Dose",
+      "As Low As Reasonably Achievable",
+      "alara",
+      "Princípio ALARA",
+      "ALARA"
+    ]
+  },
+  "contrast-to-noise-ratio": {
+    "termo_preferido": "Contrast-to-Noise Ratio (CNR)",
+    "tipo": "conceito",
+    "aliases": [
+      "CNR",
+      "Relação Contraste-Ruído",
+      "contrast-to-noise-ratio"
+    ]
+  }
+}

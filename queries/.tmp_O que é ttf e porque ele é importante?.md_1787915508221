@@ -1,0 +1,36 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Task Transfer Function]], [[Resolução Espacial]], [[Noise Power Spectrum]], [[Índice de Detectabilidade]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Task Transfer Function]], [[Resolução Espacial]], [[Noise Power Spectrum]], [[Índice de Detectabilidade]]
+
+## 1. Fundamentação Conceitual e Limitações da MTF Tradicional
+
+A **Task Transfer Function (TTF)**, ou Função de Transferência de Tarefa, representa uma evolução metrológica fundamental na avaliação da qualidade de imagem em sistemas modernos de Tomografia Computadorizada (TC). Historicamente, a resolução espacial era quantificada por meio da Função de Transferência de Modulação (MTF) linear tradicional, medida utilizando fios finos ou bordas afiadas sob condições estritas de baixo ruído e linearidade.
+
+Contudo, os algoritmos de reconstrução atuais — como a Reconstrução Iterativa Avançada e as arquiteturas de Aprendizado Profundo ([[Deep Learning Image Reconstruction (DLR)]]) — introduzem não-linearidades espaciais significativas. Nesses sistemas, a resposta do scanner depende fortemente do nível de ruído, da dose de radiação administrada e do contraste local do objeto. A [[Task Transfer Function]] resolve essa lacuna ao estender a análise para cenários *task-specific* (dependentes da tarefa), avaliando o comportamento do sistema diante de estruturas anatômicas de interesse clínico real.
+
+## 2. Formulação Matemática e Propriedades
+
+A determinação da TTF baseia-se tipicamente na análise de perfis de borda em phantoms padronizados conforme os protocolos do AAPM TG-233. A partir do perfil de intensidade médio $overline{I}(x)$ extraído de uma interface de contraste, calcula-se a Função de Espalhamento de Linha específica da tarefa ($LSF_{\text{task}}$):
+
+$$
+LSF_{\text{task}}(x) = \frac{d}{dx} \left[ overline{I}(x) \right]
+$$
+
+A **Task Transfer Function** normalizada no domínio da frequência espacial radial ($u$) é expressa como o módulo da Transformada de Fourier da $LSF_{\text{task}}$, normalizada pela sua amplitude na frequência zero:
+
+$$
+\text{TTF}(u) = \left| \frac{\mathcal{F} \left\{ LSF_{\text{task}}(x) \right\}}{\mathcal{F} \left\{ LSF_{\text{task}}(x) \right\}_{u=0}} \right| = \left| \frac{\int_{-\infty}^{\infty} LSF_{\text{task}}(x) e^{-j 2 \pi u x} \\, dx}{\int_{-\infty}^{\infty} LSF_{\text{task}}(x) \\, dx} \right|
+$$
+
+Diferente da MTF clássica, a TTF exibe dependência direta com:
+1. **Contraste de Fundo ($\Delta C$):** Magnitude da diferença de atenuação entre o objeto e o meio adjacente.
+2. **Nível de Ruído ($\sigma^2$):** Variações decorrentes da dose e da supressão de ruído não-linear inerente aos filtros iterativos.
+3. **Frequência Espacial ($u, v$):** Capturando anisotropias geométricas decorrentes das matrizes de reconstrução.
+
+## 3. Importância na Prática Clínica e Otimização de Imagem
+
+A relevância da TTF reside na sua capacidade de prever com precisão o desempenho diagnóstico em tarefas clínicas desafiadoras (como a detecção de microcalcificações ou nódulos pulmonares de baixo contraste). Suas principais aplicações englobam:
+
+* **Acoplamento com Modelos de Observadores:** Atua em conjunto com o [[Noise Power Spectrum]] (NPS) como entrada primária para o cálculo do [[Índice de Detectabilidade]] ($d'$), quantificando o desempenho de observadores humanos e computacionais ([[Deep Learning Model Observer|deep-learning-model-observer]]).
+* **Controle de Qualidade Avançado:** Permite monitorar a integridade de protocolos complexos de varredura e algoritmos proprietários ([[ADMIRE (Advanced Modeled Iterative Reconstruction)|admire-reconstruction]]), assegurando alta reprodutibilidade estatística ($\text{ICC} \ge 0{,}90$).
+* **Otimização de Dose e Nitidez:** Auxilia físicos médicos a balancear o ganho de resolução espacial sem incorrer na amplificação excessiva de artefatos ou ruído quântico indesejado.

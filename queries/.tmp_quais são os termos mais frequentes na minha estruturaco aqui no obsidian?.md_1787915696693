@@ -1,0 +1,28 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Tomografia Computadorizada]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Mapeamento de Frequência e Ocorrência de Termos no Acervo
+
+A análise do acervo estruturado revela a predominância de conceitos fundamentados na Teoria de Detecção de Sinais, na metrologia baseada em tarefas e nas tecnologias avançadas de reconstrução. Os termos e conceitos mais recorrentes nos documentos de fontes e taxonomias encontram-se sumarizados na tabela abaixo.
+
+| Termo / Conceito Canônico | Categoria Taxonômica | Frequência Relativa | Relevância no Cofre |
+| :--- | :--- | :--- | :--- |
+| `[[Índice de Detectabilidade]]` ($d'$) | Conceito / Métrica | Altíssima | Métrica central de desempenho diagnóstico e otimização multiobjetivo. |
+| `[[Observadores de Modelo (Model Observers)]]` | Conceito / Metodologia | Alta | Simulação computacional de tarefas visuais humanas (NPWE, CHO, Hotelling). |
+| `[[Tomografia Computadorizada]]` | Modalidade / Domínio | Altíssima | Contexto principal de aplicação clínica, física e metrológica do acervo. |
+| `[[Task Transfer Function]]` ($\text{TTF}$) | Métrica Física | Alta | Caracterização da resolução espacial dependente de contraste. |
+| `[[Noise Power Spectrum]]` ($\text{NPS}$) | Métrica Física | Alta | Quantificação da textura e potência espacial do ruído estocástico. |
+| `[[Deep Learning Image Reconstruction (DLR)]]` | Tecnologia | Média-Alta | Avaliação de algoritmos não lineares e preservação de detectabilidade. |
+| `[[Otimização Multiobjetivo em TC]]` | Metodologia | Média | Formulação da fronteira de Pareto balanceando Dose, Tempo e Desempenho ($W$). |
+
+## 2. Distribuição Topológica e Agrupamentos Conceituais
+
+A alta incidência de termos associados à [[Task Based Image Quality|qualidade de imagem baseada em tarefas]] reflete o direcionamento metodológico do acervo para a superação das limitações das métricas tradicionais (como CNR isolada). Os agrupamentos principais estruturam-se em torno de:
+
+- **Eixo Metrológico e Físico:** Destacando a integração entre $\text{TTF}$, $\text{NPS}$ e $d'$ conforme as diretrizes do relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|AAPM TG-233]].
+- **Eixo de Inteligência Artificial e Reconstrução:** Envolvendo redes neurais, [[Reconstrução Iterativa|reconstrução iterativa]] e DLR, analisadas sob a ótica de preservação de texturas e linearidade.
+- **Eixo de Otimização e Dosimetria:** Focado na redução do produto dose-comprimento ($\text{CTDI}_{\text{vol}}$) sem perda de detectabilidade de lesões de baixo contraste.
+
+$$
+\sum_{i=1}^{N} \text{Frequência}(T_i) \propto \text{Relevância Estrutural no Doutorado Direto}
+$$
+

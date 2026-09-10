@@ -1,0 +1,55 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Índice de Detectabilidade** ($d'$, *d-prime*) é a métrica objetiva padrão-ouro da física médica contemporânea — formalizada pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]] e relatórios ICRU — para quantificar a qualidade diagnóstica de uma imagem tomográfica baseada em tarefa (*Task-Based Image Quality*). 
+
+Diferentemente de métricas clássicas puramente físicas como a Relação Contraste-Ruído ([[Contrast To Noise Ratio|CNR]]) e a Resolução Espacial isolada, o índice $d'$ sintetiza a capacidade estatística de um observador (humano ou matemático — [[Observadores de Modelo (Model Observers)|model-observers]]) discriminar uma hipótese de sinal presente ($H_1$) contra uma hipótese de apenas ruído de fundo ($H_0$).
+
+## 2. Formulação Matemática Rigorosa (Espaço de Fourier & Teoria de Decisão)
+
+Pela Teoria de Detecção de Sinais (SDT), $d'$ quantifica a separação normalizada entre as distribuições das variáveis de decisão sob as hipóteses $H_1$ (sinal presente) e $H_0$ (sinal ausente):
+
+$$
+d' = \frac{langle t angle_{H_1} - langle t angle_{H_0}}{\sqrt{\frac{1}{2} \left( \sigma_{t, H_1}^2 + \sigma_{t, H_0}^2 \right)}}
+$$
+
+### A. Observador Linear Ideal / Hotelling (Prewhitening - PW)
+No domínio contínuo da frequência espacial bidimensional $\mathbf{u} = (u, v)$, para ruído estacionário gaussiano:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ é a **Função de Tarefa** (*Task Function*), dada pela Transformada de Fourier 2D da diferença de atenuação do sinal anatômico/patológico em relação ao fundo circundante;
+* $\text{TTF}(u, v)$ é a **[[Task Transfer Function|Task-based Transfer Function]]**, que descreve a resposta em frequência e preservação de contraste do sistema para o contraste específico do sinal;
+* $\text{NPS}(u, v)$ é o **[[Noise Power Spectrum|Noise Power Spectrum]]**, que descreve a potência e correlação espacial do ruído estocástico.
+
+### B. Observador Não-Branqueador com Filtro Visual Humano (NPWE)
+Para predizer a percepção de médicos radiologistas, o modelo NPWE incorpora o filtro visual do olho humano $E(u, v)$ e o ruído interno de decisão ($\sigma_{\text{int}}$):
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+O filtro visual humano $E(f)$ é comumente modelado por:
+
+$$
+E(f) = |f|^c \exp\left( -k |f|^d \right)
+$$
+
+### C. Formulação Matricial Discreta (Channelized Hotelling Observer - CHO)
+Para imagens discretizadas com vetor de sinal $\Delta\bar{\mathbf{g}}$ e matriz de covariância do ruído $\mathbf{K} \in \mathbb{R}^{N \times N}$, aplicando $M$ canais antropomórficos representados pela matriz $\mathbf{U} \in \mathbb{R}^{N \times M}$:
+
+$$
+d'^2_{\text{CHO}} = \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)^T \left( \mathbf{U}^T \mathbf{K} \mathbf{U} \right)^{-1} \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)
+$$
+
+## 3. Contexto no Acervo e Aplicações Práticas
+
+O Índice de Detectabilidade ($d'$) atua como a métrica mestre de otimização em TC:
+1. **Avaliação de Reconstruções Avançadas:** Permite mensurar de forma fidedigna a qualidade de imagem em algoritmos de Reconstrução Iterativa (IR) e [[Deep Learning Image Reconstruction (DLR)|Deep Learning Image Reconstruction (DLR)]], superando as falhas do CNR convencional perante texturas de ruído não-estacionárias.
+2. **Otimização de Dose ([[Métricas de Dose em TC|métricas-de-dose-em-tc]]):** Guia o desenvolvimento e a validação de protocolos clínicos voltados à radioproteção e à redução de dose sem perda de acurácia diagnóstica.

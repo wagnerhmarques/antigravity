@@ -1,0 +1,45 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Fisica Medica]], [[Tomografia Computadorizada]], [[Radioproteção]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Fisica Medica]], [[Tomografia Computadorizada]], [[Radioproteção]]
+
+## 1. Fundamentação e Escopo de Atuação
+A [[Fisica Medica]] fundamenta-se na aplicação dos princípios e métodos da física à medicina e à biologia humana, estruturando-se primordialmente em três grandes áreas clássicas: **Radiodiagnóstico e Imagem Médica**, **Radioterapia** e **Medicina Nuclear**. Adicionalmente, a disciplina abrange a **Proteção Radiológica (Radioproteção)** e a **Metrologia das Radiações**, atuando de forma transversal para assegurar o equilíbrio entre a eficácia clínica diagnóstica/terapêutica e a minimização de riscos biológicos.
+
+No escopo da radiologia diagnóstica e, em particular, na [[Tomografia Computadorizada]], a atuação da física médica expandiu-se da simples calibração instrumental e controle de qualidade para a otimização baseada em tarefas (*Task-Based Image Quality*), integrando métricas quantitativas avançadas de desempenho de imagem.
+
+---
+
+## 2. Divisão Estrutural das Grandes Áreas
+
+A tabela a seguir resume os pilares de atuação da física médica, destacando os objetivos físicos, as grandezas de interesse e as tecnologias associadas:
+
+| Grande Área | Foco Clínico e Físico | Principais Parâmetros / Grandezas | Tecnologias e Ferramentas | Relação com a Otimização |
+| :--- | :--- | :--- | :--- | :--- |
+| **Radiodiagnóstico & Imagem** | Avaliação da formação de imagem, atenuação diferencial e qualidade diagnóstica. | $\text{HU}$, $\text{TTF}(u, v)$, $\text{NPS}(u, v)$, $d'$, $\text{CTDI}_{\text{vol}}$ | TC, Ressonância Magnética, Mamografia, Radiografia Digital | Maximização do [[Índice de Detectabilidade]] sob restrição de dose ([[Radioproteção]]). |
+| **Radioterapia** | Planejamento de tratamento, entrega precisa de dose e simulação computacional. | Dose Absorvida (Gy), DVH, Fluência de Feixe, Correção Inhomogênea | Aceleradores Lineares (LINAC), IMRT, VMAT, Simulação de Monte Carlo | Otimização da conformidade tumoral com preservação de tecidos sadios. |
+| **Medicina Nuclear** | Mapeamento da função fisiológica e metabólica por meio de radiofármacos. | Atividade In vivo (MBq), Sensibilidade, Resolução Espacial | PET/CT, SPECT/CT, Câmaras Gama | Quantificação precisa da biodistribuição e cinética molecular. |
+| **Radioproteção & Metrologia** | Gestão de riscos ocupacionais, médicos e públicos associados à radiação ionizante. | Equivalente de Dose, Limites Anuais, Blindagem Estrutural | Dosímetros (TLD, OSL), Câmaras de Ionização | Aplicação rigorosa dos princípios de Justificação, Otimização e Limitação. |
+
+---
+
+## 3. Formulação Metrológica e Avaliação Baseada em Tarefas
+
+Nas fronteiras modernas do [[Radiodiagnóstico]], a avaliação de desempenho nas grandes áreas de imagem cruza a teoria de detecção de sinais com a física estatística. Para quantificar a detectabilidade de lesões de baixo contraste em sistemas complexos, o [[Índice de Detectabilidade]] ($d'$) é formalizado em termos da função de tarefa $W_{\text{task}}(u, v)$, da [[Task Transfer Function]] ($\text{TTF}$), e do [[Noise Power Spectrum]] ($\text{NPS}$), conforme a formulação para o observador NPWE:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde $E(u, v)$ representa o filtro visual humano, $\sigma_{\text{int}}^2$ o ruído interno de decisão, e as integrais cobrem o domínio bidimensional das frequências espaciais $(u, v)$ no plano da imagem reconstruída.
+
+---
+
+## 4. Conexões e Wikilinks
+- [[Fisica Medica]]
+- [[Tomografia Computadorizada]]
+- [[Radioproteção]]
+- [[Índice de Detectabilidade]]
+- [[Task Transfer Function]]
+- [[Noise Power Spectrum]]
+- [[Observadores de Modelo (Model Observers)]]
+- [[Phantoms Híbridos]]

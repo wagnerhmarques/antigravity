@@ -1,0 +1,53 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Física Médica]], [[Tomografia Computadorizada]], [[Radioterapia]], [[Radioproteção]]
+
+## 1. Fundamentação e Escopo de Atuação
+
+A Física Médica constitui a disciplina interdisciplinar dedicada à aplicação dos conceitos, métodos e teorias da física no domínio da medicina e da biologia humana. Sua atuação fundamenta-se primordialmente na otimização da relação entre o benefício clínico — seja diagnóstico ou terapêutico — e a minimização dos riscos associados à exposição à radiação ionizante e não ionizante, alinhando-se estritamente aos princípios de Justificação, Otimização e Limitação de Dose (ALARA - *As Low As Reasonably Achievable*).
+
+Conforme as diretrizes internacionais estabelecidas por órgãos como a Organização Mundial da Saúde (OMS) e a Federação Internacional de Física Médica (IFMBE/IOMP), a atuação do físico médico divide-se em três pilares principais, apoiados transversalmente pela metrologia das radiações e pela proteção radiológica.
+
+## 2. Divisão Estrutural das Grandes Áreas
+
+A tabela a seguir sintetiza as três grandes áreas clássicas da física médica, detalhando seus objetivos primários, tecnologias associadas e métricas fundamentais de desempenho.
+
+| Grande Área | Objetivo Clínico e Físico | Principais Tecnologias e Modalidades | Métricas e Indicadores de Desempenho | Links Canônicos da Wiki |
+| :--- | :--- | :--- | :--- | :--- |
+| **Radiologia Diagnóstica e Imagem Médica** | Otimização da qualidade diagnóstica e minimização da dose absorvida pelo paciente. | [[Tomografia Computadorizada]], [[Tomografia Computadorizada de Contagem de Fótons (PCD-CT)]], Ressonância Magnética (MRI), PET. | Índice de Detectabilidade ($d'$), $\text{TTF}$, $\text{NPS}$, $\text{CTDI}_{\text{vol}}$, $\text{DQE}$. | [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]] |
+| **Radioterapia** | Entrega de alta dose tumoral de forma conformacional, preservando os tecidos sadios adjacentes. | Aceleradores Lineares (LINAC), Braquiterapia, Terapia de Prótons, Radioterapia Guiada por Imagem (IGRT). | Distribuição de Dose (DVH), Simulação de Monte Carlo, Precisão Posicional ($\text{mm}$). | [[Simulação de Monte Carlo]], [[Radioterapia]] |
+| **Medicina Nuclear** | Avaliação funcional e metabólica de órgãos e sistemas através de imageamento molecular. | Câmaras Gamma, SPECT, PET/CT, Radiofármacos emissores de pósitrons ou gama. | Resolução Energética, Sensibilidade do Sistema, Concentração Ativa de Atividade ($\text{Bq/cm}^3$). | [[Tomografia por Emissão de Pósitrons (PET)]] |
+
+## 3. Fundamentação Metrológica e Matemática Transversal
+
+Independentemente da subespecialidade clínica, a prática da física médica é sustentada pela quantificação rigorosa da interação da radiação com a matéria. No escopo da Tomografia Computadorizada, por exemplo, a atenuação do feixe de raios X é descrita pela lei de atenuação de Beer-Lambert generalizada:
+
+$$
+I(x) = I_0 \exp\left( -\int_{0}^{x} \mu(l) \\, dl \right)
+$$
+
+Onde $I_0$ representa a intensidade inicial do feixe de fótons, $I(x)$ é a intensidade transmitida e $\mu(l)$ denota o coeficiente de atenuação linear espacialmente variante ($\text{cm}^{-1}$). A conversão desses coeficientes para a escala clínica padronizada de Unidades Hounsfield ($\text{HU}$) é expressa por:
+
+$$
+\text{HU} = 1000 \times \frac{\mu - \mu_{\text{agua}}}{\mu_{\text{agua}} - \mu_{\text{ar}}}
+$$
+
+Adicionalmente, a avaliação de desempenho em sistemas modernos de imagem integra modelos matemáticos avançados de percepção visual e detecção de sinais, como o observador linear ideal (*Hotelling*) e o observador NPWE (*Non-Prewhitening Matched Filter with Eye Filter*), cujo índice de detectabilidade ($d'^2_{\text{NPWE}}$) é formulado no domínio espacial e da frequência por:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+## 4. Áreas de Suporte e Integração Tecnológica
+
+Além das três disciplinas clínicas fundamentais, a física médica moderna abrange domínios transversais essenciais para a segurança e inovação tecnológica:
+
+1. **[[Radioproteção]] e Dosimetria:** Monitoramento ocupacional e de pacientes, cálculo de risco estocástico e determinístico, e implementação de barreiras físicas e blindagens estruturais.
+2. **Metrologia das Radiações:** Calibração de câmaras de ionização e instrumentos de levantamento radiométrico em laboratórios secundários de calibração (LSCR).
+3. **Inteligência Artificial e Inovação:** Integração de redes neurais e algoritmos de [[Deep Learning Image Reconstruction (DLR)]] para a melhoria de protocolos de imageamento de baixa dose.
+
+## 5. Conexões e Wikilinks
+- [[Física Médica]]
+- [[Tomografia Computadorizada]]
+- [[Índice de Detectabilidade]]
+- [[Task Transfer Function]]
+- [[Noise Power Spectrum]]
+- [[Radioproteção]]

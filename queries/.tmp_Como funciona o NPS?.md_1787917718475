@@ -1,0 +1,52 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Noise Power Spectrum|Espectro de Potência do Ruído (NPS)]], [[Tomografia Computadorizada]], [[Non-Prewhitening Matched Filter with Eye Filter (NPWE)]], [[Deep Learning Image Reconstruction (DLR)]], [[Retroprojeção Filtrada (FBP)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Noise Power Spectrum|Espectro de Potência do Ruído (NPS)]], [[Tomografia Computadorizada]], [[Non-Prewhitening Matched Filter with Eye Filter (NPWE)]]
+
+## 1. Fundamentação e Princípio de Funcionamento do NPS
+
+O **Espectro de Potência do Ruído** (*Noise Power Spectrum* - NPS), também conhecido na literatura como *Wiener Spectrum*, opera como uma ferramenta metrológica essencial na [[Tomografia Computadorizada]] para decompor a variância do ruído estocástico de uma imagem reconstruída em suas componentes de frequência espacial pura ($\text{mm}^{-1}$ ou $\text{cycles/cm}$). 
+
+Enquanto o desvio padrão global ($\sigma$) fornece apenas uma métrica escalar da flutuação de pixel em uma região de interesse (ROI), o NPS quantifica a **textura**, a magnitude e a distribuição espacial desse ruído. Em sistemas de TC, o ruído não se comporta como um ruído branco puro; ele é profundamente modulado por filtros de retroprojeção filtrada ([[Retroprojeção Filtrada (FBP)]]), algoritmos de reconstrução iterativa (IR) e técnicas baseadas em inteligência artificial ([[Deep Learning Image Reconstruction (DLR)]]). O NPS mapeia precisamente essas alterações.
+
+## 2. Formulação Matemática do NPS Bidimensional e Unidimensional
+
+Para estimar o NPS a partir de imagens de fantomas homogêneos, isola-se uma ROI de tamanho $N_x \times N_y$ pixels. A imagem de ruído residual $\Delta I(x, y)$ é obtida subtraindo-se a tendência determinística $\bar{I}(x, y)$ (que remove artefatos de beam hardening ou não-uniformidade do feixe):
+
+$$
+\Delta I(x, y) = I(x, y) - \bar{I}(x, y)
+$$
+
+O NPS bidimensional $W(f_x, f_y)$ é calculado por meio da magnitude quadrada da Transformada de Fourier Discreta (DFT) 2D da matriz de ruído residual, normalizada pelas dimensões físicas e pelo espaçamento dos pixels:
+
+$$
+W(f_x, f_y) = \frac{\Delta_x \Delta_y}{N_x N_y} \leftlangle \left| \sum_{x=0}^{N_x-1} \sum_{y=0}^{N_y-1} \Delta I(x, y) e^{-2\pi i (f_x x \Delta_x + f_y y \Delta_y)} \right|^2 \rightangle
+$$
+
+Onde $\Delta_x$ e $\Delta_y$ representam o tamanho dos pixels, $f_x$ e $f_y$ as frequências espaciais, e $\langle \dots \rangle$ denota o operador de valor esperado (*ensemble average*) calculado sobre múltiplas realizações independentes. 
+
+Pelo Teorema de Parseval, a integral do NPS sobre todo o domínio de frequência espacial recupera a variância total da imagem:
+
+$$
+\sigma^2 = \iint_{-\infty}^{\infty} W(f_x, f_y) \\, df_x \\, df_y
+$$
+
+Em sistemas axiais com simetria rotacional, o NPS é frequentemente reduzido a um perfil radial unidimensional $W(f)$, integrando-se $W(f_x, f_y)$ em coordenadas polares com $f = \sqrt{f_x^2 + f_y^2}$:
+
+$$
+W(f) = \int_{0}^{2\pi} W(f \cos\theta, f \sin\theta) \, \, \, d\theta
+$$
+
+## 3. Impacto das Técnicas de Reconstrução sobre o NPS
+
+A tabela a seguir resume como diferentes abordagens de reconstrução modificam o comportamento espectral e textural do ruído medido pelo NPS:
+
+| Modalidade de Reconstrução | Comportamento do NPS | Textura Visual Predominante |
+| :--- | :--- | :--- |
+| **Filtro de Rampa (FBP)** | Potência elevada nas altas frequências espaciais. | Ruído fino, granulado (*sandy*). |
+| **Reconstrução Iterativa (IR)** | Supressão de altas frequências; deslocamento para médias e baixas frequências. | Textura manchada (*blotchy*), aspecto plástico. |
+| **Deep Learning (DLR)** | Redução global da amplitude com preservação ou elevação controlada de altas frequências. | Baixa magnitude de ruído, preservação de detalhes anatômicos sutis. |
+
+## 4. Aplicações na Avaliação de Desempenho e Otimização de Dose
+
+1. **Modelos de Observadores (NPWE):** O NPS atua como a matriz de covariância do ruído no cálculo de índices de detectabilidade computacional, como o observador de modelo [[Non-Prewhitening Matched Filter with Eye Filter (NPWE)]], correlacionando-se fortemente com a percepção visual humana.
+2. **Controle de Qualidade Avançado:** Permite aos físicos médicos estabelecer assinaturas espectrais dos scanners de TC, garantindo que reduções de dose via otimização de correntes ($mAs$) ou tensões ($kVp$) preservem a detectabilidade clínica de lesões de baixo contraste.

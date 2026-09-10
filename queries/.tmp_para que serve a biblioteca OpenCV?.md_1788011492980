@@ -1,0 +1,49 @@
+> 📅 **Data:** 2026-08-29 | 🔗 **Conexões:** [[Visão Computacional]], [[Processamento Digital de Imagens]], [[OpenCV]], [[Qualidade de Imagem em TC]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Definição e Visão Geral da OpenCV
+
+A **OpenCV** (*Open Source Computer Vision Library*) é uma biblioteca computacional open-source de alto desempenho voltada para o processamento digital de imagens, visão computacional e aprendizado de máquina. Ela disponibiliza rotinas otimizadas em C++, Python, Java e MATLAB para manipulação matricial, análise espacial e extração de características visuais em tempo real.
+
+No domínio da **Física Médica** e da **Tomografia Computadorizada (TC)**, a OpenCV atua como infraestrutura computacional para o pré-processamento de imagens DICOM, segmentação anatômica, alinhamento geométrico de *phantoms* (fantasmas) de calibração e automação de testes de controle de qualidade (QC). Embora as imagens de TC operem em escala de cinza de alta precisão dinâmica (matrizes de 12 a 16 bits em Unidades Hounsfield - HU), as funções da OpenCV oferecem suporte nativo a tipos de dados de ponto flutuante (`float32`, `float64`), permitindo o processamento rigoroso de métricas físicas como a [[Modulation Transfer Function (MTF)|Função de Transferência de Modulação (MTF)]] e o [[Noise Power Spectrum|Espectro de Potência de Ruído (NPS)]].
+
+---
+
+## 2. Principais Módulos e Funcionalidades em Física Médica
+
+A tabela a seguir resume as principais divisões da biblioteca OpenCV e a transposição de suas ferramentas para a metrologia de imagens em TC:
+
+| Módulo OpenCV | Funcionalidade Computacional | Aplicação Prática em TC e Física Médica |
+| :--- | :--- | :--- |
+| `core` | Operações algébricas em matrizes, manipulação de tensores e transformações de intensidade. | Normalização de matrizes de atenuação linear, álgebra de imagens para subtração de fundo e manipulação de ROIs. |
+| `imgproc` | Filtragem espacial, transformadas de Fourier (`dft`), morfológicas e detecção de bordas. | Cálculo da MTF pelo método da borda (*Edge Spread Function* - ESF), redução de ruído e análise espectral em frequência. |
+| `features2d` | Extração de descritores visuais e registro de pontos de interesse (*keypoints*). | Registro rígido/não-rígido de imagens temporais e alinhamento automático de *phantoms* de qualidade de imagem. |
+| `dnn` | Motor de inferência para modelos de Aprendizado Profundo (*Deep Learning*). | Execução de modelos de [[Deep Learning Image Reconstruction (DLR)]] e integração com [[Deep Learning Model Observer (DLMO)]]. |
+
+---
+
+## 3. Integração com Pipelines de Observadores de Modelo e Qualidade Baseada em Tarefas
+
+A avaliação da qualidade de imagem baseada em tarefas (*task-based image quality*) utiliza observadores matemáticos computacionais — como o [[Channelized Hotelling Observer (CHO)]] e o [[NPWE Model Observer]] — para simular o desempenho de radiologistas na detecção de lesões. A biblioteca OpenCV é empregada no suporte a esses pipelines através de duas etapas centrais:
+
+### Detecção e Extração Automática de Regiões de Interesse (ROIs)
+Para quantificar o ruído e a detectabilidade, é necessário extrair centenas de pequenas regiões de interesse (ROIs) homogêneas de um *phantom*. Usando a Transformada de Hough para círculos (`cv2.HoughCircles`), o código localiza os pinos de inserção e centros dos módulos do *phantom* com precisão subpixel:
+
+$$
+I_{\text{ROI}}(x, y) = I_{\text{TC}}(x_0 + x, y_0 + y), \quad \text{onde } x, y \in \left[ -\frac{N}{2}, \frac{N}{2} \right]
+$$
+
+### Filtragem por Bancos de Canais Perceptuais
+Modelos como o CHO aplicam filtros espaciais (DOG - *Difference-of-Gaussians* ou Gabor) para emular a resposta da retina e do córtex visual humano. A função `cv2.filter2D` executa a convolução bidimensional de alta velocidade entre a imagem recortada e o banco de canais $U$, produzindo os vetores de características $v = U^T g$ necessários para calcular o Índice de Detectabilidade ($d'$).
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Processamento Digital de Imagens]]
+- [[Visão Computacional]]
+- [[Qualidade de Imagem em TC]]
+- [[Observadores de Modelo (Model Observers)]]
+- [[Channelized Hotelling Observer (CHO)]]
+- [[NPWE Model Observer]]
+- [[Deep Learning Image Reconstruction (DLR)]]
+- [[Tomografia Computadorizada]]

@@ -1,0 +1,43 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-03-30 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Índice de Detectabilidade** ($d'$, *d-prime*) é a métrica objetiva padrão-ouro da física médica contemporânea — formalizada pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** e relatórios da ICRU — para quantificar a qualidade diagnóstica de uma imagem tomográfica baseada em tarefas (*Task-Based Image Quality*).
+
+Diferentemente de métricas clássicas puramente físicas, como a Relação Contraste-Ruído (CNR) e a resolução espacial isolada, o índice $d'$ sintetiza a capacidade estatística de um observador (humano ou matemático — [[Observadores de Modelo (Model Observers)]]) de discriminar uma hipótese de sinal presente ($H_1$) contra uma hipótese de apenas ruído de fundo ($H_0$). Ele integra em uma única formulação a resolução espacial específica para a tarefa ([[Task Transfer Function]]) e a textura e magnitude do ruído estocástico ([[Noise Power Spectrum]]). Índice amplamente utilizado em otimização de dose e na avaliação de algoritmos avançados de reconstrução, como [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]].
+
+## 2. Formulação Matemática Rigorosa
+
+Pela Teoria de Detecção de Sinais (SDT), o índice $d'$ quantifica a separação normalizada entre as distribuições das variáveis de decisão sob as hipóteses $H_1$ (sinal presente) e $H_0$ (sinal ausente):
+
+$$
+d' = \frac{langle t angle_{H_1} - langle t angle_{H_0}}{\sqrt{\frac{1}{2} \left( \sigma_{t, H_1}^2 + \sigma_{t, H_0}^2 \right)}}
+$$
+
+No domínio contínuo da frequência espacial bidimensional $\mathbf{u} = (u, v)$, para um observador linear ideal com pré-branqueamento (*Prewhitening* - PW), o cálculo é dado por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v)$ é a função de tarefa modelada pela Transformada de Fourier da diferença de atenuação do sinal;
+* $\text{TTF}(u, v)$ é a **Task-based Transfer Function**;
+* $\text{NPS}(u, v)$ é o **Noise Power Spectrum** bidimensional.
+
+Para simular o desempenho perceptual de um observador humano, utiliza-se o modelo **NPWE** (*Non-Prewhitening Matched Filter with Eye Filter*), que incorpora o filtro visual humano $E(u, v)$ e o ruído interno de decisão ($\sigma_{\text{int}}$):
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+## 3. Metodologia de Cálculo Prático
+
+O cálculo computacional do índice $d'$ em ambientes de pesquisa clínica e phantoms exige etapas metodológicas bem definidas:
+
+1. **Aquisição de Imagens de Phantom:** Utilização de phantoms homogêneos e de baixo contraste (como módulos especializados ou phantoms antropomórficos) escaneados sob protocolos clínicos específicos de [[Métricas de Dose em TC]].
+2. **Extração da TTF:** Mensuração da resposta do sistema em função da frequência espacial utilizando insertos de alto ou baixo contraste, gerando a [[Task Transfer Function]].
+3. **Cálculo do NPS:** Estimativa bidimensional da variância e correlação espacial do ruído a partir de regiões de interesse (ROIs) nas imagens homogêneas, obtendo o [[Noise Power Spectrum]].
+4. **Simulação do Observador:** Aplicação de rotinas computacionais para resolver as integrais de Fourier descritas nos modelos Hotelling, CHO (*Channelized Hotelling Observer*) ou NPWE, computando o valor escalar de $d'$ para a tarefa clínica específica.

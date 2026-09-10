@@ -1,0 +1,67 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Índice de Detectabilidade]], [[Observadores de Modelo (Model Observers)]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Índice de Detectabilidade** ($d'$) é a métrica objetiva padrão-ouro recomendada pelo relatório **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** para avaliar a qualidade de imagem baseada em tarefas (*Task-Based Image Quality*) em sistemas de raios-X e tomografia computadorizada. Diferentemente de métricas tradicionais como a Relação Contraste-Ruído ([[Contrast To Noise Ratio]]) e a resolução espacial isolada, o índice $d'$ quantifica estatisticamente a capacidade de um observador (humano ou computacional) em discriminar entre a ausência de sinal ($H_0$, apenas ruído de fundo) e a presença de um sinal específico de interesse ($H_1$, lesão ou estrutura anatômica).
+
+A formulação baseia-se na **Teoria de Detecção de Sinais (SDT)**, integrando três pilares fundamentais da física de imagens médicas:
+- A **Função de Tarefa** ($W_{\text{task}}$ ou $\Delta S$), que define o contraste e a geometria da lesão a ser detectada;
+- A **Função de Transferência baseada em Tarefa** ([[Task Transfer Function]]), que descreve a resolução espacial e a resposta do sistema considerando o contraste do objeto;
+- O **Espectro de Potência de Ruído** ([[Noise Power Spectrum]]), que caracteriza a amplitude e a textura espacial do ruído estocástico na imagem reconstruída.
+
+---
+
+## 2. Formulação Matemática Rigorosa
+
+### A. Observador Linear Ideal / Hotelling com Prewhitening (PW)
+No domínio da frequência espacial bidimensional para ruído estacionário, o quadrado do índice de detectabilidade para um observador Hotelling é expresso por:
+
+$$
+(d')^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+- $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ representa a transformada de Fourier bidimensional do perfil de atenuação do sinal;
+- $\text{TTF}(u, v)$ é a função de transferência de tarefa do sistema tomográfico;
+- $\text{NPS}(u, v)$ é o espectro de potência de ruído 2D.
+
+### B. Observador NPWE (*Non-Prewhitening Matched Filter with Eye Filter*)
+Para correlacionar o desempenho físico com a percepção visual humana, o modelo **NPWE** incorpora o filtro visual do observador humano $E(u, v)$ e o ruído interno de decisão $\sigma_{\text{int}}^2$:
+
+$$
+(d')^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+O filtro visual $E(f)$ pondera as frequências espaciais conforme a sensibilidade do sistema visual humano a uma dada distância de observação.
+
+### C. Formulação Matricial Discreta (CHO - *Channelized Hotelling Observer*)
+Para cenários práticos e imagens discretizadas, utiliza-se o observador CHO aplicando canais antropomórficos $\mathbf{U} \in \mathbb{R}^{N \times M}$ para simular a seccionalção de frequência da visão humana:
+
+$$
+(d')^2_{\text{CHO}} = \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)^T \left( \mathbf{U}^T \mathbf{K} \mathbf{U} \right)^{-1} \left( \mathbf{U}^T \Delta\bar{\mathbf{g}} \right)
+$$
+
+Onde $\Delta\bar{\mathbf{g}}$ é o vetor de diferença de sinal e $\mathbf{K}$ é a matriz de covariância do ruído.
+
+---
+
+## 3. Métodos de Cálculo Computacional e Experimental
+
+O cálculo do índice de detectabilidade pode ser executado por meio de três abordagens principais:
+
+| Metodologia | Descrição e Aplicação | Vantagens / Limitações | Relacionamento na Wiki |
+| :--- | :--- | :--- | :--- |
+| **Cálculo Analítico em Frequência** | Utiliza as equações integrais com mapas 2D de $\text{TTF}$ e $\text{NPS}$ obtidos de imagens de fantomas uniformes. | Altamente eficiente e rápido; assume linearidade e estacionaridade do sistema. | `[[Task Transfer Function]]`, `[[Noise Power Spectrum]]` |
+| **Observadores de Modelo Computacionais** | Aplicação de algoritmos de correlação e filtragem em matrizes de imagem de regiões de interesse (ROIs) com e sem sinal. | Permite avaliar algoritmos não-lineares ([[Reconstrução Iterativa]] e DLR) preservando a textura do ruído. | `[[Observadores de Modelo (Model Observers)]]` |
+| **Estudos Psicofísicos (2-AFC)** | Testes com observadores humanos ou simulações estatísticas baseadas em escolha forçada de duas alternativas. | Máxima fidelidade clínica; requer alto custo computacional e tempo experimental. | `[[Estudo de Observadores 2AFC]]` |
+
+---
+
+## 4. Contexto no Acervo e Aplicações Clínicas
+
+O índice de detectabilidade constitui a ferramenta central para a otimização de protocolos de aquisição em tomografia computadorizada, especialmente diante de inovações tecnológicas:
+
+- **Avaliação de Reconstruções Avançadas:** Algoritmos de aprendizado profundo ([[Deep Learning Image Reconstruction (DLR)]]) modificam drasticamente a textura do ruído, invalidando métricas simplistas como o CNR. O uso de $d'$ permite quantificar ganhos reais de detectabilidade em exames de baixa dose.
+- **Otimização de Dose e Qualidade de Imagem:** Atua como função-objetivo em projetos de pesquisa financiados ([[Projeto Doutorado Direto FAPESP Wagner 2026]]), equilibrando a redução de miliamperagem com a preservação da acurácia diagnóstica.

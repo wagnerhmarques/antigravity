@@ -1,0 +1,46 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]], [[Métrica Gumbel p-index para Quantificação de Artefatos|metrica-gumbel-p-index]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O arcabouço **Pixelprint** refere-se a uma técnica avançada de fabricação aditiva voxel a voxel desenvolvida especificamente para a produção de fantomas antropomórficos e específicos de pacientes em Tomografia Computadorizada (TC). O método baseia-se na deposição controlada de múltiplos materiais (duplo filamento) para modular com alta precisão espacial tanto as propriedades radiopacas de tecidos biológicos quanto a severidade de artefatos metálicos induzidos por implantes cirúrgicos, como parafusos espinhais e hastes ortopédicas.
+
+Na física médica e na metrologia de imagem diagnóstica, fantomas convencionais frequentemente falham em reproduzir a heterogeneidade anatômica complexa e a interação exata entre raios X policromáticos e estruturas metálicas densas. O método *Pixelprint* supera essas limitações ao mapear diretamente matrizes digitais de coeficientes de atenuação para o espaço físico de impressão tridimensional, garantindo a rastreidade quantitativa e o alinhamento com a verdade fundamental (*ground truth*) clínica.
+
+## 2. Formulação Matemática e Modelagem de Artefatos
+
+A modulação da intensidade dos artefatos em fantomas gerados por técnicas avançadas de impressão 3D pode ser formalizada quantitativamente através da distribuição estatística de Gumbel, utilizada para modelar o comportamento de estrias e flutuações de Hounsfield Unit (HU) nas proximidades de interfaces metal-tecido. Seja $\mu(x,y)$ o campo de atenuação e $G(\mu; \mu_g, \beta_g)$ a função de densidade de probabilidade de Gumbel que descreve o perfil de artefatos:
+
+$$
+G(\mu; \mu_g, \beta_g) = \frac{1}{\beta_g} \exp \left[ -\frac{\mu - \mu_g}{\beta_g} - \exp \left( -\frac{\mu - \mu_g}{\beta_g} \right) \right]
+$$
+
+Onde $\mu_g$ representa o parâmetro de localização (indicativo da severidade média do artefato de estrias) e $\beta_g$ denota o parâmetro de escala associado à dispersão do ruído estrutural. Em fantomas baseados em *Pixelprint* com inflição metálica controlada, o parâmetro $\mu_g$ escala monotonicamente conforme a fração volumétrica do filamento dopado com metal:
+
+$$
+\mu_g(\phi) = \mu_0 + k_{\text{art}} \cdot \phi^{\alpha}
+$$
+
+Onde $\phi$ é a fração de inflição do implante metálico, $\mu_0$ é o nível de fundo sem metal, e $k_{\text{art}}$ e $\alpha$ são coeficientes empíricos dependentes da energia efetiva do feixe de raios X e do sistema de varredura.
+
+## 3. Aplicações em Tomografia Computadorizada Espectral e Redução de Artefatos
+
+A integração do *Pixelprint* com sistemas de **Tomografia Computadorizada Espectral** permite avaliar a eficácia de algoritmos de correção de endurecimento de feixe e reconstruções monoenergéticas virtuais (VMI). Como os filamentos utilizados — tipicamente ácido polilático (PLA) dopado com cálcio para simulação de estruturas ósseas e PLA dopado com aço inoxidável para implantes — possuem comportamentos de atenuação dependentes da energia do fóton, o sistema reproduz com fidelidade o fenômeno de *beam hardening* e o espalhamento Compton severo.
+
+A tabela a seguir resume o comportamento quantitativo típico observado em fantomas de coluna cervical fabricados por esta metodologia:
+
+| Parâmetro de Avaliação | Referência (0% Infill) | Infill Moderado (50%) | Infill Alto (85%) | Limite Clínico / Alvo |
+| :--- | :--- | :--- | :--- | :--- |
+| **Acurácia HU (Tecido Mole)** | $\pm 5$ HU | $\pm 15$ HU | $\pm 25$ HU | $\pm 30$ HU |
+| **Parâmetro Gumbel $\mu_g$ (70 keV)** | $46.7$ HU | $57.1$ HU | $90.5$ HU | Variável conforme implante |
+| **Índice p-index Normalizado** | $0.00$ | $0.252$ | $0.932$ | $\le 1.0$ |
+| **Eficácia VMI (130-190 keV)** | Redução expressiva | Redução moderada | Preservação de contorno | Minimização de estrias |
+
+## 4. Conexões e Wikilinks
+
+* [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]]
+* [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]]
+* [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+* [[Métrica Gumbel p-index para Quantificação de Artefatos|metrica-gumbel-p-index]]
+* [[Qualidade de Imagem em TC]]

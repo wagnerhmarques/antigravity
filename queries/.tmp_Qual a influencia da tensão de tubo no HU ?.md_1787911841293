@@ -1,0 +1,69 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Virtual Monoenergetic Imaging (VMI)]], [[Photon Counting Detector CT (PCD-CT)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Qualidade de Imagem em TC]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]], [[Virtual Monoenergetic Imaging (VMI)]], [[Photon Counting Detector CT (PCD-CT)]]
+
+## 1. Mecanismos Físicos da Dependência Energética do Coeficiente de Atenuação
+
+A variação da **tensão de tubo** (expressa em quilovoltagem de pico, $\text{kVp}$) altera diretamente o espectro de energia policromático dos fótons de raios X emitidos pelo ânodo. Como o coeficiente de atenuação linear dos materiais, $\mu(E)$, é dependente da energia incidente $E$, a alteração da $\text{kVp}$ modifica a energia efetiva (média) do feixe, impactando diretamente o valor numérico em [[Unidades Hounsfield]] (UH).
+
+A formulação matemática do número tomográfico para um feixe com energia efetiva $E_{\text{ef}}$ é dada por:
+
+$$
+\text{UH}(E_{\text{ef}}) = 1000 \times \frac{\mu_{\text{tecido}}(E_{\text{ef}}) - \mu_{\text{água}}(E_{\text{ef}})}{\mu_{\text{água}}(E_{\text{ef}})}
+$$
+
+O coeficiente de atenuação linear total $\mu(E)$ é a soma das contribuições dos dois principais processos de interação na faixa de energia diagnóstica ($20 \text{ a } 140 \text{ keV}$):
+
+$$
+\mu(E) = \rho_e \left[ \sigma_{\text{Compton}}(E) + \tau_{\text{fotoelétrico}}(E, Z_{\text{ef}}) \right]
+$$
+
+Onde:
+- $\sigma_{\text{Compton}}(E)$ é a seção de choque do [[Espalhamento Compton]], predominantemente dependente da densidade eletrônica ($\rho_e$) e com fraca variação inversa com a energia;
+- $\tau_{\text{fotoelétrico}}(E, Z_{\text{ef}})$ é a seção de choque do [[Efeito Fotoelétrico]], com dependência direta descrita aproximadamente por $\tau \propto \frac{Z_{\text{ef}}^3}{E^3}$, onde $Z_{\text{ef}}$ é o número atômico efetivo do meio.
+
+---
+
+## 2. Impacto Diferencial por Tipo de Tecido e Materiais de Alto Z
+
+Como o scanner de TC é rotineiramente calibrado em fantomas de água, as extremidades fixas da escala são calibradas para se manterem constantes independentemente da tensão utilizada:
+- **Água pura:** $\text{UH} = 0 \text{ UH}$ (definido por calibração a qualquer $\text{kVp}$);
+- **Ar:** $\text{UH} = -1000 \text{ UH}$ (pois $\mu_{\text{ar}} \approx 0 \text{ cm}^{-1}$).
+
+No entanto, para materiais cujo número atômico efetivo difere significativamente do da água ($Z_{\text{ef, água}} \approx 7,42$), o comportamento das UH varia drasticamente com a redução ou aumento da $\text{kVp}$:
+
+### A. Materiais de Alto $Z_{\text{ef}}$ (Meios de Contraste Iodados, Tecido Ósseo e Cálcio)
+Ao reduzir a tensão do tubo (ex.: de $120 \text{ kVp}$ para $80 \text{ kVp}$), a energia efetiva do feixe diminui em direção à borda de absorção K (*K-edge*) do iodo ($33,2 \text{ keV}$). O aumento acentuado do [[Efeito Fotoelétrico]] faz com que $\mu_{\text{tecido}}$ cresça muito mais rapidamente do que $\mu_{\text{água}}$, resultando em um **aumento expressivo das UH**.
+
+### B. Tecidos Moles e Gordura
+Tecidos moles apresentam $Z_{\text{ef}}$ muito próximo ao da água, sendo dominados pelo [[Espalhamento Compton]]. Portanto, a variação de suas UH em função da $\text{kVp}$ é mínima. No caso do tecido adiposo ($Z_{\text{ef}} \approx 6,3$), por ter $Z_{\text{ef}}$ ligeiramente inferior ao da água, a redução da $\text{kVp}$ faz suas UH se tornarem discretamente mais negativas.
+
+### Tabela Comparativa de Variação de UH vs. Tensão de Tubo
+
+| Material / Estrutura | $Z_{\text{ef}}$ Aproximado | $80 \text{ kVp}$ | $120 \text{ kVp}$ (Padrão) | $140 \text{ kVp}$ | Tendência com a Redução de $\text{kVp}$ |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Iodo (Solução 2 mg I/mL)** | ~53 | $\sim 100 \text{ UH}$ | $\sim 50 \text{ UH}$ | $\sim 40 \text{ UH}$ | **Aumento drástico de UH** (+$100\%$) |
+| **Osso Cortical** | ~13,8 | $\sim 1500 \text{ UH}$ | $\sim 1200 \text{ UH}$ | $\sim 1050 \text{ UH}$ | **Aumento acentuado de UH** |
+| **Fígado / Parênquima** | ~7,6 | $\sim 65 \text{ UH}$ | $\sim 60 \text{ UH}$ | $\sim 58 \text{ UH}$ | Varabilidade mínima (discreto aumento) |
+| **Água Destilada** | 7,42 | $0 \text{ UH}$ | $0 \text{ UH}$ | $0 \text{ UH}$ | Invariante (Ponto de Calibração) |
+| **Tecido Adiposo (Gordura)**| ~6,3 | $\sim -110 \text{ UH}$ | $\sim -100 \text{ UH}$ | $\sim -90 \text{ UH}$ | Torna-se ligeiramente mais negativa |
+
+---
+
+## 3. Implicações Clínicas, Radiômicas e Avanços em PCD-CT
+
+1. **[[Otimização e Redução de Meio de Contraste em TC]]:** Protocolos operando em baixas voltagens ($70\text{--}80 \text{ kVp}$) aproveitam o ganho substancial de UH no iodo para reduzir o volume de contraste injetado sem perda de sinal/contraste diagnóstico em exames como Angio-TC pulmonar e estudos hepáticos.
+2. **Instabilidade Radiômica:** Em radiômica e Aprendizado Profundo (*Deep Learning*), a extração de *features* de textura depende do histograma de UH. Exames adquiridos com $\text{kVp}$ distintas sem padronização introduzem artefatos de domínio e desvios numéricos que degradam a generalização dos modelos.
+3. **Transição para $keV$ via [[Virtual Monoenergetic Imaging (VMI)]]:** Em sistemas [[Photon Counting Detector CT (PCD-CT)]] ou TC de Dupla Energia (DECT), os sinogramas são decompostos em energias monocromáticas (expressas em $keV$). A reconstrução monoenergética elimina a dependência da $\text{kVp}$ policromática do tubo, padronizando a escala de UH em níveis de $keV$ fixos.
+
+---
+
+## 4. Conexões e Wikilinks
+
+- [[Unidades Hounsfield]]
+- [[Efeito Fotoelétrico]]
+- [[Espalhamento Compton]]
+- [[Virtual Monoenergetic Imaging (VMI)]]
+- [[Photon Counting Detector CT (PCD-CT)]]
+- [[Controle de Qualidade em TC]]
+- [[Otimização e Redução de Meio de Contraste em TC]]

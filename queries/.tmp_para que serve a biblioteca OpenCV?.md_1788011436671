@@ -1,0 +1,111 @@
+> 📅 **Data:** 2026-08-29 | 🔗 **Conexões:** [[Processamento Digital de Imagens]], [[Visão Computacional]], [[Tomografia Computadorizada]], [[Segmentação de Imagens]], [[Qualidade de Imagem em TC]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Visão Geral e Arquitetura da Biblioteca OpenCV
+
+A **OpenCV** (*Open Source Computer Vision Library*) é uma biblioteca de código aberto voltada para [[Visão Computacional]], [[Processamento Digital de Imagens]] e aprendizado de máquina. Desenvolvida originalmente pela Intel na década de 1990 e atualmente mantida pela *OpenCV.org*, a biblioteca foi projetada com foco principal em eficiência computacional e processamento em tempo real.
+
+Escrita nativamente em C/C++, a OpenCV oferece interfaces de alto nível para diversas linguagens, incluindo Python, Java e MATLAB, além de suporte para aceleração via hardware através de instruções SIMD (AVX/NEON), CUDA e OpenCL. Sua estrutura modular é organizada em subsistemas especializados:
+
+* **`core`:** Estruturas de dados fundamentais (como matrizes $N$-dimensionais `cv::Mat` ou `numpy.ndarray` em Python) e operações de álgebra linear.
+* **`imgproc`:** Algoritmos de filtragem espacial, transformações geométricas, análise de contornos, morfologia matemática e conversões de espaços de cor/níveis de cinza.
+* **`highgui`:** Interface básica de entrada/saída, exibição e manipulação de janelas de imagem.
+* **`features2d`:** Detectores e descritores de pontos de interesse (como SIFT, ORB e FAST).
+* **`calib3d`:** Geometria multivias, calibração de câmeras e reconstrução 3D stereo.
+* **`dnn`:** Módulo para execução otimizada de redes neurais profundas (*Deep Learning Inference*).
+
+---
+
+## 2. Aplicações em Física Médica e Tomografia Computadorizada
+
+Embora tenha sido criada para visão computacional geral e robótica, a OpenCV tornou-se uma ferramenta fundamental na infraestrutura de pesquisa e desenvolvimento em Física Médica, atuando no pré e pós-processamento de imagens de [[Tomografia Computadorizada]] (TC), ressonância magnética (RM) e radiografia digital.
+
+As principais utilidades no contexto de imagens radiológicas e quantitativas incluem:
+
+1. **Automação de Controle de Qualidade (QC) e Análise de Fantasmas:**
+   - Localização e segmentação automática de regiões de interesse (ROIs) em fantasmas físicos (como *Catphan* ou *AAPM CT Phantom*).
+   - Cálculo automatizado de métricas de [[Qualidade de Imagem em TC]], como a Função de Transferência de Modulação (MTF) por borda (*slanted-edge*) e medição de ruído para o Espectro de Potência de Ruído ([[Noise Power Spectrum]]).
+
+2. **Pipeline de Entrada para Observadores de Modelo:**
+   - Extração, alinhamento e normalização de matrizes de imagens para alimentação de [[Observadores de Modelo (Model Observers)]] (como [[Channelized Hotelling Observer (CHO)]] e [[NPWE Model Observer]]).
+
+3. **Pré-processamento para Algoritmos de Inteligência Artificial:**
+   - Redimensionamento espacial, corte de volume (*crop*), registro rígido/não-rígido e normalização de Unidades Hounsfield (HU) antes do treinamento de redes em [[Deep Learning Image Reconstruction (DLR)]].
+
+### Tabela Comparativa: Operações OpenCV vs. Aplicações na TC
+
+| Módulo / Operação | Função OpenCV | Aplicação Prática na Física Médica / TC |
+| :--- | :--- | :--- |
+| **Filtragem Espacial** | `cv2.GaussianBlur()`, `cv2.Sobel()` | Suavização de ruído quântico e realce de bordas para cálculo de MTF. |
+| **Segmentação por Limiar** | `cv2.threshold()`, `cv2.inRange()` | Isolamento de estruturas anatômicas (ossos/pulmão) ou pino de phantom. |
+| **Análise de Contornos** | `cv2.findContours()`, `cv2.minEnclosingCircle()` | Detecção automática do contorno de lesões e cálculo de diâmetros diagnósticos. |
+| **Transformações de Afinidade** | `cv2.getRotationMatrix2D()`, `cv2.warpAffine()` | Correção de inclinação de fantasma (*tilt correction*) e alinhamento de ROI. |
+| **Morfologia Matemática** | `cv2.morphologyEx()` | Remoção de pequenos artefatos, preenchimento de furos em máscaras tumorais. |
+
+---
+
+## 3. Formulação Matemática de Operações Fundamentais
+
+Abaixo são apresentadas as formulações matemáticas rigorosas aplicadas internamente pelas funções da OpenCV para operações essenciais de filtragem e detecção em imagens radiológicas.
+
+### Convolução Espacial Bidimensional e Filtro Gaussiano
+A suavização gaussiana para redução de ruído isotrópico em fatias de TC é regida pelo kernel bidimensional $G_{\sigma}(x, y)$:
+
+$$
+G_{\sigma}(x, y) = \frac{1}{2\pi \sigma^2} \exp\left( -\frac{x^2 + y^2}{2\sigma^2} \right)
+$$
+
+A imagem filtrada $I_{\text{filtrada}}(x, y)$ é obtida pela operação de convolução da imagem original $I(x, y)$ com o kernel $K(x, y)$:
+
+$$
+I_{\text{filtrada}}(x, y) = (I * K)(x, y) = \iint_{-\infty}^{\infty} I(x - \tau_x, y - \tau_y) K(\tau_x, \tau_y) \, d\tau_x \, d\tau_y
+$$
+
+### Detecção de Bordas via Operador Gradiente (Sobel)
+Para detectar transições de atenuação e limites anatômicos, calcula-se o vetor gradiente bidimensional $
+abla I(x, y)$:
+
+$$
+abla I(x, y) = \begin{bmatrix} G_x \\ G_y \end{bmatrix} = \begin{bmatrix} \frac{\partial I}{\partial x} \\ \frac{\partial I}{\partial y} \end{bmatrix}
+$$
+
+A magnitude do gradiente $|
+abla I(x, y)|$, amplamente utilizada na segmentação de bordas para análise de resolução espacial, é dada por:
+
+$$
+|
+abla I(x, y)| = \sqrt{G_x^2 + G_y^2}
+$$
+
+### Operador de Limiarização Adaptativa (Thresholding)
+A segmentação binária da imagem para separação entre tecido mole e ar/osso define a função máscara $M(x, y)$ baseada em um limiar $T$:
+
+$$
+M(x, y) = \left\{
+\begin{array}{ll}
+1, & \text{se } I(x, y) \ge T \\[5pt]
+0, & \text{se } I(x, y) < T
+\end{array}
+\right.
+$$
+
+---
+
+## 4. Integração com Ecossistemas Médicos (DICOM, SimpleITK e PyRadiomics)
+
+Na prática computacional, a OpenCV não substitui bibliotecas médicas especializadas no formato DICOM (como `pydicom` ou `SimpleITK`), mas atua de maneira complementar:
+
+* **Ingestão e Conversão:** Os arquivos DICOM contendo matrizes em 16-bits (Unidades Hounsfield) são lidos por `pydicom` ou `SimpleITK`, janela-dos (aplicação de *Window Width* e *Window Level*) e convertidos em matrizes bidimensionais compatíveis com as funções da OpenCV.
+* **Processamento de Alta Velocidade:** Uma vez convertida a fatia ou ROI para matriz numérica, a OpenCV executa operações de pré-processamento, filtragem, extração de métricas morfológicas e geração de mapas em tempo de execução extremamente reduzido.
+
+---
+
+## 5. Conexões e Wikilinks
+
+* [[Processamento Digital de Imagens]]
+* [[Visão Computacional]]
+* [[Tomografia Computadorizada]]
+* [[Segmentação de Imagens]]
+* [[Qualidade de Imagem em TC]]
+* [[Fantasmas em Tomografia Computadorizada]]
+* [[Observadores de Modelo (Model Observers)]]
+* [[Deep Learning Image Reconstruction (DLR)]]

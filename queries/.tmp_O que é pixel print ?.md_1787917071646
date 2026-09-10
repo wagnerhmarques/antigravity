@@ -1,0 +1,45 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]], [[Unidades Hounsfield]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Pixelprint]], [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]], [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+O **Pixelprint** representa um arcabouço computacional e tecnológico avançado voltado para a fabricação aditiva voxel a voxel de fantomas antropomórficos e específicos para pacientes em Tomografia Computadorizada (TC). Desenvolvido para superar as limitações dos métodos tradicionais de impressão 3D — que frequentemente utilizam densidades homogêneas ou perfis de preenchimento (*infill*) limitados —, o Pixelprint mapeia diretamente matrizes de coeficientes de atenuação ou valores de Hounsfield (HU) de imagens clínicas reais em instruções de controle físico para impressoras 3D multicanal ou de duplo filamento.
+
+Na física médica, fantomas físicos precisos são essenciais para o controle de qualidade, otimização de protocolos de dose e validação de algoritmos avançados de reconstrução. O arcabouço Pixelprint permite modular com alta fidelidade tanto a atenuação de tecidos moles e ósseos quanto a inserção de estruturas metálicas de referência, viabilizando o estudo controlado de artefatos de imagem, endurecimento de feixe e espalhamento Compton.
+
+## 2. Formulação Matemática e Modelagem de Infiltração
+
+Para traduzir um mapa de densidades clínicas em parâmetros de fabricação aditiva, o sistema estabelece uma relação biunívoca entre o voxel digital e a deposição volumétrica do material extrudado. Seja $\text{HU}(x,y,z)$ a distribuição tridimensional de Unidades Hounsfield em um volume de interesse, convertida para o coeficiente de atenuação linear equivalente $\mu(x,y,z)$ em uma dada energia efetiva de feixe policromático:
+
+$$
+\mu(x,y,z) = \mu_{\text{água}} \left( 1 + \frac{\text{HU}(x,y,z)}{1000} \right)
+$$
+
+No processo de impressão por deposição voxel a voxel, a densidade efetiva impressa $\rho_{\text{ef}}(x,y,z)$ é modulada por meio da fração de preenchimento volumétrico (*infill ratio*) $\Phi(x,y,z) \in \left[0, 1\right]$ do filamento polimérico dopado:
+
+$$
+\rho_{\text{ef}}(x,y,z) = \Phi(x,y,z) \cdot \rho_{\text{material}} + \left(1 - \Phi(x,y,z)\right) \cdot \rho_{\text{ar}}
+$$
+
+Onde $\rho_{\text{material}}$ denota a densidade mássica do filamento base (por exemplo, ácido polilático - PLA dopado com cálcio ou nanopartículas metálicas) e $\rho_{\text{ar}}$ a densidade do ar presente nos vazios estruturais internos. A severidade e a modulação dos artefatos metálicos gerados por implantes embutidos por este método podem ser quantificadas estatisticamente por meio de métricas baseadas na distribuição de Gumbel, avaliando o parâmetro de localização $\mu_{\text{Gumbel}}$ das distribuições de intensidade nas regiões afetadas por estrias:
+
+$$
+PDF_{\text{Gumbel}}(x; \mu_{\text{Gumbel}}, \beta_{\text{scale}}) = \frac{1}{\beta_{\text{scale}}} \exp \left\{ - \frac{x - \mu_{\text{Gumbel}}}{\beta_{\text{scale}}} - \exp \left( - \frac{x - \mu_{\text{Gumbel}}}{\beta_{\text{scale}}} \right) \right\}
+$$
+
+## 3. Aplicações em Tomografia Computadorizada e Otimização de Protocolos
+
+A integração do **Pixelprint** com técnicas modernas de imagem traz impactos significativos na metrologia radiológica e no desenvolvimento de hardware e software:
+
+* **Fantomas Específicos para Pacientes (*Patient-Specific Phantoms*):** Permite a replicação exata de geometrias anatômicas complexas com patologias inseridas, incorporando implantes ortopédicos ou odontológicos com intensidades de artefatos controláveis.
+* **Validação de Algoritmos de Redução de Artefatos Metálicos (MAR):** Fornece uma verdade fundamental (*ground truth*) física para testar a eficácia de algoritmos iterativos e de aprendizado profundo na remoção de feixes endurecidos e estrias de alto contraste.
+* **Tomografia Computadorizada Espectral e VMI:** Facilita a avaliação quantitativa do desempenho de imagens virtuais monoenergéticas (VMI) obtidas por sistemas de contagem de fótons (PCD-CT) ou detecção dual-energy frente a geometrias metálicas desafiadoras.
+
+## 4. Conexões e Wikilinks
+
+* [[Impressão 3D com Duplo Filamento|impressao-3d-duplo-filamento]]
+* [[Redução de Artefatos Metálicos|reducao-de-artefatos-metalicos]]
+* [[Tomografia Computadorizada Espectral|tomografia-computadorizada-espectral]]
+* [[Unidades Hounsfield]]
+* [[Qualidade de Imagem em TC]]

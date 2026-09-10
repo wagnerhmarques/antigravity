@@ -1,0 +1,27 @@
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Unidades Hounsfield]], [[Tomografia Computadorizada]], [[Efeito Fotoelétrico]], [[Espalhamento Compton]]
+
+## 1. Fundamentação Física da Variação de Tensão no Coeficiente de Atenuação
+A **tensão de tubo** ($kVp$) determina a energia máxima e a distribuição espectral dos fótons de raios X emitidos pela ampola. Como o feixe na [[Tomografia Computadorizada]] é policromático, as interações da radiação com a matéria — predominantemente o [[Efeito Fotoelétrico]] e o [[Espalhamento Compton]] — dependem diretamente da energia dos fótons incidentes e do número atômico efetivo ($Z_{\text{eff}}$) do meio material.
+
+As [[Unidades Hounsfield]] (UH) são definidas em função dos coeficientes de atenuação linear ($\mu$) do tecido analisado e da água sob condições padrão de calibração:
+
+$$
+\text{UH} = 1000 \times \frac{\mu_{\text{tecido}} - \mu_{\text{agua}}}{\mu_{\text{agua}} - \mu_{\text{ar}}}
+$$
+
+Quando a tensão de tubo ($kVp$) é alterada, o espectro energético desloca-se. Para materiais cujo número atômico difere significativamente do da água (como o osso cortical, com $Z_{\text{eff}} \approx 13.8$, ou meios de contraste iodados, com $Z = 53$), a probabilidade de absorção fotoelétrica varia com $\sim Z^3 / E^3$. Consequentemente, reduções na tensão do tubo aumentam a atenuação de materiais com alto $Z$, elevando expressivamente seus valores medidos em UH.
+
+## 2. Comportamento Espectral e Resposta dos Materiais
+O impacto da variação de $kVp$ manifesta-se de maneira distinta dependendo da composição elemental do voxel analisado:
+
+* **Tecidos Moles e Água:** Apresentam dependência energética fraca na faixa clínica de $80\text{ kVp}$ a $140\text{ kVp}$, pois a atenuação é dominada pelo espalhamento Compton, cujos coeficientes variam de forma muito sutil com a energia dos fótons.
+* **Materiais de Alto Número Atômico (Osso e Iodo):** Demonstram forte dependência com a tensão de tubo. Em tensões mais baixas (ex: $80\text{ kVp}$), a proximidade com a borda de absorção $K$ do iodo ($33.2\text{ keV}$) maximiza o efeito fotoelétrico, resultando em um aumento acentuado da atenuação e, portanto, valores superiores de UH comparados a aquisições a $120\text{ kVp}$ ou $140\text{ kVp}$.
+
+## 3. Implicações Clínicas e Metrológicas
+A dependência das Unidades Hounsfield com a tensão do tubo impõe restrições severas em protocolos quantitativos, radiômicos e em algoritmos baseados em aprendizado de máquina:
+
+1. **Acurácia em Radiômica:** Alterações arbitrárias de $kVp$ induzem desvios não lineares na escala de cinza das imagens, mascarando ou distorcendo *features* texturais e de primeira ordem essenciais para caracterização tumoral.
+2. **Protocolos de Baixa Dose e Reconstrução:** A redução da $kVp$ combinada com a modulação de dose exige calibração rigorosa do sistema de aquisição para evitar artefatos de endurecimento de feixe (*beam hardening*) que corrompem a linearidade das UH.
+3. **Imagens Monoenergéticas Virtuais (VMI):** Sistemas avançados de contagem fóton-prósperos e dupla energia mitigam essa dependência ao decompor o sinal em bases materiais e sintetizar imagens em keV fixos, preservando a constância cuantitativa das Unidades Hounsfield.
