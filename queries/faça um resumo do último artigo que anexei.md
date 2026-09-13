@@ -1,59 +1,18 @@
-> 📅 **Data:** 2026-09-13 | 🔗 **Conexões:** [[Inteligencia Artificial IA|Inteligência Artificial]], [[Física Médica]], [[Tomografia Computadorizada]], [[Radioproteção]], [[Radioterapia]], [[Physics-Informed Neural Networks (PINNs)]]
+> 📅 **Data:** 2026-09-13 | 🔗 **Conexões:** [[Deep Learning Image Reconstruction (DLR)]], [[Índice de Detectabilidade]], [[Noise Power Spectrum]], [[Task Transfer Function]], [[Tomografia Computadorizada]]
 
-## 1. Visão Geral e Contexto Científico
+## 1. Visão Geral e Contexto Metodológico
 
-O artigo de revisão *"Artificial intelligence in medical physics"* (Amoroso et al., *La Rivista del Nuovo Cimento*, 2025) realiza um mapeamento sistemático e abrangente das aplicações de [[Inteligencia Artificial IA|Inteligência Artificial]] (IA) no campo da [[Física Médica]]. O trabalho abrange a jornada clínica completa do paciente, desde os processos de aquisição de sinal e reconstrução tomográfica até a dosimetria quantitativa, [[Radioterapia]] personalizada e planejamento cirúrgico assistido.
+Estudo multicêntrico recente (Greffier et al., 2026) avaliou o desempenho de quatro algoritmos comerciais de [[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]] (DLR) em comparação direta com a reconstrução iterativa ([[Reconstrução Iterativa|IR]]) tradicional em tomógrafos de quatro grandes fabricantes (Canon, GE Healthcare, Philips e United Imaging). Utilizando o phantom antropomórfico Mercury v4.0 sob condições de varredura abdominal em três níveis de dose ($CTDI_{\text{vol}}$ de 11,0, 6,0 e 1,8 mGy), a avaliação empregou a metodologia de qualidade de imagem baseada em tarefas ([[Task Based Image Quality|task-based-image-quality]]), mensurando a magnitude e textura do ruído por meio do [[Noise Power Spectrum|noise-power-spectrum]] (NPS), a resolução espacial dependente de contraste via [[Task Transfer Function|task-transfer-function]] (TTF) e o [[Índice de Detectabilidade|detectability-index]] ($d'$).
 
-O estudo destaca a transição do paradigma de processamento de imagens radiológicas clássicas para o uso de arquiteturas profundas avançadas — incluindo redes neurais convolucionais ([[CNNs]]), [[Transformers]], redes adversárias generativas ([[GANs]]), [[Autoencoders]] e redes informadas pela física ([[Physics-Informed Neural Networks (PINNs)]]).
+## 2. Principais Achados Quantitativos por Fabricante
 
----
+Os resultados demonstram que as arquiteturas baseadas em redes neurais superam expressivamente os algoritmos de reconstrução iterativa, sobretudo em protocolos de ultrabaixa dose:
 
-## 2. Principais Áreas de Aplicação e Achados Técnicos
+* **Canon (C-CT / AiCE):** Redução de ruído de $-29,9%$ (11 mGy) a $-43,8%$ (1,8 mGy), com aumento médio de $+77,5%$ no [[Índice de Detectabilidade|detectability-index]] ($d'$).
+* **GE Healthcare (G-CT / TrueFidelity):** Redução constante de ruído de $-21,1%$, preservando a estabilidade textural e elevando o $d'$ em média $+33,7%$.
+* **Philips (P-CT / Precise Image):** Redução expressiva de ruído de $-48,4%$ e incremento médio de $+112,7%$ em $d'$.
+* **United Imaging (U-CT / DELTA):** Maior supressão de ruído em ultrabaixa dose (1,8 mGy), alcançando $-83,8%$ de redução e um aumento de até $6,5$ vezes no $d'$ comparado ao IR ($5,53$ vs $0,86$).
 
-### A. Aquisição, Reconstrução e Qualidade de Imagem
-* **Aquisição com Baixa Dose de Radiação:** A IA possibilita a atenuação expressiva de ruído e a eliminação de artefatos em [[Tomografia Computadorizada]], [[Ressonância Magnética (MRI)]] e [[Tomografia por Emissão de Pósitrons (PET)]], permitindo a redução da dose aplicada ao paciente em estrita observância ao princípio ALARA e às diretrizes de [[Radioproteção]].
-* **Super-Resolução e Harmonização:** Métodos baseados em [[GANs]] (como [[CycleGANs]]) e [[Transformers]] viabilizam a padronização e a harmonização multicêntrica de dados tomográficos obtidos de diferentes fabricantes e gerações de scanners.
+## 3. Impacto na Textura de Ruído e Resolução Espacial
 
-### B. Diagnóstico Quantitativo e Radiômica
-* **[[Segmentação de Imagem]] Automatizada:** Algoritmos profundos realizam a delimitação contínua de órgãos em risco e volumes alvos tumorais com alta reprodutibilidade.
-* **Radiômica e Suporte à Decisão:** Extração de recursos texturais quantitativos de matrizes de coocorrência de níveis de cinza ([[GLCM]]) para alimentar Sistemas de Suporte à Decisão Clínica (CDSS).
-* **IA Explicável (XAI):** Emprego de métodos como [[SHAP]], [[LIME]] e [[Grad-CAM]] para garantir a interpretabilidade e a auditabilidade diagnóstica das decisões tomadas pelos modelos.
-
-### C. Dosimetria, Radioterapia e Intervenção
-* **Aceleração Dosimétrica:** Substituição de simulações computacionalmente intensivas de [[Simulação de Monte Carlo]] por emuladores baseados em redes profundas e [[Physics-Informed Neural Networks (PINNs)|PINNs]], reduzindo tempos de cálculo de horas para segundos.
-* **Procedimentos Intervencionistas:** Aplicação de IA em cirurgias assistidas por robótica e otimização de dose em tempo real durante a [[Radioterapia Intraoperatória (IORT)]].
-
----
-
-## 3. Matriz Comparativa de Arquiteturas de IA em Física Médica
-
-| Arquitetura / Algoritmo | Domínio de Aplicação | Função Principal em Física Médica | Impacto Clínico / Operacional |
-| :--- | :--- | :--- | :--- |
-| **[[CNNs]]** | Reconstrução & Segmentação | Remoção de ruído e delineação de estruturas anatômicas | Redução de ruído e aceleração de contouring |
-| **[[GANs]] & [[CycleGANs]]** | Harmonização & Super-resolução | Síntese de imagens de alta resolução e tradução de modalidades | Padronização de dados multicêntricos |
-| **[[Transformers]]** | Análise Multimodal & Reconstrução | Captura de dependências espaciais de longo alcance em volumes 3D | Melhora na resolução espacial e contexto global |
-| **[[Physics-Informed Neural Networks (PINNs)|PINNs]]** | Dosimetria & Mecânica de Fluidos | Resolução de equações diferenciais da física de radiação | Modelagem rápida respeitando leis de conservação física |
-| **XAI ([[SHAP]] / [[Grad-CAM]])** | Validação Diagnóstica | Mapeamento visual das regiões de atenção da rede neural | Confiabilidade clínica e explicabilidade do modelo |
-
----
-
-## 4. Integração Matemática: Redes Informadas pela Física (PINNs)
-
-Nas aplicações dosimétricas descritas, a otimização das redes neurais não se restringe aos dados observados, sendo restringida diretamente pelas equações diferenciais parciais da física de transporte de radiação. A função de perda total $\mathcal{L}_{\text{total}}$ de uma PINN é formulada como:
-
-$$
-\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{dados}} + \lambda_{\text{física}} \cdot \mathcal{L}_{\text{física}}
-$$
-
-Onde o termo residual da física garante o cumprimento das equações de conservação de energia e transporte de fótons/elétrons:
-
-$$
-\mathcal{L}_{\text{física}} = \frac{1}{N} \sum_{i=1}^{N} \left|
-abla \cdot \mathbf{J}(x_i) + \mu(x_i) \Phi(x_i) - S(x_i) \right|^2
-$$
-
----
-
-## 5. Conclusões e Direcionamentos Futuros
-
-O artigo conclui que a IA não substitui a atuação do físico médico ou do radiologista, mas atua como uma ferramenta sinérgica de automação e precisão. As tendências futuras apontam para a consolidação de **Gêmeos Digitais** (*Digital Twins*) para planejamento terapêutico ultra-personalizado e o uso de IA generativa para otimização de fluxos de trabalho hospitalares.
+O uso de DLR modificou favoravelmente o espectro de frequências espaciais médias ($f_{\text{av}}$), deslocando o ruído para frequências mais altas e gerando uma granulação mais fina (menos 'plástica' ou borrada que nas gerações anteriores de IR). A resolução espacial baseada em tarefas ([[Task Transfer Function|TTF]]), medida na frequência $f_{50}$, apresentou ganhos expressivos tanto para insertos de alto contraste (iodo) quanto de baixo contraste (*Solid Water*), viabilizando a transição segura para protocolos clínicos com $CTDI_{\text{vol}} < 2\text{ mGy}$ sem perda de acurácia diagnóstica.
