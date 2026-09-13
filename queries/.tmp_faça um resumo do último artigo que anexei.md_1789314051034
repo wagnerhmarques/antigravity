@@ -1,0 +1,32 @@
+> 📅 **Data:** 2026-09-13 | 🔗 **Conexões:** [[Deep Learning Image Reconstruction (DLR)]], [[Tomografia Computadorizada]], [[Noise Power Spectrum]], [[Task Transfer Function]], [[Índice de Detectabilidade]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Deep Learning Image Reconstruction (DLR)]], [[Noise Power Spectrum]], [[Índice de Detectabilidade]]
+
+## 1. Resumo Executivo e Escopo Experimental
+O estudo multicêntrico conduzido por Greffier e colaboradores (2026) avaliou o desempenho de algoritmos de [[Deep Learning Image Reconstruction (DLR)|deep-learning-image-reconstruction]] (DLR) em comparação com a [[Reconstrução Iterativa|reconstrucao-iterativa]] (IR) tradicional em sistemas de [[Tomografia Computadorizada|Tomografia Computadorizada (CT)]] de quatro grandes fabricantes: Canon, GE Healthcare, Philips e United Imaging Healthcare. Utilizando o phantom antropomórfico Mercury v4.0 ($31\text{ cm}$ de diâmetro) sob três níveis de dose ($CTDI_{\text{vol}}$ de $11,0$, $6,0$ e $1,8\text{ mGy}$), o estudo quantificou métricas baseadas em tarefas (*task-based image quality*) via software iQMetrix-CT.
+
+## 2. Principais Achados Quantitativos
+
+### A. Magnitude e Textura de Ruído ([[Noise Power Spectrum|NPS]])
+O DLR demonstrou reduções expressivas na magnitude do ruído em relação ao IR em todos os sistemas testados, variando conforme o fabricante:
+- **GE Healthcare:** Redução constante de $-21,1%$.
+- **Philips Healthcare:** Redução de $-48,4%$.
+- **Canon:** Redução de $-29,9%$ ($11\text{ mGy}$) a $-43,8%$ ($1,8\text{ mGy}$).
+- **United Imaging:** Maior redução observada em ultrabaixa dose, alcançando $-83,8%$ a $1,8\text{ mGy}$.
+
+A frequência espacial média ($f_{av}$) do NPS revelou que o DLR desloca a textura do ruído para frequências mais altas, gerando granulações mais finas e esteticamente toleráveis para a interpretação médica.
+
+### B. Resolução Espacial Baseada em Tarefas ([[Task Based Image Quality|TTF]])
+Os valores de $f_{50}$ (frequência de corte a $50%$ da [[Task Transfer Function|task-transfer-function]]) foram sistematicamente superiores com DLR:
+- Para o inserto de iodo (alto contraste), o ganho de $f_{50}$ em $11\text{ mGy}$ chegou a $+55,1%$ (GE) e $+26,1%$ (Canon).
+- Para insertos de tecido mole de baixo contraste, o DLR ampliou a resolução espacial de forma consistente entre $+6,1%$ e $+38,6%$ dependendo da plataforma.
+
+### C. Índice de Detectabilidade ([[Índice de Detectabilidade|d']])
+A métrica integrativa $d'$ apresentou melhorias marcantes em todas as condições avaliadas:
+- **Canon:** Aumento médio de $+77,5%$.
+- **GE Healthcare:** Aumento médio de $+33,7%$.
+- **Philips:** Aumento médio de $+112,7%$.
+- **United Imaging:** Em ultrabaixa dose ($1,8\text{ mGy}$), o índice $d'$ foi $6,5$ vezes superior com DLR em comparação ao IR ($5,53$ vs $0,86$) para lesões de baixo contraste.
+
+## 3. Implicações Clínicas e Otimização de Dose
+A investigação valida que o uso de redes neurais convolucionais (CNN) e redes profundas (DNN) nos quatro sistemas comerciais supera as limitações texturais impostas pela reconstrução iterativa clássica. O emprego de DLR viabiliza a transição segura para protocolos de TC em ultrabaixa dose ($CTDI_{\text{vol}} < 2\text{ mGy}$), preservando a acurácia diagnóstica e a detectabilidade de lesões subclínicas.

@@ -70,6 +70,7 @@
 ---
 
 ## 💡 Consultas & Sínteses (`queries/`)
+- [[queries/faça um resumo do último artigo que anexei]] — Resumo executivo da revisão de Amoroso et al. (2025) em La Rivista del Nuovo Cimento sobre aplicações de IA, PINNs e Deep Learning em Física Médica e Tomografia.
 - [[queries/o que é SSW-d'?]] — O SSW-d' é a extensão tridimensional do Índice de Detectabilidade que pondera a resposta espectral e a correlação de ruído longitudinal entre múltiplos cortes em TC.
 - [[queries/faça um resumo sobre o anexo "CT texture phantom dataset with paired image quality assessments for quantitative imaging"]] — Síntese técnica do dataset CT texture phantom com avaliações de qualidade de imagem pareadas para NPS, TTF e índice de detectabilidade em TC.
 - [[queries/faça um resumo sobre CT texture phantom dataset with paired image quality assessments for quantitative imaging]] — Resumo do dataset de phantoms de textura em TC com avaliações pareadas de qualidade de imagem (NPS, TTF, d' e radiômica) para validação de reconstruções não-lineares e imagem quantitativa.

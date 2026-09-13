@@ -326,3 +326,8 @@
 
 ## [2026-09-08] query | SSW-d' (Índice de Detectabilidade Ponderado por Cortes / Espaço-Espectral)
 - Consulta processada via atalho RAG: `o que é SSW-d'?.md`
+
+---
+
+## [2026-09-13] query | Síntese do Artigo: Inteligência Artificial em Física Médica (Nuovo Cimento 2025)
+- Consulta processada via atalho RAG: `resumo do último artigo anexado (Amoroso et al., 2025)`
