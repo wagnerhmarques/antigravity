@@ -346,3 +346,8 @@
 
 ## [2026-09-18] query | Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials
 - Consulta processada via atalho RAG: `Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials`
+
+---
+
+## [2026-09-18] query | Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials
+- Consulta processada via atalho RAG: `Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials`
