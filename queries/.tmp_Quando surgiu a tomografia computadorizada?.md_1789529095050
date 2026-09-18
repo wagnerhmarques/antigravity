@@ -1,0 +1,58 @@
+> 📅 **Data:** 2026-09-16 | 🔗 **Conexões:** [[Tomografia Computadorizada]], [[Unidades Hounsfield]], [[Retroprojeção Filtrada (FBP)]], [[Photon Counting Detector CT (PCD-CT)]]
+
+## 1. Marcos Fundamentais e Origem Histórica
+
+A **[[Tomografia Computadorizada]] (TC)** surgiu no início da década de 1970 como resultado da fusão entre avanços na física nuclear, matemática de inversão e engenharia da computação. O desenvolvimento da tecnologia é dividido em três grandes pilares históricos:
+
+1. **Base Matemática (1917):** O matemático austríaco **Johann Radon** provou teoricamente que uma função bidimensional ou tridimensional contínua pode ser exatamente reconstruída a partir de um conjunto infinito de suas projeções integrais ao longo de linhas retas (a **Transformada de Radon**).
+2. **Fundamentação Física (1963–1964):** O físico sul-africano **Allan MacLeod Cormack**, trabalhando na Tufts University (EUA), desenvolveu independentemente a teoria de reconstrução e construiu protótipos experimentais demonstrando a viabilidade de mapear coeficientes de atenuação linear $\mu(x, y)$ utilizando feixes finos de radiação X e gama.
+3. **Invenção Prática e Primeiro Scanner Clínico (1967–1971):** O engenheiro eletricista britânico **Sir Godfrey Hounsfield**, atuando nos laboratórios da *Electric and Musical Industries* (EMI Ltd.), concebeu e construiu o primeiro tomógrafo operacional. O primeiro exame clínico em paciente vivo ocorreu em **1º de outubro de 1971**, no *Atkinson Morley Hospital* em Wimbledon, Londres, revelando com sucesso um cisto no lobo frontal de uma paciente.
+
+Em **1979**, Godfrey Hounsfield e Allan Cormack foram laureados conjuntamente com o **Prêmio Nobel de Fisiologia ou Medicina** pelo desenvolvimento da tomografia computadorizada.
+
+---
+
+## 2. Cronologia e Evolução das Gerações de Tomógrafos
+
+A tabela abaixo sintetiza a evolução cronológica das arquitecturas de aquisição em TC desde a sua origem:
+
+| Período / Geração | Geometria de Aquisição | Tempo de Varredura por Corte | Princípio Tecnológico e Limitações |
+| :--- | :--- | :--- | :--- |
+| **1ª Geração (1971)** | Traslação-Rotação (*Pencil beam* monodetector) | $\approx 4.5$ a $5$ minutos | Feixe colimado fino, um único detector de iodeto de sódio ($\text{NaI}$). Uso restrito a crânio. |
+| **2ª Geração (1974)** | Traslação-Rotação (*Narrow fan beam* multidetector) | $20$ a $60$ segundos | Feixe em leque estreito ($3^\circ$ a $10^\circ$) com arranjo de $10$ a $30$ detectores. Permitiu varreduras corporais. |
+| **3ª Geração (1975)** | Rotação-Rotação (*Wide fan beam* / *Cone beam*) | $< 1$ a $5$ segundos | Feixe em leque cobrindo todo o paciente e tubo/detectores girando solidariamente. Base dos scanners modernos. |
+| **4ª Geração (1978)** | Rotação-Estacionário (*Stationary detector ring*) | $< 1$ segundo | Anel fixo de $360^\circ$ com $1000+$ detectores; tubo gira internamente. Alto custo e suscetibilidade a espalhamento. |
+| **TC Helicoidal/Espiral (1989)** | Rotação Contínua com Anéis de Deslizamento (*Slip-Rings*) | Subsegundo | Transmissão contínua de energia e dados permitindo avanço ininterrupto da mesa e aquisição volumétrica. |
+| **TC Multislice / MDCT (1998+)** | Matrizes Multidetectores (4 a 640 cortes) | $< 0.3$ segundos | Cobertura anatômica ultrarrápida, viabilizando angiotomografia coronariana e perfusão tecidual. |
+| **PCD-CT / DLR (2021+)** | Detectores de Contagem de Fótons e Aprendizado Profundo | Subsegundo em ultra-alta resolução | Eliminação do ruído eletrônico, diferenciação espectral de energia e algoritmos via [[Deep Learning Image Reconstruction (DLR)]]. |
+
+---
+
+## 3. Fundamentos Matemáticos do Primeiro Tomógrafo
+
+No equipamento original de Hounsfield, a medição física baseava-se na atenuação diferencial do feixe descrita pela Lei de Beer-Lambert integrada ao longo de caminhos lineares $L$:
+
+$$
+I = I_0 \exp \left( - \int_L \mu(x, y) \\, dl \right)
+$$
+
+A reconstrução matemática original utilizava um método iterativo simples do tipo *Algebraic Reconstruction Technique* (ART) para resolver o sistema de equações lineares gerado pelos perfis de projeção $P_\theta(t)$, definidos formalmente pela Transformada de Radon:
+
+$$
+P_\theta(t) = \mathcal{R}\{\mu(x, y)\} = \iint_{-\infty}^{\infty} \mu(x, y) \delta(x \cos\theta + y \sin\theta - t) \\, dx \\, dy
+$$
+
+Os coeficientes de atenuação resultantes foram parametrizados na escala quantitativa padronizada de **[[Unidades Hounsfield]] ($\text{UH}$)**:
+
+$$
+\text{UH} = 1000 \times \frac{\mu - \mu_{\text{água}}}{\mu_{\text{água}} - \mu_{\text{ar}}}
+$$
+
+---
+
+## 4. Conexões e Impacto na Física Médica Contemporânea
+
+- **[[Tomografia Computadorizada]]** — Visão geral da física de formação da imagem tomográfica e calibração metrológica.
+- **[[Unidades Hounsfield]]** — Densitometria e quantificação radiológica dos tecidos.
+- **[[Retroprojeção Filtrada (FBP)]]** — O algoritmo analítico que substituiu os métodos iterativos primordiais na década de 1970.
+- **[[Photon Counting Detector CT (PCD-CT)]]** — A mais recente revolução na detecção e física do sinal tomográfico.

@@ -336,3 +336,8 @@
 
 ## [2026-09-13] query | Avaliação Baseada em Tarefas de Algoritmos de Deep Learning Image Reconstruction (DLR) em Tomografia Computadorizada
 - Consulta processada via RAG semântico híbrido: recuperação de `wiki/fontes/Greffier 2026 - Avaliação de DLR em TC com Phantoms.md` com score 0.48.
+
+---
+
+## [2026-09-18] query | Otimização de Protocolos de TC Baseada em Tarefas Utilizando Aprendizado por Reforço e Ensaios de Imagem Virtuais
+- Consulta processada via atalho RAG: `vc tem acesso ao trabalho Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials?.md`

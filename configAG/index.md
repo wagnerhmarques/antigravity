@@ -70,6 +70,7 @@
 ---
 
 ## 💡 Consultas & Sínteses (`queries/`)
+- [[queries/vc tem acesso ao trabalho Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials?]] — Síntese sobre a otimização de protocolos de TC via Aprendizado por Reforço e Ensaios de Imagem Virtuais utilizando o Índice de Detectabilidade e Observadores de Modelo.
 - [[queries/faça um resumo do último artigo que anexei]] — Resumo executivo da revisão de Amoroso et al. (2025) em La Rivista del Nuovo Cimento sobre aplicações de IA, PINNs e Deep Learning em Física Médica e Tomografia.
 - [[queries/o que é SSW-d'?]] — O SSW-d' é a extensão tridimensional do Índice de Detectabilidade que pondera a resposta espectral e a correlação de ruído longitudinal entre múltiplos cortes em TC.
 - [[queries/faça um resumo sobre o anexo "CT texture phantom dataset with paired image quality assessments for quantitative imaging"]] — Síntese técnica do dataset CT texture phantom com avaliações de qualidade de imagem pareadas para NPS, TTF e índice de detectabilidade em TC.
