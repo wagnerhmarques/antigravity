@@ -341,3 +341,8 @@
 
 ## [2026-09-18] query | Otimização de Protocolos de TC Baseada em Tarefas Utilizando Aprendizado por Reforço e Ensaios de Imagem Virtuais
 - Consulta processada via atalho RAG: `vc tem acesso ao trabalho Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials?.md`
+
+---
+
+## [2026-09-18] query | Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials
+- Consulta processada via atalho RAG: `Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials`
