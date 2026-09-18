@@ -1,45 +1,0 @@
-> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Phantoms Híbridos em Tomografia Computadorizada]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]], [[Métricas de Dose em TC]], [[Control de Qualidade em TC]]
-
-> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Phantoms Híbridos em Tomografia Computadorizada]], [[Tomografia Computadorizada]], [[Qualidade de Imagem em TC]]
-
-## 1. Definição e Papel Metrológico
-
-*Phantoms* (ou fantomas) são dispositivos simuladores projetados para mimetizar propriedades físicas, geométricas e de atenuação da radiação dos tecidos biológicos humanos. Na física médica e na radiologia diagnóstica, eles constituem a base instrumental para a calibração de equipamentos, otimização de protocolos de aquisição, garantia da qualidade e avaliação quantitativa do desempenho de sistemas de imagem, como a [[Tomografia Computadorizada]]. 
-
-O principal objetivo de um *phantom* é fornecer um meio padronizado, reprodutível e seguro — isento de exposições desnecessárias de pacientes — para medir parâmetros críticos de desempenho, tais como o número de Hounsfield (HU), a magnitude e textura do ruído, a resolução espacial e a dose de radiação absorvida.
-
-## 2. Classificação Estrutural dos Fantomas
-
-Os dispositivos utilizados em metrologia radiológica e tomografia computadorizada dividem-se em categorias distintas de acordo com sua complexidade construtiva e finalidade clínica:
-
-| Categoria | Descrição e Propósito Principal | Exemplos / Aplicações em TC |
-| :--- | :--- | :--- |
-| **Físicos Geométricos** | Estruturas homogêneas ou com insertos padronizados para testes analíticos estritos de hardware. | Cilindros de acrílico ou polietileno para avaliação de uniformidade, linearidade de HU e ruído. |
-| **Antropomórficos** | Reproduzem a anatomia humana complexa e a heterogeneidade tecidual real usando materiais tecidos-equivalentes. | Fantomas de crânio, tórax e abdome para avaliação de artefatos e testes visuais de observadores. |
-| **Computacionais (Digitais)** | Modelos matemáticos voxelizados ou baseados em malhas poligonais que simulam a anatomia e a interação da radiação. | Modelos ICRP de referência para simulações de Monte Carlo e avaliação de dosimetria interna. |
-| **Híbridos** | Fundem a estrutura física real à representação digital exata (gêmeo digital) via escaneamento de alta precisão. | [[Phantoms Híbridos em Tomografia Computadorizada]] para validação avançada de reconstrução por Inteligência Artificial. |
-
-## 3. Formulação Matemática da Interação e Simulação
-
-A resposta de um sistema de aquisição tomográfica frente a um *phantom* é governada pela atenuação policromática dos raios X descrita pela integral de linha ao longo da trajetória do feixe $\mathcal{L}_{\theta, l}$:
-
-$$
-p_{\theta}(l) = -\ln \left( \frac{I_{\theta}(l)}{I_0(l)} \right) = -\ln \left( \int_{0}^{E_{\max}} \Phi_0(E) \eta(E) \exp \left( -\iint_{\mathcal{L}_{\theta, l}} \mu(ec{r}, E) \\, ds \right) dE \right)
-$$
-
-Onde:
-- $\Phi_0(E)$ representa o espectro de energia dos fótons incidentes.
-- $\eta(E)$ denota a eficiência quântica de resposta do detector.
-- $\mu(ec{r}, E)$ é o coeficiente de atenuação linear espacialmente variante do material constitutivo do *phantom*.
-
-Para a avaliação de algoritmos de reconstrução avançados, a imagem reconstruída $hat{f}(ec{r})$ obtida a partir do escaneamento do *phantom* é comparada ao modelo de referência digital $f_{\text{ref}}(ec{r})$ por meio de métricas quantitativas estruturais e de erro normalizado:
-
-$$
-\text{SSIM}(f_{\text{ref}}, hat{f}) = \frac{\left( 2\mu_{f_{\text{ref}}}\mu_{hat{f}} + C_1 \right) \left( 2\sigma_{f_{\text{ref}}hat{f}} + C_2 \right)}{\left( \mu_{f_{\text{ref}}}^2 + \mu_{hat{f}}^2 + C_1 \right) \left( \sigma_{f_{\text{ref}}}^2 + \sigma_{hat{f}}^2 + C_2 \right)}
-$$
-
-## 4. Aplicações Clínicas e de Pesquisa
-
-1. **Controle de Qualidade Regulatório:** Verificação periódica obrigatória da estabilidade do tomógrafo (dose, ruído, resolução espacial e baixo contraste).
-2. **Validação de Protocolos de Baixa Dose:** Testes rigorosos com algoritmos de Reconstrução Iterativa (IR) e [[Deep Learning Image Reconstruction (DLR)|Deep Learning Image Reconstruction (DLR)]] para assegurar a preservação diagnóstica em exames com $CTDI_{\text{vol}} < 2\text{ mGy}$.
-3. **Estudos Psicofísicos e de Observadores:** Avaliação do desempenho de detecção de lesões utilizando [[Observadores de Modelo (Model Observers)|Observadores de Modelo]] ou leituras cegas por radiologistas auxiliadas por fantomas físicos e híbridos.
