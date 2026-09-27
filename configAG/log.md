@@ -371,3 +371,8 @@
 
 ## [2026-09-27] query | Função de Espalhamento de Borda (ESF)
 - Consulta processada via atalho RAG: `o que é ESF?.md`
+
+---
+
+## [2026-09-27] query | Função de Espalhamento de Borda (ESF)
+- Consulta processada via atalho RAG: `o que é ESF?.md`

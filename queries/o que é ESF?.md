@@ -1,39 +1,57 @@
-> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Função de Espalhamento de Ponto (PSF)]], [[Modulation Transfer Function (MTF)]], [[Resolução Espacial]]
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)|funcao-de-espalhamento-de-borda-esf]], [[Função de Espalhamento de Ponto (PSF)|funcao-de-espalhamento-de-ponto-psf]], [[Resolução Espacial]], [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
 
-> 📅 **Data:** 2026-03-30 | 🔗 **Conexões:** [[Resolução Espacial]], [[Modulation Transfer Function (MTF)]]
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Resolução Espacial]], [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
 
-## 1. Definição Conceitual e Fundamentação Física
+## 1. Definição Conceitual e Fundamentação Física / Metrológica
 
-A **Função de Espalhamento de Borda** (ESF - *Edge Spread Function*) é uma métrica fundamental na metrologia de sistemas de imagem em Tomografia Computadorizada (TC) que descreve a resposta do sistema de aquisição e reconstrução diante de uma transição abrupta e ideal de atenuação, equivalente a uma borda degrau (*step edge*). Do ponto de vista da física dos sistemas de imagem, a ESF representa a integral unidimensional da Função de Espalhamento de Linha (LSF) ou a projeção bidimensional da Função de Espalhamento de Ponto (PSF) ao longo de uma linha de corte perpendicular à interface de transição de contraste.
+A **Função de Espalhamento de Borda** (ESF - *Edge Spread Function*) representa a resposta de um sistema de imagem médica — como um scanner de Tomografia Computadorizada (TC) — a uma interface ideal de degrau (mudança abrupta e unidimensional entre dois níveis de atenuação distintos, simulando uma borda perfeita entre materiais de diferentes densidades). Na metrologia de sistemas de imagem, a ESF descreve como a descontinuidade matemática de uma borda ideal é suavizada e espalhada espacialmente devido à finura do ponto focal do tubo de raios X, à finiteza do tamanho do pixel e aos filtros de reconstrução aplicados.
 
-Na prática experimental, objetos físicos contendo interfaces nítidas entre materiais de diferentes números atômicos ou densidades (como um cilindro de teflon inserido em água ou uma lâmina metálica no interior de um fantom) são escaneados para gerar perfis de transição. A imperfeição do sistema físico — decorrente do tamanho finito do foco do tubo de raios X, da abertura finita dos elementos do detector e dos filtros de reconstrução empregados — faz com que a borda ideal em degrau seja suavizada, gerando uma curva sigmoide contínua conhecida como ESF.
-
-A ESF serve como uma ponte analítica crucial no processamento de imagem, permitindo derivar tanto a LSF quanto a **[[Modulation Transfer Function (MTF)|Modulation Transfer Function (MTF)]]**, que quantifica a fidelidade de transferência de contraste em diferentes frequências espaciais.
+A obtenção da ESF é uma etapa intermediária e fundamental na cadeia de avaliação da **[[Resolução Espacial]]**. Devido à dificuldade prática de fabricar e alinhar um fio infinitamente fino necessário para medir diretamente a **[[Função de Espalhamento de Ponto (PSF)|funcao-de-espalhamento-de-ponto-psf]]**, a ESF é frequentemente preferida em protocolos de controle de qualidade e metrologia clínica por utilizar fantomas com interfaces planas de alto contraste (como placas de teflon, poliestireno ou tungstênio imersas em água).
 
 ## 2. Formulação Matemática e Propriedades
 
-Matematicamente, seja $I(x)$ a imagem unidimensional obtida perpendicularmente a uma borda ideal posicionada na origem $x = 0$, onde a transmitância ou o coeficiente de atenuação linear passa abruptamente de um valor baixo para um valor alto, representado por uma função degrau de Heaviside $u(x)$. A imagem observada com ruído desprezível é modelada pela convolução da derivada da borda com a Função de Espalhamento de Linha $\text{LSF}(x)$:
+Matematicamente, a ESF é modelada como a integração espacial da **Função de Espalhamento de Linha** (LSF - *Line Spread Function*) ao longo de uma direção transversal à borda. Sendo $h(x)$ a LSF unidimensional do sistema de imagem, a ESF, denotada por $E(x)$, é expressa por:
 
 $$
-\text{ESF}(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx'
+E(x) = \int_{-\infty}^{x} h(x') \\, dx'
 $$
 
-A relação fundamental entre a ESF, a LSF e a PSF estabelece que a LSF é obtida diretamente por meio da diferenciação da ESF em relação à coordenada espacial $x$:
+De forma inversa, a Função de Espalhamento de Linha pode ser obtida calculando-se a derivada primeira da ESF em relação à coordenada espacial $x$:
 
 $$
-\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+h(x) = \frac{d}{dx} E(x)
 $$
 
-Com a LSF calculada, a Função de Transferência de Modulação ($\text{MTF}$) é obtida aplicando a transformada de Fourier normalizada:
+No domínio das frequências espaciais, a relação analítica permite conectar a ESF diretamente à **[[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]**. Aplicando a Transformada de Fourier à derivada da ESF, obtém-se a MTF:
 
 $$
-\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx \right| \left/ \int_{-\infty}^{\infty} \text{LSF}(x) \\, dx \right.
+\text{MTF}(u) = \left| \mathcal{F} \left\{ \frac{d}{dx} E(x) \right\} \right|
 $$
 
 Onde:
-- $u$ é a frequência espacial expressa em pares de linhas por centímetro ($\text{lp/cm}$) ou ciclos por centímetro.
-- $j$ é a unidade imaginária.
+- $E(x)$ é a **Função de Espalhamento de Borda** medida experimentalmente.
+- $h(x)$ é a **Função de Espalhamento de Linha (LSF)**.
+- $u$ é a frequência espacial expressa em ciclos por centímetro ($\text{ciclos/cm}$) ou pares de linhas por centímetro ($\text{lp/cm}$).
+- $\mathcal{F}$ denota o operador de Transformada de Fourier.
 
-### Propriedades e Vantagens Metrológicas:
-- **Estabilidade Experimental:** Medir diretamente a PSF pontual exige fios de tungstênio extremamente finos e alinhamentos milimétricos complexos que sofrem com artefatos de ruído quântico localizado. A ESF utiliza bordas extensas, o que melhora a relação sinal-ruído (SNR) estatística das medições.
-- **Derivada Numérica:** A principal fragilidade matemática da ESF reside no fato de que a diferenciação numérica $\frac{d}{dx}$ amplifica severamente o ruído de alta frequência presente na imagem reconstruída, exigindo o uso de técnicas de suavização prévia (como ajustes por funções sigmoides paramétricas ou splines cúbicas) antes de calcular a LSF e a MTF.
+### Propriedades Metrológicas Relevantes:
+- **Sensibilidade ao Ruído:** Como a ESF envolve um processo de integração espacial dos dados da imagem, ela apresenta menor sensibilidade ao ruído estocástico flutuante em comparação à medição direta da PSF ou da LSF.
+- **Derivada Numérica:** A necessidade de calcular a derivada primeira da ESF para extrair a LSF exige procedimentos rigorosos de suavização (*smoothing*) para evitar a ampliação de artefatos de alta frequência causados por ruído de quantização.
+
+## 3. Aplicações e Relevância em Tomografia Computadorizada e Otimização
+
+A ESF é amplamente utilizada na avaliação quantitativa de desempenho de sistemas de Tomografia Computadorizada no contexto do projeto de tese em física médica e controle de qualidade hospitalar (InRad-HCFMUSP):
+
+1. **Caracterização de Kernels de Reconstrução:** Permite quantificar o impacto de diferentes funções de filtro (*sharp* vs. *smooth*) sobre a nitidez de bordas e o comportamento da alta frequência espacial.
+2. **Avaliação de Algoritmos Avançados (IR e DLR):** Permite mensurar a preservação de bordas e estruturas anatômicas finas ao comparar imagens obtidas por **[[Reconstrução Iterativa|reconstrucao-iterativa]]** e **[[Deep Learning Reconstruction (DLR)|deep-learning-reconstruction]]** frente aos padrões tradicionais de **[[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]**.
+3. **Padronização Metrológica:** Serve como base computacional para softwares automatizados de garantia da qualidade que calculam a MTF de rotina em tomógrafos clínicos multislice e de contagem de fótons (**[[Photon Counting Detector CT (PCD-CT)]]**).
+
+## 4. Conexões e Wikilinks
+
+- [[Resolução Espacial]]
+- [[Função de Espalhamento de Ponto (PSF)|funcao-de-espalhamento-de-ponto-psf]]
+- [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
+- [[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]
+- [[Reconstrução Iterativa|reconstrucao-iterativa]]
+- [[Deep Learning Reconstruction (DLR)|deep-learning-reconstruction]]
+- [[Controle de Qualidade em TC]]
