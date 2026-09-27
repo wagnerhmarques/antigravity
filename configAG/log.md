@@ -356,3 +356,8 @@
 
 ## [2026-09-27] query | Função de Transferência de Modulação (MTF) e sua Relação com o Índice de Detectabilidade
 - Consulta processada via atalho RAG: `para que serve a MTF e qual a sua relação com o índice de detectabilidade?.md`
+
+---
+
+## [2026-09-27] query | Função de Transferência de Modulação (MTF) e sua Relação com o Índice de Detectabilidade
+- Consulta processada via atalho RAG: `para que serve a MTF e qual a sua relação com o índice de detectabilidade?.md`
