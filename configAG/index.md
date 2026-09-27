@@ -70,6 +70,7 @@
 ---
 
 ## 💡 Consultas & Sínteses (`queries/`)
+- [[queries/qual a diferença entre ESF e LSF ?]] — Comparação detalhada entre ESF (Edge Spread Function) e LSF (Line Spread Function), abordando formulação matemática, derivadas, relação com a TTF e aplicações na qualidade de imagem em TC.
 - [[queries/o que é ESF?]] — Conceituação matemática, física e metodológica da Função de Espalhamento de Borda (ESF) aplicada à avaliação da resolução espacial em tomografia computadorizada.
 - [[queries/para que serve a MTF e qual a sua relação com o índice de detectabilidade?]] — Análise teórica da Função de Transferência de Modulação (MTF/TTF) e sua integração matemática fundamental no cálculo do Índice de Detectabilidade (d') em tomografia computadorizada.
 - [[queries/vc tem acesso ao trabalho Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials?]] — Síntese sobre a otimização de protocolos de TC via Aprendizado por Reforço e Ensaios de Imagem Virtuais utilizando o Índice de Detectabilidade e Observadores de Modelo.

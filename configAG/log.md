@@ -376,3 +376,8 @@
 
 ## [2026-09-27] query | Função de Espalhamento de Borda (ESF)
 - Consulta processada via atalho RAG: `o que é ESF?.md`
+
+---
+
+## [2026-09-27] query | Diferença Física e Matemática entre ESF e LSF na Avaliação de Imagens de TC
+- Consulta processada via atalho RAG: `qual a diferença entre ESF e LSF ?.md`

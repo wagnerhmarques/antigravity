@@ -1,0 +1,50 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Resolução Espacial]], [[Modulation Transfer Function (MTF)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Resolução Espacial]], [[Modulation Transfer Function (MTF)]], [[Função de Espalhamento de Linha (LSF)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+A **Edge Spread Function (ESF)** — Função de Espalhamento de Borda — descreve a resposta espacial de um sistema de imagem de raios X (como um tomógrafo computadorizado) a uma transição abrupta, idealmente degrau (*step function*), entre duas regiões de diferentes coeficientes de atenuação linear. Na metrologia de sistemas de imagem médica, a ESF representa a projeção unidimensional da transição de intensidade que ocorre quando o feixe atravessa uma interface nítida e plana, como a borda de um bloco de metal de alta densidade (ex.: tungstênio ou chumbo) inserido em um meio homogêneo.
+
+A importância fundamental da ESF reside no fato de que ela serve como uma etapa intermediária e altamente prática para a determinação da **[[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]**, que caracteriza o limite de alta frequência espacial do sistema. Diferente da Função de Espalhamento de Ponto (PSF) ou de Linha (LSF), que exigem geometrias físicas complexas com fios infinitesimais de difícil alinhamento experimental, a ESF pode ser obtida de forma robusta a partir da análise da borda de objetos macroscópicos, mitigando ruídos estatísticos através de médias angulares e perfis lineares.
+
+## 2. Formulação Matemática e Derivação da LSF e MTF
+
+Matematicamente, se considerarmos um objeto em forma de degrau ideal Heaviside $u(x)$, a imagem degradada pelo sistema de imagem de TC — modelado por uma convolução linear invariante no espaço com a Função de Espalhamento de Linha $\text{LSF}(x)$ — resulta na Edge Spread Function $\text{ESF}(x)$:
+
+$$
+\text{ESF}(x) = u(x) * \text{LSF}(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx'
+$$
+
+A partir desta formulação integral, obtém-se a propriedade operacional mais importante da ESF: a **Função de Espalhamento de Linha (LSF)** é rigorosamente igual à derivada primeira da ESF em relação à coordenada espacial $x$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+$$
+
+Conhecendo-se a LSF derivada da ESF, a **Função de Transferência de Modulação (MTF)** no domínio das frequências espaciais $u$ é calculada aplicando-se a Transformada de Fourier unidimensional normalizada:
+
+$$
+\text{MTF}(u) = \left| \frac{\int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx}{\int_{-\infty}^{\infty} \text{LSF}(x) \\, dx} \right| = \left| \mathcal{F} \left\{ \frac{d}{dx} \text{ESF}(x) \right\} \right|
+$$
+
+## 3. Metodologia de Medição e Otimização em Tomografia Computadorizada
+
+A extração experimental da ESF em tomógrafos clínicos do InRad-HCFMUSP segue protocolos padronizados de controle de qualidade:
+
+1. **Aquisição do Phantom:** Um cilindro sólido de poliestireno ou acrílico contendo um inserto cilíndrico de alta densidade (Teflon ou metal) é escaneado utilizando os protocolos clínicos de rotina.
+2. **Extração do Perfil de Borda:** Seleciona-se um perfil de intensidade atravessando a interface do inserto. Para mitigar o artefato de amostragem limitada, utiliza-se a técnica de *slanted-edge* (borda inclinada), onde a borda do objeto não está perfeitamente alinhada com a matriz de pixels do detector, permitindo a superamostragem (*oversampling*) da ESF.
+3. **Diferenciação e Filtragem:** A curva ESF suavizada é derivada numericamente para obtenção da LSF, seguida pela transformada de Fourier para traçar a curva MTF.
+
+### Impacto Clínico e Projeto de Doutorado
+Na otimização multiobjetivo em TC — eixo central do projeto de doutorado de Wagner Marques —, a análise da ESF e da MTF derivada permite quantificar o impacto dos algoritmos de **[[Reconstrução Iterativa|reconstrucao-iterativa]]** e **[[Deep Learning Reconstruction (DLR)|deep-learning-reconstruction]]** na preservação de detalhes anatômicos finos (resolução espacial) em comparação direta com a **[[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]**, garantindo que ganhos em redução de dose não ocorram à custa da degradação da detectabilidade de lesões submilimétricas.
+
+## 4. Conexões e Wikilinks
+
+- [[Resolução Espacial]]
+- [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
+- [[Função de Espalhamento de Linha (LSF)]]
+- [[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]
+- [[Reconstrução Iterativa|reconstrucao-iterativa]]
+- [[Deep Learning Reconstruction (DLR)|deep-learning-reconstruction]]
+- [[Controle de Qualidade em TC]]

@@ -1,0 +1,51 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Função de Espalhamento de Linha (LSF)]], [[Modulation Transfer Function (MTF)]], [[Resolução Espacial]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Função de Espalhamento de Linha (LSF)]], [[Modulation Transfer Function (MTF)]], [[Resolução Espacial]]
+
+## 1. Definição Conceitual e Fundamentação Física / Metrológica
+
+A **Edge Spread Function (ESF)**, ou Função de Espalhamento de Borda, representa a resposta unidimensional de um sistema de imagem a uma transição abrupta e ideal entre dois materiais de atenuação radiológica distinta (uma borda ou degrau de degrau perfeito). Em Tomografia Computadorizada (TC), a ESF caracteriza como o sistema distribui e borra a transição de contraste agudo devido a limitações físicas e geométricas, tais como o tamanho do ponto focal, a abertura dos elementos detectores e os filtros de reconstrução aplicados.
+
+Do ponto de vista metrológico, a ESF constitui uma ferramenta intermediária fundamental na análise da **[[Resolução Espacial]]**. Como a construção física de uma linha teórica infinitamente fina para obtenção direta da Função de Espalhamento de Linha (LSF) é inexequível na prática experimental, a ESF é obtida medindo-se o perfil de intensidade ao longo de uma borda nítida inserida em um fantoma de teste. A diferenciação matemática subsequente da ESF fornece a LSF, que por sua vez gera a **[[Modulation Transfer Function (MTF)]]** através da Transformada de Fourier.
+
+## 2. Formulação Matemática e Propriedades
+
+Matematicamente, a ESF pode ser modelada como a integral ao longo de uma direção espacial da Função de Espalhamento de Ponto (PSF) ou, unidimensionalmente, como a integral da Função de Espalhamento de Linha (LSF). Seja $x$ a coordenada espacial perpendicular à borda idealizada, a ESF, denotada por $E(x)$, é expressa por:
+
+$$
+E(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx'
+$$
+
+Onde $\text{LSF}(x')$ é a Função de Espalhamento de Linha. Consequentemente, a relação fundamental que conecta a ESF à LSF no domínio espacial é a operação de diferenciação em relação à coordenada espacial $x$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ E(x) \right]
+$$
+
+A partir da LSF obtida pela derivada da ESF, a Função de Transferência de Modulação (MTF) é calculada no domínio das frequências espaciais $u$ por meio da transformada de Fourier unidimensional normalizada:
+
+$$
+\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx \right| \left/ \int_{-\infty}^{\infty} \text{LSF}(x) \\, dx \right.
+$$
+
+### Propriedades Críticas:
+- **Sensibilidade ao Ruído:** A operação de diferenciação numérica necessária para extrair a LSF a partir de dados ruidosos de ESF amplifica consideravelmente o ruído de alta frequência. Por essa razão, técnicas experimentais exigem suavização prévia (fit de curvas como funções sigmoides ou error functions) ou amostragem com alta densidade de fótons.
+- **Invariância e Alinhamento:** A precisão da ESF depende criticamente do alinhamento milimétrico do perfil de amostragem em relação à borda física do objeto para evitar erros de borramento por inclinação (*slanted-edge technique*).
+
+## 3. Aplicações e Relevância em Tomografia Computadorizada e Otimização
+
+A ESF é amplamente utilizada em programas de Garantia da Qualidade (QA) e otimização de protocolos em Tomografia Computadorizada:
+
+1. **Avaliação Experimental da Resolução Espacial:** Utilizando phantoms com inserções de materiais de alto contraste (como lâminas de teflon, poliestireno ou tungstênio imersas em água), os físicos médicos capturam imagens axiais para extrair perfis de borda e calcular a MTF do sistema.
+2. **Comparação de Kernels de Reconstrução:** A análise da ESF permite quantificar o impacto de diferentes funções de retroprojeção (kernels suaves versus agudos) sobre a nitidez de transições anatômicas finas, como interfaces osso-tecido mole.
+3. **Validação de Algoritmos Avançados:** Em projetos de otimização multiobjetivo, a ESF serve como métrica de controle para assegurar que algoritmos de reconstrução iterativa e redes de *Deep Learning Reconstruction* (DLR) não introduzam distorções geométricas ou perda de definição estrutural nas bordas das lesões.
+
+## 4. Conexões e Wikilinks
+
+- [[Resolução Espacial]]
+- [[Modulation Transfer Function (MTF)]]
+- [[Função de Espalhamento de Linha (LSF)]]
+- [[Retroprojeção Filtrada (FBP)]]
+- [[Reconstrução Iterativa]]
+- [[Deep Learning Reconstruction (DLR)]]
+- [[Controle de Qualidade em TC]]

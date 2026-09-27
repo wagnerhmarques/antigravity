@@ -1,0 +1,51 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Função de Espalhamento de Linha (LSF)]], [[Função de Espalhamento de Ponto (PSF)]], [[Modulation Transfer Function (MTF)]], [[Resolução Espacial]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Resolução Espacial]], [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]], [[funcao-de-espalhamento-de-ponto-psf]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+A **Edge Spread Function (ESF)**, ou Função de Espalhamento de Borda, representa a resposta unidimensional de um sistema de imagem médica — como um scanner de Tomografia Computadorizada (TC) — quando submetido a uma entrada ideal em forma de degrau abrupto (*step edge*). Fisicamente, a ESF descreve a transição espacial entre duas regiões de atenuação radiológica distintas (por exemplo, a interface entre um material de alta densidade como o Teflon ou metal e o ar ou água).
+
+Devido a limitações físicas inerentes ao sistema de aquisição (tamanho finito do ponto focal do tubo de raios X, abertura finita e integração espacial dos elementos do detector, filtros de reconstrução e amostragem geométrica), uma borda perfeitamente nítida na realidade física é reconstruída como uma transição gradual e suavizada. A ESF quantifica exatamente esse perfil de transição, servindo como uma etapa intermediária e altamente prática na metrologia da **[[Resolução Espacial]]**.
+
+A grande vantagem experimental da ESF em relação à **[[Função de Espalhamento de Ponto (PSF)]]** ou à **[[Função de Espalhamento de Linha (LSF)]]** é a facilidade de fabricação e alinhamento de phantoms de teste. É consideravelmente mais simples construir e escanear uma lâmina plana de alta densidade (borda afiada) do que produzir fios finos ou furos pontuais infinitesimais com precisão micrométrica em ambiente clínico.
+
+## 2. Formulação Matemática e Relação com LSF e MTF
+
+Matematicamente, a ESF pode ser compreendida como a integral ao longo de uma direção espacial da Função de Espalhamento de Linha (LSF) ou, equivalentemente, a convolução da borda ideal (função degrau unitário, $u(x)$) com a LSF do sistema:
+
+$$
+\text{ESF}(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx' = H(x) * \text{LSF}(x)
+$$
+
+Onde $H(x)$ é a função degrau de Heaviside. No domínio da metrologia de imagem, a obtenção da LSF a partir da ESF medida experimentalmente é realizada calculando-se a derivada espacial da ESF:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+$$
+
+Conhecida a LSF(x) por meio da diferenciação da ESF suavizada, a **Função de Transferência de Modulação (MTF)** é obtida aplicando-se a Transformada de Fourier unidimensional:
+
+$$
+\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx \right| \left/ \int_{-\infty}^{\infty} \text{LSF}(x) \\, dx \right.
+$$
+
+### Propriedades Metrológicas Críticas:
+1. **Sensibilidade ao Ruído:** Como a derivação numérica de dados ruidosos (inevitáveis em imagens de TC devido ao ruído quântico) amplifica severamente as altas frequências, a ESF medida deve passar por rigoroso processo de suavização ou ajuste de curvas paramétricas (como funções sigmoides ou erros acumulados) antes do cálculo da derivada.
+2. **Amostragem em Subpíxel (*Oversampling*):** Para evitar artefatos de discretização na derivada, utiliza-se frequentemente phantoms posicionados com um pequeno ângulo de inclinação (* tilted edge method*), permitindo acumular múltiplos perfis com deslocamentos subpíxeis e reconstruir uma ESF de alta resolução espacial.
+
+## 3. Aplicações em Tomografia Computadorizada e Otimização
+
+A ESF é amplamente utilizada em programas de garantia da qualidade (QA) e na pesquisa e desenvolvimento de protocolos avançados de TC no InRad-HCFMUSP:
+
+- **Avaliação de Kernels de Reconstrução:** Permite quantificar o impacto dos filtros de retroprojeção filtrada (FBP) e algoritmos de **[[Reconstrução Iterativa]]** sobre a nitidez das bordas anatômicas.
+- **Validação de Algoritmos de Deep Learning:** Na avaliação de redes neurais voltadas para **[[Deep Learning Reconstruction (DLR)]]**, a análise comparativa das curvas de ESF antes e depois do processamento garante que o ganho em redução de ruído não ocorra às custas de uma degradação inaceitável da largura da ESF (borramento de bordas).
+
+## 4. Conexões e Wikilinks
+
+- [[Resolução Espacial]]
+- [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
+- [[funcao-de-espalhamento-de-ponto-psf]]
+- [[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]
+- [[Reconstrução Iterativa|reconstrucao-iterativa]]
+- [[Deep Learning Reconstruction (DLR)|deep-learning-reconstruction]]

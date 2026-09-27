@@ -1,0 +1,40 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Função de Espalhamento de Linha (LSF)]], [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Resolução Espacial]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Resolução Espacial]], [[Task Transfer Function|Função de Transferência de Modulação (MTF)]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+A **Edge Spread Function (ESF)** — Função de Espalhamento de Borda — é a resposta unidimensional de um sistema de imagem ao longo de uma interface abrupta e ideal entre duas regiões com diferentes coeficientes de atenuação (uma transição degrau, como uma borda perfeita de um objeto de alto contraste). Na Tomografia Computadorizada (TC), a ESF quantifica a forma como o sistema borra essa transição nítida devido a limitações físicas e geométricas, tais como o tamanho do ponto focal, a abertura finita dos elementos do detector, a amostragem e os filtros de reconstrução.
+
+Enquanto a [[Resolução Espacial]] descreve a capacidade geral de discernir estruturas finas, a ESF atua como uma ferramenta intermediária fundamental na metrologia de imagens. Ela serve como a base matemática a partir da qual outras grandezas de caracterização espacial cruciais são derivadas.
+
+## 2. Formulação Matemática e Relação com LSF e MTF
+
+Matematicamente, a ESF pode ser modelada como a integral ao longo de uma direção espacial da Função de Espalhamento de Linha ($\text{LSF}$), ou equivalentemente, como a convolução de um degrau unitário ideal $U(x)$ com a $\text{LSF}(x)$ do sistema:
+
+$$
+\text{ESF}(x) = \int_{-\infty}^{x} \text{LSF}(u) \\, du = U(x) * \text{LSF}(x)
+$$
+
+Derivando a $\text{ESF}(x)$ em relação à coordenada espacial $x$, obtém-se diretamente a $\text{LSF}(x)$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+$$
+
+A partir da $\text{LSF}(x)$, a **Função de Transferência de Modulação (MTF)** — que descreve a resposta em frequência espacial do tomógrafo — é calculada por meio da Transformada de Fourier unidimensional normalizada:
+
+$$
+\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx \right| \left/ \int_{-\infty}^{\infty} \text{LSF}(x) \\, dx \right.
+$$
+
+Essa cadeia metodológica ($\text{ESF} \rightarrow \text{LSF} \rightarrow \text{MTF}$) constitui o padrão ouro na avaliação objetiva da qualidade de imagem em sistemas radiológicos.
+
+## 3. Aplicações Práticas e Metrologia em Tomografia Computadorizada
+
+No controle de qualidade e na otimização de protocolos clínicos no InRad-HCFMUSP, a medição da ESF é executada utilizando phantoms compostos por inserções de materiais de alto contraste (como cilindros de teflon, acrílico ou tungstênio imersos em água ou ar). 
+
+1. **Aquisição da Imagem:** O phantom de borda é escaneado utilizando os protocolos clínicos do tomógrafo.
+2. **Extração do Perfil:** Um perfil de intensidades ortogonal à interface de borda é extraído para gerar a curva $\text{ESF}(x)$.
+3. **Derivação Numérica:** Aplica-se diferenciação numérica com suavização prévia para minimizar o ruído estocástico inerente, resultando na $\text{LSF}(x)$.
+4. **Análise de Frequência:** O cálculo da MTF permite monitorar a degradação de desempenho do sistema ou avaliar o ganho de nitidez proporcionado por algoritmos de reconstrução iterativa e aprendizado profundo ([[Deep Learning Reconstruction (DLR)]]).

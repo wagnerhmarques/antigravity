@@ -1,0 +1,59 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Task Transfer Function]], [[Índice de Detectabilidade]], [[Noise Power Spectrum]], [[Controle de Qualidade em Tomografia]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Task Transfer Function]], [[Índice de Detectabilidade]], [[Controle de Qualidade em Tomografia]]
+
+## 1. Definição Conceitual e Fundamentação Física
+
+A **Edge Spread Function (ESF)** e a **Line Spread Function (LSF)** são funções fundamentais na caracterização da resolução espacial e da resposta ao impulso de sistemas de imagem em [[Tomografia Computadorizada|Tomografia Computadorizada]]. Enquanto a ESF descreve a resposta do sistema de imagem a uma descontinuidade abrupta e ideal em degrau (uma borda cortante entre dois materiais de atenuação diferentes), a LSF descreve a resposta do sistema a uma linha infinitamente fina e infinitamente longa de material atenuante.
+
+Do ponto de vista da teoria de sistemas lineares e invariantes no espaço (LSIV), ambas as métricas contêm informações equivalentes sobre a transferência de resolução espacial de alto contraste, estando matematicamente interconectadas por operações diferenciais e integrais no domínio espacial.
+
+## 2. Formulação Matemática Rigorosa
+
+### A. Edge Spread Function (ESF)
+A ESF representa o perfil unidimensional de intensidade ou número de tomografia (HU) medido perpendicularmente através de uma borda nítida (por exemplo, a interface entre o ar e o acrílico em um fantoma de teste). A modelagem analítica da ESF em sistemas reais é expressa pela convolução da função degrau ideal $H(x)$ com a resposta ao impulso do sistema, conhecida como Point Spread Function ($\text{PSF}$):
+
+$$
+\text{ESF}(x) = \int_{-\infty}^{x} \text{PSF}(x') \\, dx'
+$$
+
+Onde $x$ representa a coordenada espacial perpendicular à borda.
+
+### B. Line Spread Function (LSF)
+A LSF é definida como a resposta do sistema de imagem a uma fonte linear de raios X infinitamente estreita. Ela pode ser obtida analiticamente calculando-se a derivada primeira da $\text{ESF}(x)$ em relação à posição espacial $x$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+$$
+
+Alternativamente, no domínio bidimensional, a LSF representa a projeção integrada da $\text{PSF}(x, y)$ ao longo de uma linha paralela ao eixo da estrutura linear:
+
+$$
+\text{LSF}(x) = \int_{-\infty}^{\infty} \text{PSF}(x, y) \\, dy
+$$
+
+### C. Relação com a Task Transfer Function (TTF)
+A partir da LSF, a obtenção da Função de Transferência de Modulação (MTF) ou da [[Task Transfer Function|Task Transfer Function]] ($\text{TTF}$) de alto contraste é realizada por meio da Transformada de Fourier Unidimensional:
+
+$$
+\text{TTF}(f) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2 \pi f x} \\, dx \right|
+$$
+
+Onde $f$ denota a frequência espacial expressa em pares de linhas por centímetro ($\text{pl/cm}$). A ESF também pode ser utilizada diretamente para o cálculo da $\text{TTF}$ aplicando-se a derivada antes da Transformada de Fourier:
+
+$$
+\text{TTF}(f) = \left| \mathcal{F}\left\{ \frac{d}{dx} \text{ESF}(x) \right\} \right|
+$$
+
+---
+
+## 3. Comparação Direta e Aplicação Prática
+
+| Parâmetro / Característica | Edge Spread Function (ESF) | Line Spread Function (LSF) |
+| :--- | :--- | :--- |
+| **Estímulo Físico** | Borda abrupta (degrau deg/interface ar-acrílico) | Fio metálico ultrafino ou linha de alta atenuação |
+| **Operação Matemática** | Integral da $\text{PSF}$ ao longo de uma direção | Projeção bidimensional da $\text{PSF}$ ou derivada da $\text{ESF}$ |
+| **Sensibilidade a Ruído** | Menor sensibilidade (efeito de integração suaviza o ruído) | Maior sensibilidade ao ruído estocástico do fundo |
+| **Uso em Protocolos de TC** | Utilizada em phantoms de controle de qualidade para análise automática de borda | Requer processamento adicional ou fios de tungstênio de alta precisão |
+
+Em ambientes clínicos e nos 7 tomógrafos do InRad-HCFMUSP, a medição baseada na ESF é frequentemente preferida em rotinas de [[Controle de Qualidade em Tomografia|Controle de Qualidade em Tomografia]] devido à sua maior imunidade ao ruído estocástico inerente às imagens de raios X, servindo como base robusta para o cálculo subsequente da $\text{TTF}$ e do [[Índice de Detectabilidade|Índice de Detectabilidade]] ($d'$).

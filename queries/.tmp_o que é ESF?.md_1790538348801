@@ -1,0 +1,48 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Resolução Espacial]], [[Modulation Transfer Function (MTF)]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Resolução Espacial]], [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]], [[funcao-de-espalhamento-de-ponto-psf]]
+
+## 1. Definição Conceitual e Fundamentação Física / Metrológica
+
+A **Edge Spread Function (ESF)**, ou **Função de Espalhamento de Borda**, descreve a resposta unidimensional de um sistema de imagem de Tomografia Computadorizada (TC) quando submetido a uma transição abrupta e idealizada de degrau (*step edge*) entre dois meios com diferentes coeficientes de atenuação linear. Do ponto de vista metrológico, a ESF representa a degradação e o alargamento espacial inerentes impostos pelo sistema físico (tamanho do foco, abertura do detector, filtros de reconstrução) ao tentar registrar uma interface perfeitamente nítida.
+
+A mensuração da ESF é uma etapa intermediária e fundamental na metrologia da qualidade de imagem de sistemas radiológicos, pois serve como ponte direta para a obtenção de grandezas no domínio da frequência espacial, como a **[[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]**. Em termos práticos, enquanto a Função de Espalhamento de Ponto ($\text{PSF}$) exige a utilização de microfios de alta densidade difíceis de alinhar perfeitamente sem erros de amostragem, a ESF é obtida de forma mais robusta e reprodutível escaneando phantoms cilíndricos ou placas planas com bordas afiadas (ex.: pinos de teflon, alumínio ou tungstênio imersos em água).
+
+## 2. Formulação Matemática e Propriedades
+
+Matematicamente, considerando um perfil unidimensional perpendicular a uma borda ideal modelada como uma função degrau de Heaviside $u(x)$, a imagem obtida pelo sistema real $ESF(x)$ é o resultado da convolução do degrau com a Função de Espalhamento de Linha ($\text{LSF}$):
+
+$$
+\text{ESF}(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx' = u(x) * \text{LSF}(x)
+$$
+
+A relação diferencial fundamental estabelece que a derivada primeira da $\text{ESF}(x)$ em relação à posição espacial $x$ resulta na $\text{LSF}(x)$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+$$
+
+Uma vez obtida a $\text{LSF}(x)$ através da diferenciação numérica da $\text{ESF}(x)$ suavizada, a **Função de Transferência de Modulação ($\text{MTF}$)** é calculada por meio da Transformada de Fourier unidimensional normalizada:
+
+$$
+\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx \right| \left/ \int_{-\infty}^{\infty} \text{LSF}(x) \\, dx \right.
+$$
+
+### Propriedades Operacionais:
+- **Sensibilidade ao Ruído:** A operação de diferenciação numérica necessária para passar da $\text{ESF}$ para a $\text{LSF}$ amplifica severamente o ruído de alta frequência presente nas imagens de TC. Por essa razão, técnicas rigorosas de ajuste de curvas (como ajuste por funções sigmoides ou polinomiais) e filtragem passa-baixa prévia são obrigatórias na prática metrológica.
+- **Invariância Espacial:** O cálculo da $\text{ESF}$ assume que o sistema de imagem é localmente linear e invariante ao deslocamento (*shift-invariant*), premissa que deve ser validada no centro e na periferia do *Field of View* ($\text{FOV}$) devido aos efeitos de endurecimento de feixe e geometria helicoidal.
+
+## 3. Aplicações e Relevância em Tomografia Computadorizada e Otimização
+
+No contexto do controle de qualidade e da otimização de sistemas de Tomografia Computadorizada no InRad-HCFMUSP, a ESF desempenha papéis críticos:
+
+1. **Avaliação Objetiva da Resolução Espacial:** Permite monitorar o impacto de diferentes *kernels* de reconstrução (filtros agudos vs. suaves) e algoritmos avançados de reconstrução sobre a nitidez de bordas anatômicas finas.
+2. **Metodologia de Otimização Multiobjetivo:** Na tese voltada à otimização de protocolos de TC, a análise da $\text{ESF}$ e da $\text{MTF}$ derivada quantifica perdas de resolução espacial induzidas por reduções agressivas de dose de radiação e uso de limiares em algoritmos de inteligência artificial.
+
+## 4. Conexões e Wikilinks
+
+- [[Resolução Espacial]]
+- [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
+- [[funcao-de-espalhamento-de-ponto-psf]]
+- [[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]
+- [[Controle de Qualidade em TC|controle-de-qualidade-em-tc]]

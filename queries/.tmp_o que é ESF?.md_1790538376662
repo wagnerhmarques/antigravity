@@ -1,0 +1,51 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Função de Espalhamento de Linha (LSF)]], [[Modulation Transfer Function (MTF)]], [[Resolução Espacial]]
+
+> 📅 **Data:** 2026-08-28 | 🔗 **Conexões:** [[Resolução Espacial]], [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]], [[funcao-de-espalhamento-de-ponto-psf]]
+
+## 1. Definição Conceitual e Fundamentação Física / Metrológica
+
+A **Edge Spread Function (ESF)**, ou **Função de Espalhamento de Borda**, descreve a resposta de um sistema de imagem médica — como um scanner de Tomografia Computadorizada (TC) — a uma interface ideal abrupta do tipo degrau (*step edge*), caracterizada por uma transição instantânea entre duas regiões de diferentes coeficientes de atenuação linear (por exemplo, uma borda de metal ou plástico de alta densidade imersa em água).
+
+Do ponto de vista metrológico, a ESF representa a integral espacial unidimensional da Função de Espalhamento de Linha (LSF) do sistema. Devido à finitezza do tamanho do ponto focal do tubo de raios X, à abertura finita e integração espacial dos elementos do detector, e aos filtros de reconstrução matemática (kernels), uma borda perfeitamente nítida no objeto real é registrada na imagem digital como uma transição gradual e suavizada. A ESF quantifica exatamente essa degradação unidimensional da nitidez ao longo de um perfil perpendicular à borda.
+
+A obtenção da ESF é amplamente preferida na prática laboratorial e clínica em comparação à medição direta da Função de Espalhamento de Ponto (PSF) ou da LSF, pois fabricar ou alinhar fios finos perfeitos para a PSF apresenta complexidades experimentais elevadas. Em contraste, bordas planas de materiais de referência (como teflon, poliestireno ou tungstênio) podem ser fabricadas com altíssima precisão geométrica.
+
+## 2. Formulação Matemática e Propriedades
+
+Matematicamente, considerando uma borda ideal modelada como uma função degrau de Heaviside $u(x)$, a imagem obtida do sistema ao longo de um perfil perpendicular à borda é a ESF, expressa como a convolução da função degrau com a Função de Espalhamento de Linha $\text{LSF}(x)$:
+
+$$
+\text{ESF}(x) = u(x) * \text{LSF}(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx'
+$$
+
+Onde $\text{LSF}(x)$ é a resposta a uma linha infinitesimal. Consequentemente, a LSF pode ser recuperada a partir da ESF calculando a derivada espacial de primeira ordem em relação à posição $x$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} [\text{ESF}(x)]
+$$
+
+A partir da LSF obtida pela diferenciação da ESF, aplica-se a Transformada de Fourier unidimensional para derivar a **Função de Transferência de Modulação (MTF)**, métrica padrão da **[[Resolução Espacial]]**:
+
+$$
+\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \left\{ \frac{d}{dx} [\text{ESF}(x)] \right\} e^{-j 2\pi u x} \\, dx \right|
+$$
+
+### Propriedades e Procedimento Prático:
+1. **Superamostragem (*Slanted-Edge Method*):** Para evitar limitações impostas pelo tamanho discreto do pixel, utiliza-se uma borda ligeiramente inclinada em relação à matriz de amostragem dos pixels. Isso permite coletar múltiplas amostras em diferentes sub-intervalos de pixels, gerando uma ESF com alta densidade de pontos (*oversampled ESF*).
+2. **Correção de Ruído:** Como a operação de diferenciação numérica amplifica ruídos de alta frequência presentes na imagem reconstruída, algoritmos de suavização ou ajuste de curvas paramétricas (como funções de erro ou sigmoides) são frequentemente aplicados à ESF antes do cálculo da derivada.
+
+## 3. Aplicações e Relevância em Tomografia Computadorizada e Otimização
+
+A ESF é uma ferramenta fundamental na garantia da qualidade e na otimização de sistemas de Tomografia Computadorizada:
+
+1. **Avaliação da Resolução Espacial:** Permite monitorar a integridade do sistema óptico e de aquisição do tomógrafo, detectando degradações na geometria do feixe ou no arranjo de detectores.
+2. **Análise de Kernels de Reconstrução:** Diferentes filtros aplicados na retroprojeção alteram diretamente a inclinação da ESF; kernels agudos geram transições mais íngremes (ESF mais estreita), enquanto kernels suaves produzem transições mais gradualizadas.
+3. **Validação de Algoritmos Avançados:** Em estudos de otimização envolvendo reconstruções iterativas e Deep Learning Reconstruction (DLR), a análise da ESF auxilia na verificação de se a supressão de ruído está ocorrendo sem induzir borramento indesejado nas interfaces anatômicas de alto contraste.
+
+## 4. Conexões e Wikilinks
+
+- [[Resolução Espacial]]
+- [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]]
+- [[funcao-de-espalhamento-de-ponto-psf]]
+- [[Retroprojeção Filtrada (FBP)|retroprojecao-filtrada-fbp]]
+- [[Controle de Qualidade em TC|controle-de-qualidade-em-tc]]

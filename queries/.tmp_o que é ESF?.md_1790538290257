@@ -1,0 +1,44 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Função de Espalhamento de Borda (ESF)]], [[Função de Espalhamento de Linha (LSF)]], [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Resolução Espacial]]
+
+> 📅 **Data:** 2026-08-25 | 🔗 **Conexões:** [[Resolução Espacial]], [[Task Transfer Function|Função de Transferência de Modulação (MTF)]]
+
+## 1. Definição Conceitual e Fundamentação Física / Metrológica
+
+A **Função de Espalhamento de Borda** (ESF - *Edge Spread Function*) em Tomografia Computadorizada (TC) e sistemas de imagem médica descreve a resposta unidimensional do sistema de imagem a uma descontinuidade abrupta e ideal de degrau (uma borda perfeita, separando duas regiões de atenuação radiológica distintas, como metal/ar ou osso/tecido mole). 
+
+Do ponto de vista metrológico, a ESF representa a transição suavizada e finita registrada pelo sistema de imagem em torno de uma interface geométrica que, na realidade física do objeto, possui largura nula. Essa degradação da nitidez ocorre devido às limitações físicas e operacionais do tomógrafo, tais como o tamanho finito do ponto focal (*focal spot*), a abertura dos elementos do detector de raios X, o processo de amostragem espacial e os filtros de reconstrução empregados na retroprojeção.
+
+A ESF é um elo fundamental na cadeia de avaliação da [[Resolução Espacial]], pois a partir dela é possível derivar numericamente a Função de Espalhamento de Linha (LSF) e, consequentemente, a [[Modulation Transfer Function (MTF)|funcao-de-transferencia-de-modulacao-mtf]], que quantifica a fidelidade de transferência de contraste em diferentes frequências espaciais.
+
+## 2. Formulação Matemática e Propriedades
+
+Matematicamente, considerando uma borda ideal modelada como uma função degrau unitária $u(x)$ na direção espacial $x$, a imagem degradada observada através da ESF pode ser expressa pela convolução da função degrau com a Função de Espalhamento de Linha (LSF) bidimensional ou unidimensional integrada:
+
+$$
+\text{ESF}(x) = \int_{-\infty}^{x} \text{LSF}(x') \\, dx'
+$$
+
+Onde $\text{LSF}(x)$ é a Função de Espalhamento de Linha. Uma propriedade matemática fundamental da ESF é que a LSF é obtida diretamente por meio da diferenciação da ESF em relação à coordenada espacial $x$:
+
+$$
+\text{LSF}(x) = \frac{d}{dx} \left[ \text{ESF}(x) \right]
+$$
+
+Uma vez calculada a LSF, a Função de Transferência de Modulação ($\text{MTF}$) é obtida por meio da aplicação da Transformada de Fourier unidimensional normalizada:
+
+$$
+\text{MTF}(u) = \left| \int_{-\infty}^{\infty} \text{LSF}(x) e^{-j 2\pi u x} \\, dx \right| \left/ \int_{-\infty}^{\infty} \text{LSF}(x) \\, dx \right.
+$$
+
+### Propriedades e Etapas de Medição Prática:
+1. **Amostragem de Borda (*Edge Phantom*):** Utiliza-se um objeto de teste contendo uma placa de alta densidade (ex.: tungstênio ou teflon) com uma borda perfeitamente retilínea inserida em um meio homogêneo de água ou acrílico.
+2. **Superamostragem (*Oversampling*):** Como a borda do phantom raramente está perfeitamente alinhada com a matriz de pixels do tomógrafo, técnicas de superamostragem angular são aplicadas para construir uma ESF de alta densidade de pontos.
+3. **Derivada Numérica:** A diferenciação da ESF ruidosa exige o uso de filtros de suavização prévios (como polinômios de Savitzky-Golay) para evitar a ampliação excessiva de ruído de alta frequência na LSF resultante.
+
+## 3. Aplicações e Relevância em Tomografia Computadorizada e Otimização
+
+A ESF é amplamente utilizada no controle de qualidade de rotina e na pesquisa e desenvolvimento de novos algoritmos de reconstrução para tomógrafos clínicos (como os instalados no InRad-HCFMUSP):
+
+- **Avaliação de Kernels de Reconstrução:** Permite comparar objetivamente o impacto de diferentes funções de filtro (*sharp* vs. *smooth* kernels) sobre a nitidez de bordas e a propagação de artefatos.
+- **Validação de Modelos de Sistemas em Reconstrução Iterativa (IR) e DLR:** Algoritmos avançados que modelam a resposta do sistema (*system matrix*) utilizam métricas baseadas na ESF/LSF para corrigir o borramento geométrico inerente à aquisição de feixes cônicos (*cone-beam geometry*).
+- **Otimização Multiobjetivo:** Ajuda a balancear o compromisso entre a resolução espacial limite (medida via ESF) e a supressão de ruído necessária para manter a detectabilidade de lesões de baixo contraste.
