@@ -1,0 +1,80 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+## 1. Definição e Função da MTF em Sistemas de Imagem
+
+A **Função de Transferência de Modulação (MTF)** é a métrica fundamental da óptica de Fourier utilizada para quantificar a **resolução espacial** de um sistema de tomografia computadorizada (TC) ou radiografia. Em sistemas lineares e invariantes no espaço (LSI - *Linear Shift-Invariant*), a MTF descreve a capacidade do tomógrafo de preservar o contraste de estruturas anatômicas em função da frequência espacial ($f$).
+
+Matematicamente, a MTF é obtida a partir da magnitude normalizada da Transformada de Fourier bidimensional da Função de Espalhamento de Ponto ([[Point Spread Function (PSF)|PSF]]):
+
+$$
+\text{MTF}(u, v) = \frac{\left| \iint_{-\infty}^{\infty} \text{PSF}(x, y) e^{-i 2\pi (ux + vy)} \\, dx \\, dy \right|}{\iint_{-\infty}^{\infty} \text{PSF}(x, y) \\, dx \\, dy}
+$$
+
+### Principais Utilidades da MTF:
+- **Caracterização do Blur/Borramento:** Quantifica o quanto o feixe de raios-X, o tamanho do ponto focal, a geometria do detector e o filtro de reconstrução (kernel) suavizam as bordas das estruturas.
+- **Pontos de Corte Práticos:** Padrões industriais utilizam $\text{MTF}_{50\%}$ (frequência associada à resolução de contraste intermediário) e $\text{MTF}_{10\%}$ (limite de resolução limite/alto contraste) para homologação de equipamentos.
+- **Cascata de Transferência:** Em sistemas lineares encadeados, a MTF total do sistema é o produto das MTFs dos componentes individuais.
+
+---
+
+## 2. Transição da MTF para a TTF em Tomografia Moderna
+
+Em tomógrafos modernos equipados com [[Reconstrução Iterativa]] ou [[Deep Learning Image Reconstruction (DLR)]], a pressuposição de linearidade deixa de existir. A resolução espacial desses algoritmos torna-se altamente dependente do **contraste do objeto** e do **nível de ruído no fundo**.
+
+Para contornar essa limitação, a diretriz **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** padronizou a **[[Task Transfer Function]] (TTF)**, que mede a resposta em frequência em insertos circulares de contrastes específicos (ex.: osso, acrílico, ar, contraste iodado). A TTF representa a generalização da MTF para regimes não-lineares.
+
+---
+
+## 3. Relação Direta entre MTF/TTF e o Índice de Detectabilidade ($d'$)
+
+O **[[Índice de Detectabilidade]] ($d'$)** quantifica a qualidade de imagem baseada em tarefa (*Task-Based Image Quality*), unindo a resposta em frequência do sistema, a textura do ruído e a percepção do observador. 
+
+A MTF (ou TTF em sistemas não-lineares) desempenha o papel cruciais de **filtro de transferência do sinal** na formulação do $d'$. Ela determina a proporção do espectro de frequências do sinal da lesão/patologia que efetivamente ultrapassa o sistema e chega ao observador.
+
+### A. Formulação do Observador Ideal (Prewhitening - PW)
+
+No domínio de Fourier bidimensional $\mathbf{u} = (u, v)$, a relação do $d'$ com a TTF e o Espectro de Potência de Ruído ([[Noise Power Spectrum|NPS]]) é dada por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+- $W_{\text{task}}(u, v) = \mathcal{F}\{\Delta \mu(x, y)\}$ é a **Função de Tarefa**, representando o formato e contraste ideal da lesão no espaço de frequências;
+- $\text{TTF}(u, v)$ (ou $\text{MTF}$) atenua as altas frequências do sinal que são degradas pelo sistema de imagem;
+- $\text{NPS}(u, v)$ representa a distribuição espectral da potência do ruído estocástico.
+
+### B. Formulação do Observador Antropomórfico (NPWE)
+
+Quando se incorpora o filtro do sistema visual humano $E(u, v)$ e o ruído interno $\sigma_{\text{int}}$, a dependência da TTF/MTF ocorre tanto no numerador quanto no denominador:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+### Impacto Físico da MTF/TTF sobre a Detectabilidade:
+1. **Lesões Pequenas / Bordas Nítidas:** Requerem frequências espaciais altas. Se a MTF decai rapidamente (baixa resolução espacial), o produto $|W_{\text{task}}|^2 \cdot \text{TTF}^2$ cai drasticamente para frequências elevadas, reduzindo o valor final de $d'$.
+2. **Compromisso Resolução vs. Ruído:** Um kernel de reconstrução mais duro aumenta a MTF em altas frequências, mas simultaneamente eleva a amplitude do [[Noise Power Spectrum|NPS]]. O índice $d'$ pondera exatamente esse *trade-off* para determinar se o aumento de MTF trouxe ganho real de detectabilidade diagnóstica.
+
+---
+
+## 4. Tabela Comparativa de Métricas
+
+| Métrica | O que mede? | Considera Ruído? | Depende do Contraste/Dose? | Função no Cálculo de $d'$ |
+| :--- | :--- | :---: | :---: | :--- |
+| **MTF** | Resolução espacial linear em frequência | Não | Não (pressupõe LSI) | Função de transferência do sinal (sistemas lineares) |
+| **TTF** | Resolução espacial não-linear por objeto | Não | Sim (depende do contraste/kVp) | Função de transferência do sinal (sistemas modernos/DLR) |
+| **NPS** | Potência e textura do ruído estocástico | Sim | Sim | Denominador de variância/ruído |
+| **$d'$** | Desempenho na tarefa diagnóstica | Sim | Sim | Métrica final agregada de desempenho do observador |
+
+---
+
+## 5. Conexões no Acervo da LLM Wiki
+
+- [[Task Transfer Function|Função de Transferência de Modulação (MTF)]]
+- [[Task Transfer Function]]
+- [[Noise Power Spectrum]]
+- [[Índice de Detectabilidade]]
+- [[Observadores de Modelo (Model Observers)]]
+- [[Deep Learning Image Reconstruction (DLR)]]
+- [[AAPM TG-233 - Avaliação de Desempenho em TC]]

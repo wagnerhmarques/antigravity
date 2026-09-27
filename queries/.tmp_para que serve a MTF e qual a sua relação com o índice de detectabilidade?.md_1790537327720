@@ -1,0 +1,52 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Fundamentação e Papel da MTF na Qualidade de Imagem
+
+A **[[Task Transfer Function|Função de Transferência de Modulação (MTF)]]** é a métrica padrão-ouro para caracterizar a **resolução espacial** em sistemas lineares e invariantes no espaço (LSI). Ela quantifica a capacidade de um sistema de imagem — como a [[Tomografia Computadorizada]] — de transferir o contraste de um objeto de teste para a imagem reconstruída em função da frequência espacial ($f$).
+
+Matematicamente, a MTF é expressa pela magnitude normalizada da Transformada de Fourier da [[Point Spread Function (PSF)|point-spread-function]] ($\text{PSF}$):
+
+$$
+\text{MTF}(u, v) = \frac{\left| \iint_{-\infty}^{\infty} \text{PSF}(x, y) e^{-i 2\pi (ux + vy)} \\, dx \\, dy \right|}{\iint_{-\infty}^{\infty} \text{PSF}(x, y) \\, dx \\, dy}
+$$
+
+Em sistemas modernos que empregam [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]], a resposta do sistema torna-se não-linear e dependente do contraste e do nível de ruído. Nesses cenários, a MTF tradicional é substituída pela **Função de Transferência de Tarefa** ([[Task Transfer Function]]), padronizada pelo relatório [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]], avaliando a preservação do sinal em insertos antropomórficos de baixo contraste.
+
+---
+
+## 2. Relação Direta entre MTF e o Índice de Detectabilidade ($d'$)
+
+O **[[Índice de Detectabilidade]]** ($d'$) sintetiza em uma única métrica objetiva a performance de detecção de um observador (humano ou matemático — [[Observadores de Modelo (Model Observers)]]) diante de uma tarefa diagnóstica específica. Na formulação analítica do [[Observadores de Modelo (Model Observers)|observador Hotelling]] ou do observador antropomórfico NPWE, a [[Task Transfer Function]] ($\text{TTF}$, que generaliza a MTF) atua no numerador como o termo primário de amplificação da informação do sinal:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Onde:
+- $\left| W_{\text{task}}(u, v) \right|^2$ representa a energia espectral da tarefa diagnóstica;
+- $\text{TTF}(u, v)$ (extensão da MTF) modula a preservação do contraste do sinal em cada frequência espacial;
+- $\text{NPS}(u, v)$ é o **[[Noise Power Spectrum]]**, que caracteriza a textura e a amplitude do ruído estocástico no denominador;
+- $E(u, v)$ é o filtro visual do observador humano.
+
+---
+
+## 3. Síntese Comparativa das Métricas
+
+| Métrica Física / Tarefa | Domínio de Avaliação | Limitação Principal | Integração no Índice de Detectabilidade ($d'$) |
+| :--- | :--- | :--- | :--- |
+| **MTF** | Espacial / Frequência (Alto Contraste) | Ignora ruído e dependência de contraste não-linear | Substituída pela $\text{TTF}$ em sistemas complexos |
+| **[[Task Transfer Function]]** | Frequência Espacial (Contraste Específico) | Não avalia isoladamente o impacto do ruído | Termo de numerador ($\text{TTF}^2$), definindo o ganho de sinal |
+| **[[Noise Power Spectrum]]** | Frequência Espacial (Textura de Ruído) | Não quantifica a nitidez ou resolução espacial | Termo de denominador ($\text{NPS}$), penalizando o ruído estocástico |
+| **$d'$ (Detectabilidade)** | Estatístico / Teoria de Detecção de Sinais | Exige modelagem rigorosa da tarefa e do fundo | Síntese unificada de resolução, ruído e percepção |
+
+---
+
+## 4. Relevância para o Projeto de Doutorado e Prática Clínica
+
+No contexto do projeto de doutorado no InRad-HCFMUSP, a análise conjunta da $\text{TTF}$ (MTF generalizada) e da $\text{NPS}$ através do cálculo de $d'$ permite:
+1. **Otimização Multiobjetivo:** Ajustar os parâmetros de reconstrução e dose nos 7 tomógrafos clínicos maximizando $d'$ sem elevar a [[Métricas de Dose em TC|ctdi_vol]];
+2. **Validação de Phantoms:** Utilizar os phantoms físicos do grupo para mensurar a degradação ou recuperação de nitidez imposta por algoritmos de inteligência artificial.
+
+> 🔗 **Conexões Relacionadas:** [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]

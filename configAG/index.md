@@ -70,6 +70,7 @@
 ---
 
 ## 💡 Consultas & Sínteses (`queries/`)
+- [[queries/o que é ESF?]] — Conceituação matemática, física e metodológica da Função de Espalhamento de Borda (ESF) aplicada à avaliação da resolução espacial em tomografia computadorizada.
 - [[queries/para que serve a MTF e qual a sua relação com o índice de detectabilidade?]] — Análise teórica da Função de Transferência de Modulação (MTF/TTF) e sua integração matemática fundamental no cálculo do Índice de Detectabilidade (d') em tomografia computadorizada.
 - [[queries/vc tem acesso ao trabalho Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials?]] — Síntese sobre a otimização de protocolos de TC via Aprendizado por Reforço e Ensaios de Imagem Virtuais utilizando o Índice de Detectabilidade e Observadores de Modelo.
 - [[queries/faça um resumo do último artigo que anexei]] — Resumo executivo da revisão de Amoroso et al. (2025) em La Rivista del Nuovo Cimento sobre aplicações de IA, PINNs e Deep Learning em Física Médica e Tomografia.

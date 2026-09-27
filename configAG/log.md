@@ -366,3 +366,8 @@
 
 ## [2026-09-27] query | Função de Transferência de Modulação (MTF) e sua Relação com o Índice de Detectabilidade (d')
 - Consulta processada via atalho RAG: `para que serve a MTF e qual a sua relação com o índice de detectabilidade?.md`
+
+---
+
+## [2026-09-27] query | Função de Espalhamento de Borda (ESF)
+- Consulta processada via atalho RAG: `o que é ESF?.md`

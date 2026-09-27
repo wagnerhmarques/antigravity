@@ -1,0 +1,63 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[AAPM TG-233 - Avaliação de Desempenho em TC]]
+
+## 1. Função e Propósitos da MTF na Caracterização do Sistema
+
+A **[[Task Transfer Function|Função de Transferência de Modulação (MTF)]]** (do inglês *Modulation Transfer Function*) é a métrica fundamental em sistemas de imagem linear e invariante no espaço (LSI) para quantificar a **resolução espacial** como função da frequência espacial ($f$).
+
+Sua principal finalidade é medir a capacidade de um sistema de tomografia computadorizada (TC) ou raios-X em preserver a modulação (contraste) de componentes do objeto em diferentes frequências espaciais. Matematicamente, a MTF é obtida a partir da magnitude normalizada da Transformada de Fourier bidimensional da Função de Espalhamento do Ponto ([[Point Spread Function (PSF)|Point Spread Function]]):
+
+$$
+\text{MTF}(u, v) = \frac{\left| \iint_{-\infty}^{\infty} \text{PSF}(x, y) e^{-i 2\pi (ux + vy)} \\, dx \\, dy \right|}{\iint_{-\infty}^{\infty} \text{PSF}(x, y) \\, dx \\, dy}
+$$
+
+### Principais Aplicações da MTF:
+- **Avaliação do Borramento do Sistema:** Quantifica a perda de nitidez introduzida pelo tamanho do foco anódico, geometria dos detectores, amostragem e filtro de reconstrução (kernel/soft/sharp).
+- **Definição dos Limites de Resolução Espacial:** Fornece métricas operacionais objetivas como $\text{MTF}_{50\%}$ (frequência associada à percepção de contraste moderado) e $\text{MTF}_{10\%}$ (frequência limite de corte para visualização de estruturas de alto contraste).
+- **Comparação Padronizada de Hardware:** Permite comparar diretamente o desempenho de detecção físico entre diferentes tomógrafos e gerações de equipamentos.
+
+---
+
+## 2. Transição Teórica: Da MTF Tradicional à TTF em TC Moderna
+
+Em sistemas radiológicos clássicos com [[Retroprojeção Filtrada (FBP)]], o sistema se comporta como LSI, tornando a MTF um parâmetro fixo e independente do contraste ou nível de ruído. Contudo, em tomógrafos modernos operando com [[Reconstrução Iterativa]] ou [[Deep Learning Image Reconstruction (DLR)]], o algoritmo altera localmente a resolução em função do contraste do objeto e da estatística de fótons.
+
+Para contornar essa não-linearidade, a norma **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** expandiu o conceito para a **[[Task Transfer Function]] (TTF)**, que mede a resposta em frequência específica do sistema para uma dada diferença de atenuação (contraste) em relação ao fundo circundante.
+
+---
+
+## 3. Relação Teórica e Matemática entre MTF/TTF e o Índice de Detectabilidade ($d'$)
+
+O **[[Índice de Detectabilidade]] ($d'$)** é a métrica integradora de qualidade de imagem baseada em tarefa (*Task-Based Image Quality*). Enquanto a MTF/TTF quantifica isoladamente a resolução espacial e o [[Noise Power Spectrum]] (NPS) quantifica isoladamente a textura e magnitude do ruído, o $d'$ sintetiza esses componentes juntamente com a tarefa clínica (tamanho, formato e contraste da lesão) e o observador.
+
+A MTF/TTF atua como o **filtro de transferência do sistema** que modela o quanto do espectro de frequências da lesão/sinal passa pelo processo de reconstrução sem ser atenuado.
+
+### Formulação do Observador Ideal (Prewhitening - PW):
+No domínio da frequência espacial $(u, v)$, a contribuição da TTF (ou MTF em sistemas lineares) na detectabilidade de um sinal $W_{\text{task}}(u, v)$ é expressa por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+### Formulação do Observador Antropomórfico (NPWE):
+Ao incorporar a resposta do sistema visual humano $E(u, v)$ e o ruído interno de decisão $\sigma_{\text{int}}$, a relação direta da TTF/MTF com o índice de detectabilidade torna-se:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+### Papel Funcional da MTF/TTF na Equação de $d'$:
+1. **Modulação da Tarefa:** O produto $W_{\text{task}}(u, v) \cdot \text{TTF}(u, v)$ representa a transformada de Fourier da **imagem média percebida da lesão**. Se a TTF decai rapidamente em altas frequências, o sinal observado sofre um borramento severo, reduzindo o numerador e diminuindo o $d'$.
+2. **Dependência do Tamanho da Lesão:** Para tarefas de detecção de pequenas lesões (ex.: nódulos pulmonares de $2\text{ mm}$ ou microcalcificações), o espectro $W_{\text{task}}$ possui energia distribuída em frequências espaciais altas. Nesses cenários, pequenos ganhos na MTF/TTF resultam em aumentos substanciais em $d'$.
+3. **Balanço entre Resolução e Ruído:** Filtros de reconstrução *sharp* aumentam a MTF/TTF em altas frequências, mas simultaneamente amplificam o $\text{NPS}(u, v)$. O índice $d'$ permite determinar matematicamente o ponto ótimo no qual o ganho na TTF supera a degradação gerada pelo ruído.
+
+---
+
+## 4. Síntese Comparativa de Parâmetros
+
+| Propriedade / Métrica | MTF / TTF | Índice de Detectabilidade ($d'$) |
+| :--- | :--- | :--- |
+| **Natureza** | Métrica física isolada de resolução espacial. | Métrica sintética integrada baseada em tarefa clínica. |
+| **Domínio principal** | Frequência espacial ($u, v$) em $\text{mm}^{-1}$ ou $\text{lp/cm}$. | Escalar adimensional (medida estatística de separação de distribuições). |
+| **Componentes incluídos** | Borramento geométrico e do algoritmo de reconstrução. | Espectro da lesão ($W_{\text{task}}$), TTF/MTF, Ruído/NPS e Filtro do observador ($E$). |
+| **Dependência do Observador** | Independente de quem observa a imagem. | Modelada via [[Observadores de Modelo (Model Observers)]] ou observadores humanos ([[Estudo de Observadores 2AFC]]). |
+| **Aplicação Principal** | Controle de qualidade básico e especificação técnica de tomógrafos. | Otimização de protocolos, redução de dose e validação de algoritmos de DL/Iterativos. |

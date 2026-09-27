@@ -1,0 +1,60 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]], [[Qualidade de Imagem em TC]]
+
+## 1. Função e Utilidade da Função de Transferência de Modulação (MTF)
+
+A **Função de Transferência de Modulação (MTF)** é a métrica consagrada para caracterizar a **resolução espacial** de sistemas de imagem linear e invariantes no espaço (LSI - *Linear Space-Invariant*). Ela descreve a capacidade do sistema de transferir o contraste do objeto original para a imagem reconstruída em diferentes frequências espaciais ($u, v$).
+
+Matematicamente, a MTF é obtida a partir da magnitude normalizada da Transformada de Fourier bidimensional da Função de Espalhamento do Ponto (*Point Spread Function* - $\text{PSF}$):
+
+$$
+\text{MTF}(u, v) = \frac{\left| \iint_{-\infty}^{\infty} \text{PSF}(x, y) e^{-i 2\pi (ux + vy)} \\, dx \\, dy \right|}{\iint_{-\infty}^{\infty} \text{PSF}(x, y) \\, dx \\, dy}
+$$
+
+### Aplicações Principais da MTF:
+* **Caracterização da Resolução Limite:** Frequências como $\text{MTF}_{50\%}$ e $\text{MTF}_{10\%}$ definem, respectivamente, a resolução de contraste intermediário e o limite prático de detecção de detalhes finos de alto contraste.
+* **Análise de Componentes do Sistema:** Permite modelar em cadeia a degradação da imagem introduzida pelo tamanho do ponto focal, geometria do detector, borramento do cintilador e filtro de reconstrução (*kernel*).
+* **Comparação entre Equipamentos:** Serve como padrão absoluto de desempenho em testes de aceitação e controle de qualidade.
+
+---
+
+## 2. Relação Direta entre MTF e o Índice de Detectabilidade ($d'$)
+
+Enquanto a MTF avalia a resolução espacial de forma isolada, o **[[Índice de Detectabilidade]] ($d'$)** é uma métrica orientada à tarefa diagnóstica (*Task-Based Image Quality*) que sintetiza resolução, ruído e a geometria da lesão em um único parâmetro de desempenho do observador.
+
+A MTF atua como o **operador de transferência de sinal** na formulação matemática do $d'$. Na Teoria de Detecção de Sinais, o índice de detectabilidade para um observador ideal ( Hotelling / *Prewhitening* - PW) no espaço de Fourier é dado por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{MTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde os três componentes fundamentais interagem:
+1. **$W_{\text{task}}(u, v)$ (Função de Tarefa):** Representa o espectro de frequência do objeto/lesão a ser detectado (ex.: uma lesão esférica hepática ou um nódulo pulmonar).
+2. **$\text{MTF}(u, v)$ (Resposta em Resolução):** Modula e atenua o espectro do sinal à medida que ele passa pelo tomógrafo. Uma queda na MTF em altas frequências espaciais atenua as bordas nítidas da lesão no sinal percebido.
+3. **$\text{NPS}(u, v)$ ([[Noise Power Spectrum]]):** Caracteriza a magnitude e a textura (correlação espacial) do ruído estocástico do sistema.
+
+Portanto, a MTF define como o contraste original do sinal ($W_{\text{task}}$) é preservado através das frequências espaciais antes de ser mascarado pela variância do ruído ($\text{NPS}$).
+
+---
+
+## 3. Transição para Sistemas Não-Lineares: De MTF para TTF
+
+Em tomografia computadorizada moderna com algoritmos de [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]], a pressuposição de linearidade e invariância espacial é violada. Nesses sistemas, a resolução espacial passa a depender ativamente da taxa de dose e do contraste do objeto.
+
+Para manter a formulação do índice $d'$ válida, a diretriz da **[[AAPM TG-233 - Avaliação de Desempenho em TC]]** substitui a MTF convencional pela **[[Task Transfer Function]] (TTF)**:
+
+$$
+d'^2_{\text{NPWE}} = \frac{\left[ \iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \left[ E(u, v) \right]^2 \\, du \\, dv \right]^2}{\iint_{-\infty}^{\infty} \left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2 \cdot \text{NPS}(u, v) \cdot \left[ E(u, v) \right]^4 \\, du \\, dv + \sigma_{\text{int}}^2}
+$$
+
+Nesta equação do observador humano não-branqueador (NPWE), a $\text{TTF}(u, v)$ substitui a MTF, adaptando a resposta de frequência ao contraste específico da patologia estudada.
+
+---
+
+## 4. Comparação Sistemática das Métricas
+
+| Métrica | O que avalia? | Dependência de Ruído | Dependência da Lesão | Aplicação Primária |
+| :--- | :--- | :--- | :--- | :--- |
+| **MTF** | Preservação de contraste por frequência espacial | Independente (pressupõe LSI) | Independente (propriedade do sistema) | Avaliação física do hardware/kernel |
+| **TTF** | Resolução espacial dependente de contraste | Dependente do nível de sinal/dose | Medida em contrastes específicos | TC não-linear (Iterativo / DLR) |
+| **NPS** | Potência e textura do ruído no espaço de Fourier | Medida direta do ruído | Independente | Caracterização de textura da imagem |
+| **$d'$ (Detectabilidade)** | Desempenho diagnóstico em uma tarefa específica | Integração direta ($\text{NPS}$) | Integração direta ($W_{\text{task}}$) | Otimização de Dose vs. Qualidade Diagnóstica |

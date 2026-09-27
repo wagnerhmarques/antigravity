@@ -1,0 +1,41 @@
+> 📅 **Data:** 2026-09-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]], [[Observadores de Modelo (Model Observers)]]
+
+> 📅 **Data:** 2026-08-27 | 🔗 **Conexões:** [[Task Transfer Function|Função de Transferência de Modulação (MTF)]], [[Índice de Detectabilidade]], [[Task Transfer Function]], [[Noise Power Spectrum]]
+
+## 1. Fundamentação e Papel da MTF
+
+A **Função de Transferência de Modulação (MTF)** é a métrica padrão-ouro em sistemas lineares e invariantes no espaço (LSI) para caracterizar a **resolução espacial** de sistemas de imagem em raios-X e [[Tomografia Computadorizada]]. Ela quantifica a capacidade do sistema em reproduzir o contraste de um objeto sinusoidal em função da frequência espacial ($f$). 
+
+Matematicamente, a MTF é a magnitude normalizada da Transformada de Fourier bidimensional da [[Point Spread Function (PSF)|point-spread-function]] ($\text{PSF}$):
+
+$$
+\text{MTF}(u, v) = \frac{\left| \iint_{-\infty}^{\infty} \text{PSF}(x, y) e^{-i 2\pi (ux + vy)} \\, dx \\, dy \right|}{\iint_{-\infty}^{\infty} \text{PSF}(x, y) \\, dx \\, dy}
+$$
+
+Em sistemas lineares ideais, a MTF assegura que a fidelidade geométrica e o detalhe espacial fino sejam avaliados de forma independente do ruído. No entanto, com a introdução de algoritmos avançados de [[Reconstrução Iterativa]] e [[Deep Learning Image Reconstruction (DLR)]], a resposta do sistema torna-se não-linear e dependente do contraste e do ruído. Nesses cenários, a MTF tradicional perde validade, exigindo a adoção da **Função de Transferência de Tarefa** ([[Task Transfer Function]]), conforme as diretrizes da [[AAPM TG-233 - Avaliação de Desempenho em TC|aapm-tg233-ct-performance]].
+
+---
+
+## 2. Relação com o Índice de Detectabilidade ($d'$)
+
+O **Índice de Detectabilidade** ($d'$) sintetiza a qualidade de imagem baseada em tarefas (*Task-Based Image Quality*) ao integrar três pilares fundamentais da física de imagens: a geometria do sinal ([[Task Transfer Function|Task Function]]), a preservação do contraste espacial e a textura do ruído estocástico.
+
+A relação matemática direta entre a resolução espacial (representada pela $\text{TTF}$, sucessora moderna da MTF) e o desempenho de detecção ideal (Observador Linear de Hotelling ou Prewhitening - PW) no domínio da frequência espacial bidimensional é expressa por:
+
+$$
+d'^2_{\text{PW}} = \iint_{-\infty}^{\infty} \frac{\left| W_{\text{task}}(u, v) \right|^2 \cdot \left[ \text{TTF}(u, v) \right]^2}{\text{NPS}(u, v)} \\, du \\, dv
+$$
+
+Onde:
+* $W_{\text{task}}(u, v)$ representa a transformada de Fourier da geometria do sinal diagnóstico de interesse (tarefa visual);
+* $\text{TTF}(u, v)$ é a extensão não-linear da MTF para o contraste específico da lesão;
+* $\text{NPS}(u, v)$ é o [[Noise Power Spectrum]], caracterizando a magnitude e a correlação espacial do ruído estocástico gerado pelos algoritmos de reconstrução e pela dose administrada.
+
+---
+
+## 3. Implicações na Otimização Multiobjetivo e Prática Clínica
+
+A incorporação da MTF/TTF dentro do cálculo do índice $d'$ permite superar as limitações de analisar a resolução espacial e o ruído de forma isolada:
+
+1. **Compromisso Dose-Resolução-Ruído:** Enquanto aumentos drásticos na filtragem espacial (suavização) reduzem o ruído (diminuindo o denominador da equação de $d'$), eles degradam severamente a $\text{TTF}(u, v)$ (numerador), resultando em perda líquida na detectabilidade de lesões de baixo contraste.
+2. **Validação de DLR e Algoritmos Avançados:** O uso conjugado de $\text{TTF}$ e $\text{NPS}$ via $d'$ permite quantificar o ganho real de detectabilidade (ex.: em estudos de otimização no acervo do InRad-HCFMUSP), comprovando que modelos de inteligência artificial conseguem preservar a textura do ruído enquanto mantêm a $\text{TTF}$ estável em protocolos de baixa corrente de tubo ($mA$).
