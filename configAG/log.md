@@ -351,3 +351,8 @@
 
 ## [2026-09-18] query | Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials
 - Consulta processada via atalho RAG: `Task-Based CT Protocol Optimization Using Reinforcement Learning and Virtual Imaging Trials`
+
+---
+
+## [2026-09-27] query | Função de Transferência de Modulação (MTF) e sua Relação com o Índice de Detectabilidade
+- Consulta processada via atalho RAG: `para que serve a MTF e qual a sua relação com o índice de detectabilidade?.md`

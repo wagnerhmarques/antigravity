@@ -62,3 +62,14 @@ Este documento define a arquitetura, regras de formatação, taxonomia padroniza
   ```
 - Delimitadores de chaves: use OBRIGATORIAMENTE `\left\{` e `\right\}`.
 - Letras gregas e operadores: preservar `\theta`, `\tau`, `\text{...}`, `\times`, `\nabla`, `\iint`.
+
+### 3. Estrutura Obrigatória de Fichas de Fontes (`wiki/fontes/`):
+Toda fonte científica (artigo em PDF ou documento de texto) DEVE conter obrigatoriamente:
+1. **Resumo Executivo**: síntese do problema, abordagem e conclusão principal.
+2. **💡 O que tem de Original (Diferencial Metodológico)**: inovações técnicas, arquiteturas inéditas ou hipóteses originais frente ao estado da arte.
+3. **📈 O que Agrega (Achados e Métricas Quantitativas)**: dados numéricos concretos, ganhos percentuais de $d'$, redução de ruído/dose e comportamentos de curvas.
+4. **🎯 Conexão com o Projeto de Doutorado (Wagner Marques - Física Médica / FMUSP)**:
+   - Relação direta com a tese: otimização multiobjetivo em TC (dose, tempo operacional e detectabilidade $d'$);
+   - Comparativo crítico (ex.: simuladores virtuais vs. os 3 phantoms híbridos físicos do grupo; observadores clássicos vs. DL com atenção);
+   - Aplicabilidade prática aos 7 tomógrafos clínicos de 4 fabricantes no InRad-HCFMUSP.
+5. **Dados Metodológicos & Fórmulas**: detalhamento de equações em blocos `$$` matemáticos KaTeX rigorosos.
